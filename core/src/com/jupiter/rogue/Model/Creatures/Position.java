@@ -3,6 +3,7 @@ package com.jupiter.rogue.Model.Creatures;
 /**
  * Created by Johan on 2015-04-16.
  */
+@lombok.Data
 public class Position {
 
     private int xPos;
@@ -16,27 +17,15 @@ public class Position {
     public Position(int xPos, int yPos){
         this.xPos = xPos;
         this.yPos = yPos;
+
     }
 
-    public int getXPos() {
-        return xPos;
-    }
 
-    public int getYPos() {
-        return yPos;
-    }
-
-    public void setXPos(int yPos) {
-        this.xPos = yPos;
-    }
-
-    public void setYPos(int xPos) {
-        this.yPos = xPos;
-    }
 
     public void changePosition(int deltaX, int deltaY){
         this.xPos += deltaX;
         this.yPos += deltaY;
+
     }
 
 }
