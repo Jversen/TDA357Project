@@ -5,6 +5,7 @@ package com.jupiter.rogue.Model;
  */
 public abstract class Creature {
     protected Position position;
+    protected int direction;
     protected int currentHealthPoints;
     protected int maxHealthPoints;
     protected int attackPoints;
@@ -23,8 +24,12 @@ public abstract class Creature {
         this.position.setYPos(y);
     }
 
-    public int getHealthPoints() {
+    public int getCurrentHealthPoints() {
+        return currentHealthPoints;
+    }
 
+    public int getMaxHealthPoints() {
+        return maxHealthPoints;
     }
 
     public void setHealthPoints(int HP) {
