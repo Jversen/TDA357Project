@@ -7,5 +7,4 @@ public class Hero {
 
     private int xPos;
     private int yPos;
-    private int
 }
