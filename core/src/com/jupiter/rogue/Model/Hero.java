@@ -1,10 +1,41 @@
 package com.jupiter.rogue.Model;
 
+import com.jupiter.rogue.Model.Items.MeleeWeapon;
+import com.jupiter.rogue.Model.Items.RangedWeapon;
+
 /**
  * Created by Johan on 16/04/15.
  */
-public class Hero {
+public class Hero extends Creature{
 
-    private int xPos;
-    private int yPos;
+    private Hero instance = null;
+
+    private MeleeWeapon meleeWeapon;
+    private RangedWeapon rangedWeapon;
+
+    private Hero () {
+        this.maxHealthPoints = 100;
+        this.currentHealthPoints = maxHealthPoints;
+        this.movementSpeed = 10;
+        //TODO finish rest of stats
+    }
+
+    public Hero getInstance() {
+        if(instance == null) {
+            instance = new Hero();
+        }
+        return instance;
+    }
+
+    public void walk() {
+        //TODO finish walk() method
+    }
+
+    public void jump() {
+        //TODO finish walk() method
+    }
+
+    public void attack() {
+        //TODO finish walk() method
+    }
 }
