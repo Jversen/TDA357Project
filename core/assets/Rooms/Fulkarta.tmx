@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="11104121_10153071100933387_296557393_n" tilewidth="16" tileheight="16" margin="1">
+  <image source="../../Downloads/11104121_10153071100933387_296557393_n.jpg" width="320" height="256"/>
+ </tileset>
+ <tileset firstgid="286" name="roguelikeSheet_magenta" tilewidth="16" tileheight="16" margin="1">
+  <image source="Spritesheet/roguelikeSheet_magenta.png" width="968" height="526"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIxmUUIgB+MAHQQ==
+  </data>
+ </layer>
+ <layer name="Background" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJwrYWBgKKEQh5KJR/UTrz+TTP3ZULoGiLOQ+Mj6KQEA1IUvEw==
+  </data>
+ </layer>
+ <layer name="Foreground" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B8AAACQAAB
+  </data>
+ </layer>
+</map>
