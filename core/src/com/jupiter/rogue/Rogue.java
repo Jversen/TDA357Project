@@ -35,6 +35,7 @@ public class Rogue extends ApplicationAdapter {
 		walkAnimation = new Animation(0.025f, walkFrames);      // #11
 		spriteBatch = new SpriteBatch();                // #12
 		stateTime = 0f;                         // #13
+
 	}
 
 	@Override
