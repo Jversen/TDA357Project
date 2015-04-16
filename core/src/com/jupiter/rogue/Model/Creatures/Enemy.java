@@ -1,9 +1,9 @@
-package com.jupiter.rogue.Model;
+package com.jupiter.rogue.Model.Creatures;
 
 /**
  * Created by Johan on 16/04/15.
  */
-public class Enemy extends Creature{
+public class Enemy extends Creature {
 
     public Enemy() {
         this.position = new Position();

@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Model;
+package com.jupiter.rogue.Model.Creatures;
 
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
@@ -6,7 +6,7 @@ import com.jupiter.rogue.Model.Items.RangedWeapon;
 /**
  * Created by Johan on 16/04/15.
  */
-public class Hero extends Creature{
+public class Hero extends Creature {
 
     private Hero instance = null;
 

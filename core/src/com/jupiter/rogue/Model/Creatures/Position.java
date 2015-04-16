@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Model;
+package com.jupiter.rogue.Model.Creatures;
 
 /**
  * Created by Johan on 2015-04-16.
