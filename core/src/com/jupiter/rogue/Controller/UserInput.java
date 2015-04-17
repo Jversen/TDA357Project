@@ -32,12 +32,11 @@ public class UserInput {
                 heroController.walk(Direction.LEFT);
             }
             if (right) {
-
+                heroController.walk(Direction.RIGHT);
             }
             if (space) {
-
+                heroController.jump();
             }
         }
-
     }
 }

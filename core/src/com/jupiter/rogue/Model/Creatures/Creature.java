@@ -20,7 +20,8 @@ public abstract class Creature {
     }
 
     public void setPosition(Position position) {
-        //TODO finish method
+        this.position.setXPos(position.getXPos());
+        this.position.setYPos(position.getYPos());
     }
 
     public void setPosition(int x, int y) {
