@@ -1,5 +1,7 @@
 package com.jupiter.rogue.Model.Creatures;
 
+import com.jupiter.rogue.Model.Enums.MovementState;
+
 /**
  * Created by Johan on 16/04/15.
  */
@@ -11,8 +13,7 @@ public abstract class Creature {
     protected int attackPoints;
     protected int movementSpeed;
     enum MovementState {STANDING, WALKING, JUMPING, CROUCHING}
-    private MovementState movementState = MovementState.STANDING;
-
+    protected MovementState movementState = MovementState.STANDING;
 
     public Position getPosition() {
         return position;
@@ -60,6 +61,10 @@ public abstract class Creature {
         if(currentHealthPoints < 0) {
             currentHealthPoints = 0;
         }
+    }
+
+    public MovementState getMovementState() {
+        return movementState;
     }
 
 }

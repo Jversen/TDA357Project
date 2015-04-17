@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Model.Creatures;
 
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 
@@ -12,6 +13,7 @@ public class Hero extends Creature {
 
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
+    private MovementState movementState = MovementState.JUMPING;
 
     private Hero () {
         this.maxHealthPoints = 100;

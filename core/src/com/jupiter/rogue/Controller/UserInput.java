@@ -7,6 +7,7 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.jupiter.rogue.Model.Enums.Direction;
 
 public class UserInput {
 
