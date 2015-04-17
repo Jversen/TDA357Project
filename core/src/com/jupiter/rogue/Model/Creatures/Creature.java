@@ -32,12 +32,8 @@ public abstract class Creature {
         return movementState;
     }
 
-    public void setMovementStateStanding() {
-        movementState = movementState.STANDING;
-    }
-
-    public void setMovementStateWalking() {
-        movementState = movementState.WALKING;
+    public void setMovementState(MovementState movementState) {
+        this.movementState = movementState;
     }
 
     public int getCurrentHealthPoints() {
