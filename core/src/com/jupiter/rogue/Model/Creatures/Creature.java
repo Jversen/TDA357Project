@@ -1,12 +1,13 @@
 package com.jupiter.rogue.Model.Creatures;
 
 import com.jupiter.rogue.Model.Enums.MovementState;
+import com.jupiter.rogue.Model.Map.Position;
 
 /**
  * Created by Johan on 16/04/15.
  */
 public abstract class Creature {
-    protected Position position;
+    protected Position position = new Position();
     protected int direction;
     protected int currentHealthPoints;
     protected int maxHealthPoints;
@@ -22,7 +23,7 @@ public abstract class Creature {
         //TODO finish method
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(float x, float y) {
         this.position.setXPos(x);
         this.position.setYPos(y);
     }

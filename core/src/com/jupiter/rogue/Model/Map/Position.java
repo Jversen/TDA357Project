@@ -6,12 +6,28 @@ package com.jupiter.rogue.Model.Map;
 @lombok.Data
 public class Position {
 
-    private int xPos;
-    private int yPos;
+    private float xPos;
+    private float yPos;
 
     public Position(){
         this.xPos = 0;
         this.yPos = 0;
+    }
+
+    public void setXPos(float xPos) {
+        this.xPos = xPos;
+    }
+
+    public void setYPos(float yPos) {
+        this.yPos = yPos;
+    }
+
+    public float getXPos() {
+        return xPos;
+    }
+
+    public float getYPos() {
+        return yPos;
     }
 
     public Position(int xPos, int yPos){
