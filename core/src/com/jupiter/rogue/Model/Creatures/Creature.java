@@ -10,6 +10,7 @@ public abstract class Creature {
     protected int maxHealthPoints;
     protected int attackPoints;
     protected int movementSpeed;
+    protected enum MovementState {STANDING, WALKING, JUMPING, CROUCHING}
 
     public Position getPosition() {
         return position;

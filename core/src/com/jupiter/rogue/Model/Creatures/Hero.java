@@ -8,7 +8,7 @@ import com.jupiter.rogue.Model.Items.RangedWeapon;
  */
 public class Hero extends Creature {
 
-    private Hero instance = null;
+    private static Hero instance = null;
 
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
@@ -20,22 +20,10 @@ public class Hero extends Creature {
         //TODO finish rest of stats
     }
 
-    public Hero getInstance() {
+    public static Hero getInstance() {
         if(instance == null) {
             instance = new Hero();
         }
         return instance;
-    }
-
-    public void walk() {
-        //TODO finish walk() method
-    }
-
-    public void jump() {
-        //TODO finish walk() method
-    }
-
-    public void attack() {
-        //TODO finish walk() method
     }
 }
