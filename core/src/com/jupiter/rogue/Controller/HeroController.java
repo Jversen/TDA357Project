@@ -9,7 +9,6 @@ import com.jupiter.rogue.Model.Creatures.Hero;
 public class HeroController {
 
     private Hero hero = Hero.getInstance();
-    private Hero.MovementState state = Hero.MovementState.STANDING;
 
 
     public void walk() {
