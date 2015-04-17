@@ -14,7 +14,7 @@ import com.jupiter.rogue.Model.Enums.MovementState;
 public class HeroController {
 
     private Hero hero = Hero.getInstance();
-
+    Position heroPosition = hero.getPosition();
 
     public void relax() {
         hero.setMovementState(MovementState.STANDING);
@@ -22,7 +22,6 @@ public class HeroController {
 
     public void walk(Direction direction) {
         hero.setMovementState(MovementState.WALKING);
-        Position heroPosition = hero.getPosition();
         float newPosX = 0;
         if(walkIsPossible(direction, heroPosition)) {
             if(direction == Direction.RIGHT) {
@@ -38,8 +37,30 @@ public class HeroController {
         return true;
     }
 
-    public void jump() {
+    public void jumpIfPossible() {
         hero.setMovementState(MovementState.JUMPING);
+        if (!(hero.getMovementState().equals(MovementState.JUMPING))) {
+            jump();
+        }
+    }
+
+    private void jump() {
+        float newPosY = 0;
+        for (int i = 0; i < 10; i++) {
+            switch (i) {
+                case 1-5:
+                    newPosY = heroPosition.getYPos() + 3;
+                    break;
+                case 6-9:
+                    newPosY = heroPosition.getYPos() + 2;
+                    break;
+                case 10:
+                    newPosY = heroPosition.getYPos() + 1;
+                    break;
+            }
+            hero.setPosition(heroPosition.getXPos(), newPosY);
+        }
+
 
     }
 

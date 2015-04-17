@@ -35,7 +35,7 @@ public class UserInput {
                 heroController.walk(Direction.RIGHT);
             }
             if (space) {
-                heroController.jump();
+                heroController.jumpIfPossible();
             }
         }
     }
