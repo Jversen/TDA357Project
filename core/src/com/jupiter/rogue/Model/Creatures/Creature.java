@@ -35,8 +35,6 @@ public abstract class Creature {
         this.movementState = movementState;
     }
 
-    }
-
     public int getCurrentHealthPoints() {
         return currentHealthPoints;
     }
@@ -46,22 +44,17 @@ public abstract class Creature {
     }
 
     public void setHealthPoints(int HP) {
-        if(this.maxHealthPoints >= HP || HP >= 0) {
+        if (this.maxHealthPoints >= HP || HP >= 0) {
             this.currentHealthPoints = HP;
         }
     }
 
     public void decreaseHealthPoints(int HP) {
-        if(HP > 0) {
+        if (HP > 0) {
             this.currentHealthPoints -= HP;
         }
-        if(currentHealthPoints < 0) {
+        if (currentHealthPoints < 0) {
             currentHealthPoints = 0;
         }
     }
-
-    public MovementState getMovementState() {
-        return movementState;
-    }
-
 }
