@@ -22,13 +22,19 @@ public class HeroController {
     public void walk(Direction direction) {
         hero.setMovementState(MovementState.WALKING);
         Position heroPosition = hero.getPosition();
-        float newPosX;
-        if(direction == Direction.RIGHT) {
-            newPosX = heroPosition.getXPos() + 100 * Gdx.graphics.getDeltaTime();
-        } else {
-            newPosX = heroPosition.getXPos() - 100 * Gdx.graphics.getDeltaTime();
+        float newPosX = 0;
+        if(walkIsPossible(direction)) {
+            if(direction == Direction.RIGHT) {
+                newPosX = heroPosition.getXPos() + 100 * Gdx.graphics.getDeltaTime();
+            } else {
+                newPosX = heroPosition.getXPos() - 100 * Gdx.graphics.getDeltaTime();
+            }
+            hero.setPosition(newPosX, heroPosition.getYPos());
         }
-        hero.setPosition(newPosX, heroPosition.getYPos());
+    }
+
+    private boolean walkIsPossible(Direction direction) {
+        return true;
     }
 
     public void jump() {

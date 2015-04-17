@@ -35,11 +35,8 @@ public class Position {
         this.yPos = yPos;
     }
 
-
-
     public void changePosition(int deltaX, int deltaY){
         this.xPos += deltaX;
         this.yPos += deltaY;
     }
-
 }
