@@ -2,6 +2,9 @@ package com.jupiter.rogue.Controller;
 
 import com.jupiter.rogue.Model.Creatures.Creature;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Creatures.Position;
+import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Enums.MovementState;
 
 /**
  * Created by hilden on 2015-04-17.
@@ -12,13 +15,19 @@ public class HeroController {
 
 
     public void relax() {
-        hero.setMovementStateStanding();
+        hero.setMovementState(MovementState.STANDING);
     }
 
-    public void walk() {
-        hero.setMovementStateWalking();
-        int newPosX = hero.getPosition().getXPos() + 1;
-        hero.setPosition();
+    public void walk(Direction direction) {
+        hero.setMovementState(MovementState.WALKING);
+        Position heroPosition = hero.getPosition();
+        int newPosX;
+        if(direction == Direction.RIGHT) {
+            newPosX = heroPosition.getXPos() + 1;
+        } else {
+            newPosX = heroPosition.getXPos() - 1;
+        }
+        hero.setPosition(newPosX, heroPosition.getYPos());
     }
 
     public void jump() {

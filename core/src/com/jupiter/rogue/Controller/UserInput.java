@@ -29,7 +29,7 @@ public class UserInput {
             heroController.relax();
         } else {
             if (left) {
-                heroController.walk();
+                heroController.walk(Direction.LEFT);
             }
             if (right) {
 
