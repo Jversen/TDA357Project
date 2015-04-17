@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Model.Creatures;
 
+import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 
 /**
@@ -7,15 +8,12 @@ import com.jupiter.rogue.Model.Enums.MovementState;
  */
 public abstract class Creature {
     protected Position position;
-    protected int direction;
     protected int currentHealthPoints;
     protected int maxHealthPoints;
     protected int attackPoints;
     protected int movementSpeed;
-
-    enum MovementState {STANDING, WALKING, JUMPING, CROUCHING}
-
     protected MovementState movementState = MovementState.STANDING;
+    protected Direction direction = Direction.RIGHT;
 
     public Position getPosition() {
         return position;

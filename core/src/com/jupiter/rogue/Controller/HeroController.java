@@ -17,6 +17,8 @@ public class HeroController {
 
     public void walk() {
         hero.setMovementStateWalking();
+
+        if (hero.)
         int newPosX = hero.getPosition().getXPos() + 1;
         hero.setPosition();
     }
