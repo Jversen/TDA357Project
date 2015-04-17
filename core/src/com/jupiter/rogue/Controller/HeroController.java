@@ -32,7 +32,7 @@ public class HeroController {
     }
 
     public void jump() {
-        //TODO finish walk() method
+        hero.setMovementState(MovementState.JUMPING);
     }
 
     public void attack() {
