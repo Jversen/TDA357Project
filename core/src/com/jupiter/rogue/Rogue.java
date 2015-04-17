@@ -9,20 +9,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.jupiter.rogue.Model.Creatures.Hero;
 
 public class Rogue extends ApplicationAdapter {
-	private static final int        FRAME_COLS = 6;         // #1
-	private static final int        FRAME_ROWS = 5;         // #2
-
-	Animation 						walkAnimation;          // #3
-	Texture                         walkSheet;              // #4
-	TextureRegion[]                 walkFrames;             // #5
-	SpriteBatch                     spriteBatch;            // #6
-	TextureRegion                   currentFrame;           // #7
-	float stateTime;                                        // #8
 
 	@Override
 	public void create() {
+		Hero hero = Hero.getInstance();
 		walkSheet = new Texture(Gdx.files.internal("sprite-animation4.png")); // #9
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);              // #10
 		walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
@@ -32,10 +25,6 @@ public class Rogue extends ApplicationAdapter {
 				walkFrames[index++] = tmp[i][j];
 			}
 		}
-		walkAnimation = new Animation(0.025f, walkFrames);      // #11
-		spriteBatch = new SpriteBatch();                // #12
-		stateTime = 0f;                         // #13
-
 	}
 
 	@Override
@@ -48,26 +37,3 @@ public class Rogue extends ApplicationAdapter {
 		spriteBatch.end();
 	}
 }
-
-/*	SpriteBatch batch;
-	Texture img;
-	private BitmapFont font;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		//img = new Texture("badlogic.jpg");
-		font = new BitmapFont();
-		font.setColor(Color.RED);
-		font.setScale(5, 5);
-	}
-
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		font.draw(batch, "Hello World", 200, 200);
-		batch.end();
-	}
-}*/
