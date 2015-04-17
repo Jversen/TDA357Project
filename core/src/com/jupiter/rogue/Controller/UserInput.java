@@ -10,6 +10,12 @@ import com.badlogic.gdx.Input;
 
 public class UserInput {
 
+    private HeroController heroController;
+
+    public UserInput() {
+        heroController = new HeroController();
+    }
+
 
     public void findUserInput() {
 
@@ -19,10 +25,10 @@ public class UserInput {
         boolean space = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
         if (!keyPressed) {
-            HeroController.stand();
+            heroController.relax();
         } else {
             if (left) {
-                HeroController.walk();
+                heroController.walk();
             }
             if (right) {
 

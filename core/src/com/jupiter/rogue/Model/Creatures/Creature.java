@@ -10,7 +10,9 @@ public abstract class Creature {
     protected int maxHealthPoints;
     protected int attackPoints;
     protected int movementSpeed;
-    protected enum MovementState {STANDING, WALKING, JUMPING, CROUCHING}
+    enum MovementState {STANDING, WALKING, JUMPING, CROUCHING}
+    private MovementState movementState = MovementState.STANDING;
+
 
     public Position getPosition() {
         return position;
@@ -23,6 +25,18 @@ public abstract class Creature {
     public void setPosition(int x, int y) {
         this.position.setXPos(x);
         this.position.setYPos(y);
+    }
+
+    public MovementState getMovementState() {
+        return movementState;
+    }
+
+    public void setMovementStateStanding() {
+        movementState = movementState.STANDING;
+    }
+
+    public void setMovementStateWalking() {
+        movementState = movementState.WALKING;
     }
 
     public int getCurrentHealthPoints() {
