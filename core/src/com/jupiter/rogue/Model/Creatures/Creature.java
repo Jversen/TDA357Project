@@ -1,8 +1,11 @@
 package com.jupiter.rogue.Model.Creatures;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
+import javafx.animation.Animation;
 
 /**
  * Created by Johan on 16/04/15.
@@ -16,6 +19,9 @@ public abstract class Creature {
     protected int movementSpeed;
     protected MovementState movementState = MovementState.STANDING;
     protected Direction direction = Direction.RIGHT;
+    protected Texture texture;
+    protected Animation animation;
+    protected Rectangle bounds = new Rectangle();
 
     public Position getPosition() {
         return position;
@@ -30,6 +36,21 @@ public abstract class Creature {
         this.position.setXPos(x);
         this.position.setYPos(y);
     }
+    public void setBounds(int x, int y){
+        this.bounds.setX(x);
+        this.bounds.setY(y);
+    }
+    public float getBoundsX(){
+        return this.bounds.getX();
+    }
+    public float getBoundsY(){
+        return this.bounds.getY();
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
 
     public MovementState getMovementState() {
         return movementState;
