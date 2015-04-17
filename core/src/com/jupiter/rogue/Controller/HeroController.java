@@ -10,6 +10,7 @@ import com.jupiter.rogue.Model.Enums.MovementState;
 /**
  * Created by hilden on 2015-04-17.
  */
+
 public class HeroController {
 
     private Hero hero = Hero.getInstance();
@@ -23,7 +24,7 @@ public class HeroController {
         hero.setMovementState(MovementState.WALKING);
         Position heroPosition = hero.getPosition();
         float newPosX = 0;
-        if(walkIsPossible(direction)) {
+        if(walkIsPossible(direction, heroPosition)) {
             if(direction == Direction.RIGHT) {
                 newPosX = heroPosition.getXPos() + 100 * Gdx.graphics.getDeltaTime();
             } else {
@@ -33,12 +34,13 @@ public class HeroController {
         }
     }
 
-    private boolean walkIsPossible(Direction direction) {
+    private boolean walkIsPossible(Direction direction, Position heroPosition) {
         return true;
     }
 
     public void jump() {
         hero.setMovementState(MovementState.JUMPING);
+
     }
 
     public void attack() {

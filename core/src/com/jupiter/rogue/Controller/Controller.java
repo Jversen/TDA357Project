@@ -11,6 +11,7 @@ public class Controller {
     private HeroController heroController;
     private UserInput inputController;
     private ModelController modelController;
+    private AIController aiController;
 
     private Hero hero = Hero.getInstance();
     private Map map = new Map();
@@ -25,5 +26,6 @@ public class Controller {
 
     public void update() {
         inputController.findUserInput();
+        //TODO add rest of controllers
     }
 }
