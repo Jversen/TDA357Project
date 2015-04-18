@@ -7,34 +7,38 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.jupiter.rogue.Model.Enums.Direction;
 
 public class UserInput {
 
     private HeroController heroController;
+    boolean anyKeyPressed;
+    boolean leftPressed;
+    boolean rightPressed;
+    boolean spacePressed;
 
     public UserInput() {
         heroController = new HeroController();
+        anyKeyPressed = Gdx.input.isKeyPressed(Input.Keys.ANY_KEY);
+        leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
+        rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
+        spacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
     }
 
 
     public void findUserInput() {
 
-        boolean keyPressed = Gdx.input.isKeyPressed(Input.Keys.ANY_KEY);
-        boolean left = Gdx.input.isKeyPressed(Input.Keys.LEFT);
-        boolean right = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
-        boolean space = Gdx.input.isKeyPressed(Input.Keys.SPACE);
-
-        if (!keyPressed) {
+        if (!anyKeyPressed) {
             heroController.relax();
         } else {
-            if (left) {
+            if (leftPressed) {
                 heroController.walk(Direction.LEFT);
             }
-            if (right) {
+            if (rightPressed) {
                 heroController.walk(Direction.RIGHT);
             }
-            if (space) {
+            if (spacePressed) {
                 heroController.jumpIfPossible();
             }
         }

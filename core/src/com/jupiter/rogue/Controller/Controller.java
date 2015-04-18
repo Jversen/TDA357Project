@@ -21,6 +21,11 @@ public class Controller {
     }
 
     private void init() {
+        heroController = new HeroController();
+        inputController = new UserInput();
+        modelController = new ModelController();
+        aiController = new AIController();
+
         //TODO initialize everything at start of game
     }
 

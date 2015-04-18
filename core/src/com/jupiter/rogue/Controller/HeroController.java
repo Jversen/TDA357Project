@@ -60,12 +60,9 @@ public class HeroController {
             }
             hero.setPosition(heroPosition.getXPos(), newPosY);
         }
-
-
     }
 
     public void attack() {
         //TODO finish walk() method
     }
-
 }
