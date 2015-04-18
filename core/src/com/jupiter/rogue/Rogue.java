@@ -11,17 +11,24 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.jupiter.rogue.Controller.Controller;
+import com.jupiter.rogue.View.View;
 
 public class Rogue extends ApplicationAdapter implements InputProcessor {
 	Texture img;
 	TiledMap tiledMap;
 	OrthographicCamera camera;
 	TiledMapRenderer tiledMapRenderer;
+	private Controller controller;
+	private View view;
 
 	@Override
 	public void create () {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
+
+		controller = new Controller();
+		view = new View();
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
@@ -33,6 +40,11 @@ public class Rogue extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public void render () {
+
+		controller.update();
+		view.update();
+
+
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
