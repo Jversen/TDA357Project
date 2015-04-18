@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.jupiter.rogue.Controller.Controller;
+import com.jupiter.rogue.Model.Map.Map;
 
 /**
  * Created by oskar on 17/04/2015.
@@ -19,24 +19,26 @@ public class View {
     private TiledMap tiledMap;
     private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
-    private View view;
     private float w;
     private float h;
+    private Map map;
+
 
     public View() {
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera();
+        map = new Map();
     }
 
     public void update() {
+        
+        tiledMapRenderer = map.getARoom().getTiledMapRenderer();
 
-        camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();
-        tiledMap = new TmxMapLoader().load("Rooms/rum typ eller.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();

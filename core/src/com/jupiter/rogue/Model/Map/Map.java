@@ -8,4 +8,15 @@ import java.util.ArrayList;
 public class Map {
 
     private ArrayList<Room> rooms;
+    private Room room;
+
+    public Map() {
+        room = new Room();
+        rooms = new ArrayList<Room>(1);
+        rooms.add(room);
+    }
+
+    public Room getARoom() {
+        return room;
+    }
 }
