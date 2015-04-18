@@ -32,8 +32,8 @@ public class View {
     }
 
     public void update() {
-        
-        tiledMapRenderer = map.getARoom().getTiledMapRenderer();
+
+        tiledMapRenderer = map.getCurrentRoom().getTiledMapRenderer();
 
         camera.setToOrtho(false, w, h);
         camera.update();
