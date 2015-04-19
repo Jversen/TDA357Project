@@ -16,6 +16,7 @@ public class Hero extends Creature {
 
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
+
     private MovementState movementState = MovementState.JUMPING;
     private Texture texture = new Texture(Gdx.files.internal("Data//pixHeroAtlas.png"));
     private TextureAtlas atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");

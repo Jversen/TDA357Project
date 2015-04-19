@@ -25,6 +25,7 @@ public class HeroController {
 
     public void walk(Direction direction) {
         hero.setMovementState(MovementState.WALKING);
+        hero.setDirection(direction);
         float newPosX = 0;
         if(walkIsPossible(direction, heroPosition)) {
             if(direction == Direction.RIGHT) {

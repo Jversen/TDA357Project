@@ -42,13 +42,20 @@ public abstract class Creature {
         this.position.setXPos(x);
         this.position.setYPos(y);
     }
+
     public void setBounds(float x, float y, float w, float h){
+
         this.bounds.setX(x);
         this.bounds.setY(y);
 
         this.bounds.setWidth(w);
         this.bounds.setHeight(h);
     }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
     public float getBoundsX(){
         return this.bounds.getX();
     }
