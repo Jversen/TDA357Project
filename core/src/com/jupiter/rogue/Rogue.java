@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -38,9 +39,10 @@ public class Rogue extends ApplicationAdapter {
 
 		controller.update();
 		view.update();
-		batch.begin();
+		Sprite heroSprite = new Sprite(hero.updateAnimation(deltaTime));
 
-		batch.draw(hero.updateAnimation(deltaTime), 0, 0);
+		batch.begin();
+		heroSprite.draw(batch);
 		batch.end();
 
 	}
