@@ -22,6 +22,7 @@ public class Hero extends Creature {
     private TextureAtlas atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");
 
 
+
     TextureRegion                   currentFrame;
     TextureRegion[]                 walkFrames;
     float stateTime;
@@ -30,8 +31,10 @@ public class Hero extends Creature {
    // float yPos;
 
     private Hero (float xPos, float yPos) {
+
         setPosition(xPos, yPos);
 
+        scale = 3f;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
         this.movementSpeed = 125;
@@ -68,7 +71,8 @@ public class Hero extends Creature {
         stateTime += deltaTime;           // #15
         currentFrame = animation.getKeyFrame(stateTime, true);  // #16
         sprite = new Sprite(currentFrame);
-        sprite.setPosition(getPosition().getXPos(), getPosition().getYPos());
+        sprite.setPosition(position.getXPos(), position.getYPos());
+        sprite.scale(scale);
         return sprite;
     }
 

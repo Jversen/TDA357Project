@@ -25,7 +25,7 @@ public abstract class Creature {
     protected Texture spriteSheet;
     protected Sprite sprite;
     protected Animation animation;
-
+    protected float scale; //sets creature sprite scaling constant
     protected Rectangle bounds = new Rectangle();
     protected int frameCols;
     protected int frameRows;
