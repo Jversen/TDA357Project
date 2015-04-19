@@ -11,6 +11,7 @@ public class Controller {
     private HeroController heroController;
     private UserInput inputController;
     private ModelController modelController;
+    private AIController aiController;
 
     private Hero hero = Hero.getInstance();
     private Map map = new Map();
@@ -20,10 +21,16 @@ public class Controller {
     }
 
     private void init() {
+        heroController = new HeroController();
+        inputController = new UserInput();
+        modelController = new ModelController();
+        aiController = new AIController();
+
         //TODO initialize everything at start of game
     }
 
     public void update() {
         inputController.findUserInput();
+        //TODO add rest of controllers
     }
 }

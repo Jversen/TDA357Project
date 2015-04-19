@@ -10,10 +10,11 @@ import com.jupiter.rogue.Model.Enums.MovementState;
 /**
  * Created by hilden on 2015-04-17.
  */
+
 public class HeroController {
 
     private Hero hero = Hero.getInstance();
-
+    Position heroPosition = hero.getPosition();
 
     public void relax() {
         hero.setMovementState(MovementState.STANDING);
@@ -21,9 +22,8 @@ public class HeroController {
 
     public void walk(Direction direction) {
         hero.setMovementState(MovementState.WALKING);
-        Position heroPosition = hero.getPosition();
         float newPosX = 0;
-        if(walkIsPossible(direction)) {
+        if(walkIsPossible(direction, heroPosition)) {
             if(direction == Direction.RIGHT) {
                 newPosX = heroPosition.getXPos() + 100 * Gdx.graphics.getDeltaTime();
             } else {
@@ -33,16 +33,36 @@ public class HeroController {
         }
     }
 
-    private boolean walkIsPossible(Direction direction) {
+    private boolean walkIsPossible(Direction direction, Position heroPosition) {
         return true;
     }
 
-    public void jump() {
+    public void jumpIfPossible() {
         hero.setMovementState(MovementState.JUMPING);
+        if (!(hero.getMovementState().equals(MovementState.JUMPING))) {
+            jump();
+        }
+    }
+
+    private void jump() {
+        float newPosY = 0;
+        for (int i = 0; i < 10; i++) {
+            switch (i) {
+                case 1-5:
+                    newPosY = heroPosition.getYPos() + 3;
+                    break;
+                case 6-9:
+                    newPosY = heroPosition.getYPos() + 2;
+                    break;
+                case 10:
+                    newPosY = heroPosition.getYPos() + 1;
+                    break;
+            }
+            hero.setPosition(heroPosition.getXPos(), newPosY);
+        }
     }
 
     public void attack() {
         //TODO finish walk() method
     }
-
 }

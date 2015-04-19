@@ -2,37 +2,36 @@ package com.jupiter.rogue;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.jupiter.rogue.Model.Creatures.Hero;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.jupiter.rogue.Controller.Controller;
+import com.jupiter.rogue.View.View;
+
 
 public class Rogue extends ApplicationAdapter {
-
-	private SpriteBatch batch;
-	private TextureAtlas textureAtlas;
-	private Animation animation;
-	private float elapsedTime = 0;
+	private Controller controller;
+	private View view;
 
 	@Override
 	public void create() {
-		Hero hero = Hero.getInstance();
 
-		batch = new SpriteBatch();
-		textureAtlas = new TextureAtlas(Gdx.files.internal("data/spritesheet.atlas"));
-		animation = new Animation(1/15f, textureAtlas.getRegions());
+		controller = new Controller();
+		view = new View();
 
 	}
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);                        // #14
-		batch.begin();
-		//sprite.draw(batch);
-		elapsedTime += Gdx.graphics.getDeltaTime();
-		batch.draw(animation.getKeyFrame(elapsedTime, true), 0, 0);
-		batch.end();
+
+		controller.update();
+		view.update();
+
 	}
 }
