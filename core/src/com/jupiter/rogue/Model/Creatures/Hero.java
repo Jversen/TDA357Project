@@ -14,13 +14,13 @@ public class Hero extends Creature {
 
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
-    private MovementState movementState = MovementState.JUMPING;
-    private Texture texture = new Texture("pixHero_01.png");
+
     private Hero () {
-        this.maxHealthPoints = 100;
-        this.currentHealthPoints = maxHealthPoints;
-        this.movementSpeed = 10;
-        super.setBounds(this.texture.getWidth(),this.texture.getHeight());
+        super.maxHealthPoints = 100;
+        super.currentHealthPoints = maxHealthPoints;
+        super.movementSpeed = 10;
+        super.texture = new Texture("pixHero_01.png");
+        super.setBounds(super.texture.getWidth(),super.texture.getHeight());
         System.out.println(super.getBoundsX() + " "+ super.getBoundsY());
         //TODO finish rest of stats
     }
