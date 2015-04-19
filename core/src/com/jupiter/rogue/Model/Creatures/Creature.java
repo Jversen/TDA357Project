@@ -1,11 +1,13 @@
 package com.jupiter.rogue.Model.Creatures;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
-import javafx.animation.Animation;
+
 
 /**
  * Created by Johan on 16/04/15.
@@ -19,9 +21,13 @@ public abstract class Creature {
     protected int movementSpeed;
     protected MovementState movementState = MovementState.STANDING;
     protected Direction direction = Direction.RIGHT;
-    protected Texture texture;
+    protected Texture spriteSheet;
+    protected Sprite sprite;
     protected Animation animation;
+
     protected Rectangle bounds = new Rectangle();
+    protected int frameCols;
+    protected int frameRows;
 
     public Position getPosition() {
         return position;
@@ -36,9 +42,12 @@ public abstract class Creature {
         this.position.setXPos(x);
         this.position.setYPos(y);
     }
-    public void setBounds(int x, int y){
+    public void setBounds(float x, float y, float w, float h){
         this.bounds.setX(x);
         this.bounds.setY(y);
+
+        this.bounds.setWidth(w);
+        this.bounds.setHeight(h);
     }
     public float getBoundsX(){
         return this.bounds.getX();
@@ -47,8 +56,8 @@ public abstract class Creature {
         return this.bounds.getY();
     }
 
-    public void setTexture(Texture texture) {
-        this.texture = texture;
+    public void setSpriteSheet(Texture texture) {
+        this.spriteSheet = texture;
     }
 
 

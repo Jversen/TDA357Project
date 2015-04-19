@@ -16,6 +16,9 @@ public class HeroController {
     private Hero hero = Hero.getInstance();
     Position heroPosition = hero.getPosition();
 
+    public void update(){
+        
+    }
     public void relax() {
         hero.setMovementState(MovementState.STANDING);
     }

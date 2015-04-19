@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -22,13 +23,14 @@ public class View {
     private float w;
     private float h;
     private Map map;
-
+    private SpriteBatch batch;
 
     public View() {
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
         map = new Map();
+        batch = new SpriteBatch();
     }
 
     public void update() {
@@ -44,5 +46,9 @@ public class View {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+        
+
+
+
     }
 }
