@@ -43,8 +43,8 @@ public class Hero extends Creature {
                     walkFrames[index++] = tmp[i][j];
             }
         }
-
-        animation = new Animation(0.025f, walkFrames);      // #11
+        animation = new Animation(1/15f, atlas.getRegions());
+        //animation = new Animation(0.025f, walkFrames);      // #11
         SpriteBatch spriteBatch = new SpriteBatch();                // #12
         stateTime = 0f;
 
