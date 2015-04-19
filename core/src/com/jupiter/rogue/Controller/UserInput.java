@@ -20,14 +20,15 @@ public class UserInput {
 
     public UserInput() {
         heroController = new HeroController();
-        anyKeyPressed = Gdx.input.isKeyPressed(Input.Keys.ANY_KEY);
-        leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
-        rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
-        spacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
+
     }
 
 
     public void findUserInput() {
+        anyKeyPressed = Gdx.input.isKeyPressed(Input.Keys.ANY_KEY);
+        leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
+        rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
+        spacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
         if (!anyKeyPressed) {
             heroController.relax();

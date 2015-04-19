@@ -27,11 +27,14 @@ public class HeroController {
         hero.setMovementState(MovementState.WALKING);
         hero.setDirection(direction);
         float newPosX = 0;
+        float newPosY = 0;
+
         if(walkIsPossible(direction, heroPosition)) {
+
             if(direction == Direction.RIGHT) {
-                newPosX = heroPosition.getXPos() + 100 * Gdx.graphics.getDeltaTime();
+                newPosX = heroPosition.getXPos() + hero.getMovementSpeed() * Gdx.graphics.getDeltaTime();
             } else {
-                newPosX = heroPosition.getXPos() - 100 * Gdx.graphics.getDeltaTime();
+                newPosX = heroPosition.getXPos() - hero.getMovementSpeed() * Gdx.graphics.getDeltaTime();
             }
             hero.setPosition(newPosX, heroPosition.getYPos());
         }

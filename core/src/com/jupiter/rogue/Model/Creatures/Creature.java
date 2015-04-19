@@ -12,6 +12,7 @@ import com.jupiter.rogue.Model.Map.Position;
 /**
  * Created by Johan on 16/04/15.
  */
+@lombok.Data
 public abstract class Creature {
 
     protected Position position = new Position();

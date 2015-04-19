@@ -26,14 +26,16 @@ public class Hero extends Creature {
     TextureRegion[]                 walkFrames;
     float stateTime;
 
-    float xPos;
-    float yPos;
+    //float xPos;
+   // float yPos;
 
     private Hero (float xPos, float yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        
         setPosition(xPos, yPos);
+
+        this.maxHealthPoints = 100;
+        this.currentHealthPoints = maxHealthPoints;
+        this.movementSpeed = 125;
+
         frameCols=7;
         frameRows=1;
 
@@ -56,9 +58,7 @@ public class Hero extends Creature {
         stateTime = 0f;
 
 
-        this.maxHealthPoints = 100;
-        this.currentHealthPoints = maxHealthPoints;
-        this.movementSpeed = 10;
+
         setBounds(xPos, yPos, this.texture.getWidth(), this.texture.getHeight());
 
         //TODO finish rest of stats
@@ -68,7 +68,7 @@ public class Hero extends Creature {
         stateTime += deltaTime;           // #15
         currentFrame = animation.getKeyFrame(stateTime, true);  // #16
         sprite = new Sprite(currentFrame);
-        sprite.setPosition(xPos, yPos);
+        sprite.setPosition(getPosition().getXPos(), getPosition().getYPos());
         return sprite;
     }
 
