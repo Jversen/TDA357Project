@@ -11,7 +11,7 @@ import com.jupiter.rogue.Model.World.WorldConstants;
 /**
  * Created by hilden on 2015-04-17.
  */
-
+@lombok.Data
 public class HeroController {
 
     private Hero hero = Hero.getInstance();
@@ -27,10 +27,22 @@ public class HeroController {
     }
 
     public void worldEffects() {
-        if (!isGrounded){
-            hero.setVerticalSpeed(hero.getVerticalSpeed() + constants.getGravity()* Gdx.graphics.getDeltaTime());
-            hero.setPosition(hero.getPosition().getXPos(), hero.getPosition().getYPos()-hero.getVerticalSpeed());
+
+       // if (!isGrounded) {
+                hero.setVerticalSpeed(hero.getVerticalSpeed() - constants.getGravity() * Gdx.graphics.getDeltaTime());
+            hero.setPosition(hero.getPosition().getXPos(), hero.getPosition().getYPos() + hero.getVerticalSpeed());
+      //  }
+
+        //System.out.println((hero.getPosition().getYPos()));
+        //System.out.println(hero.getVerticalSpeed());
+
+        if (hero.getPosition().getYPos() < 0){
+            hero.setYPos(0);
+          //      System.out.println(hero.getVerticalSpeed());
+            hero.setVerticalSpeed(0);
+            isGrounded = true;
         }
+
 
     }
     public void walk(Direction direction) {
@@ -55,28 +67,15 @@ public class HeroController {
     }
 
     public void jumpIfPossible() {
-        hero.setMovementState(MovementState.JUMPING);
-        if (!(hero.getMovementState().equals(MovementState.JUMPING))) {
+       // hero.setMovementState(MovementState.JUMPING);
+       // if (!(hero.getMovementState().equals(MovementState.JUMPING))) {
             jump();
-        }
+      //  }
     }
 
     private void jump() {
-        float newPosY = 0;
-        for (int i = 0; i < 10; i++) {
-            switch (i) {
-                case 1-5:
-                    newPosY = heroPosition.getYPos() + 3;
-                    break;
-                case 6-9:
-                    newPosY = heroPosition.getYPos() + 2;
-                    break;
-                case 10:
-                    newPosY = heroPosition.getYPos() + 1;
-                    break;
-            }
-            hero.setPosition(heroPosition.getXPos(), newPosY);
-        }
+        isGrounded = false;
+        hero.setVerticalSpeed(10);
     }
 
     public void attack() {

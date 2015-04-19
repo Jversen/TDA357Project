@@ -10,6 +10,7 @@ import com.jupiter.rogue.Model.Items.RangedWeapon;
 /**
  * Created by Johan on 16/04/15.
  */
+@lombok.Data
 public class Hero extends Creature {
 
     private static Hero instance = null;
@@ -27,17 +28,19 @@ public class Hero extends Creature {
     TextureRegion[]                 walkFrames;
     float stateTime;
 
-    //float xPos;
-   // float yPos;
+    float xPos;
+    float yPos;
 
     private Hero (float xPos, float yPos) {
 
+        this.xPos = xPos;
+        this.yPos = yPos;
         setPosition(xPos, yPos);
 
         scale = 3f;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
-        this.movementSpeed = 125;
+        this.movementSpeed = scale*100;
 
         frameCols=7;
         frameRows=1;
@@ -78,7 +81,7 @@ public class Hero extends Creature {
 
     public static Hero getInstance() {
         if(instance == null) {
-            instance = new Hero(200,400);
+            instance = new Hero(100,100);
         }
         return instance;
     }
