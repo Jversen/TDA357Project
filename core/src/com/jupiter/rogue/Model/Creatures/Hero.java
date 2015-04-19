@@ -78,8 +78,10 @@ public class Hero extends Creature {
 
     public static Hero getInstance() {
         if(instance == null) {
-            instance = new Hero(100,100);
+            instance = new Hero(200,400);
         }
         return instance;
     }
+
+
 }

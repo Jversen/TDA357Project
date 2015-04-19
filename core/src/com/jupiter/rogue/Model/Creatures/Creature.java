@@ -20,6 +20,7 @@ public abstract class Creature {
     protected int maxHealthPoints;
     protected int attackPoints;
     protected int movementSpeed;
+    protected float verticalSpeed;
     protected MovementState movementState = MovementState.STANDING;
     protected Direction direction = Direction.RIGHT;
     protected Texture spriteSheet;

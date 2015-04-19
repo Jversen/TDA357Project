@@ -30,6 +30,7 @@ public class Controller {
 
     public void update() {
         userInput.findUserInput();
+        heroController.worldEffects();
         //TODO add rest of controllers
     }
 }

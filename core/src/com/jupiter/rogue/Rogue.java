@@ -16,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.jupiter.rogue.Controller.Controller;
 import com.jupiter.rogue.Controller.HeroController;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.World.WorldConstants;
 import com.jupiter.rogue.View.View;
 
 
@@ -30,6 +31,7 @@ public class Rogue extends ApplicationAdapter {
 		controller = new Controller();
 		view = new View();
 		hero = hero.getInstance();
+		WorldConstants constants = WorldConstants.getInstance();
 	}
 
 	@Override

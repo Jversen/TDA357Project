@@ -6,6 +6,7 @@ import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
+import com.jupiter.rogue.Model.World.WorldConstants;
 
 /**
  * Created by hilden on 2015-04-17.
@@ -15,6 +16,8 @@ public class HeroController {
 
     private Hero hero = Hero.getInstance();
     Position heroPosition = hero.getPosition();
+    private boolean isGrounded = false;
+    WorldConstants constants = WorldConstants.getInstance();
 
     public void update(){
         
@@ -23,6 +26,13 @@ public class HeroController {
         hero.setMovementState(MovementState.STANDING);
     }
 
+    public void worldEffects() {
+        if (!isGrounded){
+            hero.setVerticalSpeed(hero.getVerticalSpeed() + constants.getGravity()* Gdx.graphics.getDeltaTime());
+            hero.setPosition(hero.getPosition().getXPos(), hero.getPosition().getYPos()-hero.getVerticalSpeed());
+        }
+
+    }
     public void walk(Direction direction) {
         hero.setMovementState(MovementState.WALKING);
         hero.setDirection(direction);
