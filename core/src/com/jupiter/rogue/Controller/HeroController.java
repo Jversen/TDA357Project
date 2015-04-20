@@ -1,12 +1,15 @@
 package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.jupiter.rogue.Model.Creatures.Creature;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.World.WorldConstants;
+
+import java.util.ArrayList;
 
 /**
  * Created by hilden on 2015-04-17.
@@ -19,9 +22,27 @@ public class HeroController {
     private boolean isGrounded = false;
     WorldConstants constants = WorldConstants.getInstance();
 
-    public void update(){
-        
+    public void update(ArrayList<Integer> keys){
+        updateMoves(keys);
+        worldEffects();
     }
+
+    private void updateMoves(ArrayList<Integer> keys) {
+        if(keys.contains(Input.Keys.LEFT) && !keys.contains(Input.Keys.RIGHT)) {
+            walk(Direction.LEFT);
+        }
+        if(!keys.contains(Input.Keys.LEFT) && keys.contains(Input.Keys.RIGHT)) {
+            walk(Direction.RIGHT);
+        }
+        if(keys.contains(Input.Keys.SPACE)) {
+            jump();
+        }
+        if(keys.isEmpty()) {
+            stand();
+        }
+        System.out.println("keys arraylist: " + keys.toString());
+    }
+
     public void relax() {
         hero.setMovementState(MovementState.STANDING);
     }
@@ -76,6 +97,10 @@ public class HeroController {
     private void jump() {
         isGrounded = false;
         hero.setVerticalSpeed(10);
+    }
+
+    private void stand() {
+        hero.setMovementState(MovementState.STANDING);
     }
 
     public void attack() {

@@ -10,38 +10,41 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.jupiter.rogue.Model.Enums.Direction;
 
-public class UserInput {
+import java.util.ArrayList;
 
-    private HeroController heroController;
-    boolean anyKeyPressed;
+public class UserInput {
     boolean leftPressed;
     boolean rightPressed;
     boolean spacePressed;
 
     public UserInput() {
-        heroController = new HeroController();
 
     }
 
 
-    public void findUserInput() {
-        anyKeyPressed = Gdx.input.isKeyPressed(Input.Keys.ANY_KEY);
+    public ArrayList<Integer> findUserInput() {
+
+        spacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
         leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
         rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
-        spacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
-        if (!anyKeyPressed) {
-            heroController.relax();
-        } else {
-            if (leftPressed) {
-                heroController.walk(Direction.LEFT);
-            }
-            if (rightPressed) {
-                heroController.walk(Direction.RIGHT);
-            }
-            if (spacePressed) {
-                heroController.jumpIfPossible();
-            }
+        ArrayList<Integer> keys = new ArrayList();
+
+
+        if (spacePressed) {
+            keys.add(Input.Keys.SPACE);
+            System.out.println("Space");
         }
+        if (leftPressed) {
+            keys.add(Input.Keys.LEFT);
+            System.out.println("Left");
+        }
+        if (rightPressed) {
+            keys.add(Input.Keys.RIGHT);
+            System.out.println("Right");
+        }
+
+
+        return keys;
     }
 }

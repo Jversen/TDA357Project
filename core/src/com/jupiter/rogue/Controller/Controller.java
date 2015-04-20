@@ -29,8 +29,9 @@ public class Controller {
     }
 
     public void update() {
-        userInput.findUserInput();
-        heroController.worldEffects();
+
+        heroController.update(userInput.findUserInput());
+
         //TODO add rest of controllers
     }
 }
