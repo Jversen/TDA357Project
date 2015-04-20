@@ -5,9 +5,14 @@ package com.jupiter.rogue.Model.World;
  */
 @lombok.Data
 public class WorldConstants {
+
     private static WorldConstants instance = null;
 
     private float gravity = 15f;
+
+    private WorldConstants() {
+
+    }
 
 
     public static WorldConstants getInstance() {
