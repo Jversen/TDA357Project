@@ -1,6 +1,6 @@
 package com.jupiter.rogue.Model.Creatures;
 
-import com.jupiter.rogue.Model.World.Position;
+import com.jupiter.rogue.Model.Map.Position;
 
 /**
  * Created by Johan on 16/04/15.

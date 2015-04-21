@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Model.World;
+package com.jupiter.rogue.Model.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;

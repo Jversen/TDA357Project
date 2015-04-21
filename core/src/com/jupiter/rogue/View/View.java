@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.jupiter.rogue.Model.World.Map;
+import com.jupiter.rogue.Model.Map.Map;
 
 /**
  * Created by oskar on 17/04/2015.

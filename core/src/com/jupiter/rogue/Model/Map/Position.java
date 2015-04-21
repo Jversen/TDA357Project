@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Model.World;
+package com.jupiter.rogue.Model.Map;
 
 /**
  * Created by Johan on 2015-04-16.

@@ -3,10 +3,10 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.World.Position;
+import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
-import com.jupiter.rogue.Model.World.WorldConstants;
+import com.jupiter.rogue.Model.Map.WorldConstants;
 
 import java.util.ArrayList;
 
