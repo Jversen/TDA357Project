@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
-import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Model.World.Position;
 
 
 /**

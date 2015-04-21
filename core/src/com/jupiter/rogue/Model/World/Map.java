@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Model.Map;
+package com.jupiter.rogue.Model.World;
 
 import com.jupiter.rogue.Model.Creatures.Hero;
 
