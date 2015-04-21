@@ -9,6 +9,7 @@ import com.jupiter.rogue.Model.Map.Map;
 public class Controller {
 
     private HeroController heroController;
+    private WorldController worldController;
     private UserInput userInput;
     private ModelController modelController;
     private AIController aiController;
@@ -22,15 +23,20 @@ public class Controller {
 
     private void init() {
         heroController = new HeroController();
+        worldController = new WorldController();
         userInput = new UserInput();
         modelController = new ModelController();
         aiController = new AIController();
+
+        heroController.initHero();
         //TODO initialize everything at start of game
     }
 
     public void update() {
 
         heroController.update(userInput.findUserInput());
+        worldController.update();
+
 
         //TODO add rest of controllers
     }

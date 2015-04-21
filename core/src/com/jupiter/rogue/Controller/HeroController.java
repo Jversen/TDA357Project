@@ -2,6 +2,7 @@ package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
@@ -16,10 +17,45 @@ import java.util.ArrayList;
 @lombok.Data
 public class HeroController {
 
-    private Hero hero = Hero.getInstance();
-    Position heroPosition = hero.getPosition();
+    private Hero hero;
+    Position heroPosition;
     private boolean isGrounded = false;
     WorldConstants constants = WorldConstants.getInstance();
+
+    public HeroController() {
+        initHero();
+    }
+
+    public void initHero() {
+        hero = hero.getInstance();
+        heroPosition = hero.getPosition();
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(100, 100);
+
+
+        PolygonShape boundingBox = new PolygonShape();
+
+        boundingBox.setAsBox(10, 10); //temporary values, should be dependent on sprite size
+
+
+
+        // FixtureDef sets physical properties
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = boundingBox;
+        fixtureDef.density = 1f;
+        /*fixtureDef.friction = 1f;
+        fixtureDef.restitution = 0.5f;*/
+
+
+
+        Body body = constants.getWorld().createBody(bodyDef);
+        body.createFixture(fixtureDef);
+
+        hero.setBody(body);
+
+        boundingBox.dispose();
+    }
 
     public void update(ArrayList<Integer> keys){
         updateMoves(keys);
@@ -37,13 +73,8 @@ public class HeroController {
             jump();
         }
         if(keys.isEmpty()) {
-            stand();
+            relax();
         }
-        System.out.println("keys arraylist: " + keys.toString());
-    }
-
-    public void relax() {
-        hero.setMovementState(MovementState.STANDING);
     }
 
     public void worldEffects() {
@@ -57,7 +88,7 @@ public class HeroController {
         //System.out.println(hero.getVerticalSpeed());
 
         if (hero.getPosition().getYPos() < 0){
-            hero.setYPos(0);
+            hero.setY(0);
           //      System.out.println(hero.getVerticalSpeed());
             hero.setVerticalSpeed(0);
             isGrounded = true;
@@ -69,7 +100,6 @@ public class HeroController {
         hero.setMovementState(MovementState.WALKING);
         hero.setDirection(direction);
         float newPosX = 0;
-        float newPosY = 0;
 
         if(walkIsPossible(direction, heroPosition)) {
 
@@ -98,7 +128,7 @@ public class HeroController {
         hero.setVerticalSpeed(10);
     }
 
-    private void stand() {
+    private void relax() {
         hero.setMovementState(MovementState.STANDING);
     }
 

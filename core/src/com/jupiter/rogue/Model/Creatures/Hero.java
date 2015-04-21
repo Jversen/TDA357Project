@@ -13,29 +13,24 @@ import com.jupiter.rogue.Model.Items.RangedWeapon;
 @lombok.Data
 public class Hero extends Creature {
 
+    // Singleton-instance of hero
     private static Hero instance = null;
 
+    // Inventory-spots
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
 
-    private MovementState movementState = MovementState.JUMPING;
-    private Texture texture = new Texture(Gdx.files.internal("Data//pixHeroAtlas.png"));
-    private TextureAtlas atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");
-
-
-
-    TextureRegion                   currentFrame;
-    TextureRegion[]                 walkFrames;
-    float stateTime;
-
-    float xPos;
-    float yPos;
-
     private Hero (float xPos, float yPos) {
+        initAnimation();
 
-        this.xPos = xPos;
-        this.yPos = yPos;
-        setPosition(xPos, yPos);
+        //TODO finish rest of stats
+    }
+
+    private void initAnimation() {
+        texture = new Texture(Gdx.files.internal("Data//pixHeroAtlas.png"));
+        atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");
+
+        createPhysics();
 
         scale = 3f;
         this.maxHealthPoints = 100;
@@ -51,24 +46,23 @@ public class Hero extends Creature {
         TextureRegion[][] tmp = TextureRegion.split(spriteSheet,
                 spriteSheet.getWidth()/frameCols, spriteSheet.getHeight()/frameRows);
         walkFrames = new TextureRegion[frameCols * frameRows];
-        
+
         int index = 0;
         for (int i = 0; i < frameRows; i++) {
             for (int j = 0; j < frameCols; j++) {
-                    walkFrames[index++] = tmp[i][j];
+                walkFrames[index++] = tmp[i][j];
             }
         }
         animation = new Animation(1/15f, atlas.getRegions());
         //animation = new Animation(0.025f, walkFrames);      // #11
         SpriteBatch spriteBatch = new SpriteBatch();                // #12
         stateTime = 0f;
-
-
-
-        setBounds(xPos, yPos, this.texture.getWidth(), this.texture.getHeight());
-
-        //TODO finish rest of stats
     }
+
+    private void createPhysics() {
+
+    }
+
     public Sprite updateAnimation(float deltaTime){
 
         stateTime += deltaTime;           // #15
