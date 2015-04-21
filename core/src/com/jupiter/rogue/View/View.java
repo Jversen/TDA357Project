@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Map;
 
 /**
@@ -44,8 +46,13 @@ public class View {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        
 
+        //TODO: FIX IT
+        Sprite heroSprite = new Sprite(Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime()));
+
+        batch.begin();
+        heroSprite.draw(batch);
+        batch.end();
 
 
     }

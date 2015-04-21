@@ -28,13 +28,12 @@ public class HeroController {
 
         hero = hero.getInstance();
 
-        Position startPosition = constants.getHEROSTARTPOSITION();
+        Position startPosition = constants.getHERO_START_POSITION();
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
         bodyDef.position.set(startPosition.getXPos(), startPosition.getYPos());
-
 
         PolygonShape boundingBox = new PolygonShape();
         boundingBox.setAsBox(10, 10); //temporary values, should be dependent on sprite size
@@ -43,8 +42,8 @@ public class HeroController {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boundingBox;
         fixtureDef.density = 1f;
-        /*fixtureDef.friction = 1f;
-        fixtureDef.restitution = 0.5f;*/
+        fixtureDef.friction = 1f;
+        fixtureDef.restitution = 0.5f;
 
         Body body = constants.getWorld().createBody(bodyDef);
         body.createFixture(fixtureDef);
@@ -75,7 +74,7 @@ public class HeroController {
             walk(Direction.RIGHT);
         }
         if(keys.contains(Input.Keys.SPACE)) {
-            jumpIfPossible();
+            jump();
         }
         if(keys.isEmpty()) {
             relax();
@@ -87,7 +86,7 @@ public class HeroController {
         hero.setDirection(direction);
         float newPosX = 0;
 
-        if(walkIsPossible(direction, hero.getPosition())) {
+        if(walkingIsPossible(direction, hero.getPosition())) {
 
             if(direction == Direction.RIGHT) {
                 newPosX = hero.getX() + hero.getMovementSpeed() * Gdx.graphics.getDeltaTime();
@@ -98,20 +97,16 @@ public class HeroController {
         }
     }
 
-    private boolean walkIsPossible(Direction direction, Position heroPosition) {
+    private boolean walkingIsPossible(Direction direction, Position heroPosition) {
         return true;
     }
 
-    public void jumpIfPossible() {
-        if(hero.isGrounded()) {
-            jump();
-        }
-    }
-
     private void jump() {
-        hero.setGrounded(false);
-        hero.setMovementState(MovementState.JUMPING);
-        hero.getBody().setLinearVelocity(0,100f);
+        if(hero.isGrounded()) {
+            hero.setGrounded(false);
+            hero.setMovementState(MovementState.JUMPING);
+            hero.getBody().setLinearVelocity(0,40f);
+        }
     }
 
     private void relax() {
@@ -119,6 +114,6 @@ public class HeroController {
     }
 
     public void attack() {
-        //TODO finish walk() method
+        System.out.println("attack!");
     }
 }

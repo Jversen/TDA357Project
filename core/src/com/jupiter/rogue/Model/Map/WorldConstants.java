@@ -11,8 +11,9 @@ public class WorldConstants {
 
     private static WorldConstants instance = null;
 
-    private Position HEROSTARTPOSITION = new Position(50,400);
-    private float GRAVITY = 98f;
+    private Position HERO_START_POSITION = new Position(50,400);
+    private Vector2 HERO_JUMP_VECTOR = new Vector2(0, 10f);
+    private float GRAVITY = 10f;
     private World world;
 
     private WorldConstants() {
