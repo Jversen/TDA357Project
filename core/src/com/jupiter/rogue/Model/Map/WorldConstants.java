@@ -11,11 +11,12 @@ public class WorldConstants {
 
     private static WorldConstants instance = null;
 
-    private float gravity = 15f;
+    private Position HEROSTARTPOSITION = new Position(50,400);
+    private float GRAVITY = 98f;
     private World world;
 
     private WorldConstants() {
-        world = new World(new Vector2(0, -gravity), true);
+        world = new World(new Vector2(0, -GRAVITY), true);
     }
 
 

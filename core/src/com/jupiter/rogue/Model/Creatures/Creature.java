@@ -18,7 +18,6 @@ import com.jupiter.rogue.Model.Map.Position;
 @lombok.Data
 public abstract class Creature {
 
-    protected Position position = new Position();
     protected int currentHealthPoints;
     protected int maxHealthPoints;
     protected int attackPoints;
@@ -26,6 +25,7 @@ public abstract class Creature {
     protected float verticalSpeed;
     protected MovementState movementState = MovementState.STANDING;
     protected Direction direction = Direction.RIGHT;
+    protected boolean isGrounded;
 
 
     protected Texture spriteSheet;
@@ -45,26 +45,34 @@ public abstract class Creature {
     protected int frameCols;
     protected int frameRows;
 
-    public Position getPosition() {
-        return position;
+    public void setGrounded(boolean bool) {
+        isGrounded = bool;
     }
 
-    public void setPosition(Position position) {
-        this.position.setXPos(position.getXPos());
-        this.position.setYPos(position.getYPos());
+    public Position getPosition() {
+        return new Position(body.getPosition().x, body.getPosition().y);
     }
 
     public void setPosition(float x, float y) {
-        this.position.setXPos(x);
-        this.position.setYPos(y);
+        setX(x);
+        setY(y);
+        System.out.println("Called setPosition: (" + x + "," + y + ")" );
     }
 
     public void setX(float x) {
-        this.position.setXPos(x);
+        this.body.setTransform(x, body.getPosition().y, body.getAngle());
+    }
+
+    public float getX() {
+        return body.getPosition().x;
     }
 
     public void setY(float y) {
-        this.position.setYPos(y);
+        this.body.setTransform(body.getPosition().x, y, body.getAngle());
+    }
+
+    public float getY() {
+        return body.getPosition().y;
     }
 
     public void setBounds(float x, float y, float w, float h){

@@ -8,7 +8,6 @@ import com.jupiter.rogue.Model.Map.Position;
 public class Enemy extends Creature {
 
     public Enemy() {
-        this.position = new Position();
         this.maxHealthPoints = 100;
         this.currentHealthPoints = 100;
         this.attackPoints = 100;

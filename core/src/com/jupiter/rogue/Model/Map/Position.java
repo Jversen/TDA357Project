@@ -30,7 +30,7 @@ public class Position {
         return yPos;
     }
 
-    public Position(int xPos, int yPos){
+    public Position(float xPos, float yPos){
         this.xPos = xPos;
         this.yPos = yPos;
     }

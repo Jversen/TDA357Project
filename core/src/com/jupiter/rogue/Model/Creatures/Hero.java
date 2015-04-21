@@ -64,11 +64,10 @@ public class Hero extends Creature {
     }
 
     public Sprite updateAnimation(float deltaTime){
-
         stateTime += deltaTime;           // #15
         currentFrame = animation.getKeyFrame(stateTime, true);  // #16
         sprite = new Sprite(currentFrame);
-        sprite.setPosition(position.getXPos(), position.getYPos());
+        sprite.setPosition(getX(), getY());
         sprite.scale(scale);
         return sprite;
     }

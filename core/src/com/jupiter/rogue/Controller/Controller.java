@@ -33,9 +33,9 @@ public class Controller {
     }
 
     public void update() {
-
-        heroController.update(userInput.findUserInput());
         worldController.update();
+        heroController.update(userInput.findUserInput());
+
 
 
         //TODO add rest of controllers
