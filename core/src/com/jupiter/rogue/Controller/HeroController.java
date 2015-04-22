@@ -54,15 +54,21 @@ public class HeroController {
     }
 
     public void update(ArrayList<Integer> keys){
-        checkIfGrounded();
+        checkBounds();
         updateMoves(keys);
     }
 
     //TODO: rewrite when box2d-ground is properly implemented
-    private void checkIfGrounded() {
+    private void checkBounds() {
         if(hero.getY() <= 0f) {
             hero.setGrounded(true);
             hero.setY(0);
+        }
+        if(hero.getX() < 0) {
+            hero.setX(0);
+        }
+        if(hero.getX() > 640) {
+            hero.setX(640);
         }
     }
 
