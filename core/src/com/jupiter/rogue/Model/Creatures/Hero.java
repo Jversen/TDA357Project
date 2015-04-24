@@ -21,41 +21,26 @@ public class Hero extends Creature {
     private RangedWeapon rangedWeapon;
 
     private Hero (float xPos, float yPos) {
+
+        this.maxHealthPoints = 100;
+        this.currentHealthPoints = maxHealthPoints;
+        this.movementSpeed = scale*100;
+
+        spriteBatch = new SpriteBatch();
         initAnimation();
 
         //TODO finish rest of stats
     }
 
     private void initAnimation() {
-        texture = new Texture(Gdx.files.internal("Data//pixHeroAtlas.png"));
+        spriteSheet = new Texture(Gdx.files.internal("Data//pixHeroAtlas.png"));
         atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");
 
         createPhysics();
 
-        scale = 3f;
-        this.maxHealthPoints = 100;
-        this.currentHealthPoints = maxHealthPoints;
-        this.movementSpeed = scale*100;
+        scale = 1f;
 
-        frameCols=7;
-        frameRows=1;
-
-        setSpriteSheet(texture);
-        sprite = new Sprite();
-
-        TextureRegion[][] tmp = TextureRegion.split(spriteSheet,
-                spriteSheet.getWidth()/frameCols, spriteSheet.getHeight()/frameRows);
-        walkFrames = new TextureRegion[frameCols * frameRows];
-
-        int index = 0;
-        for (int i = 0; i < frameRows; i++) {
-            for (int j = 0; j < frameCols; j++) {
-                walkFrames[index++] = tmp[i][j];
-            }
-        }
         animation = new Animation(1/15f, atlas.getRegions());
-        //animation = new Animation(0.025f, walkFrames);      // #11
-        SpriteBatch spriteBatch = new SpriteBatch();                // #12
         stateTime = 0f;
     }
 
@@ -63,13 +48,13 @@ public class Hero extends Creature {
 
     }
 
-    public Sprite updateAnimation(float deltaTime){
-        stateTime += deltaTime;           // #15
-        currentFrame = animation.getKeyFrame(stateTime, true);  // #16
-        sprite = new Sprite(currentFrame);
-        sprite.setPosition(getX(), getY());
-        sprite.scale(scale);
-        return sprite;
+    public void updateAnimation(float deltaTime){
+        stateTime += deltaTime;
+        currentFrame = animation.getKeyFrame(stateTime, true);
+
+        spriteBatch.begin();
+        spriteBatch.draw(currentFrame, getX(), getY());
+        spriteBatch.end();
     }
 
     public static Hero getInstance() {

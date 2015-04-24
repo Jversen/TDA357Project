@@ -5,7 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.jupiter.rogue.Controller.Controller;
+import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.WorldConstants;
 import com.jupiter.rogue.View.View;
@@ -17,6 +20,7 @@ public class Rogue extends ApplicationAdapter {
 
     @Override
 	public void create() {
+
 		controller = new Controller();
 		view = new View();
 	}

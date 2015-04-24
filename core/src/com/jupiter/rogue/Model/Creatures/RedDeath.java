@@ -26,14 +26,6 @@ public class RedDeath extends Enemy {
         pixmap.dispose();
         /////////////////////
 
-        //Sets the number of columns and rows for this enemy's spritesheet.
-        frameCols = 1;
-        frameRows = 1;
-
-        TextureRegion[]                 walkFrames;             // #5
-        SpriteBatch spriteBatch;            // #6
-        TextureRegion currentFrame;
-
         setBounds(x, y, spriteSheet.getWidth(), spriteSheet.getHeight());
 
         System.out.println("bounds size: " + bounds.getWidth() + bounds.getHeight());

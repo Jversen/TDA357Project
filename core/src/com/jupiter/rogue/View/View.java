@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Map;
 
@@ -24,8 +27,13 @@ public class View {
     private float h;
     private Map map;
     private SpriteBatch batch;
+    Box2DDebugRenderer debugRenderer;
+    WorldController wc;
+    World world;
 
     public View() {
+        wc = new WorldController();
+        debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
@@ -43,16 +51,17 @@ public class View {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        debugRenderer.render(wc.getWorld(), camera.combined);
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
         //TODO: FIX IT
-        Sprite heroSprite = new Sprite(Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime()));
-
+        Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
+/*
         batch.begin();
         heroSprite.draw(batch);
-        batch.end();
+        batch.end();*/
 
 
     }

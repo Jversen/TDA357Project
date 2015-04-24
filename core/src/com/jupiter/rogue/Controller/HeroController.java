@@ -69,9 +69,9 @@ public class HeroController {
 
     //TODO: rewrite when box2d-ground is properly implemented
     private void checkJumping() {
-        if(hero.getY() <= 55f) {
+        if(hero.getY() <= 0f) {
             hero.setGrounded(true);
-            hero.setY(55);
+            hero.setY(0);
         }
     }
 

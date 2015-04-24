@@ -1,10 +1,7 @@
 package com.jupiter.rogue.Model.Creatures;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Enums.Direction;
@@ -29,11 +26,9 @@ public abstract class Creature {
 
 
     protected Texture spriteSheet;
-    protected Texture texture;
     protected TextureAtlas atlas;
     protected TextureRegion currentFrame;
-    protected TextureRegion[] walkFrames;
-    protected Sprite sprite;
+    protected SpriteBatch spriteBatch;
     protected Animation animation;
 
     protected Body body;
@@ -42,8 +37,6 @@ public abstract class Creature {
 
     protected float scale; //sets creature sprite scaling constant
     protected Rectangle bounds = new Rectangle();
-    protected int frameCols;
-    protected int frameRows;
 
     public void setGrounded(boolean bool) {
         isGrounded = bool;

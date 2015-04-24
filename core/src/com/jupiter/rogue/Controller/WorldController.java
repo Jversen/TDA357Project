@@ -7,6 +7,7 @@ import com.jupiter.rogue.Model.Map.WorldConstants;
 /**
  * Created by Johan on 21/04/15.
  */
+@lombok.Data
 public class WorldController {
     World world = WorldConstants.getInstance().getWorld();
 
