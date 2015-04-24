@@ -22,6 +22,7 @@ public class Hero extends Creature {
 
     private Hero (float xPos, float yPos) {
 
+        scale = 1f;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
         this.movementSpeed = scale*100;
@@ -37,8 +38,6 @@ public class Hero extends Creature {
         atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");
 
         createPhysics();
-
-        scale = 1f;
 
         animation = new Animation(1/15f, atlas.getRegions());
         stateTime = 0f;

@@ -57,6 +57,7 @@ public class View {
         tiledMapRenderer.render();
 
         //TODO: FIX IT
+
         Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
 /*
         batch.begin();
