@@ -42,7 +42,7 @@ public class HeroController {
         fixtureDef.shape = boundingBox;
         fixtureDef.density = 1f;
         fixtureDef.friction = 1f;
-        fixtureDef.restitution = 0.5f;
+        fixtureDef.restitution = 0.0f;
 
         Body body = constants.getWorld().createBody(bodyDef);
         body.createFixture(fixtureDef);
@@ -69,10 +69,11 @@ public class HeroController {
 
     //TODO: rewrite when box2d-ground is properly implemented
     private void checkJumping() {
-        if(hero.getY() <= 0f) {
+
+/*        if(hero.getY() <= 0f) {
             hero.setGrounded(true);
             hero.setY(0);
-        }
+        }*/
     }
 
     private void updateMoves(ArrayList<Integer> keys) {
@@ -111,11 +112,11 @@ public class HeroController {
     }
 
     private void jump() {
-        if(hero.isGrounded()) {
-            hero.setGrounded(false);
+        //if(hero.isGrounded()) {
+            //hero.setGrounded(false);
             hero.setMovementState(MovementState.JUMPING);
             hero.getBody().setLinearVelocity(0,40f);
-        }
+        //}
     }
 
     private void relax() {
