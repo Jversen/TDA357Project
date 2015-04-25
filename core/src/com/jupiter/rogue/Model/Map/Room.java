@@ -23,13 +23,12 @@ import java.util.ArrayList;
 public class Room {
 
     private TiledMap tiledMap;
-    private OrthographicCamera camera;
     private TiledMapRenderer tiledMapRenderer;
     private float tileSize;
     private TiledMapTileLayer layer;
 
     public Room() {
-        tiledMap = new TmxMapLoader().load("Rooms/BoxRoom.tmx");
+        tiledMap = new TmxMapLoader().load("Rooms/BoxRoom2.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
 
@@ -61,15 +60,15 @@ public class Room {
 
                 /*Set the position to the tile number plus half the tilesize to compensate
                 for body/libgdx drawing differences. */
-                bodyDef.position.set((col + 0.5f) * tileSize,
-                        (row + 0.5f) * tileSize);
+                bodyDef.position.set((col + 0.5f) * tileSize / PPM,
+                        (row + 0.5f) * tileSize / PPM);
 
                 FixtureDef fixtureDef = new FixtureDef();
 
                 Body body = WorldConstants.getInstance().getWorld().createBody(bodyDef);
 
                 PolygonShape shape = new PolygonShape();
-                shape.setAsBox(tileSize/2, tileSize/2);
+                shape.setAsBox(tileSize/2 / PPM, tileSize/2 / PPM);
                 fixtureDef.shape = shape;
 
                 body.createFixture(fixtureDef);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="38" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="TestRoomSeminar" tilewidth="16" tileheight="16" margin="1">
+  <image source="roguelikeSheet_transparent.png" width="968" height="526"/>
+ </tileset>
+ <tileset firstgid="1921" name="gfg" tilewidth="16" tileheight="16" spacing="1">
+  <image source="roguelikeSheet_transparent.png" width="968" height="526"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="38">
+  <data encoding="base64" compression="zlib">
+   eJzt2LENgEAMBMEP6b8H+qQD5Ed6tMGM5Pw29VoAsO++2rfTUaWjRUeLjhYdLTpadLToaNHRoqNFR4uOFh3nfPmx/d0x2VXvmG4rd+z8ZE93vO0p3NQDeL5w3A==
+  </data>
+ </layer>
+</map>

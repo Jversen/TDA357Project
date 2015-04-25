@@ -8,7 +8,7 @@ import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.WorldConstants;
-
+import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 import java.util.ArrayList;
 
 /**
@@ -33,10 +33,10 @@ public class HeroController {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
-        bodyDef.position.set(startPosition.getXPos(), startPosition.getYPos());
+        bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
 
         PolygonShape boundingBox = new PolygonShape();
-        boundingBox.setAsBox(10, 10); //temporary values, should be dependent on sprite size
+        boundingBox.setAsBox(10 / PPM, 10 / PPM); //temporary values, should be dependent on sprite size
         // FixtureDef sets physical properties
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boundingBox;
@@ -94,16 +94,14 @@ public class HeroController {
     public void walk(Direction direction) {
         hero.setMovementState(MovementState.WALKING);
         hero.setDirection(direction);
-        float newPosX = 0;
 
         if(walkingIsPossible(direction, hero.getPosition())) {
 
             if(direction == Direction.RIGHT) {
-                newPosX = hero.getX() + hero.getMovementSpeed() * Gdx.graphics.getDeltaTime();
+                hero.getBody().setLinearVelocity(2, hero.getBody().getLinearVelocity().y);
             } else {
-                newPosX = hero.getX() - hero.getMovementSpeed() * Gdx.graphics.getDeltaTime();
+                hero.getBody().setLinearVelocity(-2, hero.getBody().getLinearVelocity().y);
             }
-            hero.setX(newPosX);
         }
     }
 
@@ -115,7 +113,7 @@ public class HeroController {
         //if(hero.isGrounded()) {
             //hero.setGrounded(false);
             hero.setMovementState(MovementState.JUMPING);
-            hero.getBody().setLinearVelocity(0,40f);
+            hero.getBody().setLinearVelocity(hero.getBody().getLinearVelocity().x, 6);
         //}
     }
 
