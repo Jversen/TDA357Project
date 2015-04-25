@@ -20,7 +20,6 @@ public class Rogue extends ApplicationAdapter {
 
     @Override
 	public void create() {
-
 		controller = new Controller();
 		view = new View();
 	}
