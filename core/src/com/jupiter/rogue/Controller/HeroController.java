@@ -8,6 +8,8 @@ import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.WorldConstants;
+import com.jupiter.rogue.Model.Map.WorldHolder;
+
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 public class HeroController {
 
     private Hero hero;
-    WorldConstants constants = WorldConstants.getInstance();
+    private WorldHolder worldHolder;
 
     public HeroController() {
         initHero();
@@ -28,7 +30,7 @@ public class HeroController {
 
         hero = hero.getInstance();
 
-        Position startPosition = constants.getHERO_START_POSITION();
+        Position startPosition = WorldConstants.HERO_START_POSITION;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -45,7 +47,7 @@ public class HeroController {
         fixtureDef.friction = 1f;
         fixtureDef.restitution = 0.0f;
 
-        Body body = constants.getWorld().createBody(bodyDef);
+        Body body = worldHolder.getInstance().getWorld().createBody(bodyDef);
         body.createFixture(fixtureDef);
 
         hero.setBody(body);

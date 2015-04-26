@@ -9,23 +9,11 @@ import com.badlogic.gdx.physics.box2d.World;
 @lombok.Data
 public final class WorldConstants {
 
-    private static WorldConstants instance = null;
-
     public static final float PPM = 32f; //Pixels per meter conversion unit
-    private Position HERO_START_POSITION = new Position(75,200);
-    private Vector2 HERO_JUMP_VECTOR = new Vector2(0, 10f);
-    private float GRAVITY = -10f;
-    private World world;
+    public static final Position HERO_START_POSITION = new Position(75,200);
+    public static final Vector2 HERO_JUMP_VECTOR = new Vector2(0, 10f);
+    public static final float GRAVITY = -10f;
 
     private WorldConstants() {
-        world = new World(new Vector2(0, GRAVITY), true);
-    }
-
-
-    public static WorldConstants getInstance() {
-        if(instance == null) {
-            instance = new WorldConstants();
-        }
-        return instance;
     }
 }

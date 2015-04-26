@@ -23,11 +23,13 @@ import java.util.ArrayList;
 public class Room {
 
     private TiledMap tiledMap;
+    private World world;
     private TiledMapRenderer tiledMapRenderer;
     private float tileSize;
     private TiledMapTileLayer layer;
 
     public Room() {
+        world = WorldHolder.getInstance().getWorld();
         tiledMap = new TmxMapLoader().load("Rooms/BoxRoom2.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
@@ -65,7 +67,9 @@ public class Room {
 
                 FixtureDef fixtureDef = new FixtureDef();
 
-                Body body = WorldConstants.getInstance().getWorld().createBody(bodyDef);
+
+
+                Body body = world.createBody(bodyDef);
 
                 PolygonShape shape = new PolygonShape();
                 shape.setAsBox(tileSize/2 / PPM, tileSize/2 / PPM);
