@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="38" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="TestRoomSeminar" tilewidth="16" tileheight="16" margin="1">
+  <image source="roguelikeSheet_transparent.png" width="968" height="526"/>
+ </tileset>
+ <tileset firstgid="1921" name="tiles_spritesheet" tilewidth="16" tileheight="16" margin="1">
+  <image source="../../../../Resources projekt/Tiles/tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <layer name="Bakgrund" width="50" height="38">
+  <data encoding="base64" compression="zlib">
+   eJztWFuKwzAM7L9zh+RYzSGTYyXXWAo7MJkqkl+lC2vBEGhivayxVD8eQ4YMGTJkyP+WLeVhb0CNjlI5kg/YPxsAXSVrSmWe7sExLFM9oK9kTank7PdL7+qA68Z6//yFp0NRG4e3x+wLwNzhGqzFy4eZ4q2NQ/c1ssscQt1EXIs4+OwQh9ZFZJt5BPse13I42GM/uC725Ntl358Ut9beHZiTOMeWqc9+oC4Qy5199nc18so+lnBjJZ0t5xXq4qA4UGPcB+bpnec5HIq4sYvNljg4liNd84M+gO9yfMzhBffHHvzAeuUr58iqJw8RP+A78tQyl2gcp8PXVZ4RwH/kW/dgma55wnc94tC8nGSX7SOP2qetmWQTfVjL/vOaHnFwXtRntm/NGdZvW7ruica+TO9zT0sczIVF9OfUFNZpzEe6coBzpbnj2m7dD81pNF8r//WpZwXHqOjVP6z6jmDVkvVez71oLq6JQ/teCbT3qZ6cPqlrP/F/8JPQObmFHzUzai/onNzKj9Z7hOh+4e7OwntfKnd3AJbu2vsF5QF07cY38KVU+A7Am1Vr7hq0jlQXzyrA3KGuvFk1umvwzlHlAXShT2odtNaVN6vWnOkq1r2J9sQeddXb70i8uFp0fVv+ki/fkB+BXR2F
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="50" height="38">
+  <data encoding="base64" compression="zlib">
+   eJzt1EEKgCAQRmEXuapVR+8yXS8khAgincb8o/fB7ETmIRgCAAD14qA9NR2q6NBChxY6tPTsWGe/u3gPLXRooeOZ9Ffl8cB7aKFDCx12x7/K68/iPbT8sQPfFqd9ltE2vfc+j7Xjra5099XuLTq8ukp2bjF577tzpTbtizC0
+  </data>
+ </layer>
+ <layer name="Exit" width="50" height="38">
+  <data encoding="base64" compression="zlib">
+   eJztzzENADAIAEH2+pdRjyjo0IFAyJ2C/wgAAAAAAIBd7ukuePtp81HPxyyT26okY84HMQ==
+  </data>
+ </layer>
+</map>

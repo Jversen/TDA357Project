@@ -37,6 +37,7 @@ public class HeroController {
 
         PolygonShape boundingBox = new PolygonShape();
         boundingBox.setAsBox(10 / PPM, 10 / PPM); //temporary values, should be dependent on sprite size
+
         // FixtureDef sets physical properties
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boundingBox;
@@ -55,17 +56,8 @@ public class HeroController {
     public void update(ArrayList<Integer> keys){
         checkJumping();
         updateMoves(keys);
-        checkBounds();
     }
 
-    private void checkBounds() {
-        if(hero.getX() < 0) {
-            hero.setX(0);
-        }
-        if(hero.getX() > 640) {
-            hero.setX(640);
-        }
-    }
 
     //TODO: rewrite when box2d-ground is properly implemented
     private void checkJumping() {

@@ -15,13 +15,14 @@ public class Controller {
     private AIController aiController;
 
     private Hero hero = Hero.getInstance();
-    private Map map = new Map();
+    private Map map;
 
     public Controller() {
         init();
     }
 
     private void init() {
+        map = new Map();
         heroController = new HeroController();
         worldController = new WorldController();
         userInput = new UserInput();

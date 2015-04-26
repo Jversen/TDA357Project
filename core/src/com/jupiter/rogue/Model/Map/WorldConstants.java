@@ -14,11 +14,11 @@ public final class WorldConstants {
     public static final float PPM = 32f; //Pixels per meter conversion unit
     private Position HERO_START_POSITION = new Position(75,200);
     private Vector2 HERO_JUMP_VECTOR = new Vector2(0, 10f);
-    private float GRAVITY = 10f;
+    private float GRAVITY = -10f;
     private World world;
 
     private WorldConstants() {
-        world = new World(new Vector2(0, -GRAVITY), true);
+        world = new World(new Vector2(0, GRAVITY), true);
     }
 
 
