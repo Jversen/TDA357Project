@@ -1,9 +1,6 @@
 package com.jupiter.rogue.Controller;
 
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.*;
 
 /**
  * Created by hilden on 2015-04-26.
@@ -13,7 +10,11 @@ public class MyContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.print("Contact started");
+
+        Fixture fa = contact.getFixtureA(); //room                     **********JOHANNES*************
+        Fixture fb = contact.getFixtureB(); //hero
+
+        //System.out.print(fa.getUserData() + ", " + fb.getUserData());
     }
 
     @Override

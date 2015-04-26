@@ -75,7 +75,7 @@ public class Room {
                 shape.setAsBox(tileSize/2 / PPM, tileSize/2 / PPM);
                 fixtureDef.shape = shape;
 
-                body.createFixture(fixtureDef);
+                body.createFixture(fixtureDef).setUserData("room"); //naming the roomfixture room.
 
                 shape.dispose();
             }

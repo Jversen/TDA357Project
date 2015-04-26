@@ -48,7 +48,8 @@ public class HeroController {
         fixtureDef.restitution = 0.0f;
 
         Body body = worldHolder.getInstance().getWorld().createBody(bodyDef);
-        body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData("hero"); //naming the herofixture hero.
+
 
         hero.setBody(body);
 
