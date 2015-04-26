@@ -28,8 +28,6 @@ public class Controller {
         userInput = new UserInput();
         modelController = new ModelController();
         aiController = new AIController();
-
-        heroController.initHero();
         //TODO initialize everything at start of game
     }
 

@@ -3,6 +3,7 @@ package com.jupiter.rogue.Model.Creatures;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.MathUtils;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
@@ -53,8 +54,22 @@ public class Hero extends Creature {
         currentFrame = animation.getKeyFrame(stateTime, true);
 
         spriteBatch.begin();
-        spriteBatch.draw(currentFrame, (getX() * PPM) - (currentFrame.getRegionWidth() / 2),
-                (getY() * PPM) - (currentFrame.getRegionHeight() / 2));
+
+        /* Draws the current frame of the hero animation, at position x,y of it's body
+        scaled to the PPM, its origin offset (for scaling and rotating) at half the body
+        (A bit unsure about that, got it right by experimenting),
+        full size of the textureregion, and finally scaled to PPM and rotated to match
+        the rotation of the body.
+         */
+        spriteBatch.draw(currentFrame,
+                getX() * PPM,
+                getY() * PPM,
+                0.5f,
+                0.5f,
+                1f, 1f,
+                PPM, PPM,
+                getBody().getAngle() * MathUtils.radiansToDegrees);
+
         spriteBatch.end();
     }
 
