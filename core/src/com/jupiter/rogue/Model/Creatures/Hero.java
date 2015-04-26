@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
+import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 
 /**
  * Created by Johan on 16/04/15.
@@ -52,7 +53,8 @@ public class Hero extends Creature {
         currentFrame = animation.getKeyFrame(stateTime, true);
 
         spriteBatch.begin();
-        spriteBatch.draw(currentFrame, getX(), getY());
+        spriteBatch.draw(currentFrame, (getX() * PPM) - (currentFrame.getRegionWidth() / 2),
+                (getY() * PPM) - (currentFrame.getRegionHeight() / 2));
         spriteBatch.end();
     }
 
