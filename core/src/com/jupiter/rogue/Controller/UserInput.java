@@ -33,15 +33,15 @@ public class UserInput {
 
         if (spacePressed) {
             keys.add(Input.Keys.SPACE);
-            System.out.println("Space");
+            //System.out.println("Space");
         }
         if (leftPressed) {
             keys.add(Input.Keys.LEFT);
-            System.out.println("Left");
+            //System.out.println("Left");
         }
         if (rightPressed) {
             keys.add(Input.Keys.RIGHT);
-            System.out.println("Right");
+            //System.out.println("Right");
         }
 
 

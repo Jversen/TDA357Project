@@ -9,6 +9,8 @@ import com.jupiter.rogue.Model.Creatures.Hero;
 public class MyContactListener implements ContactListener {
 
     private Hero hero;
+    private Fixture fa;
+    private Fixture fb;
 
 
     public MyContactListener() {
@@ -18,16 +20,26 @@ public class MyContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
 
-        Fixture fa = contact.getFixtureA(); //room                     **********JOHANNES*************
-        Fixture fb = contact.getFixtureB(); //hero
-        hero.getInstance().setGrounded(true);
-        System.out.print(fa.getUserData() + ", " + fb.getUserData());
+        fa = contact.getFixtureA();
+        fb = contact.getFixtureB();
+
+        if (fa.getUserData().equals("foot") || fb.getUserData().equals("foot")) {
+            hero.getInstance().setGrounded(true);
+            System.out.println("Contact started");
+        }
+       // System.out.println(fa.getUserData() + ", " + fb.getUserData());
     }
 
     @Override
     public void endContact(Contact contact) {
-        System.out.print("Contact stopped");
-        hero.getInstance().setGrounded(false);
+
+        fa = contact.getFixtureA();
+        fb = contact.getFixtureB();
+
+        if ((fa.getUserData().equals("foot") || fb.getUserData().equals("room")) || (fa.getUserData().equals("room") || fb.getUserData().equals("foot"))) {
+            hero.getInstance().setGrounded(false);
+            System.out.println("Contact stopped");
+        }
     }
 
     @Override

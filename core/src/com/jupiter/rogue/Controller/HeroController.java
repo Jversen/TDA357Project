@@ -56,12 +56,12 @@ public class HeroController {
 
 
         //creates a sensor at the players feet
-        shape.setAsBox(4 / PPM, 1 / PPM, new Vector2(0, -15 / PPM), 0);
+        shape.setAsBox(10 / PPM, 1 / PPM, new Vector2(0, -18 / PPM), 0);
 
         FixtureDef feetSensorFixtureDef = new FixtureDef();
         feetSensorFixtureDef.shape = shape;
         feetSensorFixtureDef.isSensor = true;
-        playerBody.createFixture(feetSensorFixtureDef).setUserData("feet");
+        playerBody.createFixture(feetSensorFixtureDef).setUserData("foot");
 
 
         //disposes shape to save memory
