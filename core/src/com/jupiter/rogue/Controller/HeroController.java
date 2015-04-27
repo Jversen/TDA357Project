@@ -2,6 +2,7 @@ package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Position;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 public class HeroController {
 
     private Hero hero;
-    private WorldHolder worldHolder;
 
     public HeroController() {
         initHero();
@@ -32,29 +32,40 @@ public class HeroController {
 
         Position startPosition = WorldConstants.HERO_START_POSITION;
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.fixedRotation = true;
+        //creates a shapeless body for the player
+        BodyDef playerBodyDef = new BodyDef();
+        playerBodyDef.type = BodyDef.BodyType.DynamicBody;
+        playerBodyDef.fixedRotation = true;
+        playerBodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
 
-        bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
-
-        PolygonShape boundingBox = new PolygonShape();
-        boundingBox.setAsBox(10 / PPM, 10 / PPM); //temporary values, should be dependent on sprite size
+        //creates the shape of the playerBodyDef
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(10 / PPM, 15 / PPM); //temporary values, should be dependent on sprite size
 
         // FixtureDef sets physical properties
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = boundingBox;
-        fixtureDef.density = 1f;
-        fixtureDef.friction = 0.95f;
-        fixtureDef.restitution = 0.0f;
+        FixtureDef playerFixtureDef = new FixtureDef();
+        playerFixtureDef.shape = shape;
+        playerFixtureDef.density = 1f;
+        playerFixtureDef.friction = 1.55f;
+        playerFixtureDef.restitution = 0.0f;
 
-        Body body = worldHolder.getInstance().getWorld().createBody(bodyDef);
-        body.createFixture(fixtureDef).setUserData("hero"); //naming the herofixture hero.
+        //puts the player body into the world
+        Body playerBody = WorldHolder.getInstance().getWorld().createBody(playerBodyDef);
+        playerBody.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
+        hero.setBody(playerBody);
 
 
-        hero.setBody(body);
+        //creates a sensor at the players feet
+        shape.setAsBox(4 / PPM, 1 / PPM, new Vector2(0, -15 / PPM), 0);
 
-        boundingBox.dispose();
+        FixtureDef feetSensorFixtureDef = new FixtureDef();
+        feetSensorFixtureDef.shape = shape;
+        feetSensorFixtureDef.isSensor = true;
+        playerBody.createFixture(feetSensorFixtureDef).setUserData("feet");
+
+
+        //disposes shape to save memory
+        shape.dispose();
     }
 
     public void update(ArrayList<Integer> keys){

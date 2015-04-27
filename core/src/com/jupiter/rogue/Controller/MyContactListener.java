@@ -21,7 +21,7 @@ public class MyContactListener implements ContactListener {
         Fixture fa = contact.getFixtureA(); //room                     **********JOHANNES*************
         Fixture fb = contact.getFixtureB(); //hero
         hero.getInstance().setGrounded(true);
-        //System.out.print(fa.getUserData() + ", " + fb.getUserData());
+        System.out.print(fa.getUserData() + ", " + fb.getUserData());
     }
 
     @Override
