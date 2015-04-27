@@ -34,6 +34,7 @@ public class HeroController {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.fixedRotation = true;
 
         bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
 
@@ -44,7 +45,7 @@ public class HeroController {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = boundingBox;
         fixtureDef.density = 1f;
-        fixtureDef.friction = 0.9f;
+        fixtureDef.friction = 0.8f;
         fixtureDef.restitution = 0.0f;
 
         Body body = worldHolder.getInstance().getWorld().createBody(bodyDef);
