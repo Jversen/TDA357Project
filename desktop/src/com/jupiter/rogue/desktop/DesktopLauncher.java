@@ -7,6 +7,8 @@ import com.jupiter.rogue.Rogue;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 384;
+        config.height = 216;
 		new LwjglApplication(new Rogue(), config);
 	}
 }

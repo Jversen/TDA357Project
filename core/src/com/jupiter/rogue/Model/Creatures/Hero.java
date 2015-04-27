@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
@@ -83,9 +84,16 @@ public class Hero extends Creature {
         if(walkingIsPossible(direction, getPosition())) {
 
             if(direction == Direction.RIGHT) {
-                getBody().setLinearVelocity(2, getBody().getLinearVelocity().y);
+                //
+                getBody().applyLinearImpulse(new Vector2(2f,0f), body.getPosition(), true);
+                if(getBody().getLinearVelocity().x > 2f) {
+                    getBody().setLinearVelocity(2, getBody().getLinearVelocity().y);
+                }
             } else {
-                getBody().setLinearVelocity(-2, getBody().getLinearVelocity().y);
+                getBody().applyLinearImpulse(new Vector2(-2f,0f), body.getPosition(), true);
+                if(getBody().getLinearVelocity().x < -2f) {
+                    getBody().setLinearVelocity(-2, getBody().getLinearVelocity().y);
+                }
             }
         }
     }
