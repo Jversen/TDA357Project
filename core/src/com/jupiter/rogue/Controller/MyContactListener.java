@@ -8,20 +8,26 @@ import com.jupiter.rogue.Model.Creatures.Hero;
  */
 public class MyContactListener implements ContactListener {
 
+    private Hero hero;
+
+
+    public MyContactListener() {
+        hero = Hero.getInstance();
+    }
 
     @Override
     public void beginContact(Contact contact) {
 
         Fixture fa = contact.getFixtureA(); //room                     **********JOHANNES*************
         Fixture fb = contact.getFixtureB(); //hero
-        Hero.getInstance().setGrounded(true);
+        hero.getInstance().setGrounded(true);
         //System.out.print(fa.getUserData() + ", " + fb.getUserData());
     }
 
     @Override
     public void endContact(Contact contact) {
         System.out.print("Contact stopped");
-        Hero.getInstance().setGrounded(false);
+        hero.getInstance().setGrounded(false);
     }
 
     @Override
