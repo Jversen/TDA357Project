@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
+import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
+import com.jupiter.rogue.Model.Map.Position;
+
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 
 /**
@@ -38,15 +41,8 @@ public class Hero extends Creature {
     private void initAnimation() {
         spriteSheet = new Texture(Gdx.files.internal("Data//pixHeroAtlas.png"));
         atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");
-
-        createPhysics();
-
         animation = new Animation(1/15f, atlas.getRegions());
         stateTime = 0f;
-    }
-
-    private void createPhysics() {
-
     }
 
     public void updateAnimation(float deltaTime){
@@ -78,6 +74,37 @@ public class Hero extends Creature {
             instance = new Hero(100,100);
         }
         return instance;
+    }
+
+    public void walk(Direction direction) {
+        setMovementState(MovementState.WALKING);
+        setDirection(direction);
+
+        if(walkingIsPossible(direction, getPosition())) {
+
+            if(direction == Direction.RIGHT) {
+                getBody().setLinearVelocity(2, getBody().getLinearVelocity().y);
+            } else {
+                getBody().setLinearVelocity(-2, getBody().getLinearVelocity().y);
+            }
+        }
+    }
+
+    public boolean walkingIsPossible(Direction direction, Position heroPosition) {
+        return true;
+    }
+
+    public void jump() {
+        setMovementState(MovementState.JUMPING);
+        getBody().setLinearVelocity(getBody().getLinearVelocity().x, 6);
+    }
+
+    public void relax() {
+        setMovementState(MovementState.STANDING);
+    }
+
+    public void attack() {
+        System.out.println("attack!");
     }
 
 

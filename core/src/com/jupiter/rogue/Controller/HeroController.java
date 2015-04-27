@@ -73,50 +73,18 @@ public class HeroController {
 
     private void updateMoves(ArrayList<Integer> keys) {
         if(keys.contains(Input.Keys.LEFT) && !keys.contains(Input.Keys.RIGHT)) {
-            walk(Direction.LEFT);
+            hero.walk(Direction.LEFT);
         }
         if(!keys.contains(Input.Keys.LEFT) && keys.contains(Input.Keys.RIGHT)) {
-            walk(Direction.RIGHT);
+            hero.walk(Direction.RIGHT);
         }
         if(keys.contains(Input.Keys.SPACE)) {
-            jump();
+            hero.jump();
         }
         if(keys.isEmpty()) {
-            relax();
+            hero.relax();
         }
     }
 
-    public void walk(Direction direction) {
-        hero.setMovementState(MovementState.WALKING);
-        hero.setDirection(direction);
 
-        if(walkingIsPossible(direction, hero.getPosition())) {
-
-            if(direction == Direction.RIGHT) {
-                hero.getBody().setLinearVelocity(2, hero.getBody().getLinearVelocity().y);
-            } else {
-                hero.getBody().setLinearVelocity(-2, hero.getBody().getLinearVelocity().y);
-            }
-        }
-    }
-
-    private boolean walkingIsPossible(Direction direction, Position heroPosition) {
-        return true;
-    }
-
-    private void jump() {
-        //if(hero.isGrounded()) {
-            //hero.setGrounded(false);
-            hero.setMovementState(MovementState.JUMPING);
-            hero.getBody().setLinearVelocity(hero.getBody().getLinearVelocity().x, 6);
-        //}
-    }
-
-    private void relax() {
-        hero.setMovementState(MovementState.STANDING);
-    }
-
-    public void attack() {
-        System.out.println("attack!");
-    }
 }
