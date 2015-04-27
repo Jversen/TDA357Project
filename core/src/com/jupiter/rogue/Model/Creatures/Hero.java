@@ -95,8 +95,10 @@ public class Hero extends Creature {
     }
 
     public void jump() {
-        setMovementState(MovementState.JUMPING);
-        getBody().setLinearVelocity(getBody().getLinearVelocity().x, 6);
+        if(isGrounded) {
+            setMovementState(MovementState.JUMPING);
+            getBody().setLinearVelocity(getBody().getLinearVelocity().x, 6);
+        }
     }
 
     public void relax() {
