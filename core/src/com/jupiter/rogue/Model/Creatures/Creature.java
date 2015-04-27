@@ -24,7 +24,7 @@ public abstract class Creature {
     protected Direction direction = Direction.RIGHT;
     protected boolean isGrounded;
 
-
+    protected Sprite sprite;
     protected Texture spriteSheet;
     protected TextureAtlas atlas;
     protected TextureRegion currentFrame;

@@ -10,8 +10,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.jupiter.rogue.Controller.AIController;
 import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Map.Map;
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 
@@ -65,6 +67,11 @@ public class View {
         //TODO: FIX IT
 
         Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
+        AIController.redDeath1.render();
+        AIController.redDeath2.render();
+
+
+
 /*
         batch.begin();
         heroSprite.draw(batch);
