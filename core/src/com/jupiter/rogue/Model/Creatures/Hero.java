@@ -28,6 +28,7 @@ public class Hero extends Creature {
 
     private Hero (float xPos, float yPos) {
 
+        this.nbrOfPlatformsTouched = 0;
         scale = 1f;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
@@ -103,7 +104,7 @@ public class Hero extends Creature {
     }
 
     public void jump() {
-        if(isGrounded) {
+        if(heroIsGrounded()) {
             setMovementState(MovementState.JUMPING);
             getBody().setLinearVelocity(getBody().getLinearVelocity().x, 6);
         }

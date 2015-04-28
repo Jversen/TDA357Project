@@ -22,7 +22,7 @@ public abstract class Creature {
     protected float verticalSpeed;
     protected MovementState movementState = MovementState.STANDING;
     protected Direction direction = Direction.RIGHT;
-    protected boolean isGrounded;
+    protected int nbrOfPlatformsTouched;  //A variable to track how many platform the players feet are currently in contact with.
 
     protected Sprite sprite;
     protected Texture spriteSheet;
@@ -38,8 +38,20 @@ public abstract class Creature {
     protected float scale; //sets creature sprite scaling constant
     protected Rectangle bounds = new Rectangle();
 
-    public void setGrounded(boolean bool) {
-        isGrounded = bool;
+    public boolean heroIsGrounded() {
+        if (nbrOfPlatformsTouched > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void incNbrOfPlatforms() {
+        nbrOfPlatformsTouched++;
+    }
+
+    public void decNbrOfPlatforms() {
+        nbrOfPlatformsTouched--;
     }
 
     public Position getPosition() {

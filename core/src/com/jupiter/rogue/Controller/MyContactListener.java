@@ -24,10 +24,8 @@ public class MyContactListener implements ContactListener {
         fb = contact.getFixtureB();
 
         if (fa.getUserData().equals("foot") || fb.getUserData().equals("foot")) {
-            hero.getInstance().setGrounded(true);
-            System.out.println("Contact started");
+            hero.incNbrOfPlatforms();
         }
-       // System.out.println(fa.getUserData() + ", " + fb.getUserData());
     }
 
     @Override
@@ -36,9 +34,9 @@ public class MyContactListener implements ContactListener {
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
 
-        if ((fa.getUserData().equals("foot") || fb.getUserData().equals("room")) || (fa.getUserData().equals("room") || fb.getUserData().equals("foot"))) {
-            hero.getInstance().setGrounded(false);
-            System.out.println("Contact stopped");
+        if ((fa.getUserData().equals("foot") && fb.getUserData().equals("room")) ||
+                (fa.getUserData().equals("room") && fb.getUserData().equals("foot"))) {
+            hero.decNbrOfPlatforms();
         }
     }
 

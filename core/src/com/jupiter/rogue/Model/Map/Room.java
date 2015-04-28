@@ -48,6 +48,28 @@ public class Room {
 
         BodyDef bodyDef = new BodyDef();
         TiledMapTileLayer layer = room.layer;
+/*
+        for (int row = 0; row < layer.getHeight(); row++) {
+
+            //reset count
+            int tileSize = 0;
+
+            for (int col = 0; col < layer.getWidth(); col++) {
+
+
+
+                Cell cell = layer.getCell(col, row);
+
+                if (cell == null || cell.getTile() == null){
+                    continue;
+                }
+
+                cell.
+
+
+            }
+        }
+*/
 
         for (int row = 0; row < layer.getHeight(); row++){
             for (int col = 0; col < layer.getWidth(); col++){
