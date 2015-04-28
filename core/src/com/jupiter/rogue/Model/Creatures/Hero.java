@@ -27,6 +27,7 @@ public class Hero extends Creature {
     private RangedWeapon rangedWeapon;
 
     private Hero (float xPos, float yPos) {
+        sprite = new Sprite();
 
         this.nbrOfPlatformsTouched = 0;
         scale = 1f;
@@ -50,8 +51,10 @@ public class Hero extends Creature {
     public void updateAnimation(float deltaTime){
         stateTime += deltaTime;
         currentFrame = animation.getKeyFrame(stateTime, true);
+        sprite.setRegion(currentFrame);
+        sprite.setPosition(body.getPosition().x*PPM, body.getPosition().y*PPM);
+        body.setUserData(sprite);
 
-        spriteBatch.begin();
 
         /* Draws the current frame of the hero animation, at position x,y of it's body
         scaled to the PPM, its origin offset (for scaling and rotating) at half the body
@@ -59,6 +62,7 @@ public class Hero extends Creature {
         full size of the textureregion, and finally scaled to PPM and rotated to match
         the rotation of the body.
          */
+        spriteBatch.begin();
         spriteBatch.draw(currentFrame,
                 getX() * PPM,
                 getY() * PPM,
@@ -69,6 +73,7 @@ public class Hero extends Creature {
                 getBody().getAngle() * MathUtils.radiansToDegrees);
 
         spriteBatch.end();
+
     }
 
     public static Hero getInstance() {

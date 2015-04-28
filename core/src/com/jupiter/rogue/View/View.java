@@ -52,31 +52,38 @@ public class View {
         tiledMapRenderer = map.getCurrentRoom().getTiledMapRenderer();
 
         camera.setToOrtho(false, w, h);
-        b2dCam.setToOrtho(false, w / PPM, h / PPM); //Scaling up the box2D camera
+        moveCamera();
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
-        debugRenderer.render(wc.getWorld(), b2dCam.combined);
-        camera.update();
-        b2dCam.update();
+
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
+        camera.setToOrtho(false, w / PPM, h / PPM);
+        moveB2DCamera();
+
+        debugRenderer.render(wc.getWorld(), camera.combined);
+
         //TODO: FIX IT
 
+        moveCamera();
         Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
         AIController.redDeath1.render();
         AIController.redDeath2.render();
 
 
+    }
 
-/*
-        batch.begin();
-        heroSprite.draw(batch);
-        batch.end();*/
+    private void moveCamera(){
+        camera.position.set(Hero.getInstance().getX()*PPM, Hero.getInstance().getY()*PPM, 0);
+        camera.update();
+        System.out.println(camera.position.x);
+    }
 
-
+    private void moveB2DCamera() {
+        camera.position.set(Hero.getInstance().getX(), Hero.getInstance().getY(), 0);
+        camera.update();
     }
 }
