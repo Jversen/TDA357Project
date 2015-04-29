@@ -11,6 +11,7 @@ import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Model.Map.Position;
 
+
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 
 /**
@@ -18,6 +19,8 @@ import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
  */
 @lombok.Data
 public class Hero extends Creature {
+
+
 
     // Singleton-instance of hero
     private static Hero instance = null;
@@ -42,9 +45,10 @@ public class Hero extends Creature {
     }
 
     private void initAnimation() {
-        spriteSheet = new Texture(Gdx.files.internal("Data//pixHeroAtlas.png"));
-        atlas = new TextureAtlas("Data//pixHeroAtlas.atlas");
-        animation = new Animation(1/15f, atlas.getRegions());
+
+        spriteSheet = new Texture(Gdx.files.internal("Data//HeroRunning//HeroRunningRight.png"));
+        atlas = new TextureAtlas("Data//HeroRunning//HeroRunningRight.atlas");
+        animation = new Animation(1/10f, atlas.getRegions());
         stateTime = 0f;
     }
 
@@ -62,7 +66,7 @@ public class Hero extends Creature {
         full size of the textureregion, and finally scaled to PPM and rotated to match
         the rotation of the body.
          */
-        /*spriteBatch.begin();
+        spriteBatch.begin();
         spriteBatch.draw(currentFrame,
                 getX() * PPM,
                 getY() * PPM,
@@ -72,7 +76,7 @@ public class Hero extends Creature {
                 PPM, PPM,
                 getBody().getAngle() * MathUtils.radiansToDegrees);
 
-        spriteBatch.end();*/
+        spriteBatch.end();
 
     }
 
