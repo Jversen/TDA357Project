@@ -62,7 +62,7 @@ public class Hero extends Creature {
         full size of the textureregion, and finally scaled to PPM and rotated to match
         the rotation of the body.
          */
-        spriteBatch.begin();
+        /*spriteBatch.begin();
         spriteBatch.draw(currentFrame,
                 getX() * PPM,
                 getY() * PPM,
@@ -72,7 +72,7 @@ public class Hero extends Creature {
                 PPM, PPM,
                 getBody().getAngle() * MathUtils.radiansToDegrees);
 
-        spriteBatch.end();
+        spriteBatch.end();*/
 
     }
 

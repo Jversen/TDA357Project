@@ -60,16 +60,23 @@ public class View {
 
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+        Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
+
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        //sprite.draw(batch);
+        batch.draw(Hero.getInstance().getCurrentFrame().getTexture(), Hero.getInstance().getX(), Hero.getInstance().getY());
+        batch.end();
 
         camera.setToOrtho(false, w / PPM, h / PPM);
+
         moveB2DCamera();
 
         debugRenderer.render(wc.getWorld(), camera.combined);
 
         //TODO: FIX IT
 
-        moveCamera();
-        Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
+
         AIController.redDeath1.render();
         AIController.redDeath2.render();
 

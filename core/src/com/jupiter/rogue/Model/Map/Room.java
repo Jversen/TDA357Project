@@ -37,17 +37,13 @@ public class Room {
         tileSize = layer.getTileWidth();
         System.out.println(tileSize);
 
-        createTileBodies(this);
-
-
     }
 
     /* Create static bodies for every tile in layer 'layer'. Update later to support
     different kinds of layers. */
-    private void createTileBodies(Room room){
+    public void createTileBodies(){
 
         BodyDef bodyDef = new BodyDef();
-        TiledMapTileLayer layer = room.layer;
 /*
         for (int row = 0; row < layer.getHeight(); row++) {
 
@@ -108,4 +104,7 @@ public class Room {
     }
 
 
+    public void initRoom() {
+        createTileBodies();
+    }
 }
