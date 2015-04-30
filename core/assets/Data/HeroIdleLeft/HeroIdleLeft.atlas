@@ -1,0 +1,13 @@
+
+HeroIdleLeft.png
+size: 64,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+HeroStillLeft
+  rotate: false
+  xy: 2, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1

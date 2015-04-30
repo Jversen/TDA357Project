@@ -1,0 +1,76 @@
+
+HeroRunningLeft.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+HeroRunLeft
+  rotate: false
+  xy: 2, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft1
+  rotate: false
+  xy: 34, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft2
+  rotate: false
+  xy: 66, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft3
+  rotate: false
+  xy: 98, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft4
+  rotate: false
+  xy: 130, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft5
+  rotate: false
+  xy: 162, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft6
+  rotate: false
+  xy: 194, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft7
+  rotate: false
+  xy: 226, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft8
+  rotate: false
+  xy: 258, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+HeroRunLeft9
+  rotate: false
+  xy: 290, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1

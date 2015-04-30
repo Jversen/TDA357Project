@@ -97,6 +97,4 @@ public class HeroController {
             hero.relax();
         }
     }
-
-
 }

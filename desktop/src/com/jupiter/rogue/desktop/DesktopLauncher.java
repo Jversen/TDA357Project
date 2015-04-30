@@ -9,7 +9,7 @@ import com.jupiter.rogue.Rogue;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 
-		//TexturePacker.process("Data//HeroRunning", "Data//HeroRunning", "HeroRunningRight");  //Göra Atlasfil
+	//	TexturePacker.process("Data//HeroRunningLeft", "Data//HeroRunningLeft", "HeroRunningLeft");  //Göra Atlasfil
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 384;
