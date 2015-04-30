@@ -1,17 +1,18 @@
 package com.jupiter.rogue.Model.Creatures;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.jupiter.rogue.Model.Map.WorldHolder;
 import com.badlogic.gdx.Gdx;
+import com.jupiter.rogue.Rogue;
+import com.jupiter.rogue.View.View;
 
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 
@@ -20,6 +21,12 @@ import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
  */
 @lombok.Data
 public class RedDeath extends Enemy {
+
+    private BodyDef redDeathBodyDef;
+    private PolygonShape shape;
+    private FixtureDef redDeathFixtureDef;
+    private Body redDeathBody;
+    Array<Body> bodies = new Array<Body>();
 
     public RedDeath(float x, float y){
 
@@ -31,11 +38,20 @@ public class RedDeath extends Enemy {
         redDeathBodyDef.fixedRotation = true;
         redDeathBodyDef.position.set(x / PPM, y / PPM);
 
-        Body redDeathBody = WorldHolder.getInstance().getWorld().createBody(redDeathBodyDef);
+        shape = new PolygonShape();
+        shape.setAsBox(10 / PPM, 15 / PPM);
 
+        redDeathFixtureDef = new FixtureDef();
+        redDeathFixtureDef.shape = shape;
+        redDeathFixtureDef.density = 1f;
+        redDeathFixtureDef.friction = 1.55f;
+        redDeathFixtureDef.restitution = 0.0f;
+
+        redDeathBody = WorldHolder.getInstance().getWorld().createBody(redDeathBodyDef);
+        redDeathBody.createFixture(redDeathFixtureDef).setUserData("Red Death");
         this.setBody(redDeathBody);
 
-        setPosition(x, y);
+        //setPosition(x, y);
 
         // Creates the texture for this enemy
 
@@ -50,6 +66,7 @@ public class RedDeath extends Enemy {
         pixmap.dispose();
         /////////////////////
         sprite = new Sprite(spriteSheet);
+        redDeathBody.setUserData(sprite);
 
 
 
@@ -63,9 +80,11 @@ public class RedDeath extends Enemy {
     }
 
     public void render(){
+
         spriteBatch.begin();
-        sprite.setPosition(this.getX(), this.getY());
         sprite.draw(spriteBatch);
+        sprite = (Sprite) redDeathBody.getUserData();
+        sprite.setPosition(redDeathBody.getPosition().x, redDeathBody.getPosition().y);
         spriteBatch.end();
     }
 

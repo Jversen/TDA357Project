@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.jupiter.rogue.Controller.AIController;
@@ -20,6 +21,7 @@ import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 /**
  * Created by oskar on 17/04/2015.
  */
+@lombok.Data
 public class View {
 
     private Texture img;
@@ -73,6 +75,8 @@ public class View {
         moveB2DCamera();
 
         debugRenderer.render(wc.getWorld(), camera.combined);
+
+
 
         //TODO: FIX IT
 
