@@ -55,12 +55,12 @@ public class RedDeath extends Enemy {
 
         // Creates the texture for this enemy
 
-        Pixmap pixmap = new Pixmap(25, 50, Pixmap.Format.RGBA8888);
+        Pixmap pixmap = new Pixmap(20, 30, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.RED);
         pixmap.fill();
 
         pixmap.setColor(Color.YELLOW);
-        pixmap.drawCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 4, pixmap.getWidth() / 2);
+        pixmap.drawCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 3, pixmap.getWidth() / 2);
 
         spriteSheet = new Texture(pixmap);
         pixmap.dispose();
@@ -84,7 +84,8 @@ public class RedDeath extends Enemy {
         spriteBatch.begin();
         sprite.draw(spriteBatch);
         sprite = (Sprite) redDeathBody.getUserData();
-        sprite.setPosition(redDeathBody.getPosition().x, redDeathBody.getPosition().y);
+
+            sprite.setPosition((redDeathBody.getPosition().x*PPM) - 10, (redDeathBody.getPosition().y*PPM) - 15);
         spriteBatch.end();
     }
 
