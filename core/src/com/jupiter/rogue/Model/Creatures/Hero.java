@@ -29,9 +29,9 @@ public class Hero extends Creature {
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
 
-    private Animation runningAnimationRight;  //Possibly move to creature.
+    private Animation runningAnimation;  //Possibly move to creature.
     private Animation runningAnimationLeft;
-    private Animation idleAnimationRight;
+    private Animation idleAnimation;
     private Animation idleAnimationLeft;
     private Animation currentAnimation;
 
@@ -52,22 +52,14 @@ public class Hero extends Creature {
 
     private void initAnimation() {
 
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroRunningRight//HeroRunningRight.png"));
-        atlas = new TextureAtlas("Data//HeroRunningRight//HeroRunningRight.atlas");
-        runningAnimationRight = new Animation(1/10f, atlas.getRegions());
+        spriteSheet = new Texture(Gdx.files.internal("Data//HeroRunning//HeroRunningRight.png"));
+        atlas = new TextureAtlas("Data//HeroRunning//HeroRunningRight.atlas");
+        runningAnimation = new Animation(1/10f, atlas.getRegions());
         stateTime = 0f;
 
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroRunningLeft//HeroRunningLeft.png"));
-        atlas = new TextureAtlas("Data//HeroRunningLeft//HeroRunningLeft.atlas");
-        runningAnimationLeft = new Animation(1/10f, atlas.getRegions());
-
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdleRight//HeroIdleRight.png"));
-        atlas = new TextureAtlas("Data//HeroIdleRight//HeroIdleRight.atlas");
-        idleAnimationRight = new Animation(1, atlas.getRegions());
-
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdleLeft//HeroIdleLeft.png"));
-        atlas = new TextureAtlas("Data//HeroIdleLeft//HeroIdleLeft.atlas");
-        idleAnimationLeft = new Animation(1, atlas.getRegions());
+        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdle//HeroIdleRight.png"));
+        atlas = new TextureAtlas("Data//HeroIdle//HeroIdleRight.atlas");
+        idleAnimation = new Animation(1, atlas.getRegions());
     }
 
     public void updateAnimation(float deltaTime){
@@ -76,9 +68,8 @@ public class Hero extends Creature {
         stateTime += deltaTime;
         currentFrame = animation.getKeyFrame(stateTime, true);
         sprite.setRegion(currentFrame);
-        sprite.setPosition(body.getPosition().x*PPM, body.getPosition().y*PPM);
+        sprite.setPosition(body.getPosition().x * PPM, body.getPosition().y * PPM);
         body.setUserData(sprite);
-
 
         /* Draws the current frame of the hero animation, at position x,y of it's body
         scaled to the PPM, its origin offset (for scaling and rotating) at half the body
@@ -93,11 +84,20 @@ public class Hero extends Creature {
                 0.5f,
                 0.5f,
                 1f, 1f,
-                PPM, PPM,
+                getDirValue() * PPM, PPM,
                 getBody().getAngle() * MathUtils.radiansToDegrees);
 
         spriteBatch.end();
+    }
 
+    //Returns an int value of the enum Direction. -1 for left, 1 for right.
+    //Added to help set the spritescale to negative if walking left.
+    private int getDirValue() {
+        if (direction == Direction.LEFT) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     private void setCurrentAnimation(Animation a) {
@@ -122,14 +122,14 @@ public class Hero extends Creature {
         if(walkingIsPossible(direction, getPosition())) {
 
             if(direction == Direction.RIGHT) {
-                setCurrentAnimation(runningAnimationRight);  //Sets the animation
+                setCurrentAnimation(runningAnimation);  //Sets the animation
 
                 getBody().applyLinearImpulse(new Vector2(2f,0f), body.getPosition(), true);
                 if(getBody().getLinearVelocity().x > 2f) {
                     getBody().setLinearVelocity(2, getBody().getLinearVelocity().y);
                 }
             } else {
-                setCurrentAnimation(runningAnimationLeft); //Sets the animation
+                setCurrentAnimation(runningAnimation); //Sets the animation
 
                 getBody().applyLinearImpulse(new Vector2(-2f,0f), body.getPosition(), true);
                 if(getBody().getLinearVelocity().x < -2f) {
@@ -152,9 +152,9 @@ public class Hero extends Creature {
 
     public void relax() {
         if (direction == Direction.RIGHT) {
-            setCurrentAnimation(idleAnimationRight);
+            setCurrentAnimation(idleAnimation);
         } else if (direction == Direction.LEFT) {
-            setCurrentAnimation(idleAnimationLeft);
+            setCurrentAnimation(idleAnimation);
         }
         setMovementState(MovementState.STANDING);
     }
