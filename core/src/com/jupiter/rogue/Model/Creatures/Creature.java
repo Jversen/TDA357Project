@@ -38,7 +38,7 @@ public abstract class Creature {
     protected float scale; //sets creature sprite scaling constant
     protected Rectangle bounds = new Rectangle();
 
-    public boolean heroIsGrounded() {
+    public boolean creatureIsGrounded() {
         if (nbrOfPlatformsTouched > 0) {
             return true;
         } else {

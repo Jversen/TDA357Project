@@ -144,7 +144,7 @@ public class Hero extends Creature {
     }
 
     public void jump() {
-        if(heroIsGrounded()) {
+        if(creatureIsGrounded()) {
             setMovementState(MovementState.JUMPING);
             getBody().setLinearVelocity(getBody().getLinearVelocity().x, 6);
         }
@@ -162,6 +162,4 @@ public class Hero extends Creature {
     public void attack() {
         System.out.println("attack!");
     }
-
-
 }
