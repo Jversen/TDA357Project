@@ -3,7 +3,7 @@ package com.jupiter.rogue.View;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
@@ -13,8 +13,9 @@ import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 /**
  * Created by hilden on 2015-05-04.
  */
-public class HeroView {
-
+public class EnemyView {                          //************ ADD VARIABLE IN ROOM TO TRACK THE NBR Of AND WHAT TYPE OF ENEMIES IT HOLDS. READ FROM ROOM WHAT ENEMIES ARE IN CURRENT ROOM.
+                                                  // MAKE SPRITES OF THOSE ENEMIES. UPDATE THOSE SPRITES *******************
+/*
     private Sprite sprite;
     private Texture spriteSheet;
     private TextureAtlas atlas;
@@ -22,43 +23,38 @@ public class HeroView {
     private Animation animation;
     private SpriteBatch spriteBatch;
 
-    private Hero hero;
+    private Animation enemyAnimation1;
+    private Enemy enemy1;
 
     private float stateTime;
 
-    private Animation runningAnimation;
-    private Animation idleAnimation;
 
 
-    public HeroView() {
-        hero = Hero.getInstance();
+    public EnemyView() {
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();
-        initHeroAnimations();
+        initAnimations();
     }
 
-    private void initHeroAnimations() {
+    private void updateCurrentEnemies() {} //Updates what animations are used in the current room.
 
-        //Running animation
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroRunning//HeroRunningRight.png"));
-        atlas = new TextureAtlas("Data//HeroRunning//HeroRunningRight.atlas");
-        runningAnimation = new Animation(1/10f, atlas.getRegions());
-        stateTime = 0f;
+    //Initiation of all the enemies animations
+    private void initAnimations() {
 
+        //stateTime = 0f;
 
-        //Idle animation
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdle//HeroIdleRight.png"));
-        atlas = new TextureAtlas("Data//HeroIdle//HeroIdleRight.atlas");
-        idleAnimation = new Animation(1, atlas.getRegions());
+        spriteSheet = new Texture(Gdx.files.internal(""));
+        atlas = new TextureAtlas("");
+        enemyAnimation1 = new Animation(1/10f, atlas.getRegions());
     }
 
-    //Returns the current animation depending on the hero MovementState.
+    //Returns the current animation depending on the input enemies movementState.
     private Animation getCurrentAnimation() {
 
-        if (hero.getMovementState() == MovementState.WALKING) {
-            return runningAnimation;
+        if (enemy.getMovementState() == MovementState.WALKING) {
+            return ;
         } else {
-            return idleAnimation;
+            return ;
         }
     }
 
@@ -68,14 +64,14 @@ public class HeroView {
         stateTime += deltaTime;
         currentFrame = animation.getKeyFrame(stateTime, true);
         sprite.setRegion(currentFrame);
-        sprite.setPosition(hero.getX() * PPM, hero.getY() * PPM);
+        sprite.setPosition(enemy.getX() * PPM, enemy.getY() * PPM);
 
         /* Draws the current frame of the hero animation, at position x,y of it's body
         scaled to the PPM, its origin offset (for scaling and rotating) at half the body
         (A bit unsure about that, got it right by experimenting),
         full size of the textureregion, and finally scaled to PPM and rotated to match
         the rotation of the body.
-         */
+         */ /*
         spriteBatch.begin();
         spriteBatch.draw(currentFrame,
                 hero.getX() * PPM,
@@ -97,6 +93,5 @@ public class HeroView {
         } else {
             return 1;
         }
-    }
-
+    } */
 }

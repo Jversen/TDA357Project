@@ -67,8 +67,6 @@ public class View {
 
         heroView.updateAnimation(Gdx.graphics.getDeltaTime());
 
-        //   Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
-
         /*batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //sprite.draw(batch);
