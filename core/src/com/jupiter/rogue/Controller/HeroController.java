@@ -10,6 +10,7 @@ import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.WorldConstants;
 import com.jupiter.rogue.Model.Map.WorldHolder;
+import com.jupiter.rogue.Utils.libGDX.HeroMovement;
 
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class HeroController {
 
     private Hero hero;
+    private HeroMovement heroMovement;
 
     public HeroController() {
         initHero();
@@ -54,7 +56,9 @@ public class HeroController {
         //puts the player body into the world
         Body playerBody = WorldHolder.getInstance().getWorld().createBody(playerBodyDef);
         playerBody.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
-        hero.setBody(playerBody);
+        heroMovement = new HeroMovement(playerBody);
+
+        //hero.setBody(playerBody);
 
 
         //creates a sensor at the players feet
@@ -95,20 +99,20 @@ public class HeroController {
 
     private void updateMoves(ArrayList<Integer> keys) {
         if(keys.contains(Input.Keys.LEFT) && !keys.contains(Input.Keys.RIGHT)) {
-            hero.walk(Direction.LEFT);
+            hero.walk(Direction.LEFT, heroMovement);
         }
         if(!keys.contains(Input.Keys.LEFT) && keys.contains(Input.Keys.RIGHT)) {
-            hero.walk(Direction.RIGHT);
+            hero.walk(Direction.RIGHT, heroMovement);
         }
         if(keys.contains(Input.Keys.SPACE)) {
-            hero.jump();
+            hero.jump(heroMovement);
         }
         if (keys.contains(Input.Keys.E)) {
-            hero.attack();
+            hero.attack(heroMovement);
 
         }
         if(keys.isEmpty()) {
-            hero.relax();
+            hero.relax(heroMovement);
         }
     }
 }

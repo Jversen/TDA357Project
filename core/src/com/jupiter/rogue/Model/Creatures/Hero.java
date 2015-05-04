@@ -5,11 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Model.Map.WorldConstants;
+import com.jupiter.rogue.Utils.libGDX.HeroMovement;
 
 
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
@@ -45,6 +48,8 @@ public class Hero extends Creature {
         this.movementSpeed = scale*100;
 
         spriteBatch = new SpriteBatch();
+
+        this.position = WorldConstants.HERO_START_POSITION;
         initAnimation();
 
         //TODO finish rest of stats
@@ -68,8 +73,7 @@ public class Hero extends Creature {
         stateTime += deltaTime;
         currentFrame = animation.getKeyFrame(stateTime, true);
         sprite.setRegion(currentFrame);
-        sprite.setPosition(body.getPosition().x * PPM, body.getPosition().y * PPM);
-        body.setUserData(sprite);
+        sprite.setPosition(getX() * PPM, getY() * PPM);
 
         /* Draws the current frame of the hero animation, at position x,y of it's body
         scaled to the PPM, its origin offset (for scaling and rotating) at half the body
@@ -84,8 +88,7 @@ public class Hero extends Creature {
                 0.5f,
                 0.5f,
                 1f, 1f,
-                getDirValue() * PPM, PPM,
-                getBody().getAngle() * MathUtils.radiansToDegrees);
+                getDirValue() * PPM, PPM, 0);
 
         spriteBatch.end();
     }
@@ -115,42 +118,23 @@ public class Hero extends Creature {
         return instance;
     }
 
-    public void walk(Direction direction) {
+    public void walk(Direction direction, HeroMovement heroMovement) {
         setMovementState(MovementState.WALKING);
         setDirection(direction);
-
-        if(walkingIsPossible(direction, getPosition())) {
-
-            if(direction == Direction.RIGHT) {
-                setCurrentAnimation(runningAnimation);  //Sets the animation
-
-                getBody().applyLinearImpulse(new Vector2(2f,0f), body.getPosition(), true);
-                if(getBody().getLinearVelocity().x > 2f) {
-                    getBody().setLinearVelocity(2, getBody().getLinearVelocity().y);
-                }
-            } else {
-                setCurrentAnimation(runningAnimation); //Sets the animation
-
-                getBody().applyLinearImpulse(new Vector2(-2f,0f), body.getPosition(), true);
-                if(getBody().getLinearVelocity().x < -2f) {
-                    getBody().setLinearVelocity(-2, getBody().getLinearVelocity().y);
-                }
-            }
-        }
+        setCurrentAnimation(runningAnimation); //Sets the animation
+        heroMovement.walk(direction);
+        setPosition(heroMovement.getPosition());
     }
 
-    public boolean walkingIsPossible(Direction direction, Position heroPosition) {
-        return true;
-    }
-
-    public void jump() {
+    public void jump(HeroMovement heroMovement) {
         if(creatureIsGrounded()) {
             setMovementState(MovementState.JUMPING);
-            getBody().setLinearVelocity(getBody().getLinearVelocity().x, 6);
+            heroMovement.jump();
+            setPosition(heroMovement.getPosition());
         }
     }
 
-    public void relax() {
+    public void relax(HeroMovement heroMovement) {
         if (direction == Direction.RIGHT) {
             setCurrentAnimation(idleAnimation);
         } else if (direction == Direction.LEFT) {
@@ -159,7 +143,7 @@ public class Hero extends Creature {
         setMovementState(MovementState.STANDING);
     }
 
-    public void attack() {
+    public void attack(HeroMovement heroMovement) {
         System.out.println("attack!");
     }
 }

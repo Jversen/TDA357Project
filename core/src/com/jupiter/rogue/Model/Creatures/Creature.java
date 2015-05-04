@@ -20,6 +20,7 @@ public abstract class Creature {
     protected int attackPoints;
     protected float movementSpeed;
     protected float verticalSpeed;
+    protected Position position;
     protected MovementState movementState = MovementState.STANDING;
     protected Direction direction = Direction.RIGHT;
     protected int nbrOfPlatformsTouched;  //A variable to track how many platform the players feet are currently in contact with.
@@ -61,23 +62,22 @@ public abstract class Creature {
     public void setPosition(float x, float y) {
         setX(x);
         setY(y);
-        System.out.println("Called setPosition: (" + x + "," + y + ")" );
     }
 
     public void setX(float x) {
-        this.body.setTransform(x, body.getPosition().y, body.getAngle());
+        this.position.setXPos(x);
     }
 
     public float getX() {
-        return body.getPosition().x;
+        return this.position.getXPos();
     }
 
     public void setY(float y) {
-        this.body.setTransform(body.getPosition().x, y, body.getAngle());
+        this.position.setYPos(y);
     }
 
     public float getY() {
-        return body.getPosition().y;
+        return this.position.getYPos();
     }
 
     public void setBounds(float x, float y, float w, float h){

@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Utils.libGDX;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
@@ -23,7 +24,7 @@ public class HeroMovement implements Movement {
 
     @Override
     public void jump() {
-
+        body.setLinearVelocity(body.getLinearVelocity().x, 6);
     }
 
     @Override
@@ -32,7 +33,17 @@ public class HeroMovement implements Movement {
     }
 
     @Override
-    public void move(Direction direction) {
-
+    public void walk(Direction direction) {
+        if(direction == Direction.RIGHT) {
+            body.applyLinearImpulse(new Vector2(2f,0f), body.getPosition(), true);
+            if(body.getLinearVelocity().x > 2f) {
+                body.setLinearVelocity(2, body.getLinearVelocity().y);
+            }
+        } else {
+            body.applyLinearImpulse(new Vector2(-2f,0f), body.getPosition(), true);
+            if(body.getLinearVelocity().x < -2f) {
+                body.setLinearVelocity(-2, body.getLinearVelocity().y);
+            }
+        }
     }
 }
