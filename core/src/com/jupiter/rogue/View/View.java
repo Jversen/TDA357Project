@@ -33,6 +33,7 @@ public class View {
     private float h;
     private Map map;
     private SpriteBatch batch;
+    private HeroView heroView;
     Box2DDebugRenderer debugRenderer;
     WorldController wc;
     World world;
@@ -40,6 +41,7 @@ public class View {
 
     public View() {
         wc = new WorldController();
+        heroView = new HeroView();
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
@@ -62,7 +64,10 @@ public class View {
 
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
+
+        heroView.updateAnimation(Gdx.graphics.getDeltaTime());
+
+        //   Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
 
         /*batch.setProjectionMatrix(camera.combined);
         batch.begin();
