@@ -64,11 +64,11 @@ public class View {
         tiledMapRenderer.render();
         Hero.getInstance().updateAnimation(Gdx.graphics.getDeltaTime());
 
-        batch.setProjectionMatrix(camera.combined);
+        /*batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //sprite.draw(batch);
         batch.draw(Hero.getInstance().getCurrentFrame().getTexture(), Hero.getInstance().getX(), Hero.getInstance().getY());
-        batch.end();
+        batch.end();*/
 
         camera.setToOrtho(false, w / PPM, h / PPM);
 
@@ -81,8 +81,8 @@ public class View {
         //TODO: FIX IT
 
 
-        AIController.redDeath1.render();
-        AIController.redDeath2.render();
+        //AIController.redDeath1.render();
+       // AIController.redDeath2.render();
 
 
     }
@@ -90,7 +90,6 @@ public class View {
     private void moveCamera(){
         camera.position.set(Hero.getInstance().getX()*PPM, Hero.getInstance().getY()*PPM, 0);
         camera.update();
-        System.out.println(camera.position.x);
     }
 
     private void moveB2DCamera() {
