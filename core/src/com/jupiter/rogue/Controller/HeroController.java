@@ -84,7 +84,13 @@ public class HeroController {
 
     public void update(ArrayList<Integer> keys){
         checkJumping();
+        updatePhysics();
         updateMoves(keys);
+    }
+
+    private void updatePhysics() {
+        Position physPos = new Position(heroMovement.getBody().getPosition().x, heroMovement.getBody().getPosition().y);
+        hero.setPosition(physPos);
     }
 
 

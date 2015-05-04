@@ -15,6 +15,10 @@ public class HeroMovement implements Movement {
         this.body = body;
     }
 
+    public Body getBody() {
+        return body;
+    }
+
     public Position getPosition() {
         if(body != null) {
             return new Position(body.getPosition().x, body.getPosition().y);
