@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.jupiter.rogue.Model.Creatures.Enemy;
+
 import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
 
 
@@ -21,7 +23,10 @@ import java.util.ArrayList;
  */
 
 public class Room {
+    public ArrayList<Enemy> enemies = new ArrayList<>();
+    public ArrayList<Door> doors = new ArrayList<>();
 
+    //TODO move all these someplace else
     private TiledMap tiledMap;
     private World world;
     private TiledMapRenderer tiledMapRenderer;

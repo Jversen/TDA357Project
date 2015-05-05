@@ -3,19 +3,19 @@ package com.jupiter.rogue.Model.Map;
 import lombok.Data;
 
 /**
- * Immutable class meant to hold the position of a door
- * Created by Johan on 29/04/15.
+ * Created by Johan on 05/05/15.
  */
-
 @Data
-public class DoorPlacement {
+public class Door {
     private final int xCell;
     private final int yCell;
     private final char side;
+    private DoorMap doorMap;
 
-    public DoorPlacement(int xCell, int yCell, char side) {
+    public Door(int xCell, int yCell, char side, Door oppositeDoor) {
         this.xCell = xCell;
         this.yCell = yCell;
         this.side = side;
+        this.doorMap = new DoorMap(this, oppositeDoor);
     }
 }

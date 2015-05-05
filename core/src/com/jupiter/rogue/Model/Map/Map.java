@@ -58,7 +58,7 @@ public class Map {
     }
 
     private void rebuildWorld() {
-
+        WorldHolder.getInstance().getWorld().dispose();
     }
 
     public Room getCurrentRoom() {
