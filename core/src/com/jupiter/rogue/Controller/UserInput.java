@@ -13,9 +13,11 @@ import com.jupiter.rogue.Model.Enums.Direction;
 import java.util.ArrayList;
 
 public class UserInput {
-    boolean leftPressed;
-    boolean rightPressed;
-    boolean spacePressed;
+    private boolean leftPressed;
+    private boolean rightPressed;
+    private boolean spacePressed;
+    private boolean ePressed;
+
 
     public UserInput() {
 
@@ -27,6 +29,7 @@ public class UserInput {
         spacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
         leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
         rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
+        ePressed = Gdx.input.isKeyPressed(Input.Keys.E);
 
         ArrayList<Integer> keys = new ArrayList();
 
@@ -42,6 +45,9 @@ public class UserInput {
         if (rightPressed) {
             keys.add(Input.Keys.RIGHT);
             //System.out.println("Right");
+        }
+        if (ePressed) {
+            keys.add(Input.Keys.E);
         }
 
 

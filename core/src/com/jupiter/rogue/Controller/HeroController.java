@@ -70,13 +70,21 @@ public class HeroController {
         playerBody.createFixture(feetSensorFixtureDef).setUserData("foot");
 
 
-        //creates a weaponsensor.
-        shape.setAsBox(11 / PPM, 2 / PPM, new Vector2(6 / PPM, 3 / PPM), 60);
+        //creates a sensor for the weapon.
+        shape.setAsBox(23 / PPM, 2 / PPM, new Vector2(20 / PPM, 3 / PPM), 60);
 
-        FixtureDef weaponSensorFixtureDef = new FixtureDef();
-        weaponSensorFixtureDef.shape = shape;
-        weaponSensorFixtureDef.isSensor = true;
-        playerBody.createFixture(weaponSensorFixtureDef).setUserData("weaponSensor");
+        FixtureDef weaponSensorRightFixtureDef = new FixtureDef();
+        weaponSensorRightFixtureDef.shape = shape;
+        weaponSensorRightFixtureDef.isSensor = true;
+        playerBody.createFixture(weaponSensorRightFixtureDef).setUserData("weaponSensor");
+
+    /*    shape.setAsBox(23 / PPM, 2 / PPM, new Vector2(20 / PPM, 3 / PPM), 120);
+
+        FixtureDef weaponSensorLeftFixtureDef = new FixtureDef();
+        weaponSensorLeftFixtureDef.shape = shape;
+        weaponSensorLeftFixtureDef.isSensor = true;
+        playerBody.createFixture(weaponSensorLeftFixtureDef).setUserData("weaponSensor");
+*/
 
         //disposes shape to save memory
         shape.dispose();
@@ -115,7 +123,6 @@ public class HeroController {
         }
         if (keys.contains(Input.Keys.E)) {
             hero.attack(heroMovement);
-
         }
         if(keys.isEmpty()) {
             hero.relax(heroMovement);
