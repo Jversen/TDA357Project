@@ -81,8 +81,8 @@ public class View {
 
         debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
 
-//        AIController.redDeath1.render(camera.combined);
-  //      AIController.redDeath2.render(camera.combined);
+        AIController.redDeath1.render(camera.combined);
+        AIController.redDeath2.render(camera.combined);
 
 
     }
