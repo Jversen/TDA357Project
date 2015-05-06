@@ -65,7 +65,7 @@ public class View {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
-        heroView.updateAnimation(Gdx.graphics.getDeltaTime());
+        heroView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
 
         /*batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -79,13 +79,8 @@ public class View {
 
         debugRenderer.render(wc.getWorld(), camera.combined);
 
-
-
-        //TODO: FIX IT
-
-
-        //AIController.redDeath1.render();
-       // AIController.redDeath2.render();
+        AIController.redDeath1.render(camera.combined);
+       AIController.redDeath2.render(camera.combined);
 
 
     }

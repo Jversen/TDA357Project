@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.jupiter.rogue.Model.Map.WorldHolder;
@@ -79,13 +80,13 @@ public class RedDeath extends Enemy {
 
     }
 
-    public void render(){
-
+    public void render(Matrix4 projectionMatrix){
         spriteBatch.begin();
+        spriteBatch.setProjectionMatrix(projectionMatrix);
         sprite.draw(spriteBatch);
         sprite = (Sprite) redDeathBody.getUserData();
-
-            sprite.setPosition((redDeathBody.getPosition().x*PPM) - 10, (redDeathBody.getPosition().y*PPM) - 15);
+        sprite.setScale(1/PPM, 1/PPM);
+            sprite.setPosition((redDeathBody.getPosition().x) - 10, (redDeathBody.getPosition().y) - 15);
         spriteBatch.end();
     }
 
