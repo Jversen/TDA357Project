@@ -79,13 +79,14 @@ public class RedDeath extends Enemy {
 
     }
 
+
+
     public void render(){
 
         spriteBatch.begin();
         sprite.draw(spriteBatch);
         sprite = (Sprite) redDeathBody.getUserData();
-
-            sprite.setPosition((redDeathBody.getPosition().x*PPM) - 10, (redDeathBody.getPosition().y*PPM) - 15);
+        sprite.setPosition((redDeathBody.getPosition().x * PPM) - 10, (redDeathBody.getPosition().y * PPM) - 15);
         spriteBatch.end();
     }
 

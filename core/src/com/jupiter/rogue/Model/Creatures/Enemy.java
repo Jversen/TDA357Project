@@ -22,4 +22,14 @@ public class Enemy extends Creature {
         this.maxHealthPoints = maxHP;
     }
 
+    public void move(){
+
+    }
+
+    public void attack(){
+        if(Math.abs(this.getX() - Hero.getInstance().getX()) < 50){
+            System.out.println(this + "attacks");
+        }
+    }
+
 }

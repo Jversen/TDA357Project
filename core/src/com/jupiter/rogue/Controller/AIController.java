@@ -14,7 +14,9 @@ public class AIController {
     public static RedDeath redDeath2;
 
     public AIController() {
+
         initRedDeath();
+
     }
 
     public static void initRedDeath(){
