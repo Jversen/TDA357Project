@@ -28,6 +28,9 @@ public class TiledHandler {
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
 
+        WorldConstants.WIDTH = foregroundLayer.getWidth()*32;
+        WorldConstants.HEIGHT = foregroundLayer.getHeight() * 32;
+
         tileSize = foregroundLayer.getTileWidth();
     }
 
@@ -118,11 +121,9 @@ public class TiledHandler {
         for(Body body : WorldConstants.BODIES) {
             if(body.getUserData() != null && body.getUserData().equals("hero")) {
                 if(position.equals("left")) {
-                    System.out.println("Position: " + body.getPosition().x + body.getPosition().y);
-                    body.setTransform(new Vector2(200/WorldConstants.PPM, 50/PPM),0);
-                    System.out.println("Position: " + body.getPosition().x + body.getPosition().y);
+                    body.setTransform(new Vector2(50/WorldConstants.PPM, 43/PPM),0);
                 } else if(position.equals("right")) {
-                    body.setTransform(new Vector2(100, 100), 0);
+                    body.setTransform(new Vector2((((foregroundLayer.getWidth()-1)*32)-15)/WorldConstants.PPM, 43/WorldConstants.PPM), 0); //Hmmm...
                 }
             }
         }

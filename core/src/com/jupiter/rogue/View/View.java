@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.jupiter.rogue.Controller.AIController;
 import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
 
@@ -53,9 +54,11 @@ public class View {
     public void update() {
 
         tiledMapRenderer = map.getCurrentRoom().getTiledHandler().getRenderer();
+        float posX = getCamPosX();
+        float posY = getCamPosY();
 
         camera.setToOrtho(false, w, h);
-        moveCamera();
+        moveCamera(posX, posY);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -74,7 +77,7 @@ public class View {
 
         camera.setToOrtho(false, w / PPM, h / PPM);
 
-        moveB2DCamera();
+        moveB2DCamera(posX, posY);
 
         debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
 
@@ -84,13 +87,32 @@ public class View {
 
     }
 
-    private void moveCamera(){
-        camera.position.set(Hero.getInstance().getX()*PPM, Hero.getInstance().getY()*PPM, 0);
+    private void moveCamera(float x, float y){
+        camera.position.set(x, y, 0);
         camera.update();
     }
 
-    private void moveB2DCamera() {
-        camera.position.set(Hero.getInstance().getX(), Hero.getInstance().getY(), 0);
+    private void moveB2DCamera(float x, float y) {
+        camera.position.set(x/PPM, y/PPM, 0);
         camera.update();
+    }
+
+    public float getCamPosX() {
+        float x = Hero.getInstance().getX() * PPM;
+        if(x < 192) {
+            x = 192;
+        } else if(x>WorldConstants.WIDTH-192) {
+            System.out.println(WorldConstants.WIDTH-192);
+            x = WorldConstants.WIDTH-192;
+        }
+        return x;
+    }
+
+    public float getCamPosY() {
+        float y = Hero.getInstance().getY() * PPM;
+        if(y < 90) {
+            y = 90;
+        }
+        return y;
     }
 }

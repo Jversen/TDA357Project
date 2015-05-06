@@ -35,17 +35,10 @@ public class MyContactListener implements ContactListener {
         if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
             if(fa.getUserData().equals("leftDoor") || fb.getUserData().equals("leftDoor")) {
                 map.flagRoomForDestruction("leftDoor");
-                System.out.println("leftDoor sensor hit");
             }
 
             if(fa.getUserData().equals("rightDoor") || fb.getUserData().equals("rightDoor")) {
                 map.flagRoomForDestruction("rightDoor");
-                for(Body body : WorldConstants.BODIES) {
-                    if(body.getUserData() != null && body.getUserData().equals("hero")) {
-                        body.getPosition().set(100,100);
-                    }
-                }
-                System.out.println("rightDoor sensor hit");
             }
         }
     }

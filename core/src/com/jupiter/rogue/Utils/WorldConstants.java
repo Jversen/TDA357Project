@@ -20,6 +20,8 @@ public final class WorldConstants {
     public static final float GRAVITY = -10f;
     public static final Vector2 GRAVITY_VECTOR = new Vector2(0, GRAVITY);
     public static World CURRENT_WORLD = new World(GRAVITY_VECTOR, true);
+    public static int WIDTH;
+    public static int HEIGHT;
     public static ArrayList<Body> BODIES = new ArrayList<>();
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
 

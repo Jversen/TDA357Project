@@ -87,15 +87,19 @@ public class Map {
 
     private void rebuildWorld() {
         rooms.get(currentRoomNbr).initRoom();
-        rooms.get(currentRoomNbr).getTiledHandler().setHeroPosition("left");
+        if(exit.equals("leftDoor")) {
+            rooms.get(currentRoomNbr).getTiledHandler().setHeroPosition("right");
+        } else if(exit.equals("rightDoor")) {
+            rooms.get(currentRoomNbr).getTiledHandler().setHeroPosition("left");
+        }
     }
 
     public Room getCurrentRoom() {
         return rooms.get(currentRoomNbr);
     }
 
-    public void flagRoomForDestruction(String leftDoor) {
-        this.exit = leftDoor;
+    public void flagRoomForDestruction(String door) {
+        this.exit = door;
         this.destroyRoom = true;
     }
 }
