@@ -34,6 +34,8 @@ public class Controller {
     public void update() {
         worldController.update();
         heroController.update(userInput.findUserInput());
+        AIController.redDeath2.update();
+        AIController.redDeath1.update();
 
 
         //TODO add rest of controllers

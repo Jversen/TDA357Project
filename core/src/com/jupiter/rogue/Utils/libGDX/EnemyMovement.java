@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
-import java.lang.Math.*;
+import java.lang.Math;
 
 /**
  * Created by oskar on 05/05/2015.
@@ -35,32 +35,28 @@ public class EnemyMovement implements Movement {
 
     }
 
-    @Override
-    public void walk(Direction direction) {
+
+    public void walk(Direction direction, float moveSpeed) {
         if(direction == Direction.RIGHT) {
-            body.applyLinearImpulse(new Vector2(2f,0f), body.getPosition(), true);
-            if(body.getLinearVelocity().x > 2f) {
-                body.setLinearVelocity(2, body.getLinearVelocity().y);
+            body.applyLinearImpulse(new Vector2(moveSpeed,0f), body.getPosition(), true);
+            if(body.getLinearVelocity().x > moveSpeed) {
+                body.setLinearVelocity(moveSpeed, body.getLinearVelocity().y);
             }
         } else {
-            body.applyLinearImpulse(new Vector2(-2f,0f), body.getPosition(), true);
-            if(body.getLinearVelocity().x < -2f) {
-                body.setLinearVelocity(-2, body.getLinearVelocity().y);
+            body.applyLinearImpulse(new Vector2(-moveSpeed,0f), body.getPosition(), true);
+            if(body.getLinearVelocity().x > -moveSpeed) {
+                body.setLinearVelocity(-moveSpeed, body.getLinearVelocity().y);
             }
         }
     }
     //Method for flying enemy movements.
-    public void fly(Direction direction, float angle) {
+    public void fly(Direction direction, float angle, float moveSpeed) {
         if (direction == Direction.RIGHT) {
-            body.applyLinearImpulse(new Vector2(2f, cos(angle)), body.getPosition(), true);
-            if (body.getLinearVelocity().x > 2f) {
-                body.setLinearVelocity(2, body.getLinearVelocity().y);
-            }
+            body.applyLinearImpulse(new Vector2((float)Math.cos(angle)*moveSpeed, (float)Math.sin(angle)*moveSpeed), body.getPosition(), true);
+
         } else {
-            body.applyLinearImpulse(new Vector2(-2f, angle), body.getPosition(), true);
-            if (body.getLinearVelocity().x < -2f) {
-                body.setLinearVelocity(-2, body.getLinearVelocity().y);
-            }
+            body.applyLinearImpulse(new Vector2(-(float)Math.cos(angle)*moveSpeed, (float)Math.sin(angle)*moveSpeed), body.getPosition(), true);
+
         }
     }
 

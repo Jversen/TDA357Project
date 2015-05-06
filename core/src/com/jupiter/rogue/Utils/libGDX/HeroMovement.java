@@ -36,7 +36,7 @@ public class HeroMovement implements Movement {
 
     }
 
-    @Override
+    //@Override
     public void walk(Direction direction) {
         if(direction == Direction.RIGHT) {
             body.applyLinearImpulse(new Vector2(2f,0f), body.getPosition(), true);

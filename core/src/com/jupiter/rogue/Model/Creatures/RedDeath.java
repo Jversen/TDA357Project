@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Map.WorldHolder;
 import com.badlogic.gdx.Gdx;
 import com.jupiter.rogue.Rogue;
@@ -26,9 +28,19 @@ public class RedDeath extends Enemy {
     private PolygonShape shape;
     private FixtureDef redDeathFixtureDef;
     private Body redDeathBody;
+
     Array<Body> bodies = new Array<Body>();
 
-    public RedDeath(float x, float y){
+
+    public RedDeath(float x, float y, String name){
+
+        super(100, 100, 25, 1, true);
+
+        this.name = name;
+
+        this.position = new Position(x,y);
+
+        //this.setPosition(x, y);
 
         spriteBatch = new SpriteBatch();
 
@@ -51,7 +63,7 @@ public class RedDeath extends Enemy {
         redDeathBody.createFixture(redDeathFixtureDef).setUserData("Red Death");
         this.setBody(redDeathBody);
 
-        //setPosition(x, y);
+
 
         // Creates the texture for this enemy
 
@@ -81,12 +93,19 @@ public class RedDeath extends Enemy {
 
 
 
-    public void render(){
+
+    public void render(Matrix4 projectionMatrix){
 
         spriteBatch.begin();
+        spriteBatch.setProjectionMatrix(projectionMatrix);
         sprite.draw(spriteBatch);
         sprite = (Sprite) redDeathBody.getUserData();
+
         sprite.setPosition((redDeathBody.getPosition().x * PPM) - 10, (redDeathBody.getPosition().y * PPM) - 15);
+
+        sprite.setScale(1/PPM, 1/PPM);
+            sprite.setPosition((redDeathBody.getPosition().x) - 10, (redDeathBody.getPosition().y) - 15);
+
         spriteBatch.end();
     }
 

@@ -6,7 +6,7 @@ import com.jupiter.rogue.Model.Enums.Direction;
  * Created by Johan on 04/05/15.
  */
 public interface Movement {
-    public void jump();
-    public void attack();
-    public void walk(Direction direction);
+    void jump();
+    void attack();
+    //void walk(Direction direction);
 }
