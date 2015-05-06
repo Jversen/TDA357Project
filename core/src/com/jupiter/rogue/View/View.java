@@ -47,7 +47,7 @@ public class View {
         h = Gdx.graphics.getHeight();
         camera  = new OrthographicCamera(); //Regular camera for level
         b2dCam = new OrthographicCamera();  //Box2D camera to scale up the box2D simulation
-        map = new Map();
+        map = Map.getInstance();
         batch = new SpriteBatch();
     }
 

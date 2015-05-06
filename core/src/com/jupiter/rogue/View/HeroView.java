@@ -45,12 +45,10 @@ public class HeroView {
         spriteSheet = new Texture(Gdx.files.internal("Data//HeroRunning//HeroRunningRight.png"));
         atlas = new TextureAtlas("Data//HeroRunning//HeroRunningRight.atlas");
         runningAnimation = new Animation(1/10f, atlas.getRegions());
-        stateTime = 0f;
-
 
         //Idle animation
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdle//HeroIdleRight.png"));
-        atlas = new TextureAtlas("Data//HeroIdle//HeroIdleRight.atlas");
+        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdle//HeroIdle.png"));
+        atlas = new TextureAtlas("Data//HeroIdle//HeroIdle.atlas");
         idleAnimation = new Animation(1, atlas.getRegions());
     }
 
@@ -86,7 +84,7 @@ public class HeroView {
                 hero.getY() * PPM,
                 0.5f,
                 0.5f,
-                1f, 1.8f,
+                1f, 1.5f,
                 getDirValue() * PPM, PPM, 0);
 
         spriteBatch.end();

@@ -17,8 +17,6 @@ public class AIController {
 
         initRedDeath();
 
-
-
     }
 
     public static void initRedDeath(){

@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Model.Map;
 
+import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Creatures.Hero;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.HashMap;
  */
 public class Map {
 
+    private static Map map = null;
+
     private ArrayList<Room> rooms;
     private HashMap<RoomExit, RoomExit> exitMap = new HashMap<>();
     private Room room;
@@ -18,7 +21,7 @@ public class Map {
     private int currentRoomNbr; //Variable to track what room the hero is currently in.
 
 
-    public Map() {
+    private Map() {
         currentRoomNbr = 0;
         room = new Room();
         room.initRoom();
@@ -27,6 +30,13 @@ public class Map {
         rooms.add(room);
 
         createRooms();
+    }
+
+    public static Map getInstance() {
+        if(map == null) {
+            map = new Map();
+        }
+        return map;
     }
 
     /**
@@ -57,8 +67,18 @@ public class Map {
 
     }
 
+    public void switchRoom(String doorID) {
+
+    }
+
     private void rebuildWorld() {
-        WorldHolder.getInstance().getWorld().dispose();
+        rooms.get(currentRoomNbr).createTileBodies();
+    }
+
+    private void destroyWorld() {
+        for(Body body : rooms.get(currentRoomNbr).getBodies() ){
+            WorldHolder.getInstance().getWorld().destroyBody(body);
+        }
     }
 
     public Room getCurrentRoom() {

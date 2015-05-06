@@ -44,7 +44,7 @@ public class HeroController {
 
         //creates the shape of the playerBodyDef
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(10 / PPM, 15 / PPM); //temporary values, should be dependent on sprite size
+        shape.setAsBox(10 / PPM, 21 / PPM, new Vector2(0, 9 / PPM), 0); //temporary values, should be dependent on sprite size
 
         // FixtureDef sets physical properties
         FixtureDef playerFixtureDef = new FixtureDef();
@@ -62,7 +62,7 @@ public class HeroController {
 
 
         //creates a sensor at the players feet
-        shape.setAsBox(8 / PPM, 1 / PPM, new Vector2(0, -18 / PPM), 0);
+        shape.setAsBox(8 / PPM, 1 / PPM, new Vector2(0, -15 / PPM), 0);
 
         FixtureDef feetSensorFixtureDef = new FixtureDef();
         feetSensorFixtureDef.shape = shape;
@@ -70,13 +70,6 @@ public class HeroController {
         playerBody.createFixture(feetSensorFixtureDef).setUserData("foot");
 
 
-        //creates a sensor for the weapon.
-        shape.setAsBox(23 / PPM, 2 / PPM, new Vector2(20 / PPM, 3 / PPM), 60);
-
-        FixtureDef weaponSensorRightFixtureDef = new FixtureDef();
-        weaponSensorRightFixtureDef.shape = shape;
-        weaponSensorRightFixtureDef.isSensor = true;
-        playerBody.createFixture(weaponSensorRightFixtureDef).setUserData("weaponSensor");
 
     /*    shape.setAsBox(23 / PPM, 2 / PPM, new Vector2(20 / PPM, 3 / PPM), 120);
 

@@ -2,6 +2,7 @@ package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Map.Map;
 
 /**
  * Created by hilden on 2015-04-26.
@@ -9,12 +10,14 @@ import com.jupiter.rogue.Model.Creatures.Hero;
 public class MyContactListener implements ContactListener {
 
     private Hero hero;
+    private Map map;
     private Fixture fa;
     private Fixture fb;
 
 
     public MyContactListener() {
         hero = Hero.getInstance();
+        map = Map.getInstance();
     }
 
     @Override
@@ -25,6 +28,17 @@ public class MyContactListener implements ContactListener {
 
         if (fa.getUserData().equals("foot") || fb.getUserData().equals("foot")) {
             hero.incNbrOfPlatforms();
+            System.out.println("foot");
+        }
+
+        if(fa.getUserData().equals("leftDoor") || fb.getUserData().equals("leftDoor")) {
+            map.switchRoom("leftDoor");
+            System.out.println("leftDoor sensor hit");
+        }
+
+        if(fa.getUserData().equals("rightDoor") || fb.getUserData().equals("rightDoor")) {
+            map.switchRoom("rightDoor");
+            System.out.println("rightDoor sensor hit");
         }
     }
 
