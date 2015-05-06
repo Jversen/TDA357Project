@@ -86,7 +86,7 @@ public class HeroView {
                 hero.getY() * PPM,
                 0.5f,
                 0.5f,
-                1f, 1f,
+                1f, 1.8f,
                 getDirValue() * PPM, PPM, 0);
 
         spriteBatch.end();
