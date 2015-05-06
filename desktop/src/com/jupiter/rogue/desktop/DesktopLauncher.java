@@ -10,7 +10,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 
 	//	TexturePacker.process("Data//HeroRunningLeft", "Data//HeroRunningLeft", "HeroRunningLeft");  //Göra Atlasfil
-
+		int a[] = {1, 2, 3, 4};
+		System.out.println(a instanceof Object);
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 384;
         config.height = 216;

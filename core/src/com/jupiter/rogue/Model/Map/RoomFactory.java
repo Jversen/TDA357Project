@@ -28,7 +28,7 @@ public class RoomFactory {
      * @param exit whether or not the room should have another exit
      * @return
      */
-    public Room getRoom(int width, int height, /*DoorPlacement entrance,*/ boolean exit) {
-        return new Room();
-    }
+   // public Room getRoom(int width, int height, DoorPlacement entrance, boolean exit) {
+     //   return new Room();
+    //}
 }
