@@ -4,13 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
-import com.badlogic.gdx.math.Matrix4.*;
 
-import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by hilden on 2015-05-04.

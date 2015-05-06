@@ -1,20 +1,16 @@
 package com.jupiter.rogue.Controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
-import com.jupiter.rogue.Model.Enums.MovementState;
-import com.jupiter.rogue.Model.Map.WorldConstants;
-import com.jupiter.rogue.Model.Map.WorldHolder;
-import com.jupiter.rogue.Utils.libGDX.HeroMovement;
+import com.jupiter.rogue.Utils.WorldConstants;
+import com.jupiter.rogue.Utils.HeroMovement;
 
-import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -54,10 +50,12 @@ public class HeroController {
         playerFixtureDef.restitution = 0.0f;
 
         //puts the player body into the world
-        Body playerBody = WorldHolder.getInstance().getWorld().createBody(playerBodyDef);
+        Body playerBody = WorldConstants.CURRENT_WORLD.createBody(playerBodyDef);
+        playerBody.setUserData("hero");
         playerBody.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
         heroMovement = new HeroMovement(playerBody);
 
+        WorldConstants.BODIES.add(playerBody);
         //hero.setBody(playerBody);
 
 

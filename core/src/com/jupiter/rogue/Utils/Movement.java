@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Utils.libGDX;
+package com.jupiter.rogue.Utils;
 
 import com.jupiter.rogue.Model.Enums.Direction;
 

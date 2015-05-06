@@ -1,21 +1,11 @@
 package com.jupiter.rogue.Model.Creatures;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.MeleeWeapon;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
-import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Model.Map.WorldConstants;
-import com.jupiter.rogue.Utils.libGDX.HeroMovement;
-
-
-import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
+import com.jupiter.rogue.Utils.WorldConstants;
+import com.jupiter.rogue.Utils.HeroMovement;
 
 /**
  * Created by Johan on 16/04/15.

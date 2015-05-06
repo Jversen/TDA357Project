@@ -13,29 +13,28 @@ public class Controller {
     private UserInput userInput;
     private ModelController modelController;
     private AIController aiController;
-
-    private Hero hero = Hero.getInstance();
-    private Map map;
+    private MapController mapController;
 
     public Controller() {
         init();
     }
 
     private void init() {
-        map = Map.getInstance();
         heroController = new HeroController();
         worldController = new WorldController();
         userInput = new UserInput();
         modelController = new ModelController();
         aiController = new AIController();
+        mapController = new MapController();
         //TODO initialize everything at start of game
     }
 
     public void update() {
         worldController.update();
+        mapController.update();
         heroController.update(userInput.findUserInput());
-        AIController.redDeath2.update();
-        AIController.redDeath1.update();
+        //AIController.redDeath2.update();
+        //AIController.redDeath1.update();
 
 
         //TODO add rest of controllers

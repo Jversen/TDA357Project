@@ -4,19 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.jupiter.rogue.Controller.AIController;
 import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Map.Map;
-import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
+import com.jupiter.rogue.Utils.WorldConstants;
+
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by oskar on 17/04/2015.
@@ -53,7 +52,7 @@ public class View {
 
     public void update() {
 
-        tiledMapRenderer = map.getCurrentRoom().getTiledMapRenderer();
+        tiledMapRenderer = map.getCurrentRoom().getTiledHandler().getRenderer();
 
         camera.setToOrtho(false, w, h);
         moveCamera();
@@ -77,10 +76,10 @@ public class View {
 
         moveB2DCamera();
 
-        debugRenderer.render(wc.getWorld(), camera.combined);
+        debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
 
-        AIController.redDeath1.render(camera.combined);
-        AIController.redDeath2.render(camera.combined);
+//        AIController.redDeath1.render(camera.combined);
+  //      AIController.redDeath2.render(camera.combined);
 
 
     }

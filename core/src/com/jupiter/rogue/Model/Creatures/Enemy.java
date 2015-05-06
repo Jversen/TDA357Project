@@ -2,7 +2,7 @@ package com.jupiter.rogue.Model.Creatures;
 
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Utils.libGDX.EnemyMovement;
+import com.jupiter.rogue.Utils.EnemyMovement;
 
 /**
  * Created by Johan on 16/04/15.

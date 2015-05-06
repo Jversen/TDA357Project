@@ -1,15 +1,5 @@
 package com.jupiter.rogue.View;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.jupiter.rogue.Model.Creatures.Enemy;
-import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.Direction;
-import com.jupiter.rogue.Model.Enums.MovementState;
-
-import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
-
 /**
  * Created by hilden on 2015-05-04.
  */

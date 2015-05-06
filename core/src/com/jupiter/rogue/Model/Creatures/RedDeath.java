@@ -1,22 +1,17 @@
 package com.jupiter.rogue.Model.Creatures;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Model.Map.WorldHolder;
-import com.badlogic.gdx.Gdx;
-import com.jupiter.rogue.Rogue;
-import com.jupiter.rogue.View.View;
+import com.jupiter.rogue.Utils.WorldConstants;
 
-import static com.jupiter.rogue.Model.Map.WorldConstants.PPM;
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by Johan on 2015-04-18.
@@ -59,7 +54,7 @@ public class RedDeath extends Enemy {
         redDeathFixtureDef.friction = 1.55f;
         redDeathFixtureDef.restitution = 0.0f;
 
-        redDeathBody = WorldHolder.getInstance().getWorld().createBody(redDeathBodyDef);
+        redDeathBody = WorldConstants.CURRENT_WORLD.createBody(redDeathBodyDef);
         redDeathBody.createFixture(redDeathFixtureDef).setUserData("Red Death");
         this.setBody(redDeathBody);
 
