@@ -22,7 +22,7 @@ public class Controller {
     }
 
     private void init() {
-        map = new Map();
+        map = Map.getInstance();
         heroController = new HeroController();
         worldController = new WorldController();
         userInput = new UserInput();
