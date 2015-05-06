@@ -47,8 +47,8 @@ public class HeroView {
         runningAnimation = new Animation(1/10f, atlas.getRegions());
 
         //Idle animation
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdle//HeroIdleRight.png"));
-        atlas = new TextureAtlas("Data//HeroIdle//HeroIdleRight.atlas");
+        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdle//HeroIdle.png"));
+        atlas = new TextureAtlas("Data//HeroIdle//HeroIdle.atlas");
         idleAnimation = new Animation(1, atlas.getRegions());
     }
 
