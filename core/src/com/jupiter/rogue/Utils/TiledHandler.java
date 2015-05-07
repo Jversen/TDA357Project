@@ -123,6 +123,8 @@ public class TiledHandler {
         FixtureDef fixtureDef = new FixtureDef();
 
         Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
+        body.setUserData("room");
+        WorldConstants.BODIES.add(body);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox((obstacleLength * tileSize)/ 2 / PPM, tileSize/2 / PPM);
