@@ -1,10 +1,15 @@
 package com.jupiter.rogue.Utils;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
 import java.lang.Math;
+import com.jupiter.rogue.Model.Creatures.Enemy;
+
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by oskar on 05/05/2015.
@@ -12,6 +17,8 @@ import java.lang.Math;
 public class EnemyMovement implements Movement {
 
     private Body body;
+
+
 
     public EnemyMovement(Body body) {
         this.body = body;
@@ -27,6 +34,7 @@ public class EnemyMovement implements Movement {
         }
         return null;
     }
+
 
     @Override
     public void jump(){

@@ -1,8 +1,12 @@
 package com.jupiter.rogue.Model.Creatures;
 
+import com.jupiter.rogue.Controller.AIController;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.EnemyMovement;
+import com.jupiter.rogue.Utils.WorldConstants;
+
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by Johan on 16/04/15.
@@ -10,8 +14,10 @@ import com.jupiter.rogue.Utils.EnemyMovement;
 public class Enemy extends Creature {
 
     private boolean flying;
-    String name;
+    protected String name;
     private Position heroPos;
+    protected float bodyHeight;
+    protected float bodyWidth;
 
     public Enemy() {
         this.maxHealthPoints = 100;
@@ -57,8 +63,17 @@ public class Enemy extends Creature {
         return this.name;
     }
 
+    public float getBodyHeight(){
+        return bodyHeight;
+    }
+
+    public float getBodyWidth(){
+        return bodyWidth;
+    }
+
+
     public void attack(){
-        if(Math.abs(this.getX() - (Hero.getInstance().getX())) < 1){
+        if(Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) <= 25/PPM){
             System.out.println(this.getName() + " attacks");
         }
     }
@@ -71,12 +86,15 @@ public class Enemy extends Creature {
             this.setDirection(Direction.RIGHT);
         }
 
-
-        if(Math.abs(this.getX() - (Hero.getInstance().getX() - 20)) > 0){
+        if((Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) > 25/PPM) || (Math.abs((this.getY() + (this.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 50/PPM)){
             this.walk(this.getMovementSpeed(), new EnemyMovement(this.getBody()));
         }
         else {
             this.attack();
+
+
+
+
         }
 
     }

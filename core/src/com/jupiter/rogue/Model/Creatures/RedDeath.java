@@ -24,6 +24,7 @@ public class RedDeath extends Enemy {
     private FixtureDef redDeathFixtureDef;
     private Body redDeathBody;
 
+
     Array<Body> bodies = new Array<Body>();
 
 
@@ -47,11 +48,13 @@ public class RedDeath extends Enemy {
 
         shape = new PolygonShape();
         shape.setAsBox(10 / PPM, 15 / PPM);
+        bodyHeight = 15;
+        bodyWidth = 10;
 
         redDeathFixtureDef = new FixtureDef();
         redDeathFixtureDef.shape = shape;
         redDeathFixtureDef.density = 1f;
-        redDeathFixtureDef.friction = 1.55f;
+        redDeathFixtureDef.friction = 0.2f;
         redDeathFixtureDef.restitution = 0.0f;
 
         redDeathBody = WorldConstants.CURRENT_WORLD.createBody(redDeathBodyDef);

@@ -18,7 +18,7 @@ public class AIController {
     public static void initRedDeath(){
 
         redDeath1 = new RedDeath(200,50, "redDeath 1");
-        redDeath2 = new RedDeath(75,50, "redDeath 2");
+        //redDeath2 = new RedDeath(75,50, "redDeath 2");
     }
 
 

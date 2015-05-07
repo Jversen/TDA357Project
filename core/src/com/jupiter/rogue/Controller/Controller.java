@@ -33,7 +33,7 @@ public class Controller {
         worldController.update();
         mapController.update();
         heroController.update(userInput.findUserInput());
-        AIController.redDeath2.update();
+        //AIController.redDeath2.update();
         AIController.redDeath1.update();
 
 
