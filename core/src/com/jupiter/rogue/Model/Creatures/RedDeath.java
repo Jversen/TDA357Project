@@ -53,7 +53,7 @@ public class RedDeath extends Enemy {
 
         redDeathFixtureDef = new FixtureDef();
         redDeathFixtureDef.shape = shape;
-        redDeathFixtureDef.density = 1f;
+        redDeathFixtureDef.density = 100f;
         redDeathFixtureDef.friction = 0.2f;
         redDeathFixtureDef.restitution = 0.0f;
 
