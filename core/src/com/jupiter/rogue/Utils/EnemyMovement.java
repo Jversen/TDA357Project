@@ -44,7 +44,7 @@ public class EnemyMovement implements Movement {
             }
         } else {
             body.applyLinearImpulse(new Vector2(-moveSpeed,0f), body.getPosition(), true);
-            if(body.getLinearVelocity().x > -moveSpeed) {
+            if(body.getLinearVelocity().x < -moveSpeed) {
                 body.setLinearVelocity(-moveSpeed, body.getLinearVelocity().y);
             }
         }
