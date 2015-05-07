@@ -15,6 +15,7 @@ public class Map {
     private static Map map = null;
 
     private ArrayList<Room> rooms;
+    private int[][] roomMap;
     private HashMap<RoomExit, RoomExit> exitMap = new HashMap<>();
     private int currentRoomNbr; //Variable to track what room the hero is currently in.
     private String exit;
@@ -23,7 +24,7 @@ public class Map {
 
     private Map() {
         currentRoomNbr = 0;
-        Room room = new Room("Rooms/RoomSwitchingTest1.tmx");
+        Room room = RoomFactory.getRoom(1,1, "test", null);
         room.initRoom();
         Room room2 = new Room("Rooms/RoomSwitchingTest2.tmx");
         rooms = new ArrayList<Room>();
@@ -61,6 +62,10 @@ public class Map {
 
     private RoomExit getNewRoom(int exit, int room) {
         return exitMap.get(new RoomExit(exit, room));
+    }
+
+    public void createMap() {
+        //startingRoom = RoomFactory
     }
 
     //temporary, will be rewritten
