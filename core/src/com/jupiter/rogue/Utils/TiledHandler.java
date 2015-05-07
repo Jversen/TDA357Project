@@ -17,7 +17,7 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 public class TiledHandler {
     private TiledMapRenderer renderer;
     private TiledMap tiledMap;
-    private float tileSize;
+    private int tileSize;
     private TiledMapTileLayer foregroundLayer;
     private TiledMapTileLayer sensorLayer;
 
@@ -28,10 +28,10 @@ public class TiledHandler {
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
 
-        WorldConstants.WIDTH = foregroundLayer.getWidth()*32;
-        WorldConstants.HEIGHT = foregroundLayer.getHeight() * 32;
+        tileSize = (int) foregroundLayer.getTileWidth();
 
-        tileSize = foregroundLayer.getTileWidth();
+        WorldConstants.WIDTH = foregroundLayer.getWidth() * tileSize;
+        WorldConstants.HEIGHT = foregroundLayer.getHeight() * tileSize;
     }
 
     public void initRoom() {
@@ -42,39 +42,28 @@ public class TiledHandler {
     different kinds of layers. */
     public void createTileBodies() {
         BodyDef bodyDef = new BodyDef();
+        int obstacleLength = 0;
+        System.out.println("rows: " + foregroundLayer.getHeight());
+        System.out.println("cols: " + foregroundLayer.getWidth());
 
         for (int row = 0; row < foregroundLayer.getHeight(); row++){
+            obstacleLength = 0;
             for (int col = 0; col < foregroundLayer.getWidth(); col++){
 
                 TiledMapTileLayer.Cell cell = foregroundLayer.getCell(col, row);
 
-                if (cell == null || cell.getTile() == null){
+                if (cell != null && cell.getTile() != null && col < foregroundLayer.getWidth()-1){
+                    obstacleLength++;
                     continue;
+                } else if (obstacleLength > 0 ) {
+                    System.out.println("obstlength: " + obstacleLength);
+                    createObsFixture(row, col, obstacleLength);
+                    obstacleLength = 0;
                 }
-
-                bodyDef.type = BodyDef.BodyType.StaticBody;
-
-                /*Set the position to the tile number plus half the tilesize to compensate
-                for body/libgdx drawing differences. */
-                bodyDef.position.set((col + 0.5f) * tileSize / PPM,
-                        (row + 0.5f) * tileSize / PPM);
-
-                FixtureDef fixtureDef = new FixtureDef();
-
-                Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-                body.setUserData("room");
-                WorldConstants.BODIES.add(body);
-
-                PolygonShape shape = new PolygonShape();
-                shape.setAsBox(tileSize/2 / PPM, tileSize/2 / PPM);
-                fixtureDef.shape = shape;
-
-                body.createFixture(fixtureDef).setUserData("room"); //naming the roomfixture room.
-
-                shape.dispose();
             }
         }
 
+        //TODO reuse code from above
         for (int row = 0; row < sensorLayer.getHeight(); row++){
             for (int col = 0; col < sensorLayer.getWidth(); col++){
 
@@ -115,6 +104,35 @@ public class TiledHandler {
                 shape.dispose();
             }
         }
+    }
+
+    /* Creates fixtures on obstacles in horizontal chunks*/
+    private void createObsFixture(int row, int col, int obstacleLength){
+        BodyDef bodyDef = new BodyDef();
+        float x = (col - obstacleLength + 0.5f);
+        float y = row + 0.5f;
+        System.out.println("pre x: " + x);
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+                /*Set the position to the tile number plus half the tilesize to compensate
+                for body/libgdx drawing differences. */
+
+        bodyDef.position.set((x + obstacleLength/2) * tileSize / PPM,
+                y * tileSize / PPM);
+        System.out.println("bodydef pos x: " + bodyDef.position.x + ", y: " + bodyDef.position.y);
+        FixtureDef fixtureDef = new FixtureDef();
+
+        Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox((obstacleLength * tileSize)/ 2 / PPM, tileSize/2 / PPM);
+        fixtureDef.shape = shape;
+
+        body.createFixture(fixtureDef).setUserData("obstacle");
+
+        shape.dispose();
+
+
     }
 
     public void setHeroPosition(String position) {
