@@ -13,90 +13,22 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 /**
  * Created by hilden on 2015-05-04.
  */
-public class HeroView {
-
-    private Sprite sprite;
-    private Texture spriteSheet;
-    private TextureAtlas atlas;
-    private TextureRegion currentFrame;
-    private Animation animation;
-    private SpriteBatch spriteBatch;
-
-    private Hero hero;
-
-    private float stateTime;
-
-    private Animation runningAnimation;
-    private Animation idleAnimation;
+public class HeroView extends CreatureView {
 
 
     public HeroView() {
-        hero = Hero.getInstance();
+        creature = Hero.getInstance();
+
+        spritesheetPathRun = "Data//HeroRunning//HeroRunningRight.png";
+        atlasFilePathRun = "Data//HeroRunning//HeroRunningRight.atlas";
+        animationSpeedRun = 1/10f;
+
+        spritesheetPathIdle = "Data//HeroIdle//HeroIdle.png";
+        atlasFilePathIdle = "Data//HeroIdle//HeroIdle.atlas";
+        animationSpeedIdle = 1f;
+
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();
-        initHeroAnimations();
+        initCreatureAnimations();
     }
-
-    private void initHeroAnimations() {
-
-        //Running animation
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroRunning//HeroRunningRight.png"));
-        atlas = new TextureAtlas("Data//HeroRunning//HeroRunningRight.atlas");
-        runningAnimation = new Animation(1/10f, atlas.getRegions());
-
-        //Idle animation
-        spriteSheet = new Texture(Gdx.files.internal("Data//HeroIdle//HeroIdle.png"));
-        atlas = new TextureAtlas("Data//HeroIdle//HeroIdle.atlas");
-        idleAnimation = new Animation(1, atlas.getRegions());
-    }
-
-    //Returns the current animation depending on the hero MovementState.
-    private Animation getCurrentAnimation() {
-
-        if (hero.getMovementState() == MovementState.WALKING) {
-            return runningAnimation;
-        } else {
-            return idleAnimation;
-        }
-    }
-
-    public void updateAnimation(float deltaTime, Matrix4 projectionMatrix){
-
-
-        animation = getCurrentAnimation();
-        stateTime += deltaTime;
-        currentFrame = animation.getKeyFrame(stateTime, true);
-        sprite.setRegion(currentFrame);
-        sprite.setPosition(hero.getX() * PPM, hero.getY() * PPM);
-
-        /* Draws the current frame of the hero animation, at position x,y of it's body
-        scaled to the PPM, its origin offset (for scaling and rotating) at half the body
-        (A bit unsure about that, got it right by experimenting),
-        full size of the textureregion, and finally scaled to PPM and rotated to match
-        the rotation of the body.
-         */
-        spriteBatch.begin();
-        spriteBatch.setProjectionMatrix(projectionMatrix);
-        spriteBatch.draw(currentFrame,
-                hero.getX() * PPM,
-                hero.getY() * PPM,
-                0.5f,
-                0.5f,
-                1f, 1.5f,
-                getDirValue() * PPM, PPM, 0);
-
-        spriteBatch.end();
-    }
-
-    //Returns an int value of the enum Direction. -1 for left, 1 for right.
-    //Added to help set the spritescale to negative if walking left.
-    //This is also where you set the SCALE of the sprites.
-    private int getDirValue() {
-        if (hero.getDirection() == Direction.LEFT) {
-            return -1;
-        } else {
-            return 1;
-        }
-    }
-
 }

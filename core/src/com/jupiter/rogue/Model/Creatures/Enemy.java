@@ -11,7 +11,7 @@ public class Enemy extends Creature {
 
     private boolean flying;
     String name;
-    private Position heropos;
+    private Position heroPos;
 
     public Enemy() {
         this.maxHealthPoints = 100;
