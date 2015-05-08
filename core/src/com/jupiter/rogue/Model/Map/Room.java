@@ -14,11 +14,15 @@ import java.util.ArrayList;
 public class Room {
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Door> doors = new ArrayList<>();
+    private final int WIDTH;
+    private final int HEIGHT;
     private String path;
     private TiledHandler tiledHandler;
 
-    public Room(String path) {
+    public Room(String path, int width, int height) {
         this.path = path;
+        this.WIDTH = width;
+        this.HEIGHT = height;
 
         //TEMPORARY, JUST FOR TESTING
 

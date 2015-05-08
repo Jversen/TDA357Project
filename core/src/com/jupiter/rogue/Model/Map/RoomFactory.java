@@ -1,8 +1,6 @@
 package com.jupiter.rogue.Model.Map;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Johan on 27/04/15.
@@ -10,10 +8,10 @@ import java.util.Random;
 public class RoomFactory {
 
     //TODO break up method into smaller methods
-    public static Room getRoom(int roomWidth, int roomHeight, String entrance, ArrayList<String> doorPositions) {
+    public static Room getRoom(int roomWidth, int roomHeight, ArrayList<String> doorPositions) {
         Room room = null;                                   // Room to be created
         //TODO actually return the requested room;
-        return new Room("Rooms/RoomSwitchingTest1.tmx");
+        return new Room("Rooms/RoomSwitchingTest1.tmx", 4, 2);
         /*File roomFolder = new File("Rooms");                // The folder that holds all the tmx-files
         File[] tmxList = roomFolder.listFiles();            // Array that holds all the tmx files
         ArrayList<String> pathList = new ArrayList<>();     // List that will hold filepaths to all tmx-files that fit the input arguments
@@ -57,5 +55,14 @@ public class RoomFactory {
             String path = pathList.get(rand.nextInt(pathList.size()));
             room = new Room(path);
         }*/
+    }
+
+    // getter for special rooms
+    public static Room getRoom(String roomID) {
+        switch (roomID) {
+            case "StartingRoom": return new Room("Rooms/StartingRoom", 4, 2);
+            case "BossRoomOne": return new Room("Rooms/BossRoomOne", 4, 2);
+            default: return null;
+        }
     }
 }
