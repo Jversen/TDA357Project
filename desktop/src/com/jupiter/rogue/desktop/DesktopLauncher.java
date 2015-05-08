@@ -10,7 +10,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 
 
-	 //	TexturePacker.process("Data//HeroIdle", "Data//HeroIdle", "HeroIdle");  //G�ra Atlasfil
+	 	TexturePacker.process("Data//HeroFalling", "Data//HeroFalling", "HeroFalling");  //G�ra Atlasfil
 
 		int a[] = {1, 2, 3, 4};
 		System.out.println(a instanceof Object);

@@ -39,7 +39,7 @@ public abstract class CreatureView {
     protected Animation runningAnimation;
     protected Animation idleAnimation;
 
-    protected void initCreatureAnimations() {
+    protected void initAnimations() {
 
         //Running animation
         spriteSheet = new Texture(Gdx.files.internal(spritesheetPathRun));
@@ -56,7 +56,7 @@ public abstract class CreatureView {
         return currentFrame;
     } */
 
-    private Animation getCurrentAnimation() {
+    protected Animation getCurrentAnimation() {
 
         if (creature.getMovementState() == MovementState.WALKING) {
             return runningAnimation;

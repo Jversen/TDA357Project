@@ -13,6 +13,8 @@ public class MyContactListener implements ContactListener {
 
     private Hero hero;
     private Map map;
+
+    //The two fixtures touching.
     private Fixture fa;
     private Fixture fb;
 
@@ -28,8 +30,8 @@ public class MyContactListener implements ContactListener {
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
 
-        if (fa.getUserData().equals("foot") || fb.getUserData().equals("foot")) {
-            hero.incNbrOfPlatforms();
+        if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) || (fb.getUserData().equals("foot") && fa.getUserData().equals("obstacle"))) {
+            hero.setCreatureGrounded(true);
         }
 
         if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
@@ -49,9 +51,9 @@ public class MyContactListener implements ContactListener {
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
 
-        if ((fa.getUserData().equals("foot") && fb.getUserData().equals("room")) ||
-                (fa.getUserData().equals("room") && fb.getUserData().equals("foot"))) {
-            hero.decNbrOfPlatforms();
+        if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) ||
+                (fa.getUserData().equals("obstacle") && fb.getUserData().equals("foot"))) {     //Remember to use the correct UserDatas. They tend to get changed.......... **************
+            hero.setCreatureGrounded(false);
         }
     }
 

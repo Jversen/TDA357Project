@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Utils.WorldConstants;
@@ -82,9 +83,10 @@ public class HeroController {
     }
 
     public void update(ArrayList<Integer> keys){
-        checkJumping();
         updatePhysics();
         updateMoves(keys);
+        heroIsFalling();
+        System.out.println(hero.getMovementState());
     }
 
     private void updatePhysics() {
@@ -92,14 +94,11 @@ public class HeroController {
         hero.setPosition(physPos);
     }
 
-
-    //TODO: rewrite when box2d-ground is properly implemented
-    private void checkJumping() {
-
-/*        if(hero.getY() <= 0f) {
-            hero.setGrounded(true);
-            hero.setY(0);
-        }*/
+    //A method to check if the hero is currently in the air. And if it is, set movementstate to FALLING. ***Needs refactoring***
+    private void heroIsFalling() {
+        if(!hero.isCreatureGrounded()) {
+            hero.setMovementState(MovementState.FALLING);
+        }
     }
 
     private void updateMoves(ArrayList<Integer> keys) {

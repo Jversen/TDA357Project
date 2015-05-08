@@ -21,7 +21,8 @@ public class Hero extends Creature {
     private RangedWeapon rangedWeapon;
 
     private Hero (float xPos, float yPos) {
-        this.nbrOfPlatformsTouched = 0;
+        //this.nbrOfPlatformsTouched = 0;
+        this.creatureGrounded = false;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
         this.movementSpeed = 100;
@@ -39,14 +40,20 @@ public class Hero extends Creature {
     }
 
     public void walk(Direction direction, HeroMovement heroMovement) {
-        setMovementState(MovementState.WALKING);
+
+        if (creatureGrounded) { //To prevent the hero from walking mid air.
+            setMovementState(MovementState.WALKING);
+        }
+
         setDirection(direction);
         heroMovement.walk(direction);
         setPosition(heroMovement.getPosition());
+
     }
 
     public void jump(HeroMovement heroMovement) {
-        if(creatureIsGrounded()) {
+
+        if(creatureGrounded) {
             setMovementState(MovementState.JUMPING);
             heroMovement.jump();
             setPosition(heroMovement.getPosition());
@@ -54,7 +61,10 @@ public class Hero extends Creature {
     }
 
     public void relax(HeroMovement heroMovement) {
-        setMovementState(MovementState.STANDING);
+
+        if (creatureGrounded) { //To prevent the hero standing mid air.
+            setMovementState(MovementState.STANDING);
+        }
     }
 
     public void attack(HeroMovement heroMovement) {
