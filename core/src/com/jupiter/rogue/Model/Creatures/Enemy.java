@@ -72,10 +72,10 @@ public class Enemy extends Creature {
     }
 
 
-    public void attack(){
+    public void attack(EnemyMovement enemyMovement){
         if(Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) <= 25/PPM){
-            body.setLinearVelocity(0.0f, body.getLinearVelocity().y);
-            System.out.println(this.getName() + " attacks");
+            enemyMovement.attack(this.getDirection());
+            //System.out.println(this.getName() + " attacks");
         }
     }
 
@@ -88,11 +88,11 @@ public class Enemy extends Creature {
         }
 
         if((Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) > 25/PPM) ||
-                (Math.abs((this.getY() + (this.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 50/PPM)){
+                (Math.abs((this.getY() + (this.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
             this.walk(this.getMovementSpeed(), new EnemyMovement(this.getBody()));
         }
         else {
-            this.attack();
+            this.attack(new EnemyMovement(this.getBody()));
 
 
 

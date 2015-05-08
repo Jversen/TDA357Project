@@ -3,6 +3,7 @@ package com.jupiter.rogue.Utils;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.jupiter.rogue.Controller.HeroController;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
@@ -11,6 +12,7 @@ import com.jupiter.rogue.Model.Creatures.Enemy;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
+
 /**
  * Created by oskar on 05/05/2015.
  */
@@ -18,7 +20,7 @@ public class EnemyMovement implements Movement {
 
     private Body body;
 
-
+    private HeroMovement heroMovement;
 
     public EnemyMovement(Body body) {
         this.body = body;
@@ -69,6 +71,40 @@ public class EnemyMovement implements Movement {
     }
 
     public void attack(){
+
+    }
+
+    public void attack(Direction direction){
+        body.setLinearVelocity(0.0f, body.getLinearVelocity().y);
+        if(direction == Direction.LEFT){
+            if(Math.abs(this.getBody().getPosition().y - (Hero.getInstance().getY())) <= 20/PPM){
+                WorldConstants.BODIES.get(0).applyLinearImpulse(new Vector2(-40f, 0f), WorldConstants.BODIES.get(0).getPosition(), false);
+                if(WorldConstants.BODIES.get(0).getLinearVelocity().x < -6) {
+                    WorldConstants.BODIES.get(0).setLinearVelocity(-6, body.getLinearVelocity().y);
+                }
+            }
+            else{
+                WorldConstants.BODIES.get(0).applyLinearImpulse(new Vector2(-40f, 0f), WorldConstants.BODIES.get(0).getPosition(), false);
+                if(WorldConstants.BODIES.get(0).getLinearVelocity().x < -6) {
+                    WorldConstants.BODIES.get(0).setLinearVelocity(-6, body.getLinearVelocity().y);
+                }
+            }
+        }
+        else{
+            if(Math.abs(this.getBody().getPosition().y - (Hero.getInstance().getY())) <= 20/PPM){
+                WorldConstants.BODIES.get(0).applyLinearImpulse(new Vector2(40f, 0f), WorldConstants.BODIES.get(0).getPosition(), false);
+                if(WorldConstants.BODIES.get(0).getLinearVelocity().x > 6) {
+                    WorldConstants.BODIES.get(0).setLinearVelocity(6, body.getLinearVelocity().y);
+                }
+            }
+            else{
+                WorldConstants.BODIES.get(0).applyLinearImpulse(new Vector2(40f, 0f), WorldConstants.BODIES.get(0).getPosition(), false);
+                if(WorldConstants.BODIES.get(0).getLinearVelocity().x > 6) {
+                    WorldConstants.BODIES.get(0).setLinearVelocity(6, body.getLinearVelocity().y);
+                }
+            }
+        }
+
 
     }
 
