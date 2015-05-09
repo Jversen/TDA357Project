@@ -9,9 +9,7 @@ import com.jupiter.rogue.Rogue;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 
-
 	// 	TexturePacker.process("Data//HeroAnimations//HeroJumping", "Data//HeroAnimations//HeroJumping", "HeroJumping");  //G�ra Atlasfil
-	//	TexturePacker.process("Data//HeroAnimations//HeroFalling", "Data//HeroAnimations//HeroFalling", "HeroFalling");  //G�ra Atlasfil
 
 		int a[] = {1, 2, 3, 4};
 		System.out.println(a instanceof Object);
