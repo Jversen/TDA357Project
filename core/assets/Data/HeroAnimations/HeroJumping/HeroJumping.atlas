@@ -1,6 +1,6 @@
 
 HeroJumping.png
-size: 256,64
+size: 512,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -49,6 +49,13 @@ Jumping6
 Jumping7
   rotate: false
   xy: 194, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+Jumping8
+  rotate: false
+  xy: 226, 2
   size: 30, 49
   orig: 30, 49
   offset: 0, 0

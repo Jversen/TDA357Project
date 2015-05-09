@@ -23,6 +23,8 @@ public class HeroView extends CreatureView {
     private String atlasFilePathJumping;
     private Float animationSpeedJumping;
 
+    private Float jumpingAnimationTime;
+
 
     public HeroView() {
         creature = Hero.getInstance();
@@ -59,6 +61,9 @@ public class HeroView extends CreatureView {
         spriteSheet = new Texture((Gdx.files.internal(spritesheetPathJumping)));
         atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathJumping));
         jumpingAnimation = new Animation(animationSpeedJumping, atlas.getRegions());
+
+        jumpingAnimationTime = jumpingAnimation.getAnimationDuration() - jumpingAnimation.getFrameDuration();  //Sets the animation time to the animation duration minus one frame
+                                                                                                               //because first frame runs twice for some reason.
     }
 
     @Override
@@ -68,7 +73,7 @@ public class HeroView extends CreatureView {
         } else if (creature.getMovementState() == MovementState.FALLING) {
             return fallingAnimation;
         } else if (creature.getMovementState() == MovementState.JUMPING) {
-            if (stateTime > 0.65) {      //A check to see if the jumping animation has played, if so, move on to FALLING.
+            if (stateTime > jumpingAnimationTime) {      //A check to see if the jumping animation has played, if so, move on to FALLING.
                 creature.setMovementState(MovementState.FALLING);
             }
             return jumpingAnimation;
