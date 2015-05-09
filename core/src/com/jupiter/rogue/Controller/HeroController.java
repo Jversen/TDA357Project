@@ -86,7 +86,6 @@ public class HeroController {
         updatePhysics();
         updateMoves(keys);
         heroIsFalling();
-        System.out.println(hero.getMovementState());
     }
 
     private void updatePhysics() {
