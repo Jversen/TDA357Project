@@ -25,6 +25,7 @@ public abstract class Creature {
     protected Direction direction = Direction.RIGHT;
 
     protected boolean creatureGrounded;
+    protected boolean creatureFalling;
 
     protected Sprite sprite;
     protected Texture spriteSheet;

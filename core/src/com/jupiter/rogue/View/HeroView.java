@@ -17,22 +17,31 @@ public class HeroView extends CreatureView {
     private String atlasFilePathFalling;
     private Float animationSpeedFalling;
 
+    private Animation jumpingAnimation;
+
+    private String spritesheetPathJumping;
+    private String atlasFilePathJumping;
+    private Float animationSpeedJumping;
+
+
     public HeroView() {
         creature = Hero.getInstance();
 
-        spritesheetPathRun = "Data//HeroRunning//HeroRunningRight.png";
-        atlasFilePathRun = "Data//HeroRunning//HeroRunningRight.atlas";
-        animationSpeedRun = 1/10f;
+        spritesheetPathRun = "Data//HeroAnimations//HeroRunning//HeroRunningRight.png";
+        atlasFilePathRun = "Data//HeroAnimations//HeroRunning//HeroRunningRight.atlas";
+        animationSpeedRun = 1 / 10f;
 
-        spritesheetPathIdle = "Data//HeroIdle//HeroIdle.png";
-        atlasFilePathIdle = "Data//HeroIdle//HeroIdle.atlas";
+        spritesheetPathIdle = "Data//HeroAnimations//HeroIdle//HeroIdle.png";
+        atlasFilePathIdle = "Data//HeroAnimations//HeroIdle//HeroIdle.atlas";
         animationSpeedIdle = 1f;
 
-        spritesheetPathFalling = "Data//HeroFalling//HeroFalling.png";
-        atlasFilePathFalling = "Data//HeroFalling//HeroFalling.atlas";
+        spritesheetPathFalling = "Data//HeroAnimations//HeroFalling//HeroFalling.png";
+        atlasFilePathFalling = "Data//HeroAnimations//HeroFalling//HeroFalling.atlas";
         animationSpeedFalling = 1f;
 
-
+        spritesheetPathJumping = "Data//HeroAnimations//HeroJumping//HeroJumping.png";
+        atlasFilePathJumping = "Data//HeroAnimations//HeroJumping//HeroJumping.atlas";
+        animationSpeedJumping = 1 / 10f;
 
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();
@@ -46,6 +55,10 @@ public class HeroView extends CreatureView {
         spriteSheet = new Texture((Gdx.files.internal(spritesheetPathFalling)));
         atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathFalling));
         fallingAnimation = new Animation(animationSpeedIdle, atlas.getRegions());
+
+        spriteSheet = new Texture((Gdx.files.internal(spritesheetPathJumping)));
+        atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathJumping));
+        jumpingAnimation = new Animation(animationSpeedJumping, atlas.getRegions());
     }
 
     @Override
@@ -54,8 +67,13 @@ public class HeroView extends CreatureView {
             return runningAnimation;
         } else if (creature.getMovementState() == MovementState.FALLING) {
             return fallingAnimation;
+        } else if (creature.getMovementState() == MovementState.JUMPING) {
+            if (stateTime > 0.65) {      //A check to see if the jumping animation has played, if so, move on to FALLING.
+                creature.setMovementState(MovementState.FALLING);
+            }
+            return jumpingAnimation;
         } else {
             return idleAnimation;
-    }
+        }
     }
 }

@@ -43,6 +43,8 @@ public class Hero extends Creature {
 
         if (creatureGrounded) { //To prevent the hero from walking mid air.
             setMovementState(MovementState.WALKING);
+        } else if (creatureFalling) {  //To check if falling
+            setMovementState(MovementState.FALLING);
         }
 
         setDirection(direction);
@@ -64,6 +66,8 @@ public class Hero extends Creature {
 
         if (creatureGrounded) { //To prevent the hero standing mid air.
             setMovementState(MovementState.STANDING);
+        } else if (creatureFalling) {  //To check if falling
+            setMovementState(MovementState.FALLING);
         }
     }
 

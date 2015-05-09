@@ -3,6 +3,7 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
 
@@ -32,6 +33,7 @@ public class MyContactListener implements ContactListener {
 
         if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) || (fb.getUserData().equals("foot") && fa.getUserData().equals("obstacle"))) {
             hero.setCreatureGrounded(true);
+            hero.setCreatureFalling(false);
         }
 
         if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
@@ -54,6 +56,9 @@ public class MyContactListener implements ContactListener {
         if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) ||
                 (fa.getUserData().equals("obstacle") && fb.getUserData().equals("foot"))) {     //Remember to use the correct UserDatas. They tend to get changed.......... **************
             hero.setCreatureGrounded(false);
+            if (hero.getMovementState() != MovementState.JUMPING) {
+                hero.setCreatureFalling(true);
+            }
         }
     }
 

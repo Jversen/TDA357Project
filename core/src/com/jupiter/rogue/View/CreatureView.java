@@ -25,6 +25,8 @@ public abstract class CreatureView {
     protected Animation animation;
     protected SpriteBatch spriteBatch;
 
+    protected Animation lastAnimation; //Variable to track last Animation
+
     //Variables to set animationsoptions.
     protected String spritesheetPathRun;
     protected String atlasFilePathRun;
@@ -67,7 +69,13 @@ public abstract class CreatureView {
 
     public void updateAnimation(float deltaTime, Matrix4 projectionMatrix) {
 
+        lastAnimation = animation;
         animation = getCurrentAnimation();
+
+        if (animation != lastAnimation && lastAnimation != null) {  //Resets the last animation if a new one is used.
+            stateTime = 0;
+        }
+
         stateTime += deltaTime;
         currentFrame = animation.getKeyFrame(stateTime, true);
         sprite.setRegion(currentFrame);

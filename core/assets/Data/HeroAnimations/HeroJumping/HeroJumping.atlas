@@ -1,0 +1,55 @@
+
+HeroJumping.png
+size: 256,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Jumping1
+  rotate: false
+  xy: 2, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+Jumping2
+  rotate: false
+  xy: 34, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+Jumping3
+  rotate: false
+  xy: 66, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+Jumping4
+  rotate: false
+  xy: 98, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+Jumping5
+  rotate: false
+  xy: 130, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+Jumping6
+  rotate: false
+  xy: 162, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+Jumping7
+  rotate: false
+  xy: 194, 2
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1

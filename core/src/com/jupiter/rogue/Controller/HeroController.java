@@ -85,19 +85,11 @@ public class HeroController {
     public void update(ArrayList<Integer> keys){
         updatePhysics();
         updateMoves(keys);
-        heroIsFalling();
     }
 
     private void updatePhysics() {
         Position physPos = new Position(heroMovement.getBody().getPosition().x, heroMovement.getBody().getPosition().y);
         hero.setPosition(physPos);
-    }
-
-    //A method to check if the hero is currently in the air. And if it is, set movementstate to FALLING. ***Needs refactoring***
-    private void heroIsFalling() {
-        if(!hero.isCreatureGrounded()) {
-            hero.setMovementState(MovementState.FALLING);
-        }
     }
 
     private void updateMoves(ArrayList<Integer> keys) {
