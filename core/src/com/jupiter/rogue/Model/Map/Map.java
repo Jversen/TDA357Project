@@ -86,9 +86,9 @@ public class Map {
     //TEMPORARY
     private void printMap() {
         for(int x = 0; x < roomMap.length; x++) {
-            System.out.println();
+            //System.out.println();
             for(int y = 0; y < roomMap[x].length ; y++) {
-                System.out.print(roomMap[x][y] + " ");
+                //System.out.print(roomMap[x][y] + " ");
             }
         }
     }

@@ -43,23 +43,24 @@ public class TiledHandler {
     public void createTileBodies() {
         BodyDef bodyDef = new BodyDef();
         int obstacleLength = 0;
-        System.out.println("rows: " + foregroundLayer.getHeight());
-        System.out.println("cols: " + foregroundLayer.getWidth());
 
         for (int row = 0; row < foregroundLayer.getHeight(); row++){
-            obstacleLength = 0;
             for (int col = 0; col < foregroundLayer.getWidth(); col++){
 
                 TiledMapTileLayer.Cell cell = foregroundLayer.getCell(col, row);
 
-                if (cell != null && cell.getTile() != null && col < foregroundLayer.getWidth()-1){
+                if (cell != null && cell.getTile() != null) {
                     obstacleLength++;
-                    continue;
-                } else if (obstacleLength > 0 ) {
-                    System.out.println("obstlength: " + obstacleLength);
-                    createObsFixture(row, col, obstacleLength);
+                    if (col >= foregroundLayer.getWidth() - 1 && obstacleLength > 0){
+                        createObsFixture(row, col, obstacleLength);
+                        obstacleLength = 0;
+                        continue;
+                    }
+                } else if (obstacleLength > 0){
+                    createObsFixture(row, col-1, obstacleLength);
                     obstacleLength = 0;
                 }
+
             }
         }
 
@@ -73,7 +74,6 @@ public class TiledHandler {
                     continue;
                 }
 
-                System.out.println("Row: " + row + "Col: " + col);
 
                 bodyDef.type = BodyDef.BodyType.StaticBody;
 
@@ -109,17 +109,14 @@ public class TiledHandler {
     /* Creates fixtures on obstacles in horizontal chunks*/
     private void createObsFixture(int row, int col, int obstacleLength){
         BodyDef bodyDef = new BodyDef();
-        float x = (col - obstacleLength + 0.5f);
-        float y = row + 0.5f;
-        System.out.println("pre x: " + x);
+        float x = ((col - obstacleLength) + obstacleLength / 2 + 0.5f) * tileSize / PPM;
+        float y = (row + 0.5f) * tileSize / PPM;
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
                 /*Set the position to the tile number plus half the tilesize to compensate
                 for body/libgdx drawing differences. */
 
-        bodyDef.position.set((x + obstacleLength/2) * tileSize / PPM,
-                y * tileSize / PPM);
-        System.out.println("bodydef pos x: " + bodyDef.position.x + ", y: " + bodyDef.position.y);
+        bodyDef.position.set(x, y);
         FixtureDef fixtureDef = new FixtureDef();
 
         Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
