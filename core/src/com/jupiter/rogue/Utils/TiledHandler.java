@@ -45,30 +45,19 @@ public class TiledHandler {
     public void createTileBodies() {
         BodyDef bodyDef = new BodyDef();
         float obstacleLength = 0;
-        int[][] table = new int[foregroundLayer.getHeight()][foregroundLayer.getWidth()];
-
-        for (int[] row: table)
-            Arrays.fill(row, 0);
 
         for (int row = 0; row < foregroundLayer.getHeight(); row++){
-            System.out.println("RAD: " + row);
             for (int col = 0; col < foregroundLayer.getWidth(); col++){
-                System.out.println("KOLUMN: " + col);
                 TiledMapTileLayer.Cell cell = foregroundLayer.getCell(col, row);
 
                 if (cell != null && cell.getTile() != null) {
-                    System.out.println("HIT! " + row + ", " + col);
-                    table[row][col] = 1;
                     obstacleLength++;
                     if (col >= foregroundLayer.getWidth() - 1 && obstacleLength > 0){
-                        System.out.println("Nått kanten...");
                         createObsFixture(row, col, obstacleLength);
                         obstacleLength = 0;
                         continue;
                     }
                 } else if (obstacleLength > 0){
-                    System.out.println("'normal' plattform");
-                    System.out.println("Vad blir fel? Col = " + (col-1) + ", row = " + row);
                     createObsFixture(row, col - 1, obstacleLength);
                     obstacleLength = 0;
                 }
@@ -76,9 +65,6 @@ public class TiledHandler {
             }
         }
 
-        //Printing the occupied tiles from fg layer
-
-        System.out.println(Arrays.deepToString(table));
         //TODO reuse code from above
         for (int row = 0; row < sensorLayer.getHeight(); row++){
             for (int col = 0; col < sensorLayer.getWidth(); col++){
@@ -124,14 +110,9 @@ public class TiledHandler {
     /* Creates fixtures on obstacles in horizontal chunks*/
     private void createObsFixture(int row, int col, float obstacleLength){
         BodyDef bodyDef = new BodyDef();
-        System.out.println("X, visa dig...");
-        System.out.println("X = " + col + " - " + obstacleLength + " + " + obstacleLength/2 + " + " + 1f);
 
         float x = ((col - obstacleLength) + obstacleLength / 2 + 1f) * tileSize / PPM;
-        System.out.println("X = " + x);
         float y = (row + 0.5f) * tileSize / PPM;
-        System.out.println("x = " + x + ", y = " + y);
-        System.out.println("Längd: " + obstacleLength);
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
                 /*Set the position to the tile number plus half the tilesize to compensate
