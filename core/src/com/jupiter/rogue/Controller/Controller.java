@@ -1,5 +1,12 @@
 package com.jupiter.rogue.Controller;
 
+import com.jupiter.rogue.Model.Creatures.Enemy;
+import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Map.Map;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Johan on 16/04/15.
  */
@@ -15,6 +22,7 @@ public class Controller {
     private UserInput userInput;
     private RedDeathController redDeathController;
     private MapController mapController;
+    List<EnemyController> enemyControllers;
 
     public static Controller getInstance() {
         if (instance == null) {
@@ -25,6 +33,7 @@ public class Controller {
 
     private Controller() {
         initController();
+
     }
 
     private void initController() {
@@ -33,6 +42,9 @@ public class Controller {
         userInput = new UserInput();
         redDeathController = new RedDeathController();
         mapController = new MapController();
+        EnemyFactory enemyFactory = new EnemyFactory();
+        enemyControllers = new ArrayList<EnemyController>();
+        
         //TODO initialize everything at start of game
     }
 
