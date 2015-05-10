@@ -9,10 +9,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.jupiter.rogue.Controller.AIController;
 import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
 
@@ -34,14 +33,21 @@ public class View {
     private Map map;
     private SpriteBatch batch;
     private HeroView heroView;
+    private RedDeathView redDeathView;
     Box2DDebugRenderer debugRenderer;
     WorldController wc;
     World world;
 
+    private RedDeath redDeath;
 
     public View() {
         wc = new WorldController();
+
         heroView = new HeroView();
+
+        redDeath = new RedDeath();
+        redDeathView = new RedDeathView(redDeath);
+
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth()*2;
         h = Gdx.graphics.getHeight()*2;
@@ -69,6 +75,9 @@ public class View {
 
         heroView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
 
+        redDeathView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
+
+
         /*batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //sprite.draw(batch);
@@ -80,11 +89,6 @@ public class View {
         moveB2DCamera(posX, posY);
 
         debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
-
-        AIController.redDeath1.render(camera.combined);
-        //AIController.redDeath2.render(camera.combined);
-
-
     }
 
     private void moveCamera(float x, float y){

@@ -27,24 +27,6 @@ public abstract class Creature {
     protected boolean creatureGrounded;
     protected boolean creatureFalling;
 
-    protected Sprite sprite;
-    protected Texture spriteSheet;
-    protected TextureAtlas atlas;
-    protected TextureRegion currentFrame;
-    protected SpriteBatch spriteBatch;
-    protected Animation animation;
-
-    protected Body body;
-
-    protected float stateTime;
-
-    protected float scale; //sets creature sprite scaling constant
-    protected Rectangle bounds = new Rectangle();
-
-    public Position getPosition() {
-        return new Position(body.getPosition().x, body.getPosition().y);
-    }
-
     public void setPosition(float x, float y) {
         setX(x);
         setY(y);
@@ -66,30 +48,9 @@ public abstract class Creature {
         return this.position.getYPos();
     }
 
-    public void setBounds(float x, float y, float w, float h){
-
-        this.bounds.setX(x);
-        this.bounds.setY(y);
-
-        this.bounds.setWidth(w);
-        this.bounds.setHeight(h);
-    }
-
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
-
-    public float getBoundsX(){
-        return this.bounds.getX();
-    }
-    public float getBoundsY(){
-        return this.bounds.getY();
-    }
-
-    public void setSpriteSheet(Texture texture) {
-        this.spriteSheet = texture;
-    }
-
 
     public MovementState getMovementState() {
         return movementState;

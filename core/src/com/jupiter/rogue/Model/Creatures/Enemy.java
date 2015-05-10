@@ -1,10 +1,8 @@
 package com.jupiter.rogue.Model.Creatures;
 
-import com.jupiter.rogue.Controller.AIController;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.EnemyMovement;
-import com.jupiter.rogue.Utils.WorldConstants;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
@@ -14,7 +12,6 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 public class Enemy extends Creature {
 
     private boolean flying;
-    protected String name;
     private Position heroPos;
     protected float bodyHeight;
     protected float bodyWidth;
@@ -25,15 +22,17 @@ public class Enemy extends Creature {
         this.attackPoints = 100;
         this.movementSpeed = 100;
         this.flying = false;
+        this.position = new Position(200, 50);
     }
 
-    public Enemy(int maxHP, int currentHP, int attackPoints, int movementSpeed, boolean flying) {
+    public Enemy(int maxHP, int currentHP, int attackPoints, int movementSpeed, boolean flying, int posX, int posY) {
 
         this.movementSpeed = movementSpeed;
         this.attackPoints = attackPoints;
         this.currentHealthPoints = currentHP;
         this.maxHealthPoints = maxHP;
         this.flying = flying;
+        this.position = new Position(posX, posY);
     }
 
     public void fly(Direction direction, float angle, float force, EnemyMovement enemyMovement) {
@@ -59,10 +58,6 @@ public class Enemy extends Creature {
         setPosition(enemyMovement.getPosition());
     }
 
-    public String getName(){
-        return this.name;
-    }
-
     public float getBodyHeight(){
         return bodyHeight;
     }
@@ -75,7 +70,6 @@ public class Enemy extends Creature {
     public void attack(EnemyMovement enemyMovement){
         if(Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) <= 25/PPM){
             enemyMovement.attack(this.getDirection());
-            //System.out.println(this.getName() + " attacks");
         }
     }
 
@@ -89,16 +83,11 @@ public class Enemy extends Creature {
 
         if((Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) > 25/PPM) ||
                 (Math.abs((this.getY() + (this.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
-            this.walk(this.getMovementSpeed(), new EnemyMovement(this.getBody()));
+            //this.walk(this.getMovementSpeed(), new EnemyMovement());
         }
         else {
-            this.attack(new EnemyMovement(this.getBody()));
-
-
-
-
+           // this.attack(new EnemyMovement(this.getBody()));
         }
-
     }
 
     public float getMovementSpeed(){
@@ -106,3 +95,29 @@ public class Enemy extends Creature {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

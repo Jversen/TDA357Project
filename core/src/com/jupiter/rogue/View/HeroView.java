@@ -43,7 +43,7 @@ public class HeroView extends CreatureView {
 
         spritesheetPathJumping = "Data//HeroAnimations//HeroJumping//HeroJumping.png";
         atlasFilePathJumping = "Data//HeroAnimations//HeroJumping//HeroJumping.atlas";
-        animationSpeedJumping = 1 / 10f;
+        animationSpeedJumping = 1 / 15f;
 
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();

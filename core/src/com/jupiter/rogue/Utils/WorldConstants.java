@@ -24,5 +24,4 @@ public final class WorldConstants {
     public static int HEIGHT;
     public static ArrayList<Body> BODIES = new ArrayList<>();
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
-
 }

@@ -1,30 +1,37 @@
 package com.jupiter.rogue.Controller;
 
-import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Map.Map;
-
 /**
  * Created by Johan on 16/04/15.
  */
 public class Controller {
 
+    //Singleton instance
+    private static Controller instance = null;
+
     private HeroController heroController;
     private WorldController worldController;
     private UserInput userInput;
     private ModelController modelController;
-    private AIController aiController;
+    private RedDeathController redDeathController;
     private MapController mapController;
 
-    public Controller() {
-        init();
+    private static Controller getInstance() {
+        if (instance == null) {
+            instance = new Controller();
+        }
+        return instance;
     }
 
-    private void init() {
+    private Controller() {
+        initController();
+    }
+
+    private void initController() {
         heroController = new HeroController();
         worldController = new WorldController();
         userInput = new UserInput();
         modelController = new ModelController();
-        aiController = new AIController();
+        redDeathController = new RedDeathController();
         mapController = new MapController();
         //TODO initialize everything at start of game
     }
@@ -33,11 +40,7 @@ public class Controller {
         worldController.update();
         mapController.update();
         heroController.update(userInput.findUserInput());
-
-
-        AIController.redDeath1.update();
-
-
+        redDeathController.update();
         //TODO add rest of controllers
     }
 }
