@@ -11,7 +11,7 @@ public class Rogue extends ApplicationAdapter {
 
     @Override
 	public void create() {
-		controller = new Controller();
+		controller = Controller.getInstance();
 		view = new View();
 	}
 

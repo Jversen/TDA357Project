@@ -9,6 +9,7 @@ import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.Utils.HeroMovement;
+import com.jupiter.rogue.View.HeroView;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class HeroController {
 
     private Hero hero;
+    private HeroView heroView;
     private HeroMovement heroMovement;
 
     public HeroController() {
@@ -30,6 +32,7 @@ public class HeroController {
     public void initHero() {
 
         hero = hero.getInstance();
+        heroView = new HeroView();
 
         Position startPosition = WorldConstants.HERO_START_POSITION;
 

@@ -20,8 +20,6 @@ public class EnemyMovement implements Movement {
 
     private Body body;
 
-    private HeroMovement heroMovement;
-
     public EnemyMovement(Body body) {
         this.body = body;
     }
@@ -40,9 +38,7 @@ public class EnemyMovement implements Movement {
 
     @Override
     public void jump(){
-
         body.setLinearVelocity(body.getLinearVelocity().x, 6);
-
     }
 
 
@@ -66,7 +62,6 @@ public class EnemyMovement implements Movement {
 
         } else {
             body.applyLinearImpulse(new Vector2(-(float)Math.cos(angle)*moveSpeed, (float)Math.sin(angle)*moveSpeed), body.getPosition(), true);
-
         }
     }
 
@@ -104,8 +99,5 @@ public class EnemyMovement implements Movement {
                 }
             }
         }
-
-
     }
-
 }

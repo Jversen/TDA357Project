@@ -1,29 +1,25 @@
 package com.jupiter.rogue.Controller;
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
-import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.EnemyMovement;
-import com.jupiter.rogue.Utils.HeroMovement;
 import com.jupiter.rogue.Utils.WorldConstants;
-
-import java.util.ArrayList;
+import com.jupiter.rogue.View.RedDeathView;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by Johan on 17/04/15.
  */
+@lombok.Data
 public class RedDeathController {
 
     private RedDeath redDeath;
+    private RedDeathView redDeathView;
     private EnemyMovement redDeathMovement;
     private Position startPosition;
 
@@ -34,6 +30,7 @@ public class RedDeathController {
     public void initRedDeath() {
 
         redDeath = new RedDeath();
+        redDeathView = new RedDeathView(redDeath);
 
         startPosition = redDeath.getPosition();
 
@@ -73,9 +70,5 @@ public class RedDeathController {
     private void updatePhysics() {
         Position physPos = new Position(redDeathMovement.getBody().getPosition().x, redDeathMovement.getBody().getPosition().y);
         redDeath.setPosition(physPos);
-    }
-
-    public RedDeath getRedDeath() {
-        return redDeath;
     }
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.jupiter.rogue.Controller.Controller;
 import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
@@ -32,21 +33,20 @@ public class View {
     private float h;
     private Map map;
     private SpriteBatch batch;
+
+    private Controller controller;
+
     private HeroView heroView;
     private RedDeathView redDeathView;
-    Box2DDebugRenderer debugRenderer;
-    WorldController wc;
-    World world;
 
-    private RedDeath redDeath;
+    Box2DDebugRenderer debugRenderer;
 
     public View() {
-        wc = new WorldController();
 
-        heroView = new HeroView();
+        controller = Controller.getInstance();
+        heroView = controller.getHeroController().getHeroView();
 
-        redDeath = new RedDeath();
-        redDeathView = new RedDeathView(redDeath);
+        redDeathView = controller.getRedDeathController().getRedDeathView();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth()*2;

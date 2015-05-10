@@ -15,6 +15,7 @@ public class Enemy extends Creature {
     private Position heroPos;
     protected float bodyHeight;
     protected float bodyWidth;
+    protected EnemyMovement enemyMovement;
 
     public Enemy() {
         this.maxHealthPoints = 100;
@@ -40,7 +41,6 @@ public class Enemy extends Creature {
             setDirection(direction);
             enemyMovement.fly(direction, angle, force);
             setPosition(enemyMovement.getPosition());
-
         } else {
             System.out.println("this enemy can't fly");
         }
@@ -53,7 +53,6 @@ public class Enemy extends Creature {
         else{
             this.setDirection(Direction.RIGHT);
         }
-
         enemyMovement.walk(this.getDirection(), movementSpeed);
         setPosition(enemyMovement.getPosition());
     }
@@ -66,13 +65,12 @@ public class Enemy extends Creature {
         return bodyWidth;
     }
 
-
     public void attack(EnemyMovement enemyMovement){
         if(Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) <= 25/PPM){
             enemyMovement.attack(this.getDirection());
         }
     }
-
+/*
     public void update(){
         if(this.getX() - (Hero.getInstance().getX()) > 0){
             this.setDirection(Direction.LEFT);
@@ -83,12 +81,12 @@ public class Enemy extends Creature {
 
         if((Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) > 25/PPM) ||
                 (Math.abs((this.getY() + (this.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
-            //this.walk(this.getMovementSpeed(), new EnemyMovement());
+           // this.walk(this.getMovementSpeed(), enemyMovement);
         }
         else {
            // this.attack(new EnemyMovement(this.getBody()));
         }
-    }
+    } */
 
     public float getMovementSpeed(){
         return this.movementSpeed;

@@ -3,6 +3,8 @@ package com.jupiter.rogue.Controller;
 /**
  * Created by Johan on 16/04/15.
  */
+
+@lombok.Data
 public class Controller {
 
     //Singleton instance
@@ -11,11 +13,10 @@ public class Controller {
     private HeroController heroController;
     private WorldController worldController;
     private UserInput userInput;
-    private ModelController modelController;
     private RedDeathController redDeathController;
     private MapController mapController;
 
-    private static Controller getInstance() {
+    public static Controller getInstance() {
         if (instance == null) {
             instance = new Controller();
         }
@@ -30,7 +31,6 @@ public class Controller {
         heroController = new HeroController();
         worldController = new WorldController();
         userInput = new UserInput();
-        modelController = new ModelController();
         redDeathController = new RedDeathController();
         mapController = new MapController();
         //TODO initialize everything at start of game
