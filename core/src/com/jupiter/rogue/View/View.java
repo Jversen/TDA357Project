@@ -77,7 +77,12 @@ public class View {
 
         redDeathView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
 
-
+        if (Controller.getInstance().getEnemyControllers().size() > 0) {
+            for (int i = 0; i < Controller.getInstance().getEnemyControllers().size(); i++) {
+                Controller.getInstance().getEnemyControllers().get(i).getEnemyView().
+                        updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
+            }
+        }
         /*batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //sprite.draw(batch);
