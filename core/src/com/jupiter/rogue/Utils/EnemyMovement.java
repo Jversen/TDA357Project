@@ -43,6 +43,7 @@ public class EnemyMovement implements Movement {
 
 
     public void walk(Direction direction, float moveSpeed) {
+
         if(direction == Direction.RIGHT) {
             body.applyLinearImpulse(new Vector2(moveSpeed*3,0f), body.getPosition(), true);
             if(body.getLinearVelocity().x > moveSpeed) {

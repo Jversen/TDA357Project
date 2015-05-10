@@ -4,7 +4,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.Widow;
+import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.EnemyMovement;
 import com.jupiter.rogue.Utils.WorldConstants;
@@ -57,6 +59,21 @@ public class WidowController extends EnemyController {
 @Override
     public void update(){
         updatePhysics();
+
+    if(enemy.getX() - (Hero.getInstance().getX()) > 0){
+        enemy.setDirection(Direction.LEFT);
+    }
+    else{
+        enemy.setDirection(Direction.RIGHT);
+    }
+
+    if((Math.abs((enemy.getX() + (enemy.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 25/PPM) ||
+            (Math.abs((enemy.getY() + (enemy.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
+        enemy.walk(enemy.getMovementSpeed(), movement);
+    }
+    else {
+        enemy.attack(movement);
+    }
     }
 
     private void updatePhysics() {
