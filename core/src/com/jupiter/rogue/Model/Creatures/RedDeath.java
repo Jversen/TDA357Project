@@ -23,6 +23,9 @@ public class RedDeath extends Enemy {
 
         super(100, 100, 25, 1, true, 200, 50);
 
+        bodyWidth = 10;
+        bodyHeight = 15;
+
         // Creates the texture for this enemy
 
     /*  Pixmap pixmap = new Pixmap(20, 30, Pixmap.Format.RGBA8888);

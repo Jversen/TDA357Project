@@ -4,7 +4,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
+import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.EnemyMovement;
 import com.jupiter.rogue.Utils.WorldConstants;
@@ -42,7 +44,7 @@ public class RedDeathController {
 
         //creates the shape of the playerBodyDef
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(6 / PPM, 10 / PPM); //temporary values, should be dependent on sprite size
+        shape.setAsBox(10 / PPM, 15 / PPM); //temporary values, should be dependent on sprite size
 
         // FixtureDef sets physical properties
         FixtureDef redDeathFixtureDef = new FixtureDef();
@@ -65,6 +67,21 @@ public class RedDeathController {
 
     public void update(){
         updatePhysics();
+
+        if(redDeath.getX() - (Hero.getInstance().getX()) > 0){
+            redDeath.setDirection(Direction.LEFT);
+        }
+        else{
+            redDeath.setDirection(Direction.RIGHT);
+        }
+
+        if((Math.abs((redDeath.getX() + (redDeath.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 25/PPM) ||
+                (Math.abs((redDeath.getY() + (redDeath.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
+            redDeath.walk(redDeath.getMovementSpeed(), redDeathMovement);
+        }
+        else {
+            redDeath.attack(redDeathMovement);
+        }
     }
 
     private void updatePhysics() {

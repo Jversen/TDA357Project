@@ -70,52 +70,9 @@ public class Enemy extends Creature {
             enemyMovement.attack(this.getDirection());
         }
     }
-/*
-    public void update(){
-        if(this.getX() - (Hero.getInstance().getX()) > 0){
-            this.setDirection(Direction.LEFT);
-        }
-        else{
-            this.setDirection(Direction.RIGHT);
-        }
-
-        if((Math.abs((this.getX() + 5/PPM) - (Hero.getInstance().getX() + (this.getBodyWidth()/2)/PPM)) > 25/PPM) ||
-                (Math.abs((this.getY() + (this.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
-           // this.walk(this.getMovementSpeed(), enemyMovement);
-        }
-        else {
-           // this.attack(new EnemyMovement(this.getBody()));
-        }
-    } */
 
     public float getMovementSpeed(){
         return this.movementSpeed;
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
