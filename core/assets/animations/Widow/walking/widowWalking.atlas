@@ -1,0 +1,300 @@
+
+widowWalking.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+walking
+  rotate: false
+  xy: 2, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 0
+walking
+  rotate: false
+  xy: 2, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 1
+walking
+  rotate: false
+  xy: 38, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 2
+walking
+  rotate: false
+  xy: 2, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 3
+walking
+  rotate: false
+  xy: 38, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 4
+walking
+  rotate: false
+  xy: 74, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 5
+walking
+  rotate: false
+  xy: 38, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 6
+walking
+  rotate: false
+  xy: 74, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 7
+walking
+  rotate: false
+  xy: 110, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 8
+walking
+  rotate: false
+  xy: 74, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 9
+walking
+  rotate: false
+  xy: 110, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 10
+walking
+  rotate: false
+  xy: 146, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 11
+walking
+  rotate: false
+  xy: 110, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 12
+walking
+  rotate: false
+  xy: 146, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 13
+walking
+  rotate: false
+  xy: 182, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 14
+walking
+  rotate: false
+  xy: 146, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 15
+walking
+  rotate: false
+  xy: 182, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 16
+walking
+  rotate: false
+  xy: 218, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 17
+walking
+  rotate: false
+  xy: 182, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 18
+walking
+  rotate: false
+  xy: 218, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 19
+walking
+  rotate: false
+  xy: 254, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 20
+walking
+  rotate: false
+  xy: 218, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 21
+walking
+  rotate: false
+  xy: 254, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 22
+walking
+  rotate: false
+  xy: 290, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 23
+walking
+  rotate: false
+  xy: 254, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 24
+walking
+  rotate: false
+  xy: 290, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 25
+walking
+  rotate: false
+  xy: 326, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 26
+walking
+  rotate: false
+  xy: 290, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 27
+walking
+  rotate: false
+  xy: 326, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 28
+walking
+  rotate: false
+  xy: 362, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 29
+walking
+  rotate: false
+  xy: 326, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 30
+walking
+  rotate: false
+  xy: 362, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 31
+walking
+  rotate: false
+  xy: 398, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 32
+walking
+  rotate: false
+  xy: 362, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 33
+walking
+  rotate: false
+  xy: 398, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 34
+walking
+  rotate: false
+  xy: 434, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 35
+walking
+  rotate: false
+  xy: 398, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 36
+walking
+  rotate: false
+  xy: 434, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 37
+walking
+  rotate: false
+  xy: 470, 132
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 38
+walking
+  rotate: false
+  xy: 434, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 39
+walking
+  rotate: false
+  xy: 470, 67
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 40
+walking
+  rotate: false
+  xy: 470, 2
+  size: 34, 63
+  orig: 34, 63
+  offset: 0, 0
+  index: 41

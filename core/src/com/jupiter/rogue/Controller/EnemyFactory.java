@@ -4,20 +4,13 @@ package com.jupiter.rogue.Controller;
  * Created by Johan on 2015-05-10.
  */
 public class EnemyFactory {
-    String enemyType;
-    float xPos;
-    float yPos;
     EnemyController enemyController;
 
-    public EnemyController createEnemy(String enemyType, float xPos, float yPos){
-        this.enemyType = enemyType;
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public EnemyController createEnemy(String enemyType, int xPos, int yPos){
 
         switch (enemyType){
             case "widow":
-                System.out.println("widow");
-                enemyController = new WidowController();
+                enemyController = new WidowController(xPos, yPos);
                 return enemyController;
             default:
                 System.out.println("not valid");

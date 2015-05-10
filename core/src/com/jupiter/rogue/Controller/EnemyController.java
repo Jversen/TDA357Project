@@ -6,8 +6,11 @@ import com.jupiter.rogue.View.EnemyView;
 /**
  * Created by Johan on 2015-05-10.
  */
-public class EnemyController {
+@lombok.Data
+public abstract class EnemyController {
 
     EnemyView enemyView;
     Enemy enemy;
+
+    public void update(){}
 }
