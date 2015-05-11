@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="19" height="9" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="mylevel1_tiles" tilewidth="32" tileheight="32">
+  <image source="mylevel1_tiles.png" width="256" height="768"/>
+ </tileset>
+ <layer name="Background" width="19" height="9" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJwTZ2BgEB/Fo3gIYACo0A9e
+  </data>
+ </layer>
+ <layer name="Foreground" width="19" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxTZmBgUCYDq6CxkfnaFGBkO9QYKANKNDAL5EY9Cs3SAmJdCs2gJeCmIlYFYhk0mhAbXT2MBgAj2wrC
+  </data>
+ </layer>
+ <layer name="Sensor" width="19" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFAwUUqGSOPJXNGqwAAHQoAH8=
+  </data>
+ </layer>
+</map>

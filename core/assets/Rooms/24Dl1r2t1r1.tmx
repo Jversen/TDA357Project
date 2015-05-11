@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="14" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="mylevel1_tiles" tilewidth="32" tileheight="32">
+  <image source="mylevel1_tiles.png" width="256" height="768"/>
+ </tileset>
+ <layer name="Background" width="24" height="14" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJy9k1EKwDAIQ72F/nn/W47BClnQqh3sI/Sj9iVYNRGxH+WPDM5d3arRTa2SrPGGs1RSiTNHvpbUnvLRx2XWm4hT5V45OtyMn3k4sLu5OXN25+SJ/dr1qZof/Bv2qGZN5f2nTqxsBpnXnX9kYk94tqa7ku1Mdz+n3An/i9hzsrO3LjT/IGc=
+  </data>
+ </layer>
+ <layer name="Foreground" width="24" height="14">
+  <data encoding="base64" compression="zlib">
+   eJzVk7EOg0AIhpnraNrl1MFeOqh1MNH3fzQhgRQJsXetDpJ84YLcf0AwAEBAKvYv+FiLRKTmb+Ij51cqHvksPFUu+Z4ZlX6n4rmIvq35KKPaBu7tcYK+GM3H1j8hy0H63+rPfeuGFAqv/l+NtEuF7E6TeJ96mRnbk9UWfZrPv/XTu4OjTzv6hu3Oe3dT5+/9L1e3IgM731TuzF5OULnBiduzsAJ+4xCV
+  </data>
+ </layer>
+ <layer name="Sensor" width="24" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAEClA8CmgLxIe4+aNg4AEt41iCDuaTArjJwLQGAKPaAVw=
+  </data>
+ </layer>
+</map>

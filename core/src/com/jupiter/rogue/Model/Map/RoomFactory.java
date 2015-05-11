@@ -1,6 +1,8 @@
 package com.jupiter.rogue.Model.Map;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Johan on 27/04/15.
@@ -11,13 +13,18 @@ public class RoomFactory {
     public static Room getRoom(int roomWidth, int roomHeight, ArrayList<String> doorPositions) {
         Room room = null;                                   // Room to be created
         //TODO actually return the requested room;
-        return new Room("Rooms/RoomSwitchingTest1.tmx", 4, 2);
         /*File roomFolder = new File("Rooms");                // The folder that holds all the tmx-files
         File[] tmxList = roomFolder.listFiles();            // Array that holds all the tmx files
         ArrayList<String> pathList = new ArrayList<>();     // List that will hold filepaths to all tmx-files that fit the input arguments
 
         for(File file : tmxList) {
+
+            if(!fileIsValid(file)) {
+                continue;
+            }
+
             String fileName = file.getName();
+
             int width = Character.getNumericValue(fileName.charAt(0));
             int height = Character.getNumericValue(fileName.charAt(1));
 
@@ -44,24 +51,70 @@ public class RoomFactory {
                     }
 
                     if(validRoom) {
-                        pathList.add("Rooms/" + fileName);
+                        pathList.add("Rooms/" + fileName + ".tmx");
                     }
                 }
             }
         }
 
+        String path = null;
+
         if(pathList.size() > 1) {
             Random rand = new Random();
-            String path = pathList.get(rand.nextInt(pathList.size()));
-            room = new Room(path);
-        }*/
+            path = pathList.get(rand.nextInt(pathList.size()));
+        } else {
+            path = pathList.get(0);
+        }
+
+        return new Room(path, roomWidth, roomHeight);*/
+        return null;
+    }
+
+    private static boolean fileIsValid(File file) {
+        if(file == null) {
+
+        }
+        if(file.isDirectory()) {
+            return false;
+        }
+        String fileName = file.getName();
+        try {
+            String twoFirstLetters = fileName.substring(0,2);
+            int i = Integer.parseInt(twoFirstLetters);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static Room getRoom(String entrance, boolean exit) {
+        Random rand = new Random();
+        ArrayList<String> doors = new ArrayList<>();
+        if(entrance.equals("l") && !exit) {
+            switch (1) { //will be random once more rooms are added
+                case 1 :    doors.add("l1");
+                            return new Room("Rooms/11Dl1.tmx", 1, 1, doors);
+                //more to be added
+                default : return null;
+            }
+        } if(entrance.equals("r")) {
+            switch (1) {
+                case 1 :    doors.add("r1");
+                            return new Room("Rooms/12Dr1.tmx", 2, 1, doors);
+                default : return null;
+            }
+        }
+        return null;
     }
 
     // getter for special rooms
     public static Room getRoom(String roomID) {
+        ArrayList<String> doors = new ArrayList<>();
         switch (roomID) {
-            case "StartingRoom": return new Room("Rooms/StartingRoom", 4, 2);
-            case "BossRoomOne": return new Room("Rooms/BossRoomOne", 4, 2);
+            case "StartingRoom":    doors.add("r1");
+                                    return new Room("Rooms/StartingRoom", 4, 2, doors);
+            case "BossRoomOne":     doors.add("l1");
+                                    return new Room("Rooms/BossRoomOne", 4, 4, doors);
             default: return null;
         }
     }

@@ -14,14 +14,14 @@ public class WidowView extends EnemyView {
 
     public WidowView(Widow widow) {
         creature = widow;
-        spritesheetPathRun = "Animations\\Widow\\walking\\widowWalking.png";
-        atlasFilePathRun = "Animations\\Widow\\walking\\widowWalking.atlas";
+        spritesheetPathRun = "Animations/Widow/walking/widowWalking.png";
+        atlasFilePathRun = "Animations/Widow/walking/widowWalking.atlas";
         animationSpeedRun = 1 / 33f;
 
         //spritesheetPathIdle = "Animations\\Widow\\walking\\widowWalking.png";
        // atlasFilePathIdle = "Animations\\Widow\\idle\\widowIdle.atlas";
-        spritesheetPathIdle = "Animations\\Widow\\walking\\widowWalking.png";
-        atlasFilePathIdle = "Animations\\Widow\\walking\\widowWalking.atlas";
+        spritesheetPathIdle = "Animations/Widow/walking/widowWalking.png";
+        atlasFilePathIdle = "Animations/Widow/walking/widowWalking.atlas";
         animationSpeedIdle = 1 / 33f;
 
         sprite = new Sprite();
