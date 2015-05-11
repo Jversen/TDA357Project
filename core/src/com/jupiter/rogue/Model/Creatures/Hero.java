@@ -55,11 +55,11 @@ public class Hero extends Creature {
 
     public void jump(HeroMovement heroMovement) {
 
-        if(creatureGrounded) {
+        //if(creatureGrounded) {
             setMovementState(MovementState.JUMPING);
             heroMovement.jump();
             setPosition(heroMovement.getPosition());
-        }
+        //}
     }
 
     public void relax(HeroMovement heroMovement) {

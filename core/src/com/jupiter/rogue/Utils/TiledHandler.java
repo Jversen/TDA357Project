@@ -90,17 +90,41 @@ public class TiledHandler {
                 Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
 
                 WorldConstants.BODIES.add(body);
+                body.setUserData("sensor");
 
                 PolygonShape shape = new PolygonShape();
                 shape.setAsBox(tileSize/2 / PPM, tileSize/2 / PPM);
                 fixtureDef.shape = shape;
 
                 //TODO create a better positioning
+                String side = "n";
+                int cellNr = -1;
+
                 if(col == 0) {
-                    body.createFixture(fixtureDef).setUserData("leftDoor"); //
+                    side = "l";
+
+                    //body.createFixture(fixtureDef).setUserData("leftDoor"); //
                 } else if(col == sensorLayer.getWidth()-1) {
-                    body.createFixture(fixtureDef).setUserData("rightDoor");; //naming the roomfixture room
+                    side = "r";
+                    //body.createFixture(fixtureDef).setUserData("rightDoor");; //naming the roomfixture room
                 }
+
+                if(row == 0) {
+                    side = "b";
+                } else if(col == sensorLayer.getHeight()-1) {
+                    side = "t";
+                }
+
+                if(side.equals("r") || side.equals("l")) {
+                    cellNr = (row-2)/5 + 1;
+                }
+
+                if(side.equals("t") || side.equals("b")) {
+                    cellNr = (col-2)/5 + 1;
+                }
+
+                System.out.println(side + cellNr);
+                body.createFixture(fixtureDef).setUserData(side + cellNr);
 
                 shape.dispose();
             }
@@ -136,14 +160,19 @@ public class TiledHandler {
 
     }
 
-    public void setHeroPosition(String position) {
+    //TODO expand this to fit more positions
+    public void setHeroPosition(String entrance) {
         for(Body body : WorldConstants.BODIES) {
             if(body.getUserData() != null && body.getUserData().equals("hero")) {
-                if(position.equals("left")) {
+
+                body.setTransform(new Vector2(150/WorldConstants.PPM, 150/PPM),0);
+
+                if(entrance.equals("left")) {
                     body.setTransform(new Vector2(50/WorldConstants.PPM, 43/PPM),0);
-                } else if(position.equals("right")) {
+                } else if(entrance.equals("right")) {
                     body.setTransform(new Vector2((((foregroundLayer.getWidth()-1)*32)-15)/WorldConstants.PPM, 43/WorldConstants.PPM), 0); //Hmmm...
                 }
+                break;
             }
         }
     }
@@ -154,7 +183,7 @@ public class TiledHandler {
 
     public void destroy() {
         for(Body body : BODIES) {
-            if(body.getUserData() != null && body.getUserData().equals("room")) {
+            if(body.getUserData() != null && (body.getUserData().equals("room") || body.getUserData().equals("sensor"))) {
                 WorldConstants.CURRENT_WORLD.destroyBody(body);
             }
         }

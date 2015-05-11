@@ -37,13 +37,30 @@ public class MyContactListener implements ContactListener {
         }
 
         if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
-            if(fa.getUserData().equals("leftDoor") || fb.getUserData().equals("leftDoor")) {
-                map.flagRoomForDestruction("leftDoor");
+            if(fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
+                map.flagRoomForDestruction("l1");
             }
 
-            if(fa.getUserData().equals("rightDoor") || fb.getUserData().equals("rightDoor")) {
-                map.flagRoomForDestruction("rightDoor");
+            if(fa.getUserData().equals("r1") || fb.getUserData().equals("r1")) {
+                map.flagRoomForDestruction("r1");
             }
+
+            if(fa.getUserData().equals("l2") || fb.getUserData().equals("l2")) {
+                map.flagRoomForDestruction("l2");
+            }
+
+            if(fa.getUserData().equals("r2") || fb.getUserData().equals("r2")) {
+                map.flagRoomForDestruction("r2");
+            }
+
+            if(fa.getUserData().equals("t1") || fb.getUserData().equals("t1")) {
+                map.flagRoomForDestruction("t1");
+            }
+
+            if(fa.getUserData().equals("b1") || fb.getUserData().equals("b1")) {
+                map.flagRoomForDestruction("b1");
+            }
+
         }
     }
 

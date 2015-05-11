@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="mylevel1_tiles" tilewidth="32" tileheight="32">
   <image source="mylevel1_tiles.png" width="256" height="768"/>
  </tileset>
- <layer name="Background" width="24" height="14" visible="0">
+ <layer name="Background" width="24" height="14">
   <data encoding="base64" compression="zlib">
    eJy9k1EKwDAIQ72F/nn/W47BClnQqh3sI/Sj9iVYNRGxH+WPDM5d3arRTa2SrPGGs1RSiTNHvpbUnvLRx2XWm4hT5V45OtyMn3k4sLu5OXN25+SJ/dr1qZof/Bv2qGZN5f2nTqxsBpnXnX9kYk94tqa7ku1Mdz+n3An/i9hzsrO3LjT/IGc=
   </data>

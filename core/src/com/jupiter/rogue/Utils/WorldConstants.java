@@ -22,7 +22,7 @@ public final class WorldConstants {
     public static World CURRENT_WORLD = new World(GRAVITY_VECTOR, true);
     public static int WIDTH;
     public static int HEIGHT;
-    public static int MAP_SIZE = 10;
+    public static int MAP_SIZE = 3;
     public static ArrayList<Body> BODIES = new ArrayList<>();
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
 }
