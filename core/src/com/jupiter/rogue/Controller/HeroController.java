@@ -73,13 +73,20 @@ public class HeroController {
 
 
 
-    /*    shape.setAsBox(23 / PPM, 2 / PPM, new Vector2(20 / PPM, 3 / PPM), 120);
+        shape.setAsBox(17 / PPM, 2 / PPM, new Vector2(15 / PPM, 17 / PPM), 3/10f);
+
+        FixtureDef weaponSensorRightFixtureDef = new FixtureDef();
+        weaponSensorRightFixtureDef.shape = shape;
+        weaponSensorRightFixtureDef.isSensor = true;
+        playerBody.createFixture(weaponSensorRightFixtureDef).setUserData("weaponSensorRight");
+
+        shape.setAsBox(17 / PPM, 2 / PPM, new Vector2(-15 / PPM, 17 / PPM), -3/10f);
 
         FixtureDef weaponSensorLeftFixtureDef = new FixtureDef();
         weaponSensorLeftFixtureDef.shape = shape;
         weaponSensorLeftFixtureDef.isSensor = true;
-        playerBody.createFixture(weaponSensorLeftFixtureDef).setUserData("weaponSensor");
-*/
+        playerBody.createFixture(weaponSensorLeftFixtureDef).setUserData("weaponSensorLeft");
+
 
         //disposes shape to save memory
         shape.dispose();

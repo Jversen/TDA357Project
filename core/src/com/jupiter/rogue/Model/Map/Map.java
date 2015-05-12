@@ -84,12 +84,12 @@ public class Map {
         System.out.println();
         System.out.println("for loop");
         for(int roomsRemaining = WorldConstants.MAP_SIZE-1; roomsRemaining > 0; roomsRemaining--) {
-            System.out.println("Current room number: " + currentRoomNbr);
+          /*  System.out.println("Current room number: " + currentRoomNbr);
             System.out.println("Current room x: " + currentRoomX);
             System.out.println("Current Room y: " + currentRoomY);
 
             System.out.println();
-            System.out.println(roomsRemaining);
+            System.out.println(roomsRemaining); */
             ArrayList<String> doors = getCurrentRoom().getDoors();
             int left = 0;
             int right = 0;

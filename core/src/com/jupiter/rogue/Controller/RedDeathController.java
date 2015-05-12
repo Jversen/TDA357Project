@@ -44,7 +44,7 @@ public class RedDeathController {
 
         //creates the shape of the playerBodyDef
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(10 / PPM, 15 / PPM); //temporary values, should be dependent on sprite size
+        shape.setAsBox(10 / PPM, 20 / PPM); //temporary values, should be dependent on sprite size
 
         // FixtureDef sets physical properties
         FixtureDef redDeathFixtureDef = new FixtureDef();
@@ -55,8 +55,8 @@ public class RedDeathController {
 
         //puts the player body into the world
         Body redDeathBody = WorldConstants.CURRENT_WORLD.createBody(redDeathBodyDef);
-        redDeathBody.setUserData("RedDeath");
-        redDeathBody.createFixture(redDeathFixtureDef).setUserData("RedDeath"); //naming the herofixture hero.
+        redDeathBody.setUserData("enemy");
+        redDeathBody.createFixture(redDeathFixtureDef).setUserData("enemy"); //naming the herofixture hero.
         redDeathMovement = new EnemyMovement(redDeathBody);
 
         WorldConstants.BODIES.add(redDeathBody);

@@ -62,6 +62,19 @@ public class MyContactListener implements ContactListener {
             }
 
         }
+
+        //Combat
+        if ((fa.getUserData().equals("weaponSensorRight") && fb.getUserData().equals("enemy")) ||
+                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorRight"))) {
+            hero.setEnemyInRangeRight(true);
+        }
+
+        if ((fa.getUserData().equals("weaponSensorLeft") && fb.getUserData().equals("enemy")) ||
+                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorLeft"))) {
+            hero.setEnemyInRangeLeft(true);
+        }
+
+
     }
 
     @Override
@@ -77,6 +90,18 @@ public class MyContactListener implements ContactListener {
                 hero.setCreatureFalling(true);
             }
         }
+
+        //Combat
+        if ((fa.getUserData().equals("weaponSensorRight") && fb.getUserData().equals("enemy")) ||
+                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorRight"))) {
+            hero.setEnemyInRangeRight(false);
+        }
+
+        if ((fa.getUserData().equals("weaponSensorLeft") && fb.getUserData().equals("enemy")) ||
+                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorLeft"))) {
+            hero.setEnemyInRangeLeft(false);
+        }
+
     }
 
     @Override

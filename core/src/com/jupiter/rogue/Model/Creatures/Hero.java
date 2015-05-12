@@ -20,6 +20,10 @@ public class Hero extends Creature {
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
 
+    private boolean enemyInRangeRight;  //Variable to track if an enemy is in range of the heroes weapon on the right side.
+    private boolean enemyInRangeLeft;  //Variable to track if an enemy is in range of the heroes weapon on the left side.
+
+
     private Hero (float xPos, float yPos) {
         //this.nbrOfPlatformsTouched = 0;
         this.creatureGrounded = false;
@@ -72,6 +76,12 @@ public class Hero extends Creature {
     }
 
     public void attack(HeroMovement heroMovement) {
-        System.out.println("attack!");
+        if (this.isEnemyInRangeRight() && this.direction == Direction.RIGHT) {
+            System.out.println("ATTACK RIGHT");
+            heroMovement.attack();
+        } else if (this.isEnemyInRangeLeft() && this.direction == Direction.LEFT) {
+            System.out.println("ATTACK LEFT");
+            heroMovement.attack();
+        }
     }
 }
