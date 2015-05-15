@@ -38,7 +38,7 @@ public class WidowController extends EnemyController {
         bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(6 / PPM, 10 / PPM);
+        shape.setAsBox(10 / PPM, 20 / PPM);
 
         // FixtureDef sets physical properties
         FixtureDef fixtureDef = new FixtureDef();
@@ -48,8 +48,8 @@ public class WidowController extends EnemyController {
         fixtureDef.restitution = 0.0f;
 
         Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        body.setUserData("Widow");
-        body.createFixture(fixtureDef).setUserData("Widow");
+        body.setUserData("enemy");
+        body.createFixture(fixtureDef).setUserData("enemy");
         movement = new EnemyMovement(body);
         WorldConstants.BODIES.add(body);
 
