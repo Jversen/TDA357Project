@@ -111,7 +111,6 @@ public class View {
         if(x < 192) {
             x = 192;
         } else if(x>WorldConstants.WIDTH-192) {
-            System.out.println(WorldConstants.WIDTH-192);
             x = WorldConstants.WIDTH-192;
         }
         return x;

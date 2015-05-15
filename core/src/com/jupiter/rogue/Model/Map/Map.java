@@ -74,23 +74,29 @@ public class Map {
         Room startingRoom = RoomFactory.getRoom("StartingRoom");
         currentRoomNbr = 0;
         addRoom(startingRoom, 0, 50, currentRoomNbr);
-        printMap();
+
         currentRoomX = 0;
         currentRoomY = 50;
 
+        ArrayList<String> roomsAdded = new ArrayList<>();
+
+        HashMap<Integer, String> entrances = new HashMap<>();
         String entrance;
         String entranceSide = "l";
         boolean moreRooms = true;
-        System.out.println();
-        System.out.println("for loop");
-        for(int roomsRemaining = WorldConstants.MAP_SIZE-1; roomsRemaining > 0; roomsRemaining--) {
-            System.out.println("Current room number: " + currentRoomNbr);
-            System.out.println("Current room x: " + currentRoomX);
-            System.out.println("Current Room y: " + currentRoomY);
+        boolean mapFinished = false;
+        boolean firstRun = true;
+        int nextRoom = currentRoomNbr+1;
+        while(!mapFinished) {
 
-            System.out.println();
-            System.out.println(roomsRemaining);
+            if(firstRun) {
+                firstRun = false;
+            } else {
+                entranceSide = entrances.get(currentRoomNbr).substring(0,1);
+            }
+
             ArrayList<String> doors = getCurrentRoom().getDoors();
+
             int left = 0;
             int right = 0;
             int top = 0;
@@ -110,112 +116,177 @@ public class Map {
                     default:    break;
                 }
             }
-            System.out.println("l: " + left);
-            System.out.println("r: " + right);
-            System.out.println("t: " + top);
-            System.out.println("b: " + bottom);
 
-            if(left == 1 && !entranceSide.equals("l")) {
-                boolean notAdded = true;
-                while(notAdded) {
-                    System.out.println("leftroom");
-                    Room leftRoom = RoomFactory.getRoom("r", moreRooms);
-                    System.out.println("Room width: " + leftRoom.getWIDTH());
-                    System.out.println("Room height: " + leftRoom.getHEIGHT());
-                    int cellNr = getCellNr(getCurrentRoom(), "l");
+            int totalDoors = left + right + top + bottom;
 
-                    int doorX = currentRoomX - leftRoom.getWIDTH();
-                    int doorY = currentRoomY + cellNr - getCellNr(leftRoom,"r");
+            for(int remainingDoors = totalDoors; remainingDoors > 0; remainingDoors--) {
 
-                    System.out.println(doorX);
-                    System.out.println(doorY);
+                if(left == 1 && !entranceSide.equals("l")) {
+                    boolean tmpMoreRooms = moreRooms;
+                    boolean notAdded = true;
+                    int tries = 0;
 
-                    if(roomFits(leftRoom, doorX, doorY)) {
-                        entrance = "r"+getCellNr(leftRoom, "r");
-                        entranceSide = "r";
-                        currentRoomNbr += 1;
-                        addRoom(leftRoom, doorX, doorY, currentRoomNbr);
-                        setNewRoomPosition();
-                        notAdded = false;
+                    // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
+                    while(notAdded) {
+                        Room leftRoom = RoomFactory.getRoom("r", tmpMoreRooms);
+                        int cellNr = getCellNr(getCurrentRoom(), "l");
+
+                        int doorX = currentRoomX - leftRoom.getWIDTH();
+                        int doorY = currentRoomY + cellNr - getCellNr(leftRoom,"r");
+
+                        System.out.println("LeftRoom check:");
+                        if(roomFits(leftRoom, doorX, doorY, "r")) {
+
+                            entrance = "r"+getCellNr(leftRoom, "r");
+
+                            addRoom(leftRoom, doorX, doorY, nextRoom);
+                            entrances.put(nextRoom, entrance);
+
+                            roomsAdded.add("Room " + nextRoom + " added to the LEFT of room " + currentRoomNbr);
+
+                            nextRoom += 1;
+                            left = 0;
+                            notAdded = false;
+                            //printMap();
+                        } else {
+                            tries++;
+                            if(tries > 10) {
+                                tmpMoreRooms = false;
+                            }
+                        }
                     }
+                }
+
+                if(right == 1 && !entranceSide.equals("r")) {
+                    boolean tmpMoreRooms = moreRooms;
+                    boolean notAdded = true;
+                    int tries = 0;
+
+                    // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
+                    while(notAdded) {
+                        Room rightRoom = RoomFactory.getRoom("l", moreRooms);
+
+                        int cellNr = getCellNr(getCurrentRoom(), "r");
+
+                        int doorX = currentRoomX + getCurrentRoom().getWIDTH();
+                        int doorY = currentRoomY + cellNr - getCellNr(rightRoom,"l");
+
+                        System.out.println("RightRoom check:");
+                        if(roomFits(rightRoom, doorX, doorY, "l")) {
+
+                            entrance = "l"+getCellNr(rightRoom, "l");
+                            addRoom(rightRoom, doorX, doorY, nextRoom);
+                            entrances.put(nextRoom, entrance);
+                            roomsAdded.add("Room " + nextRoom + " added to the RIGHT of room " + currentRoomNbr);
+
+                            nextRoom += 1;
+                            right = 0;
+                            notAdded = false;
+                            //printMap();
+                        } else {
+                            tries++;
+                            if(tries > 10) {
+                                tmpMoreRooms = false;
+                            }
+                        }
+                    }
+                }
+
+                if(top == 1 && !entranceSide.equals("t")) {
+                    boolean tmpMoreRooms = moreRooms;
+                    boolean notAdded = true;
+                    int tries = 0;
+
+                    // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
+                    while(notAdded) {
+                        Room topRoom = RoomFactory.getRoom("b", tmpMoreRooms);
+
+                        int cellNr = getCellNr(getCurrentRoom(), "t");
+
+                        int x = currentRoomX + cellNr - getCellNr(topRoom, "b");
+                        int y = currentRoomY + getCurrentRoom().getHEIGHT();
+
+                        System.out.println("TopRoom check:");
+                        if(roomFits(topRoom, x, y, "b")) {
+
+                            entrance = "b"+getCellNr(topRoom, "b");
+
+                            addRoom(topRoom, x, y, nextRoom);
+
+                            entrances.put(nextRoom, entrance);
+                            roomsAdded.add("Room " + nextRoom + " added ABOVE room " + currentRoomNbr);
+
+                            nextRoom += 1;
+                            top = 0;
+                            notAdded = false;
+                            //printMap();
+                        } else {
+                            tries++;
+                            if(tries > 10) {
+                                tmpMoreRooms = false;
+                            }
+                        }
+                    }
+                }
+
+                if(bottom == 1 && !entranceSide.equals("b")) {
+                    boolean tmpMoreRooms = moreRooms;
+                    boolean notAdded = true;
+                    int tries = 0;
+
+                    // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
+                    while(notAdded) {
+                        Room bottomRoom = RoomFactory.getRoom("t", tmpMoreRooms);
+
+                        int cellNr = getCellNr(getCurrentRoom(), "b");
+
+                        int x = currentRoomX + cellNr - getCellNr(bottomRoom, "t");
+                        int y = currentRoomY - bottomRoom.getHEIGHT();
+
+                        if(roomFits(bottomRoom, x, y, "t")) {
+
+                            entrance = "t"+getCellNr(bottomRoom, "t");
+                            addRoom(bottomRoom, x, y, nextRoom);
+                            entrances.put(nextRoom, entrance);
+                            roomsAdded.add("Room " + nextRoom + " added BELOW room " + currentRoomNbr);
+
+                            nextRoom += 1;
+                            bottom = 0;
+                            notAdded = false;
+                            //printMap();
+                        } else {
+                            tries++;
+                            if(tries > 10) {
+                                tmpMoreRooms = false;
+                            }
+                        }
+                    }
+                }
+
+                for(String string : roomsAdded) {
+                    System.out.println(string);
                 }
             }
 
-            if(right == 1) {
-                boolean notAdded = true;
-                boolean printed = false;
-                while(notAdded) {
-                    //System.out.println("rightroom");
-                    Room rightRoom = RoomFactory.getRoom("l", moreRooms);
+            currentRoomNbr += 1;
+            setNewRoomPosition();
 
-                    int cellNr = getCellNr(getCurrentRoom(), "r");
-
-                    int doorX = currentRoomX + getCurrentRoom().getWIDTH();
-                    System.out.println(rightRoom.getDoors());
-                    int doorY = currentRoomY + cellNr - getCellNr(rightRoom,"l");
-                    if(!printed) {
-                        System.out.println();
-                        System.out.println("doorX: " + doorX);
-                        System.out.println("doorY: " + doorY);
-                        printed = true;
-                    }
-                    if(roomFits(rightRoom, doorX, doorY)) {
-                        entrance = "l"+getCellNr(rightRoom, "l");
-                        entranceSide = "l";
-                        currentRoomNbr += 1;
-                        addRoom(rightRoom, doorX, doorY, currentRoomNbr);
-                        setNewRoomPosition();
-                        notAdded = false;
-                    }
-                }
+            while(currentRoomNbr < rooms.size() && !doorsLeft()) {
+                currentRoomNbr += 1;
+                setNewRoomPosition();
             }
 
-            if(top == 1) {
-                boolean notAdded = true;
-                while(notAdded) {
-                    System.out.println("toproom");
-                    Room topRoom = RoomFactory.getRoom("b", moreRooms);
-
-                    int cellNr = getCellNr(getCurrentRoom(), "t");
-
-                    int x = currentRoomX + cellNr - getCellNr(topRoom, "b");
-                    int y = currentRoomY + getCurrentRoom().getWIDTH();
-                    if(roomFits(topRoom, x, y)) {
-                        entrance = "b"+getCellNr(topRoom, "b");
-                        entranceSide = "b";
-                        currentRoomNbr += 1;
-                        addRoom(topRoom, x, y, currentRoomNbr);
-                        setNewRoomPosition();
-                        notAdded = false;
-                    }
-                }
+            if(currentRoomNbr >= rooms.size()) {
+                mapFinished = true;
             }
 
-            if(bottom == 1) {
-                boolean notAdded = true;
-                while(notAdded) {
-                    System.out.println("bottomroom");
-                    Room bottomRoom = RoomFactory.getRoom("t", moreRooms);
-
-                    int cellNr = getCellNr(getCurrentRoom(), "b");
-
-                    int x = currentRoomX + cellNr - getCellNr(bottomRoom, "t");
-                    int y = currentRoomY + getCurrentRoom().getWIDTH();
-
-                    if(roomFits(bottomRoom, x, y)) {
-                        currentRoomNbr += 1;
-                        addRoom(bottomRoom, x, y, currentRoomNbr);
-                        setNewRoomPosition();
-                        notAdded = false;
-                    }
-                }
-            }
-
-            if(roomsRemaining < 10) {
-                moreRooms = false;
-            }
+            /*System.out.println("Trying to parse entrance from current room: ");
+            entrance = entrances.get(currentRoomNbr);
+            System.out.println("Entrance: " + entrance);
+            entranceSide = entrance.substring(0,1);*/
 
         }
+
         printMap();
         currentRoomNbr = 0; // resets the value to the starting room
         currentRoomX = 0;
@@ -225,7 +296,43 @@ public class Map {
 
     }
 
+    /**
+     * Returns true if the current room has doors leading nowhere
+     */
+    private boolean doorsLeft() {
+        ArrayList<String> doors = getCurrentRoom().getDoors();
+        for (String door : doors) {
+            String entranceSide = door.substring(0, 1);
+            int entranceCell = Integer.parseInt(door.substring(1));
 
+            int newRoomX = -1;
+            int newRoomY = -1;
+
+            switch (entranceSide) {
+                case "l":
+                    newRoomX = getNextRoomX("l");
+                    newRoomY = getNextRoomY(entranceCell);
+                    break;
+                case "b":
+                    newRoomY = getNextRoomY("b");
+                    newRoomX = getNextRoomX(entranceCell);
+                    break;
+                case "r":
+                    newRoomX = getNextRoomX("r");
+                    newRoomY = getNextRoomY(entranceCell);
+                    break;
+                case "t":
+                    newRoomY = getNextRoomY("t");
+                    newRoomX = getNextRoomY(entranceCell);
+                    break;
+            }
+
+            if (roomMap[newRoomX][newRoomY] == -1) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private int getCellNr(Room room, String sideToBeFound) {
         ArrayList<String> doors = room.getDoors();
@@ -240,15 +347,42 @@ public class Map {
         return cellNr;
     }
 
-    private boolean roomFits(Room room, int xPos, int yPos) {
-        for(int x = xPos; x < xPos+room.getWIDTH(); x++) {
-            //System.out.println();
-            for(int y = yPos; y < yPos+room.getHEIGHT(); y++) {
-                //System.out.print(roomMap[x][y]);
-                System.out.println();
-                System.out.println("x: " + x);
-                System.out.println("y: " + y);
+    private boolean roomFits(Room room, int xPos, int yPos, String entranceSide) {
+        if(xPos < 0 || yPos < 0 || xPos+room.getWIDTH() > 100 || yPos+room.getHEIGHT() > 100) {
+            return false;
+        }
 
+        for(String door : room.getDoors()) {
+            if(!door.substring(0,1).equals(entranceSide)) {
+                String side = door.substring(0,1);
+                int cell = Integer.parseInt(door.substring(1));
+
+                int x = -1;
+                int y = -1;
+
+                switch(side) {
+                    case "l":   x = getNextRoomX("l");
+                                y = getNextRoomY(cell);
+                                break;
+                    case "b":   y = getNextRoomY("b");
+                                x = getNextRoomX(cell);
+                                break;
+                    case "r":   x = getNextRoomX("r");
+                                y = getNextRoomY(cell);
+                                break;
+                    case "t":   y = getNextRoomY("t");
+                                x = getNextRoomX(cell);
+                                break;
+                }
+
+                if(x < 0 || y < 0 || x > 100 || y > 100 || !(roomMap[x][y] == -1)) {
+                    return false;
+                }
+            }
+        }
+
+        for(int x = xPos; x < xPos+room.getWIDTH(); x++) {
+            for(int y = yPos; y < yPos+room.getHEIGHT(); y++) {
                 if(roomMap[x][y] != -1) {
                     return false;
                 }
@@ -271,7 +405,7 @@ public class Map {
         for(int x = 0; x < roomMap.length; x++) {
             System.out.println();
             for(int y = 0; y < roomMap[x].length ; y++) {
-                System.out.print(roomMap[x][y] + " ");
+                System.out.print((roomMap[x][y]+1) + " ");
             }
         }
     }
@@ -295,16 +429,7 @@ public class Map {
     }
 
     private void changeActiveRoom() {
-        System.out.println("changeActiveRoom()");
-        /*if(currentRoomNbr == 0) {
-            currentRoomNbr = 1;
-        } else {
-            currentRoomNbr = 0;
-        }
-        System.out.println("currentRoom: " + currentRoomNbr);*/
-
         //TODO finish and test the actual method below
-        System.out.println("Exit: " + exit);
         String side = exit.substring(0,1);
         int cell = Integer.parseInt(exit.substring(1));
 
@@ -313,12 +438,8 @@ public class Map {
 
         String entranceSide = "n";
 
-        System.out.println("Current room x position: " + currentRoomX);
-        System.out.println("Current room y position: " + currentRoomY);
-
         switch(side) {
             case "l":   newRoomX = getNextRoomX("l");
-                        System.out.println("switch to l");
                         entranceSide = "r";
                         newRoomY = getNextRoomY(cell);
                         break;
@@ -332,49 +453,40 @@ public class Map {
                         break;
             case "t":   newRoomY = getNextRoomY("t");
                         entranceSide = "b";
-                        newRoomX = getNextRoomY(cell);
+                        newRoomX = getNextRoomX(cell);
         }
 
-        System.out.println("New room x: " + newRoomX + ", New room y: " + newRoomY);
         currentRoomNbr = roomMap[newRoomX][newRoomY];
-        System.out.println("currentRoomNumber: " + currentRoomNbr);
+
         setNewRoomPosition();
 
         int entranceCell = 0;
-        System.out.println("EntranceSide: " + entranceSide);
+
         if(entranceSide.equals("r") || entranceSide.equals("l")) {
-            entranceCell = Math.abs(currentRoomY-newRoomY);
-            System.out.println("CurrentRoomY: " + currentRoomY + ", NewRoomY: " + newRoomY);
+            entranceCell = Math.abs(currentRoomY-newRoomY+1);
         } else {
-            entranceCell = Math.abs(currentRoomX-newRoomX);
-            System.out.println("CurrentRoomX: " + currentRoomX + ", NewRoomX: " + newRoomX);
+            entranceCell = Math.abs(currentRoomX-newRoomX+1);
         }
-        System.out.println("EntranceCell: " + entranceCell);
         this.entrance = entranceSide + entranceCell;
-        System.out.println("entrance: " + entrance);
-
-
     }
 
     private int getNextRoomX(String side) {
         if(side.equals("l")) {
-            System.out.println("getNextRoomX: L = " + (currentRoomX-1));
             return currentRoomX-1;
         }
         if(side.equals("r")) {
-            System.out.println( getCurrentRoom().getWIDTH()+currentRoomX);
             return getCurrentRoom().getWIDTH()+currentRoomX;
         }
         return -1;
     }
 
     private int getNextRoomX(int cell) {
-        return currentRoomX + cell;
+        return currentRoomX + cell-1;
     }
 
     private int getNextRoomY(String side) {
         if(side.equals("t")) {
-            return currentRoomX + getCurrentRoom().getHEIGHT() +1;
+            return currentRoomY + getCurrentRoom().getHEIGHT();
         }
         if(side.equals("b")) {
             return currentRoomY-1;

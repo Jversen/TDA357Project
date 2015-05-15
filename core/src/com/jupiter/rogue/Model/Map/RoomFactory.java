@@ -123,8 +123,8 @@ public class RoomFactory {
             }
         }
         if(entrance.equals("l") && exit) {
-            switch (rand.nextInt(1)+1) { //will be random once more rooms are added
-                /*case 1 :    doors.add("l1");
+            switch (rand.nextInt(8)+1) { //will be random once more rooms are added
+                case 1 :    doors.add("l1");
                             doors.add("b1");
                             return new Room("Rooms/11Dl1b1.tmx", 1, 1, doors);
                 case 2 :    doors.add("l1");
@@ -140,27 +140,27 @@ public class RoomFactory {
                             doors.add("r1");
                             doors.add("t1");
                             doors.add("b1");
-                            return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);*/
-                case 1 :    doors.add("l1");
+                            return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
+                case 6 :    doors.add("l1");
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
                 /*case 7 :    doors.add("l1");
                             doors.add("l2");
                             doors.add("r1");
                             doors.add("r2");
-                            return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);
-                case 8 :    doors.add("l1");
+                            return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);*/
+                case 7 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
-                case 9 :    doors.add("l1");
+                /*case 9 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             doors.add("r1");
-                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);
-                case 10 :   doors.add("l1");
+                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
+                case 8 :   doors.add("l1");
                             doors.add("r1");
-                            return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);*/
+                            return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
 
                 //more to be added
                 default :
@@ -169,7 +169,7 @@ public class RoomFactory {
             }
         }
         if(entrance.equals("r") && exit) {
-            switch (rand.nextInt(3)+1) { //will be random once more rooms are added
+            switch (rand.nextInt(7)+1) { //will be random once more rooms are added
 
                 case 1 :    doors.add("l1");
                             doors.add("r1");
@@ -183,7 +183,7 @@ public class RoomFactory {
                             doors.add("r1");
                             return new Room("Rooms/17Dl1r1.tmx", 7, 1, doors);
 
-                /*case 4 :    doors.add("l1");
+                case 4 :    doors.add("l1");
                             doors.add("r1");
                             doors.add("t1");
                             doors.add("b1");
@@ -193,25 +193,25 @@ public class RoomFactory {
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
 
-                case 6 :    doors.add("l1");
+                /*case 6 :    doors.add("l1");
                             doors.add("l2");
                             doors.add("r1");
                             doors.add("r2");
-                            return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);
+                            return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);*/
 
-                case 7 :    doors.add("l1");
+                case 6 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
 
-                case 8 :    doors.add("l1");
+                /*case 8 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             doors.add("r1");
-                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);
-                case 9 :    doors.add("l1");
+                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
+                case 7 :    doors.add("l1");
                             doors.add("r1");
-                            return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);*/
+                            return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
                 //more to be added
                 default :
                     System.out.println("default");
@@ -219,7 +219,7 @@ public class RoomFactory {
             }
         }
         if(entrance.equals("t") && exit) {
-            switch (rand.nextInt(3)+1) { //will be random once more rooms are added
+            switch (rand.nextInt(2)+1) { //will be random once more rooms are added
 
                 case 1 :    doors.add("l1");
                             doors.add("r1");
@@ -232,11 +232,11 @@ public class RoomFactory {
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
 
-                case 3 :    doors.add("l1");
+                /*case 3 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             doors.add("r1");
-                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);
+                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
                 //more to be added
                 default :
                     System.out.println("default");

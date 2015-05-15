@@ -111,7 +111,8 @@ public class TiledHandler {
 
                 if(row == 0) {
                     side = "b";
-                } else if(col == sensorLayer.getHeight()-1) {
+                } else if(row == sensorLayer.getHeight()-1) {
+                    System.out.println("t: " + (sensorLayer.getHeight()-1));
                     side = "t";
                 }
 
@@ -162,16 +163,31 @@ public class TiledHandler {
 
     //TODO expand this to fit more positions
     public void setHeroPosition(String entrance) {
+
+        String side = entrance.substring(0,1);
+        int cell = Integer.parseInt(entrance.substring(1));
+
         for(Body body : WorldConstants.BODIES) {
             if(body.getUserData() != null && body.getUserData().equals("hero")) {
-
-                body.setTransform(new Vector2(150/WorldConstants.PPM, 150/PPM),0);
-
-                if(entrance.equals("left")) {
-                    body.setTransform(new Vector2(50/WorldConstants.PPM, 43/PPM),0);
-                } else if(entrance.equals("right")) {
-                    body.setTransform(new Vector2((((foregroundLayer.getWidth()-1)*32)-15)/WorldConstants.PPM, 43/WorldConstants.PPM), 0); //Hmmm...
+                float x = -1;
+                float y = -1;
+                float PPM = WorldConstants.PPM;
+                System.out.println("Cell: " + cell);
+                if(side.equals("l")) {
+                    x = 50/PPM;
+                    y = ((cell)*32+15)/PPM;
+                } else if(side.equals("r")) {
+                    x = (((foregroundLayer.getWidth()-1)*32)-15)/WorldConstants.PPM;
+                    y = ((cell)*32+15)/PPM;
+                } else if(side.equals("t")) {
+                    x = ((cell+3)*32+15)/PPM;
+                    y = (((foregroundLayer.getHeight()-2)*32))/WorldConstants.PPM;
+                } else if(side.equals("b")) {
+                    x = ((cell+3)*32+15)/PPM;
+                    y = 82/PPM;
                 }
+
+                body.setTransform(new Vector2(x, y),0);
                 break;
             }
         }
