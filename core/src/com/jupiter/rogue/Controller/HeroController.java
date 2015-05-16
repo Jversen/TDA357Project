@@ -90,23 +90,13 @@ public class HeroController {
         weaponSensorRightFixtureDef.isSensor = true;
         weaponSensorLeftFixtureDef.isSensor = true;
 
-
-        hitBoxShapeMaker(true); //useing the helpmethod
-        weaponSensorRightFixtureDef.shape = shape;
-        body.createFixture(weaponSensorRightFixtureDef).setUserData("weaponSensorRight");
-
-
-        hitBoxShapeMaker(false); //useing the helpmethod
-        weaponSensorLeftFixtureDef.shape = shape;
-        body.createFixture(weaponSensorLeftFixtureDef).setUserData("weaponSensorLeft");
-
-        //disposes shape to save memory
-        shape.dispose();
+        setWeaponHitBox();
     }
 
-    //Sets the heroes weapon hitbox to the current weapon's             //CURRENTLY UNUSED DUE TO ERROR****************************
+    //Sets the heroes weapon hitbox to the current weapon's
     private void setWeaponHitBox() {
 
+        //shape = new PolygonShape();
         hitBoxShapeMaker(true); //useing the helpmethod
         weaponSensorRightFixtureDef.shape = shape;
         body.createFixture(weaponSensorRightFixtureDef).setUserData("weaponSensorRight");
