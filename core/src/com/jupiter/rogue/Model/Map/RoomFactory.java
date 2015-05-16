@@ -99,9 +99,11 @@ public class RoomFactory {
             }
         }
         if(entrance.equals("r") && !exit) {
-            switch (1) {
+            switch (rand.nextInt(2)+1) {
                 case 1 :    doors.add("r1");
                             return new Room("Rooms/12Dr1.tmx", 2, 1, doors);
+                case 2 :    doors.add("r1");
+                            return new Room("Rooms/11Dr1.tmx", 1, 1, doors);
 
                 default : return null;
             }

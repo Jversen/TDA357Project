@@ -16,6 +16,8 @@ public class Room {
     private ArrayList<String> doors = new ArrayList<>();
     private final int WIDTH;
     private final int HEIGHT;
+    private int x;
+    private int y;
     private String path;
     private TiledHandler tiledHandler;
 
