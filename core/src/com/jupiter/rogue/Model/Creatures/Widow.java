@@ -5,7 +5,7 @@ package com.jupiter.rogue.Model.Creatures;
  */
 public class Widow extends Enemy {
     
-    public Widow(int xPos, int yPos){
-        super(100, 100, 25, 1, true, xPos, yPos);
+    public Widow(float xPos, float yPos, int level, boolean elite){
+        super(100, 100, 25, 1, true, xPos, yPos, level, elite);
     }
 }

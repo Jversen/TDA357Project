@@ -12,14 +12,15 @@ import java.util.Arrays;
 
 import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
+import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 
 /**
  * Created by Johan on 06/05/15.
  */
+@lombok.Data
 public class TiledHandler {
     private TiledMapRenderer renderer;
     private TiledMap tiledMap;
-    private int tileSize;
     private TiledMapTileLayer foregroundLayer;
     private TiledMapTileLayer sensorLayer;
 
@@ -30,10 +31,9 @@ public class TiledHandler {
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
 
-        tileSize = (int) foregroundLayer.getTileWidth();
 
-        WorldConstants.WIDTH = foregroundLayer.getWidth() * tileSize;
-        WorldConstants.HEIGHT = foregroundLayer.getHeight() * tileSize;
+        WorldConstants.WIDTH = foregroundLayer.getWidth() * TILE_SIZE;
+        WorldConstants.HEIGHT = foregroundLayer.getHeight() * TILE_SIZE;
     }
 
     public void initRoom() {
@@ -80,8 +80,8 @@ public class TiledHandler {
 
                 /*Set the position to the tile number plus half the tilesize to compensate
                 for body/libgdx drawing differences. */
-                bodyDef.position.set((col + 0.5f) * tileSize / PPM,
-                        (row + 0.5f) * tileSize / PPM);
+                bodyDef.position.set((col + 0.5f) * TILE_SIZE / PPM,
+                        (row + 0.5f) * TILE_SIZE / PPM);
 
                 FixtureDef fixtureDef = new FixtureDef();
                 fixtureDef.isSensor = true;
@@ -93,7 +93,7 @@ public class TiledHandler {
                 body.setUserData("sensor");
 
                 PolygonShape shape = new PolygonShape();
-                shape.setAsBox(tileSize/2 / PPM, tileSize/2 / PPM);
+                shape.setAsBox(TILE_SIZE/2 / PPM, TILE_SIZE/2 / PPM);
                 fixtureDef.shape = shape;
 
                 //TODO create a better positioning
@@ -136,8 +136,8 @@ public class TiledHandler {
     private void createObsFixture(int row, int col, float obstacleLength){
         BodyDef bodyDef = new BodyDef();
 
-        float x = ((col - obstacleLength) + obstacleLength / 2 + 1f) * tileSize / PPM;
-        float y = (row + 0.5f) * tileSize / PPM;
+        float x = ((col - obstacleLength) + obstacleLength / 2 + 1f) * TILE_SIZE / PPM;
+        float y = (row + 0.5f) * TILE_SIZE / PPM;
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
                 /*Set the position to the tile number plus half the tilesize to compensate
@@ -151,7 +151,7 @@ public class TiledHandler {
         WorldConstants.BODIES.add(body);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox((obstacleLength * tileSize)/ 2 / PPM, tileSize/2 / PPM);
+        shape.setAsBox((obstacleLength * TILE_SIZE)/ 2 / PPM, TILE_SIZE/2 / PPM);
         fixtureDef.shape = shape;
 
         body.createFixture(fixtureDef).setUserData("obstacle");

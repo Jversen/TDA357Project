@@ -16,6 +16,8 @@ public class Enemy extends Creature {
     protected float bodyHeight;
     protected float bodyWidth;
     protected EnemyMovement enemyMovement;
+    private boolean elite;
+
 
     public Enemy() {
         this.maxHealthPoints = 100;
@@ -26,7 +28,7 @@ public class Enemy extends Creature {
         this.position = new Position(200, 50);
     }
 
-    public Enemy(int maxHP, int currentHP, int attackPoints, int movementSpeed, boolean flying, int posX, int posY) {
+    public Enemy(int maxHP, int currentHP, int attackPoints, int movementSpeed, boolean flying, float posX, float posY, int level, boolean elite) {
 
         this.movementSpeed = movementSpeed;
         this.attackPoints = attackPoints;
@@ -34,6 +36,8 @@ public class Enemy extends Creature {
         this.maxHealthPoints = maxHP;
         this.flying = flying;
         this.position = new Position(posX, posY);
+        this.level = level; // Enemies level, scales up all stats by some factor.
+        this.elite = elite; // Whether enemy has 'elite' status or not. Elite enemies are stronger.
     }
 
     public void fly(Direction direction, float angle, float force, EnemyMovement enemyMovement) {
