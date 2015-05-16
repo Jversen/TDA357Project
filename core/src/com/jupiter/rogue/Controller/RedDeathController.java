@@ -55,7 +55,7 @@ public class RedDeathController {
 
         //puts the player body into the world
         Body redDeathBody = WorldConstants.CURRENT_WORLD.createBody(redDeathBodyDef);
-        redDeathBody.setUserData("enemy");
+        //redDeathBody.setUserData("enemy");
         redDeathBody.createFixture(redDeathFixtureDef).setUserData("enemy"); //naming the herofixture hero.
         redDeathMovement = new EnemyMovement(redDeathBody);
 

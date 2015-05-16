@@ -48,7 +48,7 @@ public class WidowController extends EnemyController {
         fixtureDef.restitution = 0.0f;
 
         Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        body.setUserData("enemy");
+        //body.setUserData("enemy");
         body.createFixture(fixtureDef).setUserData("enemy");
         movement = new EnemyMovement(body);
         WorldConstants.BODIES.add(body);
