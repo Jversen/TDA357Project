@@ -138,7 +138,7 @@ public class Map {
                     int tries = 0;
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
-                    while(notAdded && tmpMoreRooms == true) {
+                    while(notAdded) {
                         Room leftRoom = RoomFactory.getRoom("r", tmpMoreRooms);
                         System.out.println("Trying to add room " + nextRoom + " TO THE LEFT of " + currentRoomNbr);
                         int cellNr = getCellNr(getCurrentRoom(), "l");
@@ -179,7 +179,7 @@ public class Map {
                     int tries = 0;
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
-                    while(notAdded && tmpMoreRooms == true) {
+                    while(notAdded) {
                         Room rightRoom = RoomFactory.getRoom("l", tmpMoreRooms);
                         System.out.println("Trying to add room " + nextRoom + " TO THE RIGHT of " + currentRoomNbr);
 
@@ -218,7 +218,7 @@ public class Map {
                     int tries = 0;
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
-                    while(notAdded && tmpMoreRooms == true) {
+                    while(notAdded) {
                         Room topRoom = RoomFactory.getRoom("b", tmpMoreRooms);
                         System.out.println("Trying to add room " + nextRoom + "ABOVE" + currentRoomNbr);
 
@@ -259,7 +259,7 @@ public class Map {
                     int tries = 0;
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
-                    while(notAdded && tmpMoreRooms == true) {
+                    while(notAdded) {
                         Room bottomRoom = RoomFactory.getRoom("t", tmpMoreRooms);
                         System.out.println("Trying to add room " + nextRoom + "BELOW" + currentRoomNbr);
                         int cellNr = getCellNr(getCurrentRoom(), "b");
