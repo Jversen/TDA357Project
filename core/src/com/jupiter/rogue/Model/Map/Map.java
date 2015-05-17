@@ -1,9 +1,16 @@
 package com.jupiter.rogue.Model.Map;
 
+import com.badlogic.gdx.physics.box2d.Body;
+import com.jupiter.rogue.Controller.EnemyController;
+import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Utils.WorldConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
+import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 
 /**
  * Created by Johan on 16/04/15.
@@ -62,6 +69,10 @@ public class Map {
     public void update() {
         if(destroyRoom) {
             switchRoom();
+        }
+
+        for (int i = 0; i < getCurrentRoom().getEnemyControllers().size(); i++) {
+            getCurrentRoom().getEnemyControllers().get(i).update();
         }
     }
 
@@ -311,6 +322,18 @@ public class Map {
         currentRoomNbr = 0; // resets the value to the starting room
         currentRoomX = 0;
         currentRoomY = 50;
+
+        /* Destroys all created enemy bodies, they will be recreated later when the player enters the right
+        rooms
+         */
+        destroyBodies();
+
+/*        for (int i = 0; i < rooms.size(); i++) {
+            for (int j = 0; j < rooms.get(currentRoomNbr).getEnemyControllers().size(); j++) {
+                rooms.get(currentRoomNbr).getEnemyControllers().get(j).destroyBody();
+            }
+        }*/
+
         getCurrentRoom().initRoom();
 
 
@@ -677,14 +700,36 @@ public class Map {
 
     private void destroyWorld() {
         rooms.get(currentRoomNbr).getTiledHandler().destroy();
+        destroyBodies();
     }
 
+    /*Saves the current positions of the enemies in this room, and then destroys their bodies.
+        If room is re-entered, their bodies will be created at their old positions.
+         */
+    private void destroyBodies(){
+
+        for(int i = 0; i < rooms.get(currentRoomNbr).getEnemyControllers().size(); i++){
+            EnemyController enemyController = rooms.get(currentRoomNbr).getEnemyControllers().get(i);
+            Enemy enemy = enemyController.getEnemy();
+            float x = enemy.getX() * PPM;
+            float y = enemy.getY() * PPM;
+
+            enemy.setPosition(x, y);
+            /* I found the PPM multiplication necessary but it is a bit strange.
+            Should probably look into bo2d/rendering conversions. */
+
+        }
+        for(Body body : BODIES) {
+            if(body.getUserData() != null && body.getUserData().equals("enemy")) {
+                WorldConstants.CURRENT_WORLD.destroyBody(body);
+            }
+        }
+    }
     private void rebuildWorld() {
         System.out.println("rebuildWorld: current room number: " + currentRoomNbr);
         rooms.get(currentRoomNbr).initRoom();
 
         getCurrentRoom().getTiledHandler().setHeroPosition(entrance);
-
         /*
         if(exit.equals("leftDoor")) {
             rooms.get(currentRoomNbr).getTiledHandler().setHeroPosition("right");

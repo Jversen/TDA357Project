@@ -70,7 +70,7 @@ public class HeroController {
         //puts the player body into the world
         body = WorldConstants.CURRENT_WORLD.createBody(playerBodyDef);
 
-        //body.setUserData("hero");                                                                      ****Needed or not??***********
+        body.setUserData("hero");
         body.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
         heroMovement = new HeroMovement(body);
 

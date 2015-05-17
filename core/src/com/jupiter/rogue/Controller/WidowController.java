@@ -23,19 +23,21 @@ public class WidowController extends EnemyController {
     EnemyMovement movement;
     private Position startPosition;
 
-    public WidowController(int xPos, int yPos) {
-        Widow widow = new Widow(xPos, yPos);
+    public WidowController(float xPos, float yPos, int level, boolean elite) {
+        //super(xPos, yPos, level, elite); //Feels unnecessary, just to make compilation work
+        Widow widow = new Widow(xPos, yPos, level, elite);
         this.enemy = widow;
         this.enemyView = new WidowView(widow);
         startPosition = enemy.getPosition();
         initBody();
     }
-        private void initBody(){
+        public void initBody(){
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
-        bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
+        //System.out.println("initing body at pos " + enemy.getX() + ", " + enemy.getY());
+        bodyDef.position.set(enemy.getX() / PPM, enemy.getY() / PPM);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(10 / PPM, 20 / PPM);
@@ -47,8 +49,9 @@ public class WidowController extends EnemyController {
         fixtureDef.friction = 0.2f;
         fixtureDef.restitution = 0.0f;
 
-        Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        //body.setUserData("enemy");
+        body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
+        body.setUserData("enemy");
+
         body.createFixture(fixtureDef).setUserData("enemy");
         movement = new EnemyMovement(body);
         WorldConstants.BODIES.add(body);
@@ -56,9 +59,11 @@ public class WidowController extends EnemyController {
         //disposes shape to save memory
         shape.dispose();
     }
+
+
 @Override
     public void update(){
-        updatePhysics();
+        updatePhysics(); //Unnecessary?
 
     if(enemy.getX() - (Hero.getInstance().getX()) > 0){
         enemy.setDirection(Direction.LEFT);
@@ -76,6 +81,8 @@ public class WidowController extends EnemyController {
     }
     }
 
+    /* This seems unnecessary and should probably be deleted?
+     */
     private void updatePhysics() {
         Position physPos = new Position(movement.getBody().getPosition().x, movement.getBody().getPosition().y);
         enemy.setPosition(physPos);

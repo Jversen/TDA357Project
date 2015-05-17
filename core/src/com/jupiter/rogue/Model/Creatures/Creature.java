@@ -23,7 +23,7 @@ public abstract class Creature {
     protected Position position;
     protected MovementState movementState = MovementState.STANDING;
     protected Direction direction = Direction.RIGHT;
-
+    protected int level;
     protected boolean creatureGrounded;
     protected boolean creatureFalling;
 
