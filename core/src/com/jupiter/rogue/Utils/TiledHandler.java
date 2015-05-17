@@ -171,19 +171,18 @@ public class TiledHandler {
             if(body.getUserData() != null && body.getUserData().equals("hero")) {
                 float x = -1;
                 float y = -1;
-                float PPM = WorldConstants.PPM;
                 System.out.println("Cell: " + cell);
                 if(side.equals("l")) {
                     x = 50/PPM;
-                    y = ((cell)*32+15)/PPM;
+                    y = ((cell)*TILE_SIZE+17)/PPM;
                 } else if(side.equals("r")) {
-                    x = (((foregroundLayer.getWidth()-1)*32)-15)/WorldConstants.PPM;
-                    y = ((cell)*32+15)/PPM;
+                    x = (((foregroundLayer.getWidth()-1)*TILE_SIZE)-15)/PPM;
+                    y = ((cell)*TILE_SIZE+17)/PPM;
                 } else if(side.equals("t")) {
-                    x = ((cell+3)*32+15)/PPM;
-                    y = (((foregroundLayer.getHeight()-2)*32))/WorldConstants.PPM;
+                    x = ((cell+3)*TILE_SIZE+15)/PPM;
+                    y = (((foregroundLayer.getHeight()-2)*TILE_SIZE))/PPM;
                 } else if(side.equals("b")) {
-                    x = ((cell+3)*32+15)/PPM;
+                    x = ((cell+3)*TILE_SIZE+15)/PPM;
                     y = 82/PPM;
                 }
 
