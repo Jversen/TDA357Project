@@ -36,7 +36,7 @@ public class Room {
         this.WIDTH = width;
         this.HEIGHT = height;
         this.doors = doors;
-        this.nbrOfEnemies = 3; //arbitrarily chosen number
+        this.nbrOfEnemies = 2; //arbitrarily chosen number
         enemyControllers = new ArrayList<EnemyController>(); //enemy controllers in this room
         generateEnemies();
         //TEMPORARY, JUST FOR TESTING
