@@ -35,6 +35,9 @@ public class HeroController {
     private FixtureDef weaponSensorRightFixtureDef;
     private FixtureDef weaponSensorLeftFixtureDef;
 
+    private Fixture weaponSensorRightFixture;
+    private Fixture weaponSensorLeftFixture;
+
 
     public HeroController() {
         initHero();
@@ -83,28 +86,43 @@ public class HeroController {
         feetSensorFixtureDef.isSensor = true;
         body.createFixture(feetSensorFixtureDef).setUserData("foot");
 
-
-
+        //weaponSensors
         weaponSensorRightFixtureDef = new FixtureDef();
         weaponSensorLeftFixtureDef = new FixtureDef();
-        weaponSensorRightFixtureDef.isSensor = true;
-        weaponSensorLeftFixtureDef.isSensor = true;
 
-        setWeaponHitBox();
+        //clears memory
+        shape.dispose();
+
+        setWeaponHitBox(false);
     }
 
-    //Sets the heroes weapon hitbox to the current weapon's
-    private void setWeaponHitBox() {
+    //Sets the heroes weapon hitbox to the current weapon's. Has a boolean to track if its the first use of the method.
+    private void setWeaponHitBox(boolean usedBefore) {
 
-        //shape = new PolygonShape();
+        //if used before it clears the old weaponfixtures
+        if (usedBefore) {
+            body.destroyFixture(weaponSensorRightFixture);
+            body.destroyFixture(weaponSensorLeftFixture);
+        }
+
+        //reinitializes the shape of the fixturedef.
+        shape = new PolygonShape();
+
+        //creates a fixture with a shape on the right side of the hero using the helpmethod.
         hitBoxShapeMaker(true); //useing the helpmethod
         weaponSensorRightFixtureDef.shape = shape;
-        body.createFixture(weaponSensorRightFixtureDef).setUserData("weaponSensorRight");
+        weaponSensorRightFixture = body.createFixture(weaponSensorRightFixtureDef);
+        weaponSensorRightFixture.setSensor(true);
+        weaponSensorRightFixture.setUserData("weaponSensorRight");
 
+        //creates a fixture with a shape on the left side of the hero using the helpmethod.
         hitBoxShapeMaker(false); //useing the helpmethod
         weaponSensorLeftFixtureDef.shape = shape;
-        body.createFixture(weaponSensorLeftFixtureDef).setUserData("weaponSensorLeft");
+        weaponSensorLeftFixture = body.createFixture(weaponSensorLeftFixtureDef);
+        weaponSensorLeftFixture.setSensor(true);
+        weaponSensorLeftFixture.setUserData("weaponSensorLeft");
 
+        //clears memory
         shape.dispose();
     }
 
@@ -149,6 +167,10 @@ public class HeroController {
         }
         if (keys.contains(Input.Keys.E)) {
             hero.attack(heroMovement);
+        }
+        if (keys.contains(Input.Keys.W)) {
+            hero.swapWeapon();
+            setWeaponHitBox(true);
         }
         if(keys.isEmpty()) {
             hero.relax(heroMovement);

@@ -34,6 +34,7 @@ public class Hero extends Creature {
         this.movementSpeed = 100;
         this.meleeCurrentWeapon = true;
         this.meleeWeapon = new StartingWeapon();
+        this.rangedWeapon = new DoubleBarreled();
 
         this.position = WorldConstants.HERO_START_POSITION;
         //TODO finish rest of stats
@@ -51,13 +52,18 @@ public class Hero extends Creature {
         if (meleeCurrentWeapon) {
             return meleeWeapon;
         } else {
-            return rangedWeapon;
+            if (rangedWeapon != null) {
+                return rangedWeapon;
+            }
+            return meleeWeapon;
         }
     }
 
     //swaps the value of meleeCurrentWeapon
-    public void changeWeapon() {
-        meleeCurrentWeapon ^= true;    //Swap the value of meleeCurrentWeapon
+    public void swapWeapon() {
+        if (rangedWeapon != null) {
+            meleeCurrentWeapon ^= true;    //Swap the value of meleeCurrentWeapon
+        }
     }
 
     /*
