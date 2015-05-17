@@ -28,5 +28,5 @@ public final class WorldConstants {
     public static int TILE_SIZE = 32; //The tilesize of the tmx maps
     public static ArrayList<Body> BODIES = new ArrayList<>();
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
-    public static final int ENEMYTYPES = 2; //The number of different enemies implemented. 2 to test.
+    public static final int ENEMYTYPES = 2; //The number of different enemies implemented.
 }

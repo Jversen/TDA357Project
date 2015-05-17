@@ -2,10 +2,7 @@ package com.jupiter.rogue.Model.Map;
 
 import com.jupiter.rogue.Controller.EnemyController;
 import com.jupiter.rogue.Model.Creatures.Enemy;
-import com.jupiter.rogue.Utils.EnemyFactory;
-import com.jupiter.rogue.Utils.TiledHandler;
-import com.jupiter.rogue.Utils.WidowFactory;
-import com.jupiter.rogue.Utils.WorldConstants;
+import com.jupiter.rogue.Utils.*;
 import lombok.Data;
 
 
@@ -82,7 +79,7 @@ public class Room {
     private EnemyFactory createEnemyFactory(int enemyType){
         switch (enemyType){
             case 0: return new WidowFactory();
-            case 1: return new WidowFactory();  //change this to RedDeathFactory and others later.
+            case 1: return new RedDeathFactory();
             default: return null;
         }
     }

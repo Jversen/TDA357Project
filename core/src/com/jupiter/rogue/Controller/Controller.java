@@ -20,9 +20,7 @@ public class Controller {
     private HeroController heroController;
     private WorldController worldController;
     private UserInput userInput;
-    private RedDeathController redDeathController;
     private MapController mapController;
-    private Map map;
 
     public static Controller getInstance() {
         if (instance == null) {
@@ -40,9 +38,7 @@ public class Controller {
         heroController = new HeroController();
         worldController = new WorldController();
         userInput = new UserInput();
-        redDeathController = new RedDeathController();
         mapController = new MapController();
-        map = Map.getInstance();
         
         //TODO initialize everything at start of game
     }
@@ -51,7 +47,6 @@ public class Controller {
         worldController.update();
         mapController.update();
         heroController.update(userInput.findUserInput());
-        redDeathController.update();
 
 
         //TODO add rest of controllers

@@ -18,10 +18,12 @@ public class WidowFactory implements EnemyFactory {
 
     }
 
+    @Override
     public String getEnemyType(){
         return enemyType;
     }
 
+    @Override
     public EnemyController createEnemy(float xPos, float yPos, int level, boolean elite){
         this.enemyController = new WidowController(xPos, yPos, level, elite);
         return enemyController;

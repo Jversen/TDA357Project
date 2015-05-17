@@ -15,12 +15,12 @@ public abstract class EnemyController {
     Enemy enemy;
     Body body;
 
-    public EnemyController(float xPos, float yPos, int level, boolean elite){} //May change later
+   // public EnemyController(float xPos, float yPos, int level, boolean elite){} //May change later
     public abstract void update();
     public abstract void initBody();
+
     /* destroys the body when leaving the room. This information should possibly be pooled instead.
-    (libgdx poolable interface)
-     */
+    (libgdx poolable interface)*/
 
 /*    public void destroyBody(){
         WorldConstants.CURRENT_WORLD.destroyBody(body);

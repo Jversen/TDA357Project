@@ -18,74 +18,72 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
  * Created by Johan on 17/04/15.
  */
 @lombok.Data
-public class RedDeathController {
+public class RedDeathController extends EnemyController{
 
-    private RedDeath redDeath;
-    private RedDeathView redDeathView;
-    private EnemyMovement redDeathMovement;
+    private EnemyMovement movement;
     private Position startPosition;
 
-    public RedDeathController() {
-        initRedDeath();
+    public RedDeathController(float xPos, float yPos, int level, boolean elite) {
+        RedDeath redDeath = new RedDeath(xPos, yPos, level, elite);
+        this.enemy = redDeath;
+        this.enemyView = new RedDeathView(redDeath);
+        startPosition = enemy.getPosition();
+        initBody();
     }
 
-    public void initRedDeath() {
+    @Override
+    public void initBody() {
 
-        redDeath = new RedDeath();
-        redDeathView = new RedDeathView(redDeath);
+        //creates a shapeless body
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.fixedRotation = true;
+        bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
 
-        startPosition = redDeath.getPosition();
-
-        //creates a shapeless body for the player
-        BodyDef redDeathBodyDef = new BodyDef();
-        redDeathBodyDef.type = BodyDef.BodyType.DynamicBody;
-        redDeathBodyDef.fixedRotation = true;
-        redDeathBodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
-
-        //creates the shape of the playerBodyDef
+        //creates the shape of the bodyDef
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(10 / PPM, 20 / PPM); //temporary values, should be dependent on sprite size
 
         // FixtureDef sets physical properties
-        FixtureDef redDeathFixtureDef = new FixtureDef();
-        redDeathFixtureDef.shape = shape;
-        redDeathFixtureDef.density = 100f;
-        redDeathFixtureDef.friction = 0.2f;
-        redDeathFixtureDef.restitution = 0.0f;
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 100f;
+        fixtureDef.friction = 0.2f;
+        fixtureDef.restitution = 0.0f;
 
-        //puts the player body into the world
-        Body redDeathBody = WorldConstants.CURRENT_WORLD.createBody(redDeathBodyDef);
-        //redDeathBody.setUserData("enemy");
-        redDeathBody.createFixture(redDeathFixtureDef).setUserData("enemy"); //naming the herofixture hero.
-        redDeathMovement = new EnemyMovement(redDeathBody);
+        body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
+        body.setUserData("enemy");
+        body.createFixture(fixtureDef).setUserData("enemy"); //naming the fixture
+        movement = new EnemyMovement(body);
 
-        WorldConstants.BODIES.add(redDeathBody);
+        WorldConstants.BODIES.add(body);
 
         //disposes shape to save memory
         shape.dispose();
     }
 
+    @Override
     public void update(){
-        updatePhysics();
+        updatePhysics(); //Unnecessary?
 
-        if(redDeath.getX() - (Hero.getInstance().getX()) > 0){
-            redDeath.setDirection(Direction.LEFT);
+        if(enemy.getX() - (Hero.getInstance().getX()) > 0){
+            enemy.setDirection(Direction.LEFT);
         }
         else{
-            redDeath.setDirection(Direction.RIGHT);
+            enemy.setDirection(Direction.RIGHT);
         }
 
-        if((Math.abs((redDeath.getX() + (redDeath.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 25/PPM) ||
-                (Math.abs((redDeath.getY() + (redDeath.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
-            redDeath.walk(redDeath.getMovementSpeed(), redDeathMovement);
+        if((Math.abs((enemy.getX() + (enemy.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 25/PPM) ||
+                (Math.abs((enemy.getY() + (enemy.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
+            enemy.walk(enemy.getMovementSpeed(), movement);
         }
         else {
-            redDeath.attack(redDeathMovement);
+            enemy.attack(movement);
         }
     }
 
     private void updatePhysics() {
-        Position physPos = new Position(redDeathMovement.getBody().getPosition().x, redDeathMovement.getBody().getPosition().y);
-        redDeath.setPosition(physPos);
+        Position physPos = new Position(movement.getBody().getPosition().x, movement.getBody().getPosition().y);
+        enemy.setPosition(physPos);
     }
 }

@@ -19,26 +19,12 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 @lombok.Data
 public class RedDeath extends Enemy {
 
-    public RedDeath() {
+    public RedDeath(float xPos, float yPos, int level, boolean elite) {
 
         super(100, 100, 25, 1, true, 200, 50, 1, false);
 
         bodyWidth = 10;
         bodyHeight = 15;
 
-        // Creates the texture for this enemy
-
-    /*  Pixmap pixmap = new Pixmap(20, 30, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.RED);
-        pixmap.fill();
-
-        pixmap.setColor(Color.YELLOW);
-        pixmap.drawCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 3, pixmap.getWidth() / 2);
-
-        pixmap.dispose();
-
-        sprite = new Sprite(spriteSheet);
-        redDeathBody.setUserData(sprite);
-*/
     }
 }

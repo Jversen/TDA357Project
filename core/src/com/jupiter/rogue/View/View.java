@@ -37,7 +37,6 @@ public class View {
     private Controller controller;
 
     private HeroView heroView;
-    private RedDeathView redDeathView;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -45,8 +44,6 @@ public class View {
 
         controller = Controller.getInstance();
         heroView = controller.getHeroController().getHeroView();
-
-        redDeathView = controller.getRedDeathController().getRedDeathView();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth()*2;
@@ -74,9 +71,6 @@ public class View {
         tiledMapRenderer.render();
 
         heroView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
-
-        redDeathView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
-
 
             for (int i = 0; i < map.getCurrentRoom().getEnemyControllers().size(); i++) {
                 map.getCurrentRoom().getEnemyControllers().get(i).getEnemyView().

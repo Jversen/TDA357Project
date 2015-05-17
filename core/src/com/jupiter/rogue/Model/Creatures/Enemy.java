@@ -28,7 +28,8 @@ public class Enemy extends Creature {
         this.position = new Position(200, 50);
     }
 
-    public Enemy(int maxHP, int currentHP, int attackPoints, int movementSpeed, boolean flying, float posX, float posY, int level, boolean elite) {
+    public Enemy(int maxHP, int currentHP, int attackPoints, int movementSpeed, boolean flying,
+                 float posX, float posY, int level, boolean elite) {
 
         this.movementSpeed = movementSpeed;
         this.attackPoints = attackPoints;
