@@ -46,8 +46,8 @@ public class View {
         heroView = controller.getHeroController().getHeroView();
 
         debugRenderer = new Box2DDebugRenderer();
-        w = Gdx.graphics.getWidth()*2;
-        h = Gdx.graphics.getHeight()*2;
+        w = Gdx.graphics.getWidth();
+        h = Gdx.graphics.getHeight();
         camera  = new OrthographicCamera(); //Regular camera for level
         b2dCam = new OrthographicCamera();  //Box2D camera to scale up the box2D simulation
         map = Map.getInstance();
@@ -111,8 +111,10 @@ public class View {
 
     public float getCamPosY() {
         float y = Hero.getInstance().getY() * PPM;
-        if(y < 90) {
-            y = 90;
+        if(y < 122) {
+            y = 122;
+        } else if (y > WorldConstants.HEIGHT-122) {
+            y = WorldConstants.HEIGHT-122;
         }
         return y;
     }
