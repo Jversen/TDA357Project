@@ -18,8 +18,6 @@ public class WidowView extends EnemyView {
         atlasFilePathRun = "Animations/Widow/walking/widowWalking.atlas";
         animationSpeedRun = 1 / 33f;
 
-        //spritesheetPathIdle = "Animations\\Widow\\walking\\widowWalking.png";
-       // atlasFilePathIdle = "Animations\\Widow\\idle\\widowIdle.atlas";
         spritesheetPathIdle = "Animations/Widow/walking/widowWalking.png";
         atlasFilePathIdle = "Animations/Widow/walking/widowWalking.atlas";
         animationSpeedIdle = 1 / 33f;

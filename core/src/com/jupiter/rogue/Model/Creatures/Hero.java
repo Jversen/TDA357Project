@@ -1,9 +1,9 @@
 package com.jupiter.rogue.Model.Creatures;
 
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
-import com.jupiter.rogue.Model.Items.MeleeWeapon;
-import com.jupiter.rogue.Model.Items.RangedWeapon;
+import com.jupiter.rogue.Model.Items.*;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.Utils.HeroMovement;
 
@@ -19,16 +19,24 @@ public class Hero extends Creature {
     // Inventory-spots
     private MeleeWeapon meleeWeapon;
     private RangedWeapon rangedWeapon;
+    private boolean meleeCurrentWeapon;
+    private Ring ringRight;
+    private Ring ringLeft;
+
+    private boolean enemyInRangeRight;  //Variable to track if an enemy is in range of the heroes weapon on the right side.
+    private boolean enemyInRangeLeft;  //Variable to track if an enemy is in range of the heroes weapon on the left side.
+
 
     private Hero (float xPos, float yPos) {
-        //this.nbrOfPlatformsTouched = 0;
         this.creatureGrounded = false;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
         this.movementSpeed = 100;
+        this.meleeCurrentWeapon = true;
+        this.meleeWeapon = new StartingWeapon();
+        this.rangedWeapon = new DoubleBarreled();
 
         this.position = WorldConstants.HERO_START_POSITION;
-
         //TODO finish rest of stats
     }
 
@@ -38,6 +46,34 @@ public class Hero extends Creature {
         }
         return instance;
     }
+
+    //returns the weapon currently in use
+    public Weapon getCurrentWeapon() {
+        if (meleeCurrentWeapon) {
+            return meleeWeapon;
+        } else {
+            if (rangedWeapon != null) {
+                return rangedWeapon;
+            }
+            return meleeWeapon;
+        }
+    }
+
+    //swaps the value of meleeCurrentWeapon
+    public void swapWeapon() {
+        if (rangedWeapon != null) {
+            meleeCurrentWeapon ^= true;    //Swap the value of meleeCurrentWeapon
+        }
+    }
+
+    /*
+    public void pickUpItem(Item item) {
+        if (MeleeWeapon) {
+
+        } else if (RangedWeapon) {
+
+        }
+    } */
 
     public void walk(Direction direction, HeroMovement heroMovement) {
 
@@ -50,7 +86,6 @@ public class Hero extends Creature {
         setDirection(direction);
         heroMovement.walk(direction);
         setPosition(heroMovement.getPosition());
-
     }
 
     public void jump(HeroMovement heroMovement) {
@@ -72,6 +107,12 @@ public class Hero extends Creature {
     }
 
     public void attack(HeroMovement heroMovement) {
-        System.out.println("attack!");
+        if (this.isEnemyInRangeRight() && this.direction == Direction.RIGHT) {
+            System.out.println("ATTACK RIGHT");
+            heroMovement.attack();
+        } else if (this.isEnemyInRangeLeft() && this.direction == Direction.LEFT) {
+            System.out.println("ATTACK LEFT");
+            heroMovement.attack();
+        }
     }
 }

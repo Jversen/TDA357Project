@@ -4,7 +4,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Utils.WorldConstants;
@@ -24,6 +23,21 @@ public class HeroController {
     private Hero hero;
     private HeroView heroView;
     private HeroMovement heroMovement;
+    private PolygonShape shape;
+    private Body body;
+
+    private Float hitBoxLength;
+    private Float hitBoxHeight;
+    private Float hitBoxX;
+    private Float hitBoxY;
+    private Float hitBoxTilt;
+
+    private FixtureDef weaponSensorRightFixtureDef;
+    private FixtureDef weaponSensorLeftFixtureDef;
+
+    private Fixture weaponSensorRightFixture;
+    private Fixture weaponSensorLeftFixture;
+
 
     public HeroController() {
         initHero();
@@ -43,7 +57,7 @@ public class HeroController {
         playerBodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
 
         //creates the shape of the playerBodyDef
-        PolygonShape shape = new PolygonShape();
+        shape = new PolygonShape();
         shape.setAsBox(10 / PPM, 21 / PPM, new Vector2(0, 9 / PPM), 0); //temporary values, should be dependent on sprite size
 
         // FixtureDef sets physical properties
@@ -54,13 +68,14 @@ public class HeroController {
         playerFixtureDef.restitution = 0.0f;
 
         //puts the player body into the world
-        Body playerBody = WorldConstants.CURRENT_WORLD.createBody(playerBodyDef);
-        playerBody.setUserData("hero");
-        playerBody.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
-        heroMovement = new HeroMovement(playerBody);
+        body = WorldConstants.CURRENT_WORLD.createBody(playerBodyDef);
 
-        WorldConstants.BODIES.add(playerBody);
-        //hero.setBody(playerBody);
+        body.setUserData("hero");
+        body.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
+        heroMovement = new HeroMovement(body);
+
+        WorldConstants.BODIES.add(body);
+        //hero.setBody(body);
 
 
         //creates a sensor at the players feet
@@ -69,20 +84,65 @@ public class HeroController {
         FixtureDef feetSensorFixtureDef = new FixtureDef();
         feetSensorFixtureDef.shape = shape;
         feetSensorFixtureDef.isSensor = true;
-        playerBody.createFixture(feetSensorFixtureDef).setUserData("foot");
+        body.createFixture(feetSensorFixtureDef).setUserData("foot");
 
+        //weaponSensors
+        weaponSensorRightFixtureDef = new FixtureDef();
+        weaponSensorLeftFixtureDef = new FixtureDef();
 
-
-    /*    shape.setAsBox(23 / PPM, 2 / PPM, new Vector2(20 / PPM, 3 / PPM), 120);
-
-        FixtureDef weaponSensorLeftFixtureDef = new FixtureDef();
-        weaponSensorLeftFixtureDef.shape = shape;
-        weaponSensorLeftFixtureDef.isSensor = true;
-        playerBody.createFixture(weaponSensorLeftFixtureDef).setUserData("weaponSensor");
-*/
-
-        //disposes shape to save memory
+        //clears memory
         shape.dispose();
+
+        setWeaponHitBox(false);
+    }
+
+    //Sets the heroes weapon hitbox to the current weapon's. Has a boolean to track if its the first use of the method.
+    private void setWeaponHitBox(boolean usedBefore) {
+
+        //if used before it clears the old weaponfixtures
+        if (usedBefore) {
+            body.destroyFixture(weaponSensorRightFixture);
+            body.destroyFixture(weaponSensorLeftFixture);
+        }
+
+        //reinitializes the shape of the fixturedef.
+        shape = new PolygonShape();
+
+        //creates a fixture with a shape on the right side of the hero using the helpmethod.
+        hitBoxShapeMaker(true); //useing the helpmethod
+        weaponSensorRightFixtureDef.shape = shape;
+        weaponSensorRightFixture = body.createFixture(weaponSensorRightFixtureDef);
+        weaponSensorRightFixture.setSensor(true);
+        weaponSensorRightFixture.setUserData("weaponSensorRight");
+
+        //creates a fixture with a shape on the left side of the hero using the helpmethod.
+        hitBoxShapeMaker(false); //useing the helpmethod
+        weaponSensorLeftFixtureDef.shape = shape;
+        weaponSensorLeftFixture = body.createFixture(weaponSensorLeftFixtureDef);
+        weaponSensorLeftFixture.setSensor(true);
+        weaponSensorLeftFixture.setUserData("weaponSensorLeft");
+
+        //clears memory
+        shape.dispose();
+    }
+
+    //help-method to setWeaponHitBox, has a boolean that determines what side of the hero the hitbox is for.
+    private PolygonShape hitBoxShapeMaker(boolean rightHitBox) {
+
+        hitBoxLength = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(0);
+        hitBoxHeight = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(1);
+        hitBoxX = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(2);
+        hitBoxY = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(3);
+        hitBoxTilt = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(4);
+
+        if (!rightHitBox) {
+            hitBoxX = hitBoxLength * -1;
+            hitBoxTilt = hitBoxTilt * -1;
+        }
+
+        shape.setAsBox(hitBoxLength / PPM, hitBoxHeight / PPM, new Vector2(hitBoxX / PPM, hitBoxY / PPM), hitBoxTilt / PPM);
+
+        return shape;
     }
 
     public void update(ArrayList<Integer> keys){
@@ -107,6 +167,10 @@ public class HeroController {
         }
         if (keys.contains(Input.Keys.E)) {
             hero.attack(heroMovement);
+        }
+        if (keys.contains(Input.Keys.W)) {
+            hero.swapWeapon();
+            setWeaponHitBox(true);
         }
         if(keys.isEmpty()) {
             hero.relax(heroMovement);

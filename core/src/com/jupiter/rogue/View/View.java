@@ -37,7 +37,6 @@ public class View {
     private Controller controller;
 
     private HeroView heroView;
-    private RedDeathView redDeathView;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -45,8 +44,6 @@ public class View {
 
         controller = Controller.getInstance();
         heroView = controller.getHeroController().getHeroView();
-
-        redDeathView = controller.getRedDeathController().getRedDeathView();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth()*2;
@@ -75,14 +72,10 @@ public class View {
 
         heroView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
 
-        redDeathView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
-
-        if (Controller.getInstance().getEnemyControllers().size() > 0) {
-            for (int i = 0; i < Controller.getInstance().getEnemyControllers().size(); i++) {
-                Controller.getInstance().getEnemyControllers().get(i).getEnemyView().
+            for (int i = 0; i < map.getCurrentRoom().getEnemyControllers().size(); i++) {
+                map.getCurrentRoom().getEnemyControllers().get(i).getEnemyView().
                         updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
             }
-        }
         /*batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //sprite.draw(batch);
@@ -111,7 +104,6 @@ public class View {
         if(x < 192) {
             x = 192;
         } else if(x>WorldConstants.WIDTH-192) {
-            System.out.println(WorldConstants.WIDTH-192);
             x = WorldConstants.WIDTH-192;
         }
         return x;

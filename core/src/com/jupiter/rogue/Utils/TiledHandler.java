@@ -12,14 +12,15 @@ import java.util.Arrays;
 
 import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
+import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 
 /**
  * Created by Johan on 06/05/15.
  */
+@lombok.Data
 public class TiledHandler {
     private TiledMapRenderer renderer;
     private TiledMap tiledMap;
-    private int tileSize;
     private TiledMapTileLayer foregroundLayer;
     private TiledMapTileLayer sensorLayer;
 
@@ -30,10 +31,9 @@ public class TiledHandler {
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
 
-        tileSize = (int) foregroundLayer.getTileWidth();
 
-        WorldConstants.WIDTH = foregroundLayer.getWidth() * tileSize;
-        WorldConstants.HEIGHT = foregroundLayer.getHeight() * tileSize;
+        WorldConstants.WIDTH = foregroundLayer.getWidth() * TILE_SIZE;
+        WorldConstants.HEIGHT = foregroundLayer.getHeight() * TILE_SIZE;
     }
 
     public void initRoom() {
@@ -80,8 +80,8 @@ public class TiledHandler {
 
                 /*Set the position to the tile number plus half the tilesize to compensate
                 for body/libgdx drawing differences. */
-                bodyDef.position.set((col + 0.5f) * tileSize / PPM,
-                        (row + 0.5f) * tileSize / PPM);
+                bodyDef.position.set((col + 0.5f) * TILE_SIZE / PPM,
+                        (row + 0.5f) * TILE_SIZE / PPM);
 
                 FixtureDef fixtureDef = new FixtureDef();
                 fixtureDef.isSensor = true;
@@ -93,7 +93,7 @@ public class TiledHandler {
                 body.setUserData("sensor");
 
                 PolygonShape shape = new PolygonShape();
-                shape.setAsBox(tileSize/2 / PPM, tileSize/2 / PPM);
+                shape.setAsBox(TILE_SIZE/2 / PPM, TILE_SIZE/2 / PPM);
                 fixtureDef.shape = shape;
 
                 //TODO create a better positioning
@@ -111,7 +111,8 @@ public class TiledHandler {
 
                 if(row == 0) {
                     side = "b";
-                } else if(col == sensorLayer.getHeight()-1) {
+                } else if(row == sensorLayer.getHeight()-1) {
+                    System.out.println("t: " + (sensorLayer.getHeight()-1));
                     side = "t";
                 }
 
@@ -135,8 +136,8 @@ public class TiledHandler {
     private void createObsFixture(int row, int col, float obstacleLength){
         BodyDef bodyDef = new BodyDef();
 
-        float x = ((col - obstacleLength) + obstacleLength / 2 + 1f) * tileSize / PPM;
-        float y = (row + 0.5f) * tileSize / PPM;
+        float x = ((col - obstacleLength) + obstacleLength / 2 + 1f) * TILE_SIZE / PPM;
+        float y = (row + 0.5f) * TILE_SIZE / PPM;
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
                 /*Set the position to the tile number plus half the tilesize to compensate
@@ -150,7 +151,7 @@ public class TiledHandler {
         WorldConstants.BODIES.add(body);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox((obstacleLength * tileSize)/ 2 / PPM, tileSize/2 / PPM);
+        shape.setAsBox((obstacleLength * TILE_SIZE)/ 2 / PPM, TILE_SIZE/2 / PPM);
         fixtureDef.shape = shape;
 
         body.createFixture(fixtureDef).setUserData("obstacle");
@@ -162,16 +163,30 @@ public class TiledHandler {
 
     //TODO expand this to fit more positions
     public void setHeroPosition(String entrance) {
+
+        String side = entrance.substring(0,1);
+        int cell = Integer.parseInt(entrance.substring(1));
+
         for(Body body : WorldConstants.BODIES) {
             if(body.getUserData() != null && body.getUserData().equals("hero")) {
-
-                body.setTransform(new Vector2(150/WorldConstants.PPM, 150/PPM),0);
-
-                if(entrance.equals("left")) {
-                    body.setTransform(new Vector2(50/WorldConstants.PPM, 43/PPM),0);
-                } else if(entrance.equals("right")) {
-                    body.setTransform(new Vector2((((foregroundLayer.getWidth()-1)*32)-15)/WorldConstants.PPM, 43/WorldConstants.PPM), 0); //Hmmm...
+                float x = -1;
+                float y = -1;
+                System.out.println("Cell: " + cell);
+                if(side.equals("l")) {
+                    x = 50/PPM;
+                    y = ((cell)*TILE_SIZE+17)/PPM;
+                } else if(side.equals("r")) {
+                    x = (((foregroundLayer.getWidth()-1)*TILE_SIZE)-15)/PPM;
+                    y = ((cell)*TILE_SIZE+17)/PPM;
+                } else if(side.equals("t")) {
+                    x = ((cell+3)*TILE_SIZE+15)/PPM;
+                    y = (((foregroundLayer.getHeight()-2)*TILE_SIZE))/PPM;
+                } else if(side.equals("b")) {
+                    x = ((cell+3)*TILE_SIZE+15)/PPM;
+                    y = 82/PPM;
                 }
+
+                body.setTransform(new Vector2(x, y),0);
                 break;
             }
         }
