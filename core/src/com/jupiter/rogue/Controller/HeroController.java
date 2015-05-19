@@ -152,28 +152,38 @@ public class HeroController {
     }
 
     private void updateMoves(ArrayList<Integer> keys) {
+        //Move
         if(keys.contains(Input.Keys.LEFT) && !keys.contains(Input.Keys.RIGHT)) {
             hero.walk(Direction.LEFT, heroMovement);
         }
+        //Move
         if(!keys.contains(Input.Keys.LEFT) && keys.contains(Input.Keys.RIGHT)) {
             hero.walk(Direction.RIGHT, heroMovement);
         }
+        //Jump
         if(keys.contains(Input.Keys.SPACE)) {
             hero.jump(heroMovement);
         }
-        if (keys.contains(Input.Keys.E) && attackReady) {
-            attackReady = false;
-            hero.attack(heroMovement);
-            timer.schedule(new AttackTask1(), 200);
+        //Attack
+        if (keys.contains(Input.Keys.E)) {
+            attack();
         }
-        if (keys.contains(Input.Keys.W) && swapReady) {
+        //Swap weapons
+        if (keys.contains(Input.Keys.W)) {
+            swap();
+        }
+        if(keys.isEmpty()) {
+            hero.relax(heroMovement);
+        }
+    }
+
+    //Is here (in controller) and not it model because it uses a timer and the timers are currently all implemented here.
+    private void swap() {
+        if (swapReady) {
             swapReady = false;
             hero.swapWeapon();
             System.out.println("Swapped to: " + hero.getCurrentWeapon().toString());
             timer.schedule(new SwapTask(), 1000);
-        }
-        if(keys.isEmpty()) {
-            hero.relax(heroMovement);
         }
     }
 
@@ -184,24 +194,45 @@ public class HeroController {
         }
     }
 
+    //Handels the hitbox creation and deletion part of the attack.
+    private void attack() {
+        if (attackReady) {
+            attackReady = false;
+            hero.attack(heroMovement);
+            if (hero.isMeleeCurrentWeapon()) {
+                meleeAttack();
+            } else {
+                rangedAttack();
+            }
+        }
+    }
+
+    private void meleeAttack() {
+        timer.schedule(new meleeAttackTask(), 200);
+    }
+
+    private void rangedAttack() {
+        timer.schedule(new meleeAttackTask(), 200);
+    }
+
     //A nestled class to implement a timertask. Timertask to control the delay of pressing attack and actually attacking.
-    class AttackTask1 extends TimerTask {
+    class meleeAttackTask extends TimerTask {
         public void run() {
             createWeaponHitBox();
-            timer.schedule(new AttackTask2(), 50);
+            timer.schedule(new meleeAttackTask2(), 50);
         }
     }
 
     //A nestled class to implement a timertask. Timertask to control the "length" of the attack.
-    class AttackTask2 extends TimerTask {
+    class meleeAttackTask2 extends TimerTask {
         public void run() {
             removeWeaponHitBox();
-            timer.schedule(new AttackTask3(), 900);
+            timer.schedule(new meleeAttackTask3(), 900);
         }
     }
 
     //A nestled class to implement a timertask. Timertask to control the attack cooldown.
-    class AttackTask3 extends TimerTask {
+    class meleeAttackTask3 extends TimerTask {
         public void run() {
             attackReady = true;
         }
