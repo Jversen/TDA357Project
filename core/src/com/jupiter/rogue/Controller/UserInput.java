@@ -4,15 +4,9 @@ package com.jupiter.rogue.Controller;
  * Created by hilden on 2015-04-16.
  */
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.jupiter.rogue.Model.Enums.Direction;
-
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class UserInput {
     private boolean leftPressed;
@@ -21,14 +15,7 @@ public class UserInput {
     private boolean ePressed;
     private boolean wPressed;
 
-    private Timer timer;
-
-    //a boolean to track whether or not weaponswap is ready, probably move this to HeroController.
-    private boolean swapReady;
-
     public UserInput() {
-        timer = new Timer();
-        swapReady = true;
     }
 
     public ArrayList<Integer> findUserInput() {
@@ -53,23 +40,9 @@ public class UserInput {
         if (ePressed) {
             keys.add(Input.Keys.E);
         }
-        if (wPressed && swapReady) {
-            swapReady = false;
-            timer.schedule(new SwapTask(), 1000);
+        if (wPressed) {
             keys.add(Input.Keys.W);
         }
         return keys;
     }
-
-    public void setSwapReady() {
-        swapReady = true;
-    }
-
-    //A nestled class to implement a timertask.
-    class SwapTask extends TimerTask {
-        public void run() {
-            setSwapReady();
-        }
-    }
-
 }

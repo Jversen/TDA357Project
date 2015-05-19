@@ -32,16 +32,6 @@ public class Map {
 
     private Map() {
         rooms = new ArrayList<Room>();
-        /*currentRoomNbr = 0;
-        ArrayList<String> doors= new ArrayList<>();
-        doors.add("l1");
-        doors.add("r1");
-        Room room = new Room("Rooms/RoomSwitchingTest1.tmx", 4, 2, doors);
-        room.initRoom();
-        Room room2 = new Room("Rooms/RoomSwitchingTest2.tmx", 4, 2, doors);
-        rooms = new ArrayList<Room>();
-        rooms.add(room);
-        rooms.add(room2);*/
 
         createMap();
     }
@@ -53,19 +43,6 @@ public class Map {
         return map;
     }
 
-    /**
-     * Method to create the initial map, set up the rooms and their interconnectivity
-     */
-    /*private void createRooms() {
-        //This method has to be completely rewritten once we move on to randomly placed rooms
-        for(int i = 0; i < 2; i++) {
-            room = new Room();
-            //TODO add exit connectivity code here once proper tmx-files have been added
-            //Going to be a lot of waste
-            rooms.add(room);
-        }
-    }*/
-
     public void update() {
         if(destroyRoom) {
             switchRoom();
@@ -74,10 +51,6 @@ public class Map {
         for (int i = 0; i < getCurrentRoom().getEnemyControllers().size(); i++) {
             getCurrentRoom().getEnemyControllers().get(i).update();
         }
-    }
-
-    private RoomExit getNewRoom(int exit, int room) {
-        return exitMap.get(new RoomExit(exit, room));
     }
 
     public void createMap() {
@@ -310,12 +283,6 @@ public class Map {
             if(currentRoomNbr >= rooms.size()) {
                 mapFinished = true;
             }
-
-            /*System.out.println("Trying to parse entrance from current room: ");
-            entrance = entrances.get(currentRoomNbr);
-            System.out.println("Entrance: " + entrance);
-            entranceSide = entrance.substring(0,1);*/
-
         }
 
         printMap();
@@ -351,8 +318,8 @@ public class Map {
             }
         }
 
-        int doorX = -1;
-        int doorY = -1;
+        int doorX;
+        int doorY;
         int nextRoomX = -1;
         int nextRoomY = -1;
 
@@ -719,8 +686,9 @@ public class Map {
             Should probably look into bo2d/rendering conversions. */
 
         }
+
         for(Body body : BODIES) {
-            if(body.getUserData() != null && body.getUserData().equals("enemy")) {
+            if(body.getUserData() != null && body.getUserData() instanceof EnemyController) {
                 WorldConstants.CURRENT_WORLD.destroyBody(body);
             }
         }
@@ -730,12 +698,6 @@ public class Map {
         rooms.get(currentRoomNbr).initRoom();
 
         getCurrentRoom().getTiledHandler().setHeroPosition(entrance);
-        /*
-        if(exit.equals("leftDoor")) {
-            rooms.get(currentRoomNbr).getTiledHandler().setHeroPosition("right");
-        } else if(exit.equals("rightDoor")) {
-            rooms.get(currentRoomNbr).getTiledHandler().setHeroPosition("left");
-        }*/
     }
 
     public Room getCurrentRoom() {
@@ -751,10 +713,6 @@ public class Map {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {
                 if(roomMap[x][y] == currentRoomNbr) {
-                    System.out.println("setNewRoomPosition()");
-                    System.out.println("CurrentRoom: " + currentRoomNbr);
-                    System.out.println("X: " + x);
-                    System.out.println("Y: " + y);
                     currentRoomX = x;
                     currentRoomY = y;
                     return;

@@ -57,7 +57,7 @@ public class RedDeathController extends EnemyController{
         fixtureDef.restitution = 0.0f;
 
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        body.setUserData("enemy");
+        body.setUserData(this);
         body.createFixture(fixtureDef).setUserData("enemy"); //naming the fixture
         movement = new EnemyMovement(body);
 

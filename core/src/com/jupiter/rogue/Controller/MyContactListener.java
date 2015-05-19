@@ -2,7 +2,9 @@ package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Creatures.Widow;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
@@ -62,21 +64,14 @@ public class MyContactListener implements ContactListener {
             if(fa.getUserData().equals("b1") || fb.getUserData().equals("b1")) {
                 map.flagRoomForDestruction("b1");
             }
-
         }
 
-        //Combat
-        if ((fa.getUserData().equals("weaponSensorRight") && fb.getUserData().equals("enemy")) ||
-                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorRight"))) {
-            hero.setEnemyInRangeRight(true);
+        //Checking if an enemy is taking damage from the heroes weapon.
+        if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController)) {
+            ((EnemyController)fb.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
+        } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor"))) {
+            ((EnemyController)fa.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
         }
-
-        if ((fa.getUserData().equals("weaponSensorLeft") && fb.getUserData().equals("enemy")) ||
-                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorLeft"))) {
-            hero.setEnemyInRangeLeft(true);
-        }
-
-
     }
 
     @Override
@@ -85,6 +80,7 @@ public class MyContactListener implements ContactListener {
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
 
+        //Foot sensor, keeps track of jump etc.
         if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) ||
                 (fa.getUserData().equals("obstacle") && fb.getUserData().equals("foot"))) {     //Remember to use the correct UserDatas. They tend to get changed.......... **************
             hero.setCreatureGrounded(false);
@@ -92,18 +88,6 @@ public class MyContactListener implements ContactListener {
                 hero.setCreatureFalling(true);
             }
         }
-
-        //Combat
-        if ((fa.getUserData().equals("weaponSensorRight") && fb.getUserData().equals("enemy")) ||
-                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorRight"))) {
-            hero.setEnemyInRangeRight(false);
-        }
-
-        if ((fa.getUserData().equals("weaponSensorLeft") && fb.getUserData().equals("enemy")) ||
-                (fa.getUserData().equals("enemy") && fb.getUserData().equals("weaponSensorLeft"))) {
-            hero.setEnemyInRangeLeft(false);
-        }
-
     }
 
     @Override

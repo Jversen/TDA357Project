@@ -3,6 +3,7 @@ package com.jupiter.rogue.Utils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Model.Map.Position;
 
 /**
@@ -33,7 +34,11 @@ public class HeroMovement implements Movement {
 
     @Override
     public void attack() {
+    }
 
+    @Override
+    public void takeDamage() {
+        body.setLinearVelocity(body.getLinearVelocity().y, 6);
     }
 
     //@Override

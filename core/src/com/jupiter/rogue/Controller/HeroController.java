@@ -13,6 +13,8 @@ import com.jupiter.rogue.View.HeroView;
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by hilden on 2015-04-17.
@@ -32,12 +34,15 @@ public class HeroController {
     private Float hitBoxY;
     private Float hitBoxTilt;
 
-    private FixtureDef weaponSensorRightFixtureDef;
+    private FixtureDef weaponSensorFixtureDef;
     private FixtureDef weaponSensorLeftFixtureDef;
 
-    private Fixture weaponSensorRightFixture;
+    private Fixture weaponSensorFixture;
     private Fixture weaponSensorLeftFixture;
 
+    private Timer timer;
+    private boolean swapReady;
+    private boolean attackReady;
 
     public HeroController() {
         initHero();
@@ -47,6 +52,10 @@ public class HeroController {
 
         hero = hero.getInstance();
         heroView = new HeroView();
+
+        timer = new Timer();
+        swapReady = true;
+        attackReady = true;
 
         Position startPosition = WorldConstants.HERO_START_POSITION;
 
@@ -87,55 +96,42 @@ public class HeroController {
         body.createFixture(feetSensorFixtureDef).setUserData("foot");
 
         //weaponSensors
-        weaponSensorRightFixtureDef = new FixtureDef();
-        weaponSensorLeftFixtureDef = new FixtureDef();
+        weaponSensorFixtureDef = new FixtureDef();
 
         //clears memory
         shape.dispose();
-
-        setWeaponHitBox(false);
     }
 
     //Sets the heroes weapon hitbox to the current weapon's. Has a boolean to track if its the first use of the method.
-    private void setWeaponHitBox(boolean usedBefore) {
-
-        //if used before it clears the old weaponfixtures
-        if (usedBefore) {
-            body.destroyFixture(weaponSensorRightFixture);
-            body.destroyFixture(weaponSensorLeftFixture);
-        }
+    private void createWeaponHitBox() {
 
         //reinitializes the shape of the fixturedef.
         shape = new PolygonShape();
 
         //creates a fixture with a shape on the right side of the hero using the helpmethod.
-        hitBoxShapeMaker(true); //useing the helpmethod
-        weaponSensorRightFixtureDef.shape = shape;
-        weaponSensorRightFixture = body.createFixture(weaponSensorRightFixtureDef);
-        weaponSensorRightFixture.setSensor(true);
-        weaponSensorRightFixture.setUserData("weaponSensorRight");
-
-        //creates a fixture with a shape on the left side of the hero using the helpmethod.
-        hitBoxShapeMaker(false); //useing the helpmethod
-        weaponSensorLeftFixtureDef.shape = shape;
-        weaponSensorLeftFixture = body.createFixture(weaponSensorLeftFixtureDef);
-        weaponSensorLeftFixture.setSensor(true);
-        weaponSensorLeftFixture.setUserData("weaponSensorLeft");
+        hitBoxShapeMaker(); //useing the helpmethod.
+        weaponSensorFixtureDef.shape = shape;
+        weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
+        weaponSensorFixture.setSensor(true);
+        weaponSensorFixture.setUserData("weaponSensor");
 
         //clears memory
         shape.dispose();
     }
 
-    //help-method to setWeaponHitBox, has a boolean that determines what side of the hero the hitbox is for.
-    private PolygonShape hitBoxShapeMaker(boolean rightHitBox) {
+    private void removeWeaponHitBox() {
+        body.destroyFixture(weaponSensorFixture);
+    }
 
+    //help-method to setWeaponHitBox, has a boolean that determines what side of the hero the hitbox is for.
+    private PolygonShape hitBoxShapeMaker() {
         hitBoxLength = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(0);
         hitBoxHeight = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(1);
         hitBoxX = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(2);
         hitBoxY = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(3);
         hitBoxTilt = hero.getCurrentWeapon().getHitBoxValues().getModel().getElementAt(4);
 
-        if (!rightHitBox) {
+        if (hero.getDirection() == Direction.LEFT) {
             hitBoxX = hitBoxLength * -1;
             hitBoxTilt = hitBoxTilt * -1;
         }
@@ -165,15 +161,48 @@ public class HeroController {
         if(keys.contains(Input.Keys.SPACE)) {
             hero.jump(heroMovement);
         }
-        if (keys.contains(Input.Keys.E)) {
+        if (keys.contains(Input.Keys.E) && attackReady) {
+            attackReady = false;
             hero.attack(heroMovement);
+            timer.schedule(new AttackTask1(), 200);
         }
-        if (keys.contains(Input.Keys.W)) {
+        if (keys.contains(Input.Keys.W) && swapReady) {
+            swapReady = false;
             hero.swapWeapon();
-            setWeaponHitBox(true);
+            timer.schedule(new SwapTask(), 100);
         }
         if(keys.isEmpty()) {
             hero.relax(heroMovement);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the swap weapons cooldown.
+    class SwapTask extends TimerTask {
+        public void run() {
+            setSwapReady(true);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the delay of pressing attack and actually attacking.
+    class AttackTask1 extends TimerTask {
+        public void run() {
+            createWeaponHitBox();
+            timer.schedule(new AttackTask2(), 50);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the "length" of the attack.
+    class AttackTask2 extends TimerTask {
+        public void run() {
+            removeWeaponHitBox();
+            timer.schedule(new AttackTask3(), 900);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the attack cooldown.
+    class AttackTask3 extends TimerTask {
+        public void run() {
+            attackReady = true;
         }
     }
 }

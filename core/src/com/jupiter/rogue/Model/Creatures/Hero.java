@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.*;
+import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.Utils.HeroMovement;
 
@@ -22,10 +23,6 @@ public class Hero extends Creature {
     private boolean meleeCurrentWeapon;
     private Ring ringRight;
     private Ring ringLeft;
-
-    private boolean enemyInRangeRight;  //Variable to track if an enemy is in range of the heroes weapon on the right side.
-    private boolean enemyInRangeLeft;  //Variable to track if an enemy is in range of the heroes weapon on the left side.
-
 
     private Hero (float xPos, float yPos) {
         this.creatureGrounded = false;
@@ -66,14 +63,20 @@ public class Hero extends Creature {
         }
     }
 
-    /*
+    //a method for the hero to be able to pick up weapons.
     public void pickUpItem(Item item) {
-        if (MeleeWeapon) {
-
-        } else if (RangedWeapon) {
-
+        if (item instanceof MeleeWeapon) {
+            this.meleeWeapon = (MeleeWeapon)item;
+        } else if (item instanceof RangedWeapon) {
+            this.rangedWeapon = (RangedWeapon)item;
+        } else if (item instanceof Ring) {
+            if (ringRight == null) {
+                ringRight = (Ring)item;
+            } else if (ringLeft == null) {
+                ringLeft = (Ring)item;
+            }
         }
-    } */
+    }
 
     public void walk(Direction direction, HeroMovement heroMovement) {
 
@@ -107,12 +110,5 @@ public class Hero extends Creature {
     }
 
     public void attack(HeroMovement heroMovement) {
-        if (this.isEnemyInRangeRight() && this.direction == Direction.RIGHT) {
-            System.out.println("ATTACK RIGHT");
-            heroMovement.attack();
-        } else if (this.isEnemyInRangeLeft() && this.direction == Direction.LEFT) {
-            System.out.println("ATTACK LEFT");
-            heroMovement.attack();
-        }
     }
 }
