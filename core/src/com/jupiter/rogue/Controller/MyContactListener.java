@@ -39,6 +39,9 @@ public class MyContactListener implements ContactListener {
         }
 
         // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
+        if (fa.getUserData() instanceof WidowController){
+            System.out.println("lol");
+        }
         if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
             System.out.println("herosensor" + "fa: " + fa.getUserData() + " fb: " + fb.getUserData());
             if(fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {

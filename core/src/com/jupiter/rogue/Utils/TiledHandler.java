@@ -1,5 +1,7 @@
 package com.jupiter.rogue.Utils;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -7,8 +9,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.jupiter.rogue.Controller.EnemyController;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
@@ -23,14 +28,20 @@ public class TiledHandler {
     private TiledMap tiledMap;
     private TiledMapTileLayer foregroundLayer;
     private TiledMapTileLayer sensorLayer;
+    private MapLayer enemySpawnLayer;
+    ArrayList<EnemyController> enemyControllers;
 
     public TiledHandler(String path) {
         tiledMap = new TmxMapLoader().load(path);
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
+        enemyControllers = new ArrayList<EnemyController>();
 
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
 
+        if (tiledMap.getLayers().getCount() >= 4){
+            enemySpawnLayer = tiledMap.getLayers().get(3);
+        }
 
         WorldConstants.WIDTH = foregroundLayer.getWidth() * TILE_SIZE;
         WorldConstants.HEIGHT = foregroundLayer.getHeight() * TILE_SIZE;
@@ -38,6 +49,8 @@ public class TiledHandler {
 
     public void initRoom() {
         createTileBodies();
+        generateEnemies();
+
     }
 
      /* Create static bodies for every tile in layer 'layer'. Update later to support
@@ -189,6 +202,41 @@ public class TiledHandler {
                 body.setTransform(new Vector2(x, y),0);
                 break;
             }
+        }
+    }
+
+    public ArrayList<EnemyController> generateEnemies(){
+
+        enemyControllers = new ArrayList<EnemyController>();
+        EnemyFactory enemyFactory;
+        String enemyType;
+        float xPos;
+        float yPos;
+
+        if (enemySpawnLayer != null) {
+            for (int i = 0; i <= enemySpawnLayer.getObjects().getCount()-1; i++) {
+
+                MapProperties properties = enemySpawnLayer.getObjects().get(i).getProperties();
+
+                enemyType = properties.get("type").toString();
+                enemyFactory = createEnemyFactory(enemyType);
+                System.out.println(enemyFactory.getEnemyType());
+                System.out.println("enemy x: " + properties.get("x") + "enemy y: " + properties.get("y"));
+                System.out.println((float) properties.get("x") + (float) properties.get("y"));
+                xPos = (float) properties.get("x");
+                yPos = (float) properties.get("y");
+                enemyFactory.createEnemy(xPos, yPos, 1, false);
+            }
+        }
+        return enemyControllers;
+    }
+
+
+    private EnemyFactory createEnemyFactory(String enemyType){
+        switch (enemyType){
+            case "widow": return new WidowFactory();
+            case "redDeath": return new RedDeathFactory();
+            default: return new WidowFactory();
         }
     }
 
