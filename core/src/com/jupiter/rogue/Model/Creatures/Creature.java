@@ -32,6 +32,26 @@ public abstract class Creature {
         setY(y);
     }
 
+    public void takeDamage(int incomingDamage) {
+        currentHealthPoints = currentHealthPoints - incomingDamage;
+    }
+
+    public boolean isCreatureAlive() {
+        if (currentHealthPoints < 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void setCreatureGrounded(boolean creatureGrounded) {
+        this.creatureGrounded = creatureGrounded;
+    }
+
+    public void setCreatureFalling(boolean creatureFalling) {
+        this.creatureFalling = creatureFalling;
+    }
+
     public void setX(float x) {
         this.position.setXPos(x);
     }

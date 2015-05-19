@@ -720,7 +720,7 @@ public class Map {
 
         }
         for(Body body : BODIES) {
-            if(body.getUserData() != null && body.getUserData().equals("enemy")) {
+            if(body.getUserData() != null && body.getUserData() instanceof EnemyController) {
                 WorldConstants.CURRENT_WORLD.destroyBody(body);
             }
         }

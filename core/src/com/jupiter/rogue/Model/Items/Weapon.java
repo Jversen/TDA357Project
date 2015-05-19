@@ -5,6 +5,7 @@ import javax.swing.*;
 /**
  * Created by Johan on 16/04/15.
  */
+@lombok.Data
 public abstract class Weapon extends Item {
     protected int damage;
 
@@ -31,6 +32,10 @@ public abstract class Weapon extends Item {
         hitBoxModel.addElement(hitBoxX);
         hitBoxModel.addElement(hitBoxY);
         hitBoxModel.addElement(hitBoxTilt);
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     //returns the values of the shape that the weapons hitbox uses

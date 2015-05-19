@@ -1,6 +1,7 @@
 package com.jupiter.rogue.Model.Creatures;
 
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Items.Weapon;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.EnemyMovement;
 
@@ -17,7 +18,6 @@ public class Enemy extends Creature {
     protected float bodyWidth;
     protected EnemyMovement enemyMovement;
     private boolean elite;
-
 
     public Enemy() {
         this.maxHealthPoints = 100;
@@ -62,6 +62,13 @@ public class Enemy extends Creature {
         setPosition(enemyMovement.getPosition());
     }
 
+    //for testing purposes, prints.
+    @Override
+    public void takeDamage(int incomingDamage) {
+        super.takeDamage(incomingDamage);
+        System.out.println("Enemy " + this.toString() + " took: " + incomingDamage + " damage and is now at: " + this.currentHealthPoints + " hp");
+    }
+
     public float getBodyHeight(){
         return bodyHeight;
     }
@@ -79,5 +86,4 @@ public class Enemy extends Creature {
     public float getMovementSpeed(){
         return this.movementSpeed;
     }
-
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.Widow;
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.EnemyMovement;
 import com.jupiter.rogue.Utils.WorldConstants;
@@ -36,7 +37,6 @@ public class WidowController extends EnemyController {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
-        //System.out.println("initing body at pos " + enemy.getX() + ", " + enemy.getY());
         bodyDef.position.set(enemy.getX() / PPM, enemy.getY() / PPM);
 
         PolygonShape shape = new PolygonShape();
@@ -50,7 +50,7 @@ public class WidowController extends EnemyController {
         fixtureDef.restitution = 0.0f;
 
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        body.setUserData("enemy");
+        body.setUserData(this);
 
         body.createFixture(fixtureDef).setUserData("enemy");
         movement = new EnemyMovement(body);
@@ -61,24 +61,21 @@ public class WidowController extends EnemyController {
     }
 
 
-@Override
+    @Override
     public void update(){
-        updatePhysics(); //Unnecessary?
+        updatePhysics(); //Unnecessary?'
+        if (enemy.getX() - (Hero.getInstance().getX()) > 0) {
+            enemy.setDirection(Direction.LEFT);
+        } else {
+            enemy.setDirection(Direction.RIGHT);
+        }
 
-    if(enemy.getX() - (Hero.getInstance().getX()) > 0){
-        enemy.setDirection(Direction.LEFT);
-    }
-    else{
-        enemy.setDirection(Direction.RIGHT);
-    }
-
-    if((Math.abs((enemy.getX() + (enemy.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 25/PPM) ||
-            (Math.abs((enemy.getY() + (enemy.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
-        enemy.walk(enemy.getMovementSpeed(), movement);
-    }
-    else {
-        enemy.attack(movement);
-    }
+        if ((Math.abs((enemy.getX() + (enemy.getBodyWidth() / 2) / PPM) - (Hero.getInstance().getX() + 5 / PPM)) > 25 / PPM) ||
+                (Math.abs((enemy.getY() + (enemy.getBodyHeight() / 2) / PPM) - (Hero.getInstance().getY() + 10.5 / PPM)) > 38 / PPM)) {
+            enemy.walk(enemy.getMovementSpeed(), movement);
+        } else {
+            enemy.attack(movement);
+        }
     }
 
     /* This seems unnecessary and should probably be deleted?
@@ -87,5 +84,4 @@ public class WidowController extends EnemyController {
         Position physPos = new Position(movement.getBody().getPosition().x, movement.getBody().getPosition().y);
         enemy.setPosition(physPos);
     }
-
-    }
+}

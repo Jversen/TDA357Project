@@ -8,5 +8,6 @@ import com.jupiter.rogue.Model.Enums.Direction;
 public interface Movement {
     void jump();
     void attack();
+    void takeDamage();
     //void walk(Direction direction);
 }
