@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
-import static com.jupiter.rogue.Utils.WorldConstants.PPM;
-import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
+import static com.jupiter.rogue.Utils.WorldConstants.*;
 
 /**
  * Created by Johan on 06/05/15.
@@ -29,6 +27,8 @@ public class TiledHandler {
     private TiledMapTileLayer foregroundLayer;
     private TiledMapTileLayer sensorLayer;
     private MapLayer enemySpawnLayer;
+    private float roomWidth;
+    private float roomHeight;
     ArrayList<EnemyController> enemyControllers;
 
     public TiledHandler(String path) {
@@ -39,18 +39,19 @@ public class TiledHandler {
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
 
+        roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
+        roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
+
         if (tiledMap.getLayers().getCount() >= 4){
             enemySpawnLayer = tiledMap.getLayers().get(3);
         }
 
-        WorldConstants.WIDTH = foregroundLayer.getWidth() * TILE_SIZE;
-        WorldConstants.HEIGHT = foregroundLayer.getHeight() * TILE_SIZE;
+        generateEnemies();
+
     }
 
     public void initRoom() {
         createTileBodies();
-        generateEnemies();
-
     }
 
      /* Create static bodies for every tile in layer 'layer'. Update later to support
@@ -220,11 +221,11 @@ public class TiledHandler {
 
                 enemyType = properties.get("type").toString();
                 enemyFactory = createEnemyFactory(enemyType);
-                System.out.println(enemyFactory.getEnemyType());
-                System.out.println("enemy x: " + properties.get("x") + "enemy y: " + properties.get("y"));
-                System.out.println((float) properties.get("x") + (float) properties.get("y"));
-                xPos = (float) properties.get("x");
-                yPos = (float) properties.get("y");
+
+                /* Divide position with PPM, we want to set the BODY's position. */
+                xPos = (float) properties.get("x") / PPM;
+                yPos = (float) properties.get("y") / PPM;
+
                 enemyController = enemyFactory.createEnemy(xPos, yPos, 1, false);
 
                 enemyControllers.add(enemyController);

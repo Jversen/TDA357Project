@@ -101,20 +101,24 @@ public class View {
 
     public float getCamPosX() {
         float x = Hero.getInstance().getX() * PPM;
+        float roomWidth = map.getCurrentRoom().getTiledHandler().getRoomWidth();
+
         if(x < 192) {
             x = 192;
-        } else if(x>WorldConstants.WIDTH-192) {
-            x = WorldConstants.WIDTH-192;
+        } else if(x>roomWidth-192) {
+            x = roomWidth-192;
         }
         return x;
     }
 
     public float getCamPosY() {
         float y = Hero.getInstance().getY() * PPM;
+        float roomHeight = map.getCurrentRoom().getTiledHandler().getRoomHeight();
+
         if(y < 122) {
             y = 122;
-        } else if (y > WorldConstants.HEIGHT-122) {
-            y = WorldConstants.HEIGHT-122;
+        } else if (y > roomHeight-122) {
+            y = roomHeight-122;
         }
         return y;
     }

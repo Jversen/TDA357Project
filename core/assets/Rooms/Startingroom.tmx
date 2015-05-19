@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="12">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="48">
  <tileset firstgid="1" name="mylevel1_tiles" tilewidth="32" tileheight="32">
   <image source="mylevel1_tiles.png" width="256" height="768"/>
  </tileset>
@@ -22,11 +22,7 @@
   <properties>
    <property name="EnemyType" value="Random"/>
   </properties>
-  <object id="5" type="redDeath" gid="4" x="320" y="192"/>
-  <object id="10" type="widow" gid="3" x="320" y="128"/>
-  <object id="11" type="widow" gid="3" x="256" y="160"/>
- </objectgroup>
- <objectgroup name="WidowEnemySpawn">
-  <object id="6" type="widow" gid="17" x="96" y="192"/>
+  <object id="10" type="redDeath" gid="3" x="320" y="192"/>
+  <object id="47" type="widow" gid="4" x="256" y="128"/>
  </objectgroup>
 </map>

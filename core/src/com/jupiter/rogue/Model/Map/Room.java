@@ -24,7 +24,6 @@ public class Room {
     private String path;
     private TiledHandler tiledHandler;
     private List<EnemyController> enemyControllers;
-    private int nbrOfEnemies;
 
 
 
@@ -33,21 +32,20 @@ public class Room {
         this.WIDTH = width;
         this.HEIGHT = height;
         this.doors = doors;
-       // this.nbrOfEnemies = 2; //arbitrarily chosen number
-        //enemyControllers = new ArrayList<EnemyController>(); //enemy controllers in this room
-        //generateEnemies();
-        //TEMPORARY, JUST FOR TESTING
+
+        tiledHandler = new TiledHandler(path);
+
+        enemyControllers = tiledHandler.getEnemyControllers();
 
     }
 
     public void initRoom() {
-        tiledHandler = new TiledHandler(path);
+
         tiledHandler.initRoom();
-        enemyControllers = tiledHandler.getEnemyControllers();
         placeEnemies();
     }
 
-    /* Method to generate the enemies in this room
+    /* TODO reuse this code in the TiledHandler class for creating random enemies.
      */
 /*    private void generateEnemies(){
         Random rn = new Random();
@@ -87,12 +85,9 @@ public class Room {
 
     private void placeEnemies(){
 
-        EnemyController enemyController;
-
         if (enemyControllers != null) {
             for (int i = 0; i < enemyControllers.size(); i++) {
-                enemyController = enemyControllers.get(i);
-                enemyController.initBody(); //create enemybodies in the positions of the enemy models
+                enemyControllers.get(i).initBody();
             }
         }
     }
