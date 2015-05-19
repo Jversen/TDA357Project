@@ -205,11 +205,11 @@ public class TiledHandler {
         }
     }
 
-    public ArrayList<EnemyController> generateEnemies(){
+    public void generateEnemies(){
 
-        enemyControllers = new ArrayList<EnemyController>();
         EnemyFactory enemyFactory;
         String enemyType;
+        EnemyController enemyController;
         float xPos;
         float yPos;
 
@@ -225,10 +225,12 @@ public class TiledHandler {
                 System.out.println((float) properties.get("x") + (float) properties.get("y"));
                 xPos = (float) properties.get("x");
                 yPos = (float) properties.get("y");
-                enemyFactory.createEnemy(xPos, yPos, 1, false);
+                enemyController = enemyFactory.createEnemy(xPos, yPos, 1, false);
+
+                enemyControllers.add(enemyController);
             }
         }
-        return enemyControllers;
+
     }
 
 

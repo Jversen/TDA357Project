@@ -677,16 +677,17 @@ public class Map {
 
         if(rooms.get(currentRoomNbr).getEnemyControllers() != null) {
 
-            System.out.println("lool ec size: " + rooms.get(currentRoomNbr).getEnemyControllers().size());
             for (int i = 0; i < rooms.get(currentRoomNbr).getEnemyControllers().size(); i++) {
                 EnemyController enemyController = rooms.get(currentRoomNbr).getEnemyControllers().get(i);
                 Enemy enemy = enemyController.getEnemy();
+
+                /* I found the PPM multiplication necessary but it is a bit strange.
+            Should probably look into bo2d/rendering conversions. */
                 float x = enemy.getX() * PPM;
                 float y = enemy.getY() * PPM;
 
                 enemy.setPosition(x, y);
-            /* I found the PPM multiplication necessary but it is a bit strange.
-            Should probably look into bo2d/rendering conversions. */
+
             }
 
         }
