@@ -14,8 +14,8 @@ public class NormalJump extends Behavior implements JumpBehavior {
     }
 
     //Method for a normal jump of varying heights.
-    public void jump(){
-        body.setLinearVelocity(body.getLinearVelocity().x, 6);
+    public void jump(float height){
+        body.setLinearVelocity(body.getLinearVelocity().x, height);
     }
 
 }

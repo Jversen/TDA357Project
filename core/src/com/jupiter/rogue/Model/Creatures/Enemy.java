@@ -6,7 +6,6 @@ import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.AttackBehavior;
 import com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.MoveBehavior;
-import com.jupiter.rogue.Utils.EnemyMovement;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
@@ -17,10 +16,10 @@ public class Enemy extends Creature {
 
     private boolean flying;
     private float attackRange;
+    private int jumpHeight;
     private Position heroPos;
     protected float bodyHeight;
     protected float bodyWidth;
-    protected EnemyMovement enemyMovement;
     private boolean elite;
     protected AttackBehavior attackBehavior;
     protected JumpBehavior jumpBehavior;
@@ -33,13 +32,15 @@ public class Enemy extends Creature {
         this.movementSpeed = 100;
         this.flying = false;
         this.attackRange = 25/PPM;
+        this.jumpHeight = 6;
         this.position = new Position(200, 50);
     }
 
-    public Enemy(int maxHP, int currentHP, int attackPoints, float attackRange, int movementSpeed, boolean flying,
+    public Enemy(int maxHP, int currentHP, int attackPoints, float attackRange, int movementSpeed, int jumpHeight, boolean flying,
                  float posX, float posY, int level, boolean elite) {
 
         this.movementSpeed = movementSpeed;
+        this.jumpHeight = jumpHeight;
         this.attackPoints = attackPoints;
         this.attackRange = attackRange;
         this.currentHealthPoints = currentHP;
@@ -50,12 +51,16 @@ public class Enemy extends Creature {
         this.elite = elite; // Whether enemy has 'elite' status or not. Elite enemies are stronger.
     }
 
-    public MoveBehavior getMoveBehavior(){
-        return moveBehavior;
-    }
-
     public void setMoveBehavior(MoveBehavior moveBehavior){
         this.moveBehavior = moveBehavior;
+    }
+
+    public void setAttackBehavior(AttackBehavior attackBehavior){
+        this.attackBehavior = attackBehavior;
+    }
+
+    public void setJumpBehavior(JumpBehavior jumpBehavior){
+        this.jumpBehavior = jumpBehavior;
     }
 
     public void setEnemyDirection(){
@@ -77,16 +82,11 @@ public class Enemy extends Creature {
     }
 
     public void performJump(){
-        jumpBehavior.jump();
+        jumpBehavior.jump(this.jumpHeight);
     }
 
     public void performAttack(){
         attackBehavior.attack(this.getDirection());
-    }
-
-    public void walk(float movementSpeed, EnemyMovement enemyMovement){
-        enemyMovement.walk(this.getDirection(), movementSpeed);
-
     }
 
     //for testing purposes, prints.
@@ -102,12 +102,6 @@ public class Enemy extends Creature {
 
     public float getBodyWidth(){
         return bodyWidth;
-    }
-
-    public void attack(EnemyMovement enemyMovement){
-        if(heroInRange()){
-            enemyMovement.attack(this.getDirection());
-        }
     }
 
     public float getMovementSpeed(){

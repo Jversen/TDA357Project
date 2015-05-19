@@ -6,7 +6,7 @@ package com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors;
 public class CanNotJump implements JumpBehavior {
 
     //Method for enemies that can't jump. (flying and stationary enemies)
-    public void jump(){
+    public void jump(float height){
         //does nothing
     }
 

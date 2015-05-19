@@ -9,9 +9,10 @@ import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.MeleeAttack;
+import com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors.NormalJump;
 import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.Walk;
-import com.jupiter.rogue.Utils.EnemyMovement;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.View.RedDeathView;
 
@@ -23,9 +24,7 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 @lombok.Data
 public class RedDeathController extends EnemyController{
 
-    private EnemyMovement movement;
     private Position startPosition;
-    private MoveBehavior moveBehavior;
 
     public RedDeathController(float xPos, float yPos, int level, boolean elite) {
         RedDeath redDeath = new RedDeath(xPos, yPos, level, elite);
@@ -59,12 +58,16 @@ public class RedDeathController extends EnemyController{
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
         body.setUserData(this);
         body.createFixture(fixtureDef).setUserData("enemy"); //naming the fixture
-        movement = new EnemyMovement(body);
 
         WorldConstants.BODIES.add(body);
 
+        enemy.setMoveBehavior(new Walk(body));
+        enemy.setAttackBehavior(new MeleeAttack(body));
+        enemy.setJumpBehavior(new NormalJump(body));
+
         //disposes shape to save memory
         shape.dispose();
+
     }
 
     @Override
@@ -74,15 +77,15 @@ public class RedDeathController extends EnemyController{
         enemy.setEnemyDirection();
 
         if(!enemy.heroInRange()){
-            enemy.walk(enemy.getMovementSpeed(), movement);
+            enemy.performMove();
         }
         else {
-            enemy.attack(movement);
+            enemy.performAttack();
         }
     }
 
     private void updatePhysics() {
-        Position physPos = new Position(movement.getBody().getPosition().x, movement.getBody().getPosition().y);
+        Position physPos = new Position(body.getPosition().x, body.getPosition().y);
         enemy.setPosition(physPos);
     }
 }
