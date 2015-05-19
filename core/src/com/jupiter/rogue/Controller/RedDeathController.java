@@ -4,10 +4,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.MoveBehavior;
+import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.Walk;
 import com.jupiter.rogue.Utils.EnemyMovement;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.View.RedDeathView;
@@ -22,6 +25,7 @@ public class RedDeathController extends EnemyController{
 
     private EnemyMovement movement;
     private Position startPosition;
+    private MoveBehavior moveBehavior;
 
     public RedDeathController(float xPos, float yPos, int level, boolean elite) {
         RedDeath redDeath = new RedDeath(xPos, yPos, level, elite);
@@ -29,6 +33,7 @@ public class RedDeathController extends EnemyController{
         this.enemyView = new RedDeathView(redDeath);
         startPosition = enemy.getPosition();
         initBody();
+
     }
 
     @Override
@@ -66,15 +71,9 @@ public class RedDeathController extends EnemyController{
     public void update(){
         updatePhysics(); //Unnecessary?
 
-        if(enemy.getX() - (Hero.getInstance().getX()) > 0){
-            enemy.setDirection(Direction.LEFT);
-        }
-        else{
-            enemy.setDirection(Direction.RIGHT);
-        }
+        enemy.setEnemyDirection();
 
-        if((Math.abs((enemy.getX() + (enemy.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 25/PPM) ||
-                (Math.abs((enemy.getY() + (enemy.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
+        if(!enemy.heroInRange()){
             enemy.walk(enemy.getMovementSpeed(), movement);
         }
         else {
