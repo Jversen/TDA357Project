@@ -169,7 +169,8 @@ public class HeroController {
         if (keys.contains(Input.Keys.W) && swapReady) {
             swapReady = false;
             hero.swapWeapon();
-            timer.schedule(new SwapTask(), 100);
+            System.out.println("Swapped to: " + hero.getCurrentWeapon().toString());
+            timer.schedule(new SwapTask(), 1000);
         }
         if(keys.isEmpty()) {
             hero.relax(heroMovement);

@@ -30,7 +30,6 @@ public class Enemy extends Creature {
 
     public Enemy(int maxHP, int currentHP, int attackPoints, int movementSpeed, boolean flying,
                  float posX, float posY, int level, boolean elite) {
-
         this.movementSpeed = movementSpeed;
         this.attackPoints = attackPoints;
         this.currentHealthPoints = currentHP;
@@ -66,6 +65,7 @@ public class Enemy extends Creature {
     @Override
     public void takeDamage(int incomingDamage) {
         super.takeDamage(incomingDamage);
+        //enemyMovement.takeDamage();
         System.out.println("Enemy " + this.toString() + " took: " + incomingDamage + " damage and is now at: " + this.currentHealthPoints + " hp");
     }
 

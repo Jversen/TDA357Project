@@ -1,9 +1,5 @@
 package com.jupiter.rogue.Model.Creatures;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;

@@ -70,7 +70,7 @@ public class EnemyMovement implements Movement {
     }
 
     public void takeDamage() {
-        body.applyLinearImpulse(new Vector2(3f, 0f), body.getPosition(), true);
+        body.setLinearVelocity(body.getLinearVelocity().x, 6);
     }
 
     public void attack(Direction direction){
