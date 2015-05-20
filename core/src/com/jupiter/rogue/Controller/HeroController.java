@@ -3,12 +3,15 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.Utils.HeroMovement;
 import com.jupiter.rogue.View.HeroView;
+import com.jupiter.rogue.View.Hud;
+import com.jupiter.rogue.View.View;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
@@ -43,9 +46,12 @@ public class HeroController {
     private Timer timer;
     private boolean swapReady;
     private boolean attackReady;
+    private Hud hud;
 
     public HeroController() {
         initHero();
+        hud = Hud.getInstance();
+
     }
 
     public void initHero() {
@@ -163,6 +169,9 @@ public class HeroController {
         //Jump
         if(keys.contains(Input.Keys.SPACE)) {
             hero.jump(heroMovement);
+            hero.decreaseHealthPoints(10);
+            hud.update(hero.getCurrentHealthPoints());
+
         }
         //Attack
         if (keys.contains(Input.Keys.E)) {

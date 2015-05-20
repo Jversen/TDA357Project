@@ -5,23 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.Controller;
-import com.jupiter.rogue.View.HudHealthBar;
+import com.jupiter.rogue.View.Hud;
 import com.jupiter.rogue.View.View;
 
 
 public class Rogue extends ApplicationAdapter {
 	private Controller controller;
 	private View view;
-	private Stage stage;
+	private Stage stage; //Scene2d stage
 
     @Override
 	public void create() {
 		controller = Controller.getInstance();
 		view = new View();
 		stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-		HudHealthBar hudHealthBar = new HudHealthBar();
+		Hud hud = Hud.getInstance();
 
-		stage.addActor(hudHealthBar);
+		stage.addActor(hud);
 	}
 
 	@Override
