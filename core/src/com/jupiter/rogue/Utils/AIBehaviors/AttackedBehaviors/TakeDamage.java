@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Utils.AIBehaviors.AttackedBehaviors;
 
+import com.badlogic.gdx.math.Vector2;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Utils.AIBehaviors.Behavior;
 
@@ -8,8 +9,19 @@ import com.jupiter.rogue.Utils.AIBehaviors.Behavior;
  */
 public class TakeDamage extends Behavior implements AttackedBehavior {
 
-    public void attacked(Direction direction, float damage){
-
+    public void attacked(Direction heroDir){
+        if(heroDir == Direction.LEFT){
+            body.applyLinearImpulse(new Vector2(-6f, 0f), body.getPosition(), false);
+            if(body.getLinearVelocity().x < -6) {
+                body.setLinearVelocity(-6, body.getLinearVelocity().y);
+            }
+        }
+        else{
+            body.applyLinearImpulse(new Vector2(6f, 0f), body.getPosition(), false);
+            if(body.getLinearVelocity().x < 6) {
+                body.setLinearVelocity(6, body.getLinearVelocity().y);
+            }
+        }
     }
 
 }
