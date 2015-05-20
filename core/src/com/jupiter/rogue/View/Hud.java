@@ -3,6 +3,7 @@ package com.jupiter.rogue.View;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.jupiter.rogue.Model.Creatures.Hero;
 
@@ -16,12 +17,16 @@ public class Hud extends Actor {
 
     private static Hud instance = null;
     Texture texture;
-    int heroHp;
+    Sprite sprite;
+    float currentHP;
+    float maxHP;
 
     private Hud(){
 
         texture = new Texture(Gdx.files.internal("badlogic.jpg"));
-        heroHp = Hero.getInstance().getCurrentHealthPoints();
+        sprite = new Sprite(texture, 0, 0, 100, 10);
+        sprite.setPosition(20, Gdx.graphics.getHeight() - 20);
+        sprite.setOrigin(0, 0);
     }
 
     public static Hud getInstance() {
@@ -33,11 +38,19 @@ public class Hud extends Actor {
 
     @Override
     public void draw(Batch batch, float alpha){
-        batch.draw(texture,heroHp,0);
+
+        sprite.draw(batch);
     }
 
     public void update(int hp){
         System.out.println("Health = " + hp);
-        this.heroHp = hp;
+        currentHP = (float)Hero.getInstance().getCurrentHealthPoints();
+        maxHP = (float)Hero.getInstance().getMaxHealthPoints();
+
+        sprite.setScale(currentHP / maxHP, 1);
+
+        System.out.println("ekvation: " + Hero.getInstance().getCurrentHealthPoints() / Hero.getInstance().getMaxHealthPoints());
+        System.out.println("currenthp: " + Hero.getInstance().getCurrentHealthPoints());
+        System.out.println("maxHP: " + Hero.getInstance().getMaxHealthPoints());
     }
 }
