@@ -18,9 +18,9 @@ public class Rogue extends ApplicationAdapter {
 	public void create() {
 		controller = Controller.getInstance();
 		view = new View();
+
 		stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		Hud hud = Hud.getInstance();
-
 		stage.addActor(hud);
 	}
 

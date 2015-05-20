@@ -17,16 +17,16 @@ public class Hud extends Actor {
 
     private static Hud instance = null;
     Texture texture;
-    Sprite sprite;
+    Sprite healthBar;
     float currentHP;
     float maxHP;
 
     private Hud(){
 
-        texture = new Texture(Gdx.files.internal("badlogic.jpg"));
-        sprite = new Sprite(texture, 0, 0, 100, 10);
-        sprite.setPosition(20, Gdx.graphics.getHeight() - 20);
-        sprite.setOrigin(0, 0);
+        texture = new Texture(Gdx.files.internal("Data/HUD/healthBar.png"));
+        healthBar = new Sprite(texture, 0, 0, 100, 10);
+        healthBar.setPosition(20, Gdx.graphics.getHeight() - 20);
+        healthBar.setOrigin(0, 0);
     }
 
     public static Hud getInstance() {
@@ -39,18 +39,15 @@ public class Hud extends Actor {
     @Override
     public void draw(Batch batch, float alpha){
 
-        sprite.draw(batch);
+        healthBar.draw(batch);
     }
 
-    public void update(int hp){
-        System.out.println("Health = " + hp);
+    public void updateHealthBar(){
+
         currentHP = (float)Hero.getInstance().getCurrentHealthPoints();
         maxHP = (float)Hero.getInstance().getMaxHealthPoints();
 
-        sprite.setScale(currentHP / maxHP, 1);
+        healthBar.setScale(currentHP / maxHP, 1);
 
-        System.out.println("ekvation: " + Hero.getInstance().getCurrentHealthPoints() / Hero.getInstance().getMaxHealthPoints());
-        System.out.println("currenthp: " + Hero.getInstance().getCurrentHealthPoints());
-        System.out.println("maxHP: " + Hero.getInstance().getMaxHealthPoints());
     }
 }

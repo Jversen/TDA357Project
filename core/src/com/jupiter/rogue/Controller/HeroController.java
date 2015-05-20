@@ -169,9 +169,6 @@ public class HeroController {
         //Jump
         if(keys.contains(Input.Keys.SPACE)) {
             hero.jump(heroMovement);
-            hero.decreaseHealthPoints(10);
-            hud.update(hero.getCurrentHealthPoints());
-
         }
         //Attack
         if (keys.contains(Input.Keys.E)) {
