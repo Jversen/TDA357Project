@@ -14,6 +14,7 @@ import com.jupiter.rogue.Controller.EnemyController;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static com.jupiter.rogue.Utils.WorldConstants.*;
 
@@ -217,15 +218,24 @@ public class TiledHandler {
         if (enemySpawnLayer != null) {
             for (int i = 0; i <= enemySpawnLayer.getObjects().getCount()-1; i++) {
 
+                /* checks the (enemy)type of the object. If it's "random", change to a random EnemyFactory.*/
                 MapProperties properties = enemySpawnLayer.getObjects().get(i).getProperties();
 
                 enemyType = properties.get("type").toString();
-                enemyFactory = createEnemyFactory(enemyType);
 
-                /* Divide position with PPM, we want to set the BODY's position. */
+                /* Divides position with PPM, we want to set the BODY's position. */
                 xPos = (float) properties.get("x") / PPM;
                 yPos = (float) properties.get("y") / PPM;
 
+                if (enemyType.equals("random")){
+                    enemyType = getRandomEnemyType();
+                    //TODO possibly randomize position and level/elite as well.
+                }
+
+                /* Creates the chosen enemy factory */
+                enemyFactory = createEnemyFactory(enemyType);
+
+                /* Creates the enemyController, which contains the enemy model and view. */
                 enemyController = enemyFactory.createEnemy(xPos, yPos, 1, false);
 
                 enemyControllers.add(enemyController);
@@ -241,6 +251,17 @@ public class TiledHandler {
             case "redDeath": return new RedDeathFactory();
             default: return new WidowFactory();
         }
+    }
+
+    private String getRandomEnemyType(){
+        Random rn = new Random();
+        int enemyTypeIndex;
+        String enemyType;
+
+        enemyTypeIndex = rn.nextInt(WorldConstants.ENEMYTYPES.length);
+        enemyType = WorldConstants.ENEMYTYPES[enemyTypeIndex];
+
+        return enemyType;
     }
 
     public TiledMapRenderer getRenderer() {

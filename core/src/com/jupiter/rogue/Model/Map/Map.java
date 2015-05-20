@@ -436,11 +436,11 @@ public class Map {
 
     private boolean roomFits(Room room, int xPos, int yPos, String entranceSide) {
 
-        try {
+        /*try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
 
-        }
+        }*/
 
         System.out.println("Room width: " + room.getWIDTH());
         System.out.println("Room height: " + room.getHEIGHT());
