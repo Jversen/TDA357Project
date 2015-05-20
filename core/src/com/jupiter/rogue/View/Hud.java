@@ -1,11 +1,14 @@
 package com.jupiter.rogue.View;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Map.Map;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,16 +19,25 @@ import java.awt.event.ActionListener;
 public class Hud extends Actor {
 
     private static Hud instance = null;
-    Texture texture;
-    Sprite healthBar;
+    private Texture texture;
+    private Sprite healthBar;
+    private BitmapFont font;
     float currentHP;
     float maxHP;
+    int startGfxWidth;
+    int startGfxHeight;
 
     private Hud(){
 
+        startGfxWidth = 320;    //A hack. Set this to the actual game resolution later.
+        startGfxHeight = 180;
+
+        font = new BitmapFont();    //Creates new font
+        font.setColor(Color.WHITE);
+
         texture = new Texture(Gdx.files.internal("Data/HUD/healthBar.png"));
-        healthBar = new Sprite(texture, 0, 0, 100, 10);
-        healthBar.setPosition(20, Gdx.graphics.getHeight() - 20);
+        healthBar = new Sprite(texture, 0, 0, 100, 6);
+        healthBar.setPosition(20, startGfxHeight - 15);
         healthBar.setOrigin(0, 0);
     }
 
@@ -40,6 +52,10 @@ public class Hud extends Actor {
     public void draw(Batch batch, float alpha){
 
         healthBar.draw(batch);
+        /* Just some number for show. Should discuss this design of showing current room.*/
+        String level = new String ("Room: " + Map.getInstance().getCurrentRoomNbr());
+
+        font.draw(batch, level, startGfxWidth - 65, startGfxHeight - 5);
     }
 
     public void updateHealthBar(){

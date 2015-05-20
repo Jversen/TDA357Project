@@ -15,6 +15,7 @@ import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 /**
  * Created by Johan on 16/04/15.
  */
+@lombok.Data
 public class Map {
 
     private static Map map = null;
