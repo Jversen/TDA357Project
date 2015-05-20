@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.Controller;
 import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
@@ -40,6 +42,8 @@ public class View {
 
     Box2DDebugRenderer debugRenderer;
 
+    Stage stage; //Scene2d stage
+
     public View() {
 
         controller = Controller.getInstance();
@@ -50,6 +54,12 @@ public class View {
         h = Gdx.graphics.getHeight();
         camera  = new OrthographicCamera(); //Regular camera for level
         b2dCam = new OrthographicCamera();  //Box2D camera to scale up the box2D simulation
+
+        stage = new Stage(new ExtendViewport(w, h));
+
+        HudHealthBar hudHealthBar = new HudHealthBar();
+        stage.addActor(hudHealthBar);
+
         map = Map.getInstance();
         batch = new SpriteBatch();
     }
