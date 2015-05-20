@@ -8,6 +8,6 @@ import com.jupiter.rogue.Model.Enums.Direction;
 //Interface which is implemented by all AttackedBehaviors.
 public interface AttackedBehavior {
 
-    void attacked(Direction direction, float damage);
+    void attacked(Direction direction);
 
 }
