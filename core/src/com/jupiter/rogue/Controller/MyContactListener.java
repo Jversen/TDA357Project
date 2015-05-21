@@ -23,20 +23,9 @@ public class MyContactListener implements ContactListener {
     private Fixture fa;
     private Fixture fb;
 
-    private JList<Body> bodiesToDestroyList;
-    private DefaultListModel<Body> bodiesToDestroy;
-
-
-
     public MyContactListener() {
         hero = Hero.getInstance();
         map = Map.getInstance();
-        bodiesToDestroy = new DefaultListModel<>();
-        bodiesToDestroyList = new JList<>(bodiesToDestroy);
-    }
-
-    public JList<Body> getBodiesToDestroyList() {
-        return bodiesToDestroyList;
     }
 
     @Override
