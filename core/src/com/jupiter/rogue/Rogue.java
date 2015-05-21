@@ -2,6 +2,7 @@ package com.jupiter.rogue;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.jupiter.rogue.Controller.Controller;
+import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.View.View;
 
 
