@@ -12,6 +12,7 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 /**
  * Created by Johan on 16/04/15.
  */
+@lombok.Data
 public class Enemy extends Creature {
 
     private boolean flying;
@@ -69,11 +70,6 @@ public class Enemy extends Creature {
         else{
             this.setDirection(Direction.RIGHT);
         }
-    }
-
-    public boolean heroInRange(){
-        return((Math.abs((this.getX() + (this.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) <= this.attackRange/PPM) &&
-                (Math.abs((this.getY() + (this.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) <= 38/PPM));
     }
 
     public void performMove(){

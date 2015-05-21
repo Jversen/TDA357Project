@@ -7,6 +7,7 @@ import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.MeleeAttack;
 import com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors.NormalJump;
@@ -75,7 +76,10 @@ public class RedDeathController extends EnemyController{
 
         enemy.setEnemyDirection();
 
-        if(!enemy.heroInRange()){
+        if(heroNotNear()) {
+            enemy.setMovementState(MovementState.STANDING);
+        }else if(!heroInRange() && !heroNotNear()){
+            enemy.setMovementState(MovementState.WALKING);
             enemy.performMove();
         }
         else {
