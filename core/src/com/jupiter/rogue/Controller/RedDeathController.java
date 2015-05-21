@@ -37,7 +37,7 @@ public class RedDeathController extends EnemyController{
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
-        bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
+        bodyDef.position.set(enemy.getX() / PPM, enemy.getY() / PPM);
 
         //creates the shape of the bodyDef
         PolygonShape shape = new PolygonShape();

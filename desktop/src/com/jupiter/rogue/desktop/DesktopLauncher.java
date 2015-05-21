@@ -6,6 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.jupiter.rogue.Rogue;
 
+@lombok.Data
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 

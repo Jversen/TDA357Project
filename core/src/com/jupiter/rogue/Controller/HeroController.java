@@ -3,6 +3,7 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Model.Map.Position;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+import com.jupiter.rogue.View.Hud;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
@@ -48,9 +50,14 @@ public class HeroController {
 
     private Timer timer;
     private boolean weaponReady;
+    private boolean swapReady;
+    private boolean attackReady;
+    private Hud hud;
 
     public HeroController() {
         initHero();
+        hud = Hud.getInstance();
+
     }
 
     public void initHero() {

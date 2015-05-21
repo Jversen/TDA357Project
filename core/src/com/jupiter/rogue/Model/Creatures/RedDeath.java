@@ -21,7 +21,7 @@ public class RedDeath extends Enemy {
 
     public RedDeath(float xPos, float yPos, int level, boolean elite) {
 
-        super(100, 100, 25, 1, true, 200, 50, 1, false);
+        super(100, 100, 25, 1, true, xPos, yPos, level, elite);
 
         bodyWidth = 10;
         bodyHeight = 15;

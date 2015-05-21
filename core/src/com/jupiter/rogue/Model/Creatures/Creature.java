@@ -3,6 +3,7 @@ package com.jupiter.rogue.Model.Creatures;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.View.Hud;
 
 
 /**
@@ -22,6 +23,7 @@ public abstract class Creature {
     protected int level;
     protected boolean creatureGrounded;
     protected boolean creatureFalling;
+    protected Hud hud = Hud.getInstance();
 
     public void setPosition(float x, float y) {
         setX(x);
@@ -88,6 +90,7 @@ public abstract class Creature {
         if (this.maxHealthPoints >= HP || HP >= 0) {
             this.currentHealthPoints = HP;
         }
+        hud.updateHealthBar();
     }
 
     public void decreaseHealthPoints(int HP) {
@@ -97,5 +100,6 @@ public abstract class Creature {
         if (currentHealthPoints < 0) {
             currentHealthPoints = 0;
         }
+        hud.updateHealthBar();
     }
 }
