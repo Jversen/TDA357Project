@@ -1,14 +1,18 @@
 package com.jupiter.rogue.Controller;
 
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Utils.EnemyMovement;
+import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.MeleeAttack;
+import com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors.NormalJump;
+import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.MoveBehavior;
+import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.Walk;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.View.RedDeathView;
 
@@ -20,7 +24,6 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 @lombok.Data
 public class RedDeathController extends EnemyController{
 
-    private EnemyMovement movement;
     private Position startPosition;
 
     public RedDeathController(float xPos, float yPos, int level, boolean elite) {
@@ -29,6 +32,7 @@ public class RedDeathController extends EnemyController{
         this.enemyView = new RedDeathView(redDeath);
         startPosition = enemy.getPosition();
         initBody();
+
     }
 
     @Override
@@ -38,7 +42,7 @@ public class RedDeathController extends EnemyController{
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
-        bodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
+        bodyDef.position.set(enemy.getX() / PPM, enemy.getY() / PPM);
 
         //creates the shape of the bodyDef
         PolygonShape shape = new PolygonShape();
@@ -54,36 +58,37 @@ public class RedDeathController extends EnemyController{
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
         body.setUserData(this);
         body.createFixture(fixtureDef).setUserData("enemy"); //naming the fixture
-        movement = new EnemyMovement(body);
 
         WorldConstants.BODIES.add(body);
 
+        enemy.setMoveBehavior(new Walk(body));
+        enemy.setAttackBehavior(new MeleeAttack(body));
+        enemy.setJumpBehavior(new NormalJump(body));
+
         //disposes shape to save memory
         shape.dispose();
+
     }
 
     @Override
     public void update(){
         updatePhysics(); //Unnecessary?
 
-        if(enemy.getX() - (Hero.getInstance().getX()) > 0){
-            enemy.setDirection(Direction.LEFT);
-        }
-        else{
-            enemy.setDirection(Direction.RIGHT);
-        }
+        enemy.setEnemyDirection();
 
-        if((Math.abs((enemy.getX() + (enemy.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 25/PPM) ||
-                (Math.abs((enemy.getY() + (enemy.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) > 38/PPM)){
-            enemy.walk(enemy.getMovementSpeed(), movement);
+        if(heroNotNear()) {
+            enemy.setMovementState(MovementState.STANDING);
+        }else if(!heroInRange() && !heroNotNear()){
+            enemy.setMovementState(MovementState.WALKING);
+            enemy.performMove();
         }
         else {
-            enemy.attack(movement);
+            enemy.performAttack();
         }
     }
 
     private void updatePhysics() {
-        Position physPos = new Position(movement.getBody().getPosition().x, movement.getBody().getPosition().y);
+        Position physPos = new Position(body.getPosition().x, body.getPosition().y);
         enemy.setPosition(physPos);
     }
 }

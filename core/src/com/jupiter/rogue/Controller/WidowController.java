@@ -7,9 +7,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.Widow;
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Utils.EnemyMovement;
+import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.MeleeAttack;
+import com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors.NormalJump;
+import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.Walk;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.View.WidowView;
 
@@ -21,7 +24,6 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 @lombok.Data
 public class WidowController extends EnemyController {
 
-    EnemyMovement movement;
     private Position startPosition;
 
     public WidowController(float xPos, float yPos, int level, boolean elite) {
@@ -53,8 +55,11 @@ public class WidowController extends EnemyController {
         body.setUserData(this);
 
         body.createFixture(fixtureDef).setUserData("enemy");
-        movement = new EnemyMovement(body);
         WorldConstants.BODIES.add(body);
+
+            enemy.setMoveBehavior(new Walk(body));
+            enemy.setAttackBehavior(new MeleeAttack(body));
+            enemy.setJumpBehavior(new NormalJump(body));
 
         //disposes shape to save memory
         shape.dispose();
@@ -64,24 +69,22 @@ public class WidowController extends EnemyController {
     @Override
     public void update(){
         updatePhysics(); //Unnecessary?'
-        if (enemy.getX() - (Hero.getInstance().getX()) > 0) {
-            enemy.setDirection(Direction.LEFT);
-        } else {
-            enemy.setDirection(Direction.RIGHT);
+        enemy.setEnemyDirection();
+        if(heroNotNear()) {
+            enemy.setMovementState(MovementState.STANDING);
+        }else if(!heroInRange() && !heroNotNear()){
+            enemy.setMovementState(MovementState.WALKING);
+            enemy.performMove();
         }
-
-        if ((Math.abs((enemy.getX() + (enemy.getBodyWidth() / 2) / PPM) - (Hero.getInstance().getX() + 5 / PPM)) > 25 / PPM) ||
-                (Math.abs((enemy.getY() + (enemy.getBodyHeight() / 2) / PPM) - (Hero.getInstance().getY() + 10.5 / PPM)) > 38 / PPM)) {
-            enemy.walk(enemy.getMovementSpeed(), movement);
-        } else {
-            enemy.attack(movement);
+        else {
+            enemy.performAttack();
         }
     }
 
     /* This seems unnecessary and should probably be deleted?
      */
     private void updatePhysics() {
-        Position physPos = new Position(movement.getBody().getPosition().x, movement.getBody().getPosition().y);
+        Position physPos = new Position(body.getPosition().x, body.getPosition().y);
         enemy.setPosition(physPos);
     }
 }

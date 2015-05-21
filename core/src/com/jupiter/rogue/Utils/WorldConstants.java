@@ -20,13 +20,9 @@ public final class WorldConstants {
     public static final float GRAVITY = -10f;
     public static final Vector2 GRAVITY_VECTOR = new Vector2(0, GRAVITY);
     public static World CURRENT_WORLD = new World(GRAVITY_VECTOR, true);
-    /* It's a bit unclear that WIDTH and HEIGHT means w and h of the current room.
-   they should probably not be global variables */
-    public static int WIDTH;
-    public static int HEIGHT;
     public static int MAP_SIZE = 100;
     public static int TILE_SIZE = 32; //The tilesize of the tmx maps
     public static ArrayList<Body> BODIES = new ArrayList<>();
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
-    public static final int ENEMYTYPES = 2; //The number of different enemies implemented.
+    public static final String[] ENEMYTYPES = {"widow", "redDeath"}; //The different enemies implemented.
 }

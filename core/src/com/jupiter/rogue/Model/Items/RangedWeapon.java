@@ -5,4 +5,9 @@ package com.jupiter.rogue.Model.Items;
  */
 public class RangedWeapon extends Weapon {
     protected int durability;
+    protected Float projectileSpeed;
+
+    public Float getProjectileSpeed() {
+        return projectileSpeed;
+    }
 }
