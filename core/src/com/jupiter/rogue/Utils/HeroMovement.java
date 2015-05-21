@@ -2,6 +2,7 @@ package com.jupiter.rogue.Utils;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Model.Map.Position;

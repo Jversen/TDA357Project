@@ -21,6 +21,7 @@ public class MeleeAttack extends Behavior implements AttackBehavior {
     }
 
     //Method for enemies that use attacks in melee range.
+
     public void attack(Direction direction){
         body.setLinearVelocity(0.0f, body.getLinearVelocity().y);
         if(direction == Direction.LEFT){

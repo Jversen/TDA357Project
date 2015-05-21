@@ -1,12 +1,5 @@
 package com.jupiter.rogue.Controller;
 
-import com.jupiter.rogue.Model.Map.Map;
-import com.jupiter.rogue.Utils.EnemyFactory;
-import com.jupiter.rogue.Utils.WidowFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Johan on 16/04/15.
  */
@@ -39,7 +32,7 @@ public class Controller {
         worldController = new WorldController();
         userInput = new UserInput();
         mapController = new MapController();
-        
+
         //TODO initialize everything at start of game
     }
 
@@ -47,7 +40,6 @@ public class Controller {
         worldController.update();
         mapController.update();
         heroController.update(userInput.findUserInput());
-
 
         //TODO add rest of controllers
     }

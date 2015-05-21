@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.Controller;
 import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
@@ -46,10 +48,11 @@ public class View {
         heroView = controller.getHeroController().getHeroView();
 
         debugRenderer = new Box2DDebugRenderer();
-        w = Gdx.graphics.getWidth();
-        h = Gdx.graphics.getHeight();
+        w = Gdx.graphics.getWidth() *2;
+        h = Gdx.graphics.getHeight() *2;
         camera  = new OrthographicCamera(); //Regular camera for level
         b2dCam = new OrthographicCamera();  //Box2D camera to scale up the box2D simulation
+
         map = Map.getInstance();
         batch = new SpriteBatch();
     }
@@ -101,20 +104,24 @@ public class View {
 
     public float getCamPosX() {
         float x = Hero.getInstance().getX() * PPM;
+        float roomWidth = map.getCurrentRoom().getTiledHandler().getRoomWidth();
+
         if(x < 192) {
             x = 192;
-        } else if(x>WorldConstants.WIDTH-192) {
-            x = WorldConstants.WIDTH-192;
+        } else if(x>roomWidth-192) {
+            x = roomWidth-192;
         }
         return x;
     }
 
     public float getCamPosY() {
         float y = Hero.getInstance().getY() * PPM;
+        float roomHeight = map.getCurrentRoom().getTiledHandler().getRoomHeight();
+
         if(y < 122) {
             y = 122;
-        } else if (y > WorldConstants.HEIGHT-122) {
-            y = WorldConstants.HEIGHT-122;
+        } else if (y > roomHeight-122) {
+            y = roomHeight-122;
         }
         return y;
     }

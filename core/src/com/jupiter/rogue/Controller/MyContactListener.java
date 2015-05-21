@@ -9,6 +9,8 @@ import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
 
+import javax.swing.*;
+
 /**
  * Created by hilden on 2015-04-26.
  */
@@ -21,10 +23,20 @@ public class MyContactListener implements ContactListener {
     private Fixture fa;
     private Fixture fb;
 
+    private JList<Body> bodiesToDestroyList;
+    private DefaultListModel<Body> bodiesToDestroy;
+
+
 
     public MyContactListener() {
         hero = Hero.getInstance();
         map = Map.getInstance();
+        bodiesToDestroy = new DefaultListModel<>();
+        bodiesToDestroyList = new JList<>(bodiesToDestroy);
+    }
+
+    public JList<Body> getBodiesToDestroyList() {
+        return bodiesToDestroyList;
     }
 
     @Override
@@ -39,6 +51,9 @@ public class MyContactListener implements ContactListener {
         }
 
         // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
+        if (fa.getUserData() instanceof WidowController){
+            System.out.println("lol");
+        }
         if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
             System.out.println("herosensor" + "fa: " + fa.getUserData() + " fb: " + fb.getUserData());
             if(fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
@@ -66,7 +81,13 @@ public class MyContactListener implements ContactListener {
             }
         }
 
-        //Checking if an enemy is taking damage from the heroes weapon.
+        if (fa.getBody().getUserData().equals("projectile") && fb.getUserData().equals("obstacle")) {
+            fa.getBody().setUserData("dead");
+        } else if (fb.getBody().getUserData().equals("projectile") && fa.getUserData().equals("obstacle")) {
+            fb.getBody().setUserData("dead");
+        }
+
+            //Checking if an enemy is taking damage from the heroes weapon.
         if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController)) {
             ((EnemyController)fb.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
         } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor"))) {

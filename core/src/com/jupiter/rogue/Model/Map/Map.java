@@ -15,6 +15,7 @@ import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 /**
  * Created by Johan on 16/04/15.
  */
+@lombok.Data
 public class Map {
 
     private static Map map = null;
@@ -436,11 +437,11 @@ public class Map {
 
     private boolean roomFits(Room room, int xPos, int yPos, String entranceSide) {
 
-        try {
+        /*try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
 
-        }
+        }*/
 
         System.out.println("Room width: " + room.getWIDTH());
         System.out.println("Room height: " + room.getHEIGHT());
@@ -675,15 +676,20 @@ public class Map {
          */
     private void destroyBodies(){
 
-        for(int i = 0; i < rooms.get(currentRoomNbr).getEnemyControllers().size(); i++){
-            EnemyController enemyController = rooms.get(currentRoomNbr).getEnemyControllers().get(i);
-            Enemy enemy = enemyController.getEnemy();
-            float x = enemy.getX() * PPM;
-            float y = enemy.getY() * PPM;
+        if(rooms.get(currentRoomNbr).getEnemyControllers() != null) {
 
-            enemy.setPosition(x, y);
-            /* I found the PPM multiplication necessary but it is a bit strange.
+            for (int i = 0; i < rooms.get(currentRoomNbr).getEnemyControllers().size(); i++) {
+                EnemyController enemyController = rooms.get(currentRoomNbr).getEnemyControllers().get(i);
+                Enemy enemy = enemyController.getEnemy();
+
+                /* I found the PPM multiplication necessary but it is a bit strange.
             Should probably look into bo2d/rendering conversions. */
+                float x = enemy.getX() * PPM;
+                float y = enemy.getY() * PPM;
+
+                enemy.setPosition(x, y);
+
+            }
 
         }
 
