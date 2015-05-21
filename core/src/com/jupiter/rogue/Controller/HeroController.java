@@ -3,7 +3,6 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Model.Map.Position;
@@ -190,7 +189,7 @@ public class HeroController {
         weaponSensorFixture.setSensor(true);
         weaponSensorFixture.setUserData("weaponSensor");
 
-      //  WorldConstants.BODIES.add(projectileBody);
+        WorldConstants.BODIES.add(projectileBody);
 
         projectileBody.applyForceToCenter(new Vector2(projectileHelper(), 0), true);
 

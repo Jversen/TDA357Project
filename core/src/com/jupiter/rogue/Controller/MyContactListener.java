@@ -82,8 +82,10 @@ public class MyContactListener implements ContactListener {
         }
 
         if (fa.getBody().getUserData().equals("projectile") && fb.getUserData().equals("obstacle")) {
+            System.out.println("blabla1");
             fa.getBody().setUserData("dead");
         } else if (fb.getBody().getUserData().equals("projectile") && fa.getUserData().equals("obstacle")) {
+            System.out.println("blabla1");
             fb.getBody().setUserData("dead");
         }
 

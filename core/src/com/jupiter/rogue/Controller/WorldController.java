@@ -23,13 +23,14 @@ public class WorldController {
         removeBodiesSafely();
     }
 
-    //A method that removes all bodies that are marked with the userdata "dead".
+    //A method that removes all bodies from the WorldConstants BODIES variable that are marked with the userdata "dead".
     private void removeBodiesSafely() {
         for (int i = 0; i < WorldConstants.BODIES.size(); i++) {
             body = WorldConstants.BODIES.get(i);
             if (body != null) {
                 if (body.getUserData() != null) {
                     if (body.getUserData().equals("dead")) {
+                        System.out.println("blabla5");
                         WorldConstants.CURRENT_WORLD.destroyBody(body);
                     }
                 }
