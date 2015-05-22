@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.Widow;
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.MeleeAttack;
@@ -69,9 +70,13 @@ public class WidowController extends EnemyController {
     public void update(){
         updatePhysics(); //Unnecessary?'
         enemy.setEnemyDirection();
-        if (!enemy.heroInRange()) {
+        if(heroNotNear()) {
+            enemy.setMovementState(MovementState.STANDING);
+        }else if(!heroInRange() && !heroNotNear()){
+            enemy.setMovementState(MovementState.WALKING);
             enemy.performMove();
-        } else {
+        }
+        else {
             enemy.performAttack();
         }
     }

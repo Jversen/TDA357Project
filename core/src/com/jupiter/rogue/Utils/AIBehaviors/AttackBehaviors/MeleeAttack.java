@@ -26,15 +26,15 @@ public class MeleeAttack extends Behavior implements AttackBehavior {
         body.setLinearVelocity(0.0f, body.getLinearVelocity().y);
         if(direction == Direction.LEFT){
             if(Math.abs(this.getBody().getPosition().y - (Hero.getInstance().getY())) <= 20/PPM){
-                heroBody.applyLinearImpulse(new Vector2(-6f, 0f), heroBody.getPosition(), false);
-                if(heroBody.getLinearVelocity().x < -6) {
-                    heroBody.setLinearVelocity(-6, heroBody.getLinearVelocity().y);
+                heroBody.applyLinearImpulse(new Vector2(-5f, 0f), heroBody.getPosition(), false);
+                if(heroBody.getLinearVelocity().x < -5) {
+                    heroBody.setLinearVelocity(-5, heroBody.getLinearVelocity().y);
                 }
             }
             else{
-                heroBody.applyLinearImpulse(new Vector2(-5f, 5f), heroBody.getPosition(), false);
-                if(heroBody.getLinearVelocity().x < -5 || heroBody.getLinearVelocity().y > 5) {
-                    heroBody.setLinearVelocity(-5, 5);
+                heroBody.applyLinearImpulse(new Vector2(-4f, 4f), heroBody.getPosition(), false);
+                if(heroBody.getLinearVelocity().x < -4 || heroBody.getLinearVelocity().y > 4) {
+                    heroBody.setLinearVelocity(-4, 4);
                 }
             }
         }
@@ -46,9 +46,9 @@ public class MeleeAttack extends Behavior implements AttackBehavior {
                 }
             }
             else{
-                heroBody.applyLinearImpulse(new Vector2(5f, 5f), heroBody.getPosition(), false);
-                if(heroBody.getLinearVelocity().x > 5 || heroBody.getLinearVelocity().y > 5) {
-                    heroBody.setLinearVelocity(5, 5);
+                heroBody.applyLinearImpulse(new Vector2(4f, 4f), heroBody.getPosition(), false);
+                if(heroBody.getLinearVelocity().x > 4 || heroBody.getLinearVelocity().y > 4) {
+                    heroBody.setLinearVelocity(4, 4);
                 }
             }
         }

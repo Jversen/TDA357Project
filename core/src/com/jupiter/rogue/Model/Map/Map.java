@@ -7,10 +7,10 @@ import com.jupiter.rogue.Utils.WorldConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
-import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 
 /**
  * Created by Johan on 16/04/15.
@@ -29,6 +29,17 @@ public class Map {
     private String exit;
     private String entrance;
     private boolean destroyRoom = false;
+
+    // these arraylists store all recently added rooms
+    private ArrayList<Integer> exitL = new ArrayList<>();
+    private ArrayList<Integer> exitR = new ArrayList<>();
+    private ArrayList<Integer> exitT = new ArrayList<>();
+    private ArrayList<Integer> exitB = new ArrayList<>();
+    private ArrayList<Integer> noExitL = new ArrayList<>();
+    private ArrayList<Integer> noExitR = new ArrayList<>();
+    private ArrayList<Integer> noExitT = new ArrayList<>();
+    private ArrayList<Integer> noExitB = new ArrayList<>();
+
 
 
     private Map() {
@@ -58,10 +69,9 @@ public class Map {
         initMap();
         Room startingRoom = RoomFactory.getRoom("StartingRoom");
         currentRoomNbr = 0;
-        addRoom(startingRoom, 0, 50, currentRoomNbr);
-
         currentRoomX = 0;
         currentRoomY = 50;
+        addRoom(startingRoom, currentRoomX, currentRoomY, currentRoomNbr);
 
         ArrayList<String> roomsAdded = new ArrayList<>();
 
@@ -72,6 +82,7 @@ public class Map {
         boolean mapFinished = false;
         boolean firstRun = true;
         int nextRoom = currentRoomNbr+1;
+
         while(!mapFinished) {
 
             if(firstRun) {
@@ -113,8 +124,8 @@ public class Map {
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
                     while(notAdded) {
-                        Room leftRoom = RoomFactory.getRoom("r", tmpMoreRooms);
-                        System.out.println("Trying to add room " + nextRoom + " TO THE LEFT of " + currentRoomNbr);
+                        Room leftRoom = RoomFactory.getRoom("r", getPseudoRandomR(tmpMoreRooms), tmpMoreRooms);
+                        System.out.println("Trying to add room " + nextRoom + " TO THE LEFT of " + currentRoomNbr + "(" + leftRoom.getPath() + ")");
                         int cellNr = getCellNr(getCurrentRoom(), "l");
 
                         int x = currentRoomX - leftRoom.getWIDTH();
@@ -139,7 +150,7 @@ public class Map {
                             printMap();
                         } else {
                             tries++;
-                            if(tries > 10) {
+                            if(tries > 100) {
                                 System.out.println("Tries: " + tries);
                                 tmpMoreRooms = false;
                             }
@@ -154,8 +165,8 @@ public class Map {
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
                     while(notAdded) {
-                        Room rightRoom = RoomFactory.getRoom("l", tmpMoreRooms);
-                        System.out.println("Trying to add room " + nextRoom + " TO THE RIGHT of " + currentRoomNbr);
+                        Room rightRoom = RoomFactory.getRoom("l", getPseudoRandomL(tmpMoreRooms), tmpMoreRooms);
+                        System.out.println("Trying to add room " + nextRoom + " TO THE RIGHT of " + currentRoomNbr + "(" + rightRoom.getPath() + ")");
 
                         int cellNr = getCellNr(getCurrentRoom(), "r");
 
@@ -178,7 +189,7 @@ public class Map {
                             printMap();
                         } else {
                             tries++;
-                            if(tries > 10) {
+                            if(tries > 100) {
                                 System.out.println("Tries: " + tries);
                                 tmpMoreRooms = false;
                             }
@@ -193,8 +204,8 @@ public class Map {
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
                     while(notAdded) {
-                        Room topRoom = RoomFactory.getRoom("b", tmpMoreRooms);
-                        System.out.println("Trying to add room " + nextRoom + "ABOVE" + currentRoomNbr);
+                        Room topRoom = RoomFactory.getRoom("b", getPseudoRandomB(tmpMoreRooms), tmpMoreRooms);
+                        System.out.println("Trying to add room " + nextRoom + "ABOVE" + currentRoomNbr + "(" + topRoom.getPath() + ")");
 
                         int cellNr = getCellNr(getCurrentRoom(), "t");
 
@@ -220,7 +231,7 @@ public class Map {
                         } else {
                             tries++;
                             System.out.println("Tries: " + tries);
-                            if(tries > 10) {
+                            if(tries > 100) {
                                 tmpMoreRooms = false;
                             }
                         }
@@ -234,8 +245,8 @@ public class Map {
 
                     // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
                     while(notAdded) {
-                        Room bottomRoom = RoomFactory.getRoom("t", tmpMoreRooms);
-                        System.out.println("Trying to add room " + nextRoom + "BELOW" + currentRoomNbr);
+                        Room bottomRoom = RoomFactory.getRoom("t", getPseudoRandomT(tmpMoreRooms), tmpMoreRooms);
+                        System.out.println("Trying to add room " + nextRoom + "BELOW" + currentRoomNbr + "(" + bottomRoom.getPath() + ")");
                         int cellNr = getCellNr(getCurrentRoom(), "b");
 
                         int x = currentRoomX + cellNr - getCellNr(bottomRoom, "t");
@@ -257,7 +268,7 @@ public class Map {
                         } else {
                             tries++;
                             System.out.println("Tries: " + tries);
-                            if(tries > 10) {
+                            if(tries > 100) {
                                 tmpMoreRooms = false;
                             }
                         }
@@ -277,7 +288,7 @@ public class Map {
                 setNewRoomPosition();
             }
 
-            if(rooms.size() > 20) {
+            if(rooms.size() > 50) {
                 moreRooms = false;
             }
 
@@ -306,6 +317,124 @@ public class Map {
 
 
     }
+
+    public int getPseudoRandomL(boolean exit) {
+        Random rand = new Random();
+        if(exit) {
+            for(int i = 0; i < RoomFactory.ROOMS_WITH_EXIT_DOOR_LEFT; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_LEFT) + 1;
+                if(!exitL.contains(room)) {
+                    exitL.add(room);
+                    return room;
+                }
+            }
+            exitL.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_LEFT) + 1;
+            exitL.add(room);
+            return room;
+        } else {
+            for(int i = 0; i < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_LEFT; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_LEFT) + 1;
+                if(!noExitL.contains(room)) {
+                    noExitL.add(room);
+                    return room;
+                }
+            }
+            noExitL.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_LEFT) + 1;
+            noExitL.add(room);
+            return room;
+        }
+    }
+
+    public int getPseudoRandomR(boolean exit) {
+        Random rand = new Random();
+        if(exit) {
+            for(int i = 0; i < RoomFactory.ROOMS_WITH_EXIT_DOOR_RIGHT; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_RIGHT) + 1;
+                if(!exitR.contains(room)) {
+                    exitR.add(room);
+                    return room;
+                }
+            }
+            exitR.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_RIGHT) + 1;
+            exitR.add(room);
+            return room;
+        } else {
+            for(int i = 0; i < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_RIGHT; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_RIGHT) + 1;
+                if(!noExitR.contains(room)) {
+                    noExitR.add(room);
+                    return room;
+                }
+            }
+            noExitR.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_RIGHT) + 1;
+            noExitR.add(room);
+            return room;
+        }
+    }
+
+    public int getPseudoRandomB(boolean exit) {
+        Random rand = new Random();
+        if(exit) {
+            for(int i = 0; i < RoomFactory.ROOMS_WITH_EXIT_DOOR_BOTTOM; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_BOTTOM) + 1;
+                if(!exitB.contains(room)) {
+                    exitB.add(room);
+                    return room;
+                }
+            }
+            exitB.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_BOTTOM) + 1;
+            exitB.add(room);
+            return room;
+        } else {
+            for(int i = 0; i < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_BOTTOM; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_BOTTOM) + 1;
+                if(!noExitB.contains(room)) {
+                    noExitB.add(room);
+                    return room;
+                }
+            }
+            noExitB.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_BOTTOM) + 1;
+            noExitB.add(room);
+            return room;
+        }
+    }
+
+    public int getPseudoRandomT(boolean exit) {
+        Random rand = new Random();
+        if(exit) {
+            for(int i = 0; i < RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP) + 1;
+                if(!exitT.contains(room)) {
+                    exitT.add(room);
+                    return room;
+                }
+            }
+            exitT.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP) + 1;
+            exitT.add(room);
+            return room;
+        } else {
+            for(int i = 0; i < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_TOP; i++) {
+                int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_TOP) + 1;
+                if(!noExitT.contains(room)) {
+                    noExitT.add(room);
+                    return room;
+                }
+            }
+            noExitT.clear();
+            int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_TOP) + 1;
+            noExitT.add(room);
+            return room;
+        }
+    }
+
+
 
     private boolean doorAlreadyFitted(String doorSide) {
         Room room = getCurrentRoom();
@@ -367,12 +496,12 @@ public class Map {
                 case "l" :  oppositeDoorY = oppositeRoomY + oppositeDoorCell - 1;
                     break;
                 case "r" :  oppositeDoorX = oppositeRoomX + oppositeRoom.getWIDTH() - 1;
-                    oppositeDoorY = oppositeRoomY + oppositeDoorCell - 1;
+                            oppositeDoorY = oppositeRoomY + oppositeDoorCell - 1;
                     break;
                 case "b" :  oppositeDoorX = oppositeRoomX + oppositeDoorCell - 1;
                     break;
                 case "t" :  oppositeDoorX = oppositeRoomX + oppositeDoorCell - 1;
-                    oppositeDoorY = oppositeRoomY + oppositeRoom.getHEIGHT() - 1;
+                            oppositeDoorY = oppositeRoomY + oppositeRoom.getHEIGHT() - 1;
             }
 
             if(nextRoomX == oppositeDoorX && nextRoomY == oppositeDoorY) {
@@ -464,13 +593,356 @@ public class Map {
                 }
             }
         }
-
+        
+        String matchingSide = null;
         if(!doorsFit(room, xPos, yPos, entranceSide)) {
+            return false;
+        } else {
+            matchingSide = matchingDoorSide(room, xPos, yPos, entranceSide);
+        }
+
+        if(isBlockingDoor(room, xPos, yPos, entranceSide, matchingSide)) {
+            System.out.println("DOOR BLOCKING TEST FAILED");
             return false;
         }
 
 
         return true;
+    }
+
+    private String matchingDoorSide(Room room, int xPos, int yPos, String entranceSide) {
+        System.out.println("matchingDoorSide()");
+        for(String door : room.getDoors()) {
+            String side = door.substring(0,1);
+            int cell = Integer.parseInt(door.substring(1));
+
+            if(!side.substring(0,1).equals(entranceSide)) {
+                int x = -1;
+                int y = -1;
+
+                switch (side) {
+                    case "l" :  x = xPos - 1;
+                                y = yPos + cell - 1;
+                                break;
+                    case "r" :  x = xPos + room.getWIDTH();
+                                y = yPos + cell - 1;
+                                break;
+                    case "t" :  x = xPos + cell - 1;
+                                y = yPos + room.getHEIGHT();
+                                break;
+                    case "b" :  x = xPos + cell - 1;
+                                y = yPos -1;
+                                break;
+                }
+
+                if(x < 0 || y < 0 || x > 100 || y > 100) {
+                    return null;
+                }
+
+                if(roomMap[x][y] != -1) {
+                    int oppositeRoomNumber = roomMap[x][y];
+                    Room oppositeRoom = rooms.get(oppositeRoomNumber);
+                    ArrayList<String> oppositeRoomDoors = oppositeRoom.getDoors();
+
+                    for(String oppositeRoomDoor : oppositeRoomDoors) {
+
+                        String oppositeDoorSide = oppositeRoomDoor.substring(0,1);
+                        int oppositeDoorCell = Integer.parseInt(oppositeRoomDoor.substring(1));
+
+                        int oppositeRoomX = oppositeRoom.getX();
+                        int oppositeRoomY = oppositeRoom.getY();
+
+                        int oppositeDoorX = oppositeRoomX;
+                        int oppositeDoorY = oppositeRoomY;
+
+                        switch (oppositeDoorSide) {
+                            case "l" :  oppositeDoorY = oppositeRoomY + oppositeDoorCell - 1;
+                                break;
+                            case "r" :  oppositeDoorX = oppositeRoomX + oppositeRoom.getWIDTH() - 1;
+                                oppositeDoorY = oppositeRoomY + oppositeDoorCell - 1;
+                                break;
+                            case "b" :  oppositeDoorX = oppositeRoomX + oppositeDoorCell - 1;
+                                break;
+                            case "t" :  oppositeDoorX = oppositeRoomX + oppositeDoorCell - 1;
+                                oppositeDoorY = oppositeRoomY + oppositeRoom.getHEIGHT() - 1;
+                        }
+
+                        if(x == oppositeDoorX && y == oppositeDoorY) {
+                            System.out.println("DOORS MATCHED!!! (matchingDoorSide)");
+                            return oppositeRoomDoor;
+                        }
+                    }
+                    return null;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private boolean isBlockingDoor(Room room, int xPos, int yPos, String entranceSide, String matchingSide) {
+        System.out.println("isBlockingDoor()");
+        switch (entranceSide) {
+            case "l" : return doorBlockedBelow(room, xPos, yPos, matchingSide) || doorBlockedAbove(room, xPos, yPos, matchingSide) || doorBlockedRight(room, xPos, yPos, matchingSide);
+            case "r" : return doorBlockedBelow(room, xPos, yPos, matchingSide) || doorBlockedAbove(room, xPos, yPos, matchingSide) || doorBlockedLeft(room, xPos, yPos, matchingSide);
+            case "t" : return doorBlockedBelow(room, xPos, yPos, matchingSide) || doorBlockedLeft(room, xPos, yPos, matchingSide) || doorBlockedRight(room, xPos, yPos, matchingSide);
+            case "b" : return doorBlockedAbove(room, xPos, yPos, matchingSide) || doorBlockedLeft(room, xPos, yPos, matchingSide) || doorBlockedRight(room, xPos, yPos, matchingSide);
+            default : return false;
+        }
+    }
+
+    private boolean doorBlockedRight(Room room, int xPos, int yPos, String matchingSide) {
+        System.out.println("doorBlockedRight()");
+        System.out.println("xPos: " + xPos);
+        System.out.println("yPos: " + yPos);
+        ArrayList<Room> roomsToRight = new ArrayList<>();
+        int lastRoomAdded = -1;
+
+        // collect all rooms directly to the right of the room
+        for(int y = yPos; y < yPos+room.getHEIGHT(); y++) {
+            if(xPos+room.getWIDTH() < 100 && y < 100) {
+                int roomNumber = roomMap[xPos+room.getWIDTH()][y];
+                if(roomNumber != -1 && roomNumber != lastRoomAdded) {
+                    roomsToRight.add(rooms.get(roomNumber));
+                    lastRoomAdded = roomNumber;
+                    System.out.println("Room to right: " + roomNumber);
+                }
+            }
+        }
+
+        // if there are no rooms to the right, nothing else to check
+        if(roomsToRight.isEmpty()) {
+            return false;
+        }
+
+        for(Room roomToRight : roomsToRight) {
+            //if there are no doors facing the room, nothing else to check
+            if(!hasDoor(roomToRight, "l")) {
+                return false;
+            } else if (!checkDoors(room, roomToRight, "l", xPos, yPos, matchingSide)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean doorBlockedLeft(Room room, int xPos, int yPos, String matchingSide) {
+        System.out.println("doorBlockedLeft()");
+        System.out.println("xPos: " + xPos);
+        System.out.println("yPos: " + yPos);
+
+        ArrayList<Room> roomsToLeft = new ArrayList<>();
+        int lastRoomAdded = -1;
+
+        // collect all rooms directly to the left of the room
+        for(int y = yPos; y < yPos+room.getHEIGHT(); y++) {
+            if(xPos-1 >= 0 && y < 100) {
+                int roomNumber = roomMap[xPos - 1][y];
+                if(roomNumber != -1 && roomNumber != lastRoomAdded) {
+                    roomsToLeft.add(rooms.get(roomNumber));
+                    lastRoomAdded = roomNumber;
+                    System.out.println("Room to left: " + roomNumber);
+                }
+            }
+        }
+
+        // if there are no rooms to the right, nothing else to check
+        if(roomsToLeft.isEmpty()) {
+            return false;
+        }
+
+        for(Room roomToLeft : roomsToLeft) {
+            //if there are no doors facing the room, nothing else to check
+            if(!hasDoor(roomToLeft, "r")) {
+                return false;
+            } else if (!checkDoors(room, roomToLeft, "r", xPos, yPos, matchingSide)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    private boolean doorBlockedAbove(Room room, int xPos, int yPos, String matchingSide) {
+        System.out.println("doorBlockedAbove()");
+        ArrayList<Room> roomsAbove = new ArrayList<>();
+        int lastRoomAdded = -1;
+
+        System.out.println("xPos: " + xPos);
+        System.out.println("yPos: " + yPos);
+
+        // collect all rooms directly to the left of the room
+        for(int x = xPos; x < xPos+room.getWIDTH(); x++) {
+            if(yPos + room.getHEIGHT() < 100 && x < 100) {
+                int roomNumber = roomMap[x][yPos+room.getHEIGHT()];
+                if(roomNumber != -1 && roomNumber != lastRoomAdded) {
+                    roomsAbove.add(rooms.get(roomNumber));
+                    lastRoomAdded = roomNumber;
+                    System.out.println("Room to above: " + roomNumber);
+                }
+            }
+        }
+
+        // if there are no rooms to the right, nothing else to check
+        if(roomsAbove.isEmpty()) {
+            return false;
+        }
+
+        for(Room roomAbove : roomsAbove) {
+            //if there are no doors facing the room, nothing else to check
+            if(!hasDoor(roomAbove, "b")) {
+                return false;
+            } else if (!checkDoors(room, roomAbove, "b", xPos, yPos, matchingSide)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean doorBlockedBelow(Room room, int xPos, int yPos, String matchingSide) {
+        System.out.println("doorBlockedBelow()");
+        System.out.println("xPos: " + xPos);
+        System.out.println("yPos: " + yPos);
+        ArrayList<Room> roomsBelow = new ArrayList<>();
+        int lastRoomAdded = -1;
+
+        // collect all rooms directly to the left of the room
+        for(int x = xPos; x < xPos+room.getWIDTH(); x++) {
+            if(yPos - 1 >= 0 && x < 100) {
+                int roomNumber = roomMap[x][yPos - 1];
+                if(roomNumber != -1 && roomNumber != lastRoomAdded) {
+                    roomsBelow.add(rooms.get(roomNumber));
+                    lastRoomAdded = roomNumber;
+                    System.out.println("Room below: " + roomNumber);
+                }
+            }
+        }
+
+        // if there are no rooms to the right, nothing else to check
+        if(roomsBelow.isEmpty()) {
+            return false;
+        }
+
+        for(Room roomBelow : roomsBelow) {
+            //if there are no doors facing the room, nothing else to check
+            if(!hasDoor(roomBelow, "t")) {
+                return false;
+            } else if (!checkDoors(room, roomBelow, "t", xPos, yPos, matchingSide)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private String getOppositeSide(String side) {
+        switch (side) {
+            case "l" : return "r";
+            case "r" : return "l";
+            case "t" : return "b";
+            case "b" : return "t";
+            default :  return null;
+        }
+    }
+
+    private boolean checkDoors(Room room, Room roomToCheck, String side, int xPos, int yPos, String matchingSide) {
+        System.out.println("checkDoors()");
+        ArrayList<String> matchingDoors = getDoors(roomToCheck, side);
+        for (String door : matchingDoors) {
+            int x = getDoorX(roomToCheck, door);
+            int y = getDoorY(roomToCheck, door);
+
+            System.out.println("Door X: " + x);
+            System.out.println("Door Y: " + y);
+
+            System.out.println("Door: " + door);
+
+            if(side.equals("l") || side.equals("r")) {
+                if(!(y < yPos || y >= yPos + room.getHEIGHT())) {
+                    System.out.println("checkDoors() failed side: " + side);
+                    System.out.println("Y: " + y);
+                    System.out.println("Room height: " + room.getHEIGHT());
+                    System.out.println("yPos: " + yPos + ", yPos+roomHeight: " + (yPos+room.getHEIGHT()));
+                    if(!door.equals(matchingSide)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            } else {
+                if(!(x < xPos || x >= xPos + room.getWIDTH())) {
+                    System.out.println("checkDoors() failed side: " + side);
+                    System.out.println("X: " + x);
+                    System.out.println("Room width: " + room.getWIDTH());
+                    System.out.println("xPos: " + xPos + ", xPos+roomWidth: " + (xPos+room.getWIDTH()));
+                    if(!door.equals(matchingSide)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private int getDoorY(Room room, String door) {
+        System.out.println("getDoorY()");
+        System.out.println("Room X: " + room.getX());
+        System.out.println("Room Y: " + room.getY());
+
+        String side = door.substring(0,1);
+        int cell = Integer.parseInt(door.substring(1));
+        int yPos = room.getY();
+
+        if(side.equals("l") || side.equals("r")) {
+            return yPos + cell - 1;
+        } else if (side.equals("t")){
+            return yPos + room.getHEIGHT() - 1;
+        } else {
+            return yPos;
+        }
+
+    }
+
+    private int getDoorX(Room room, String door) {
+        System.out.println("getDoorX()");
+        System.out.println("Room X: " + room.getX());
+        System.out.println("Room Y: " + room.getY());
+
+        String side = door.substring(0,1);
+        int cell = Integer.parseInt(door.substring(1));
+        int xPos = room.getX();
+
+        if(side.equals("t") || side.equals("b")) {
+            return xPos + cell - 1;
+        } else if (side.equals("r")){
+            return xPos + room.getWIDTH() - 1;
+        } else {
+            return xPos;
+        }
+    }
+
+    public ArrayList<String> getDoors(Room room, String side) {
+        ArrayList<String> matchingDoors = new ArrayList<>();
+        for(String door : room.getDoors()) {
+            if(door.substring(0,1).equals(side)) {
+                matchingDoors.add(door);
+            }
+        }
+        return matchingDoors;
+    }
+
+    private boolean hasDoor(Room room, String side) {
+        for(String door : room.getDoors()) {
+            if(door.substring(0,1).equals(side)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean doorsFit(Room room, int xPos, int yPos, String entranceSide) {
