@@ -57,6 +57,12 @@ public class Hero extends Creature {
         return instance;
     }
 
+    @Override
+    public void decreaseHealthPoints(int HP) {
+        super.decreaseHealthPoints(HP);
+        hud.updateHealthBar();
+    }
+
     //returns the weapon currently in use
     public Weapon getCurrentWeapon() {
         if (meleeCurrentWeapon) {

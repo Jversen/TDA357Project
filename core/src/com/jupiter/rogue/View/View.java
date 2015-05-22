@@ -8,13 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.Controller;
-import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
 
@@ -79,11 +74,6 @@ public class View {
                 map.getCurrentRoom().getEnemyControllers().get(i).getEnemyView().
                         updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
             }
-        /*batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        //sprite.draw(batch);
-        batch.draw(Hero.getInstance().getCurrentFrame().getTexture(), Hero.getInstance().getX(), Hero.getInstance().getY());
-        batch.end();*/
 
         camera.setToOrtho(false, w / PPM, h / PPM);
 

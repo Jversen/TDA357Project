@@ -100,6 +100,5 @@ public abstract class Creature {
         if (currentHealthPoints < 0) {
             currentHealthPoints = 0;
         }
-        hud.updateHealthBar();
     }
 }
