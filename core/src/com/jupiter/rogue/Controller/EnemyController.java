@@ -45,7 +45,7 @@ public abstract class EnemyController {
             enemy.performMove();
         } else {
             enemy.performAttack();
-            createHitbox();
+//            createHitbox();
         }
     }
 
