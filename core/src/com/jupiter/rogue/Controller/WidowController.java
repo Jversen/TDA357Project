@@ -27,10 +27,10 @@ public class WidowController extends EnemyController {
     private Position startPosition;
 
     public WidowController(float xPos, float yPos, int level, boolean elite) {
-        //super(xPos, yPos, level, elite); //Feels unnecessary, just to make compilation work
         Widow widow = new Widow(xPos, yPos, level, elite);
         this.enemy = widow;
         this.enemyView = new WidowView(widow);
+
         startPosition = enemy.getPosition();
         initBody();
     }

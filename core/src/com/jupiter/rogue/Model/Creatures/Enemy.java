@@ -22,9 +22,15 @@ public class Enemy extends Creature {
     protected float bodyHeight;
     protected float bodyWidth;
     private boolean elite;
+
     protected AttackBehavior attackBehavior;
     protected JumpBehavior jumpBehavior;
     protected MoveBehavior moveBehavior;
+
+    protected int hitBoxWidth;
+    protected int hitBoxHeight;
+    protected int hitBoxX;
+    protected int hitBoxY;
 
     public Enemy() {
         this.maxHealthPoints = 100;

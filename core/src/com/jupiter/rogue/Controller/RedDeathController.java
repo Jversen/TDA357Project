@@ -30,9 +30,9 @@ public class RedDeathController extends EnemyController{
         RedDeath redDeath = new RedDeath(xPos, yPos, level, elite);
         this.enemy = redDeath;
         this.enemyView = new RedDeathView(redDeath);
+
         startPosition = enemy.getPosition();
         initBody();
-
     }
 
     @Override
