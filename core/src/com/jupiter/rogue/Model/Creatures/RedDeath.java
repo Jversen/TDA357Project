@@ -12,6 +12,5 @@ public class RedDeath extends Enemy {
 
         bodyWidth = 10;
         bodyHeight = 20;
-
     }
 }
