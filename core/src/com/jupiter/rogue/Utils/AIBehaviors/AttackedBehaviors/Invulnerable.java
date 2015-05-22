@@ -8,7 +8,7 @@ import com.jupiter.rogue.Utils.AIBehaviors.Behavior;
  */
 public class Invulnerable extends Behavior implements AttackedBehavior{
 
-    public void attacked(Direction direction, float damage){
+    public void attacked(Direction direction){
 
     }
 
