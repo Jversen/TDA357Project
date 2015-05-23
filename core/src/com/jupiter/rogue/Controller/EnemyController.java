@@ -32,22 +32,7 @@ public abstract class EnemyController {
 
     private int hitBoxX;
 
-   // public EnemyController(float xPos, float yPos, int level, boolean elite){} //May change later
-
-    public void update(){
-        updatePhysics();
-        enemy.setEnemyDirection();
-
-        if (heroNotNear()) {
-            enemy.setMovementState(MovementState.STANDING);
-        } else if (!heroInRange() && !heroNotNear()) {
-            enemy.setMovementState(MovementState.WALKING);
-            enemy.performMove();
-        } else {
-            enemy.performAttack();
-//            createHitbox();
-        }
-    }
+    private Timer timer;
 
     public void initBody() {
         //creates a shapeless body
@@ -58,14 +43,14 @@ public abstract class EnemyController {
 
         //creates the shape of the bodyDef
         shape = new PolygonShape();
-        shape.setAsBox(enemy.getBodyWidth() / PPM, enemy.getBodyHeight() / PPM); //temporary values, should be dependent on sprite size
+        shape.setAsBox(enemy.getBodyWidth() / PPM, enemy.getBodyHeight() / PPM, new Vector2(0, enemy.getBodyY()), 0);
 
         // FixtureDef sets physical properties
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 100f;
+        fixtureDef.density = 85f;
         fixtureDef.friction = 0.2f;
-        fixtureDef.restitution = 0.0f;
+        fixtureDef.restitution = 0f;
 
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
         body.setUserData(this);
@@ -77,6 +62,30 @@ public abstract class EnemyController {
         shape.dispose();
 
         weaponSensorFixtureDef = new FixtureDef();
+
+        timer = new Timer();
+    }
+
+    public void update(){
+        updatePhysics();
+
+        if (enemy.isCreatureDying()) {
+            if (enemy.getMovementState() != MovementState.DYING) {
+                enemy.setMovementState(MovementState.DYING);
+                timer.schedule(new SetCreatureDeadTask(), 1450);
+            }
+        } else {
+            enemy.setEnemyDirection();
+            if (heroNotNear()) {
+                enemy.setMovementState(MovementState.STANDING);
+            } else if (!heroInRange() && !heroNotNear()) {
+                enemy.setMovementState(MovementState.WALKING);
+                enemy.performMove();
+            } else {
+                enemy.performAttack();
+                //            createHitbox();
+            }
+        }
     }
 
     private void createHitbox() {
@@ -101,11 +110,11 @@ public abstract class EnemyController {
 
     //help-method to the createWeaponHitBox methods, gets the hitbox information from the heroes weapon and then sets a hitbox accordingly depending on what direction the hero is facing.
     private void hitBoxShapeMaker() {
-        hitBoxX = enemy.getHitBoxX();
+        hitBoxX = enemy.getAttackHitBoxX();
         if (enemy.getDirection() == Direction.LEFT) {
             hitBoxX = hitBoxX * -1;
         }
-        shape.setAsBox(enemy.getHitBoxWidth() / PPM, enemy.getHitBoxHeight() / PPM, new Vector2(hitBoxX / PPM, enemy.getHitBoxY() / PPM), 0);
+        shape.setAsBox(enemy.getAttackHitBoxWidth() / PPM, enemy.getAttackHitBoxHeight() / PPM, new Vector2(hitBoxX / PPM, enemy.getAttackHitBoxY() / PPM), 0);
     }
 
 
@@ -122,5 +131,12 @@ public abstract class EnemyController {
     private void updatePhysics() {
         Position physPos = new Position(body.getPosition().x, body.getPosition().y);
         enemy.setPosition(physPos);
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the time before a dying enemies dies.
+    class SetCreatureDeadTask extends TimerTask {
+        public void run() {
+            enemy.setCreatureDead(true);
+        }
     }
 }

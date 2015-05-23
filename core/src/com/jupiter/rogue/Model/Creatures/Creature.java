@@ -25,6 +25,8 @@ public abstract class Creature {
     protected boolean creatureFalling;
     protected Hud hud = Hud.getInstance();
 
+    protected boolean creatureDead;
+
     public void setPosition(float x, float y) {
         setX(x);
         setY(y);
@@ -34,11 +36,11 @@ public abstract class Creature {
         currentHealthPoints = currentHealthPoints - incomingDamage;
     }
 
-    public boolean isCreatureAlive() {
+    public boolean isCreatureDying() {
         if (currentHealthPoints < 1) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -90,7 +92,6 @@ public abstract class Creature {
         if (this.maxHealthPoints >= HP || HP >= 0) {
             this.currentHealthPoints = HP;
         }
-        hud.updateHealthBar();
     }
 
     public void decreaseHealthPoints(int HP) {

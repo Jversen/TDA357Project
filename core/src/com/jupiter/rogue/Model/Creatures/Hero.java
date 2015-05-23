@@ -47,6 +47,8 @@ public class Hero extends Creature {
         intellect = 1;
         statIncreasePoints = 0;
 
+        creatureDead = false;
+
         this.position = WorldConstants.HERO_START_POSITION;
     }
 
@@ -60,6 +62,12 @@ public class Hero extends Creature {
     @Override
     public void decreaseHealthPoints(int HP) {
         super.decreaseHealthPoints(HP);
+        hud.updateHealthBar();
+    }
+
+    @Override
+    public void setHealthPoints(int HP) {
+        super.setHealthPoints(HP);
         hud.updateHealthBar();
     }
 
