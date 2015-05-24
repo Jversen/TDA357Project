@@ -22,17 +22,34 @@ public class Hero extends Creature {
     private Ring ringRight;
     private Ring ringLeft;
 
+    // Experience and stats
+    private int experiencePoints;
+    private int strength;
+    private int agility;
+    private int intellect;
+    private int statIncreasePoints;
+
     private Hero (float xPos, float yPos) {
         this.creatureGrounded = false;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
         this.movementSpeed = 100;
         this.meleeCurrentWeapon = true;
+
+        //Starting weapons
         this.meleeWeapon = new StartingWeapon();
         this.rangedWeapon = new DoubleBarreled();
 
+        //Stats and experience
+        experiencePoints = 0;
+        strength = 1;
+        agility = 1;
+        intellect = 1;
+        statIncreasePoints = 0;
+
+        creatureDead = false;
+
         this.position = WorldConstants.HERO_START_POSITION;
-        //TODO finish rest of stats
     }
 
     public static Hero getInstance() {
@@ -40,6 +57,18 @@ public class Hero extends Creature {
             instance = new Hero(100,100);
         }
         return instance;
+    }
+
+    @Override
+    public void decreaseHealthPoints(int HP) {
+        super.decreaseHealthPoints(HP);
+        hud.updateHealthBar();
+    }
+
+    @Override
+    public void setHealthPoints(int HP) {
+        super.setHealthPoints(HP);
+        hud.updateHealthBar();
     }
 
     //returns the weapon currently in use

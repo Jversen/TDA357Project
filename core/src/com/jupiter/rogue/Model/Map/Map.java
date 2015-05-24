@@ -67,8 +67,14 @@ public class Map {
             switchRoom();
         }
 
+        //Updates all the individual enemies in the current room, also removes them if they die.
         for (int i = 0; i < getCurrentRoom().getEnemyControllers().size(); i++) {
-            getCurrentRoom().getEnemyControllers().get(i).update();
+            if (!getCurrentRoom().getEnemyControllers().get(i).getEnemy().isCreatureDead()) {
+                getCurrentRoom().getEnemyControllers().get(i).update();
+            } else {
+                getCurrentRoom().getEnemyControllers().get(i).getBody().setUserData("dead");
+                getCurrentRoom().getEnemyControllers().remove(i);
+            }
         }
     }
 

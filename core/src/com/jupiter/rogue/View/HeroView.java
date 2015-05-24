@@ -56,7 +56,7 @@ public class HeroView extends CreatureView {
 
         spriteSheet = new Texture((Gdx.files.internal(spritesheetPathFalling)));
         atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathFalling));
-        fallingAnimation = new Animation(animationSpeedIdle, atlas.getRegions());
+        fallingAnimation = new Animation(animationSpeedFalling, atlas.getRegions());
 
         spriteSheet = new Texture((Gdx.files.internal(spritesheetPathJumping)));
         atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathJumping));

@@ -244,33 +244,25 @@ public class HeroController {
         if (weaponReady) {
             weaponReady = false;
             hero.attack(heroMovement);
+            timer.schedule(new AttackDelayTask(), 50);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the delay of pressing attack and actually attacking.
+    class AttackDelayTask extends TimerTask {
+        public void run() {
             if (hero.isMeleeCurrentWeapon()) {
-                meleeAttack();
+                createMeleeWeaponHitbox();
+                timer.schedule(new RemoveHitBoxTask(), 100);
             } else {
-                rangedAttack();
+                createRangedWeaponHitbox();
+                timer.schedule(new WeaponReadyTask(), 1000);
             }
         }
     }
 
-    private void meleeAttack() {
-        createMeleeWeaponHitbox();
-        timer.schedule(new meleeAttackTask(), 200);
-    }
-
-    private void rangedAttack() {
-        createRangedWeaponHitbox();
-        timer.schedule(new meleeAttackTask(), 200);
-    }
-
-    //A nestled class to implement a timertask. Timertask to control the delay of pressing attack and actually attacking.
-    class meleeAttackTask extends TimerTask {
-        public void run() {
-            timer.schedule(new meleeAttackTask2(), 50);
-        }
-    }
-
     //A nestled class to implement a timertask. Timertask to control the "length" of the attack.
-    class meleeAttackTask2 extends TimerTask {
+    class RemoveHitBoxTask extends TimerTask {
         public void run() {
             removeMeleeWeaponHitbox();
             timer.schedule(new WeaponReadyTask(), 900);

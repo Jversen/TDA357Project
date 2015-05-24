@@ -30,65 +30,16 @@ public class RedDeathController extends EnemyController{
         RedDeath redDeath = new RedDeath(xPos, yPos, level, elite);
         this.enemy = redDeath;
         this.enemyView = new RedDeathView(redDeath);
+
         startPosition = enemy.getPosition();
         initBody();
-
     }
 
     @Override
     public void initBody() {
-
-        //creates a shapeless body
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.fixedRotation = true;
-        bodyDef.position.set(enemy.getX() / PPM, enemy.getY() / PPM);
-
-        //creates the shape of the bodyDef
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(10 / PPM, 20 / PPM); //temporary values, should be dependent on sprite size
-
-        // FixtureDef sets physical properties
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = 100f;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.restitution = 0.0f;
-
-        body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        body.setUserData(this);
-        body.createFixture(fixtureDef).setUserData("enemy"); //naming the fixture
-
-        WorldConstants.BODIES.add(body);
-
+        super.initBody();
         enemy.setMoveBehavior(new Walk(body));
         enemy.setAttackBehavior(new MeleeAttack(body));
         enemy.setJumpBehavior(new NormalJump(body));
-
-        //disposes shape to save memory
-        shape.dispose();
-
-    }
-
-    @Override
-    public void update(){
-        updatePhysics(); //Unnecessary?
-
-        enemy.setEnemyDirection();
-
-        if(heroNotNear()) {
-            enemy.setMovementState(MovementState.STANDING);
-        }else if(!heroInRange() && !heroNotNear()){
-            enemy.setMovementState(MovementState.WALKING);
-            enemy.performMove();
-        }
-        else {
-            enemy.performAttack();
-        }
-    }
-
-    private void updatePhysics() {
-        Position physPos = new Position(body.getPosition().x, body.getPosition().y);
-        enemy.setPosition(physPos);
     }
 }

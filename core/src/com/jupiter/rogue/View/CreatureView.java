@@ -96,7 +96,7 @@ public abstract class CreatureView {
                 0.5f,
                 0.5f,
                 currentFrame.getRegionWidth() / PPM, currentFrame.getRegionHeight() / PPM,
-                getDirValue() * PPM, PPM, 0);
+                getDirValue() * PPM, 1f * PPM, 0);
 
         spriteBatch.end();
     }

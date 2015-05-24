@@ -10,8 +10,13 @@ public class RedDeath extends Enemy {
 
         super(100, 100, 25, 25, 1, 6, true, xPos, yPos, level, elite);
 
-        bodyWidth = 10;
-        bodyHeight = 20;
+        this.attackHitBoxWidth = 5;
+        this.attackHitBoxHeight = 5;
+        this.attackHitBoxX = 9;
+        this.attackHitBoxY = 5;
 
+        this.bodyWidth = 9;
+        this.bodyHeight = 14;
+        this.bodyY = 0;
     }
 }
