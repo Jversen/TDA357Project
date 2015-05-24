@@ -24,10 +24,11 @@ public class Hero extends Creature {
 
     // Experience and stats
     private int experiencePoints;
+    private int experienceRoof; //A variable to hold the amount of xp needed to lvl up.
     private int strength;
     private int agility;
     private int intellect;
-    private int statIncreasePoints;
+    private int statPoints;
 
     private Hero (float xPos, float yPos) {
         this.creatureGrounded = false;
@@ -42,10 +43,11 @@ public class Hero extends Creature {
 
         //Stats and experience
         experiencePoints = 0;
+        experienceRoof = 100;
         strength = 1;
         agility = 1;
         intellect = 1;
-        statIncreasePoints = 0;
+        statPoints = 0;
 
         creatureDead = false;
 
@@ -57,6 +59,36 @@ public class Hero extends Creature {
             instance = new Hero(100,100);
         }
         return instance;
+    }
+
+    public void increaseExperience(int experienceGain) {
+        this.experiencePoints = this.experiencePoints + experienceGain;
+        if (experiencePoints >= experienceRoof) {
+            levelUp();
+        }
+    }
+
+    private void levelUp() {
+        statPoints++;
+        experiencePoints = experiencePoints - experienceRoof;
+        experienceRoof = experienceRoof + 50;
+    }
+
+    public void increaseStats(String statToIncrease) {
+        if (statPoints >= 1) {
+            if (statToIncrease.equals("strength")) {
+                strength++;
+                statPoints--;
+            } else if (statToIncrease.equals("intellect")) {
+                intellect++;
+                statPoints--;
+            } else if (statToIncrease.equals("agility")) {
+                agility++;
+                statPoints--;
+            } else {
+                System.out.println("The method increaseStats did not recieve the correct string of 'strength', 'intellect' or 'agility'.");
+            }
+        }
     }
 
     @Override

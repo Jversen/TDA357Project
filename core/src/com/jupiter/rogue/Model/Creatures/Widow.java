@@ -18,5 +18,7 @@ public class Widow extends Enemy {
         this.bodyWidth = 10;
         this.bodyHeight = 25;
         this.bodyY = 0.5f;
+
+        this.xpValue = 100;
     }
 }

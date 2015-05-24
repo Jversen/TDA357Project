@@ -50,7 +50,7 @@ public abstract class EnemyController {
         // FixtureDef sets physical properties
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 85f;
+        fixtureDef.density = 50f;
         fixtureDef.friction = 0.2f;
         fixtureDef.restitution = 0f;
 
@@ -74,6 +74,7 @@ public abstract class EnemyController {
 
         if (enemy.isCreatureDying()) {
             if (enemy.getMovementState() != MovementState.DYING) {
+                Hero.getInstance().increaseExperience(enemy.getXpValue());
                 enemy.setMovementState(MovementState.DYING);
                 timer.schedule(new SetCreatureDeadTask(), 1450);
             }

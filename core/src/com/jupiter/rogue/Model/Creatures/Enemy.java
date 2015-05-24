@@ -34,6 +34,8 @@ public class Enemy extends Creature {
     protected int attackHitBoxX;
     protected int attackHitBoxY;
 
+    protected int xpValue;
+
     public Enemy() {
         this.maxHealthPoints = 100;
         this.currentHealthPoints = 100;

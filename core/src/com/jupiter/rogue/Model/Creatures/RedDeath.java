@@ -18,5 +18,7 @@ public class RedDeath extends Enemy {
         this.bodyWidth = 9;
         this.bodyHeight = 14;
         this.bodyY = 0;
+
+        this.xpValue = 50;
     }
 }
