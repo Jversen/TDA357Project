@@ -77,9 +77,9 @@ public class MyContactListener implements ContactListener {
         }
 
             //Checking if an enemy is taking damage from the heroes weapon.
-        if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController)) {
+        if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController) && (!fb.getUserData().equals("enemyHitbox"))) {
             ((EnemyController)fb.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
-        } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor"))) {
+        } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor")) && (!fa.getUserData().equals("enemyHitbox"))) {
             ((EnemyController)fa.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
         }
     }

@@ -30,6 +30,7 @@ public class WorldController {
             if (body != null) {
                 if (body.getUserData() != null) {
                     if (body.getUserData().equals("dead")) {
+                        WorldConstants.BODIES.remove(i);
                         WorldConstants.CURRENT_WORLD.destroyBody(body);
                     }
                 }
