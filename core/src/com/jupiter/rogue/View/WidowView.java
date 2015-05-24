@@ -64,7 +64,7 @@ public class WidowView extends EnemyView {
 
     @Override
     protected Animation getCurrentAnimation() {
-        if (creature.getMovementState() == MovementState.ATTACKING) {
+        if (creature.isAttackInProgress()) {
             return attackAnimation;
         } else {
             if (creature.getMovementState() == MovementState.WALKING) {

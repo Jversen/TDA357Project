@@ -2,7 +2,6 @@ package com.jupiter.rogue.Model.Creatures;
 
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
-import com.jupiter.rogue.Model.Items.Weapon;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.AttackBehavior;
 import com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors.JumpBehavior;
@@ -45,6 +44,7 @@ public class Enemy extends Creature {
         this.jumpHeight = 6;
         this.position = new Position(200, 50);
         this.creatureDead = false;
+        this.attackInProgress = false;
     }
 
     public Enemy(int maxHP, int currentHP, int attackPoints, float attackRange, int movementSpeed, int jumpHeight, boolean flying,
@@ -60,6 +60,7 @@ public class Enemy extends Creature {
         this.level = level; // Enemies level, scales up all stats by some factor.
         this.elite = elite; // Whether enemy has 'elite' status or not. Elite enemies are stronger.
         this.creatureDead = false;
+        this.attackInProgress = false;
     }
 
     public void setMoveBehavior(MoveBehavior moveBehavior){

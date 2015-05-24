@@ -86,9 +86,10 @@ public abstract class EnemyController {
             } else {
                 if (attackReady) {
                     attackReady = false;
+                    enemy.setAttackInProgress(true);
                     enemy.performAttack();
                     createHitbox();
-                    timer.schedule(new RemoveHitBoxTask(), 400);
+                    timer.schedule(new RemoveHitBoxTask(), 1000);
                 }
             }
         }
@@ -150,7 +151,8 @@ public abstract class EnemyController {
     class RemoveHitBoxTask extends TimerTask {
         public void run() {
             removeHitbox();
-            timer.schedule(new AttackReadyTask(), 500);
+            enemy.setAttackInProgress(false);
+            timer.schedule(new AttackReadyTask(), 200);
         }
     }
 

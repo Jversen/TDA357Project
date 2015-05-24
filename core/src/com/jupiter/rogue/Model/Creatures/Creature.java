@@ -27,6 +27,8 @@ public abstract class Creature {
 
     protected boolean creatureDead;
 
+    protected boolean attackInProgress;
+
     public void setPosition(float x, float y) {
         setX(x);
         setY(y);

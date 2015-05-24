@@ -10,9 +10,9 @@ public class Widow extends Enemy {
     public Widow(float xPos, float yPos, int level, boolean elite){
         super(100, 100, 25, 25, 1, 6, true, xPos, yPos, level, elite);
 
-        this.attackHitBoxWidth = 5;
+        this.attackHitBoxWidth = 8;
         this.attackHitBoxHeight = 15;
-        this.attackHitBoxX = 15;
+        this.attackHitBoxX = 20;
         this.attackHitBoxY = 25;
 
         this.bodyWidth = 10;
