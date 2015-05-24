@@ -15,11 +15,18 @@ public class RoomFactory {
     public static final int ROOMS_WITHOUT_EXIT_DOOR_TOP = 1;
     public static final int ROOMS_WITHOUT_EXIT_DOOR_BOTTOM = 1;
 
+    // number of 1x1 rooms with two doors used for connecting two larger rooms when there is no space for anything better
+    public static final int CONNECTION_ROOMS_LEFT = 7;
+    public static final int CONNECTION_ROOMS_RIGHT = 7;
+    public static final int CONNECTION_ROOMS_TOP = 7;
+    public static final int CONNECTION_ROOMS_BOTTOM = 7;
+
+
     // number of rooms of each type with an exit;
-    public static final int ROOMS_WITH_EXIT_DOOR_LEFT = 9;
-    public static final int ROOMS_WITH_EXIT_DOOR_RIGHT = 9;
-    public static final int ROOMS_WITH_EXIT_DOOR_TOP = 5;
-    public static final int ROOMS_WITH_EXIT_DOOR_BOTTOM = 4;
+    public static final int ROOMS_WITH_EXIT_DOOR_LEFT = 6;
+    public static final int ROOMS_WITH_EXIT_DOOR_RIGHT = 6;
+    public static final int ROOMS_WITH_EXIT_DOOR_TOP = 2;
+    public static final int ROOMS_WITH_EXIT_DOOR_BOTTOM = 1;
 
     public static Room getRoom(String entrance, int roomNumber, boolean exit) {
         ArrayList<String> doors = new ArrayList<>();
@@ -60,23 +67,17 @@ public class RoomFactory {
         if(entrance.equals("l") && exit) {
             switch (roomNumber) { //will be random once more rooms are added
                 case 1 :    doors.add("l1");
-                            doors.add("b1");
-                            return new Room("Rooms/11Dl1b1.tmx", 1, 1, doors);
-                case 2 :    doors.add("l1");
-                            doors.add("r1");
-                            return new Room("Rooms/11Dl1r1.tmx", 1, 1, doors);
-                case 3 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
-                case 4 :    doors.add("l1");
+                case 2 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/17Dl1r1.tmx", 7, 1, doors);
-                case 5 :    doors.add("l1");
+                case 3 :    doors.add("l1");
                             doors.add("r1");
                             doors.add("t1");
                             doors.add("b1");
                             return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
-                case 6 :    doors.add("l1");
+                case 4 :    doors.add("l1");
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
                 /*case 7 :    doors.add("l1");
@@ -84,7 +85,7 @@ public class RoomFactory {
                             doors.add("r1");
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);*/
-                case 7 :    doors.add("l1");
+                case 5 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
@@ -93,12 +94,35 @@ public class RoomFactory {
                             doors.add("t1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
-                case 8 :   doors.add("l1");
+                case 6 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
-                case 9 :   doors.add("l1");
+                case 7 :    doors.add("l1");
                             doors.add("t1");
                             return new Room("Rooms/11Dl1t1.tmx", 1, 1, doors);
+                case 8 :    doors.add("l1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1b1.tmx", 1, 1, doors);
+                case 9 :    doors.add("l1");
+                            doors.add("r1");
+                            return new Room("Rooms/11Dl1r1.tmx", 1, 1, doors);
+                case 10 :   doors.add("l1");
+                            doors.add("t1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1t1b1.tmx", 1, 1, doors);
+                case 11 :   doors.add("l1");
+                            doors.add("r1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1r1b1.tmx", 1, 1, doors);
+                case 12 :   doors.add("l1");
+                            doors.add("r1");
+                            doors.add("t1");
+                            return new Room("Rooms/11Dl1r1t1.tmx", 1, 1, doors);
+                case 13 :   doors.add("l1");
+                            doors.add("r1");
+                            doors.add("t1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1r1t1b1.tmx", 1, 1, doors);
 
                 //more to be added
                 default :
@@ -111,23 +135,19 @@ public class RoomFactory {
 
                 case 1 :    doors.add("l1");
                             doors.add("r1");
-                            return new Room("Rooms/11Dl1r1.tmx", 1, 1, doors);
+                            return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
 
                 case 2 :    doors.add("l1");
                             doors.add("r1");
-                            return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
-
-                case 3 :    doors.add("l1");
-                            doors.add("r1");
                             return new Room("Rooms/17Dl1r1.tmx", 7, 1, doors);
 
-                case 4 :    doors.add("l1");
+                case 3 :    doors.add("l1");
                             doors.add("r1");
                             doors.add("t1");
                             doors.add("b1");
                             return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
 
-                case 5 :    doors.add("l1");
+                case 4 :    doors.add("l1");
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
 
@@ -137,7 +157,7 @@ public class RoomFactory {
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);*/
 
-                case 6 :    doors.add("l1");
+                case 5 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
@@ -147,19 +167,39 @@ public class RoomFactory {
                             doors.add("t1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
-                case 7 :    doors.add("l1");
+                case 6 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
-                case 8 :    doors.add("r1");
+                case 7 :    doors.add("r1");
                             doors.add("b1");
                             return new Room("Rooms/11Dr1b1.tmx", 1, 1, doors);
-                case 9 :    doors.add("t1");
+                case 8 :    doors.add("t1");
                             doors.add("r1");
                             return new Room("Rooms/11Dt1r1.tmx", 1, 1, doors);
+                case 9 :    doors.add("l1");
+                            doors.add("r1");
+                            return new Room("Rooms/11Dl1r1.tmx", 1, 1, doors);
+                case 10 :   doors.add("t1");
+                            doors.add("r1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dr1t1b1.tmx", 1, 1, doors);
+                case 11 :   doors.add("l1");
+                            doors.add("t1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1t1b1.tmx", 1, 1, doors);
+                case 12 :   doors.add("l1");
+                            doors.add("r1");
+                            doors.add("t1");
+                            return new Room("Rooms/11Dl1r1t1.tmx", 1, 1, doors);
+                case 13 :   doors.add("l1");
+                            doors.add("r1");
+                            doors.add("t1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1r1t1b1.tmx", 1, 1, doors);
                 //more to be added
-                default :
-                    System.out.println("default");
-                    return null;
+                            default :
+                            System.out.println("default");
+                            return null;
             }
         }
         if(entrance.equals("t") && exit) {
@@ -175,6 +215,8 @@ public class RoomFactory {
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
+
+
                 case 3 :    doors.add("l1");
                             doors.add("t1");
                             return new Room("Rooms/11Dl1t1.tmx", 1, 1, doors);
@@ -184,6 +226,23 @@ public class RoomFactory {
                 case 5 :    doors.add("t1");
                             doors.add("r1");
                             return new Room("Rooms/11Dt1r1.tmx", 1, 1, doors);
+                case 6 :    doors.add("t1");
+                            doors.add("r1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dr1t1b1.tmx", 1, 1, doors);
+                case 7 :    doors.add("l1");
+                            doors.add("r1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1r1b1.tmx", 1, 1, doors);
+                case 8 :    doors.add("l1");
+                            doors.add("r1");
+                            doors.add("t1");
+                            return new Room("Rooms/11Dl1r1t1.tmx", 1, 1, doors);
+                case 9 :    doors.add("l1");
+                            doors.add("r1");
+                            doors.add("t1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1r1t1b1.tmx", 1, 1, doors);
 
                 /*case 3 :    doors.add("l1");
                             doors.add("r2");
@@ -199,20 +258,36 @@ public class RoomFactory {
         if(entrance.equals("b") && exit) {
             switch (roomNumber) { //will be random once more rooms are added
                 case 1 :    doors.add("l1");
-                            doors.add("b1");
-                            return new Room("Rooms/11Dl1b1.tmx", 1, 1, doors);
-
-                case 2 :    doors.add("l1");
                             doors.add("r1");
                             doors.add("t1");
                             doors.add("b1");
                             return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
-                case 3 :    doors.add("r1");
+                case 2 :    doors.add("r1");
                             doors.add("b1");
                             return new Room("Rooms/11Dr1b1.tmx", 1, 1, doors);
-                case 4 :    doors.add("t1");
+                case 3 :    doors.add("t1");
                             doors.add("b1");
                             return new Room("Rooms/11Dt1b1.tmx", 1, 1, doors);
+                case 4 :    doors.add("l1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1b1.tmx", 1, 1, doors);
+                case 5 :    doors.add("t1");
+                            doors.add("r1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dr1t1b1.tmx", 1, 1, doors);
+                case 6 :    doors.add("l1");
+                            doors.add("r1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1r1b1.tmx", 1, 1, doors);
+                case 7 :    doors.add("l1");
+                            doors.add("b1");
+                            doors.add("t1");
+                            return new Room("Rooms/11Dl1t1b1.tmx", 1, 1, doors);
+                case 8 :    doors.add("l1");
+                            doors.add("r1");
+                            doors.add("t1");
+                            doors.add("b1");
+                            return new Room("Rooms/11Dl1r1t1b1.tmx", 1, 1, doors);
                 //more to be added
                 default :
                     System.out.println("default");
