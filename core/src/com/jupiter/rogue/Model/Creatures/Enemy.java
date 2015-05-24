@@ -1,6 +1,7 @@
 package com.jupiter.rogue.Model.Creatures;
 
 import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.Weapon;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.AttackBehavior;
@@ -83,6 +84,7 @@ public class Enemy extends Creature {
     }
 
     public void performMove(){
+        this.setMovementState(MovementState.WALKING);
         moveBehavior.move(this.getDirection(), this.movementSpeed);
     }
 
@@ -90,8 +92,13 @@ public class Enemy extends Creature {
         jumpBehavior.jump(this.jumpHeight);
     }
 
-    public void performAttack(){
+    public void performAttack() {
+        this.setMovementState(MovementState.ATTACKING);
         attackBehavior.attack(this.getDirection());
+    }
+
+    public void performIdle() {
+        this.setMovementState(MovementState.STANDING);
     }
 
     //for testing purposes, prints.

@@ -12,8 +12,8 @@ public class Widow extends Enemy {
 
         this.attackHitBoxWidth = 5;
         this.attackHitBoxHeight = 15;
-        this.attackHitBoxX = 10;
-        this.attackHitBoxY = 5;
+        this.attackHitBoxX = 15;
+        this.attackHitBoxY = 25;
 
         this.bodyWidth = 10;
         this.bodyHeight = 25;

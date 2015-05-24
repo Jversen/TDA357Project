@@ -32,6 +32,8 @@ public abstract class EnemyController {
 
     private int hitBoxX;
 
+    private boolean attackReady;
+
     private Timer timer;
 
     public void initBody() {
@@ -64,6 +66,7 @@ public abstract class EnemyController {
         weaponSensorFixtureDef = new FixtureDef();
 
         timer = new Timer();
+        attackReady = true;
     }
 
     public void update(){
@@ -77,13 +80,16 @@ public abstract class EnemyController {
         } else {
             enemy.setEnemyDirection();
             if (heroNotNear()) {
-                enemy.setMovementState(MovementState.STANDING);
+                enemy.performIdle();
             } else if (!heroInRange() && !heroNotNear()) {
-                enemy.setMovementState(MovementState.WALKING);
                 enemy.performMove();
             } else {
-                enemy.performAttack();
-                //            createHitbox();
+                if (attackReady) {
+                    attackReady = false;
+                    enemy.performAttack();
+                    createHitbox();
+                    timer.schedule(new RemoveHitBoxTask(), 400);
+                }
             }
         }
     }
@@ -137,6 +143,21 @@ public abstract class EnemyController {
     class SetCreatureDeadTask extends TimerTask {
         public void run() {
             enemy.setCreatureDead(true);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the delay for hitboxes to be removed.
+    class RemoveHitBoxTask extends TimerTask {
+        public void run() {
+            removeHitbox();
+            timer.schedule(new AttackReadyTask(), 500);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the attack cooldown of enemies.
+    class AttackReadyTask extends TimerTask {
+        public void run() {
+            attackReady = true;
         }
     }
 }

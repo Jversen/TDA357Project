@@ -19,7 +19,12 @@ public class WidowView extends EnemyView {
     private String atlasFilePathDying;
     private Float animationSpeedDying;
 
+    private String spritesheetPathAttacking;
+    private String atlasFilePathAttacking;
+    private Float animationSpeedAttacking;
+
     private Animation dyingAnimation;
+    private Animation attackAnimation;
 
     public WidowView(Widow widow) {
         creature = widow;
@@ -35,6 +40,10 @@ public class WidowView extends EnemyView {
         atlasFilePathDying = "Data/EnemyAnimations/Widow/dyingFront/widowDyingFront.atlas";
         animationSpeedDying = 1 / 20f;
 
+        spritesheetPathAttacking = "Data//EnemyAnimations//Widow//attacking//widowIdle.png"; //This png and atlas has the wrong names but are correct.
+        atlasFilePathAttacking = "Data//EnemyAnimations//Widow//attacking//widowIdle.atlas";
+        animationSpeedAttacking = 1/30f;
+
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();
         initAnimations();
@@ -48,18 +57,23 @@ public class WidowView extends EnemyView {
         atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathDying));
         dyingAnimation = new Animation(animationSpeedDying, atlas.getRegions());
 
-       // dyingAnimationTime = jumpingAnimation.getAnimationDuration() - jumpingAnimation.getFrameDuration();  //Sets the animation time to the animation duration minus one frame
-        //because first frame runs twice for some reason.
+        spriteSheet = new Texture((Gdx.files.internal(spritesheetPathAttacking)));
+        atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathAttacking));
+        attackAnimation = new Animation(animationSpeedAttacking, atlas.getRegions());
     }
 
     @Override
     protected Animation getCurrentAnimation() {
-        if (creature.getMovementState() == MovementState.WALKING) {
-            return runningAnimation;
-        } else if (creature.getMovementState() == MovementState.DYING) {
-            return dyingAnimation;
+        if (creature.getMovementState() == MovementState.ATTACKING) {
+            return attackAnimation;
         } else {
-            return idleAnimation;
+            if (creature.getMovementState() == MovementState.WALKING) {
+                return runningAnimation;
+            } else if (creature.getMovementState() == MovementState.DYING) {
+                return dyingAnimation;
+            } else {
+                return idleAnimation;
+            }
         }
     }
 }
