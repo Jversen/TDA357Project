@@ -3,9 +3,9 @@ package com.jupiter.rogue.Model.Creatures;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Utils.AIBehaviors.AttackBehaviors.AttackBehavior;
-import com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors.JumpBehavior;
-import com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors.MoveBehavior;
+import com.jupiter.rogue.Controller.AIBehaviors.AttackBehaviors.AttackBehavior;
+import com.jupiter.rogue.Controller.AIBehaviors.JumpBehaviors.JumpBehavior;
+import com.jupiter.rogue.Controller.AIBehaviors.MoveBehaviors.MoveBehavior;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 

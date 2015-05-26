@@ -1,10 +1,9 @@
-package com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors;
+package com.jupiter.rogue.Controller.AIBehaviors.MoveBehaviors;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Enums.Direction;
-import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Utils.AIBehaviors.Behavior;
+import com.jupiter.rogue.Controller.AIBehaviors.Behavior;
 
 /**
  * Created by Oskar on 2015-05-18.

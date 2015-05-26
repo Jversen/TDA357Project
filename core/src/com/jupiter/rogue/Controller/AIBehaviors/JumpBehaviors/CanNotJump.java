@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Utils.AIBehaviors.JumpBehaviors;
+package com.jupiter.rogue.Controller.AIBehaviors.JumpBehaviors;
 
 /**
  * Created by Oskar on 2015-05-18.

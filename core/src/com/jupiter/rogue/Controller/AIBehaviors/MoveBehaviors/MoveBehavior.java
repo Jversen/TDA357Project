@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Utils.AIBehaviors.MoveBehaviors;
+package com.jupiter.rogue.Controller.AIBehaviors.MoveBehaviors;
 
 import com.jupiter.rogue.Model.Enums.Direction;
 
