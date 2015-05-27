@@ -275,7 +275,8 @@ public class TiledHandler {
         for(Body body : BODIES) {
             if(body.getUserData() != null){
                 if((body.getUserData().equals("room") || body.getUserData().equals("sensor"))) {
-                    body.setUserData("dead");
+                    //body.setUserData("dead");
+                    WorldConstants.CURRENT_WORLD.destroyBody(body);
                 } else if(body.getUserData() instanceof EnemyController){
 
                         EnemyController enemyController = (EnemyController)body.getUserData();
@@ -287,8 +288,8 @@ public class TiledHandler {
                         float y = enemy.getY() * PPM;
 
                         enemy.setPosition(x, y);
-                        body.setUserData("dead");
-                        //WorldConstants.CURRENT_WORLD.destroyBody(body);
+                       // body.setUserData("dead");
+                        WorldConstants.CURRENT_WORLD.destroyBody(body);
                     }
 
 
