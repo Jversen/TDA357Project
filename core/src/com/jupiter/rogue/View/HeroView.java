@@ -11,6 +11,9 @@ import com.jupiter.rogue.Model.Enums.MovementState;
  */
 public class HeroView extends CreatureView {
 
+    //singleton-instance of HeroView
+    private static HeroView instance = null;
+
     private Animation fallingAnimation;
 
     private String spritesheetPathFalling;
@@ -26,7 +29,7 @@ public class HeroView extends CreatureView {
     private Float jumpingAnimationTime;
 
 
-    public HeroView() {
+    private HeroView() {
         creature = Hero.getInstance();
 
         spritesheetPathRun = "Data//HeroAnimations//HeroRunning//HeroRunningRight.png";
@@ -48,6 +51,13 @@ public class HeroView extends CreatureView {
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();
         initAnimations();
+    }
+
+    public static HeroView getInstance() {
+        if (instance == null) {
+            instance = new HeroView();
+        }
+        return instance;
     }
 
     @Override

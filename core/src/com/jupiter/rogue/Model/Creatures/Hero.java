@@ -93,12 +93,7 @@ public class Hero extends Creature {
             }
         }
     }
-
-    @Override
-    public void takeDamage(int incomingDmg) {
-        super.takeDamage(incomingDmg);
-    }
-
+    
     @Override
     public void setHealthPoints(int HP) {
         super.setHealthPoints(HP);

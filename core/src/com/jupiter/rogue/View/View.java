@@ -8,10 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jupiter.rogue.Controller.Controller;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Map;
@@ -47,7 +45,7 @@ public class View {
     public View() {
 
         controller = Controller.getInstance();
-        heroView = controller.getHeroController().getHeroView();
+        heroView = HeroView.getInstance();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth() *2;

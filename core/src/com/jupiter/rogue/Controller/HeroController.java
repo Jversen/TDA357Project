@@ -55,7 +55,7 @@ public class HeroController {
     public void initHero() {
 
         hero = hero.getInstance();
-        heroView = new HeroView();
+        heroView = HeroView.getInstance();
 
         timer = new Timer();
         weaponReady = true;
