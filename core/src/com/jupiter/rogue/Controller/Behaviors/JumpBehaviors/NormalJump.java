@@ -1,7 +1,7 @@
-package com.jupiter.rogue.Controller.AIBehaviors.JumpBehaviors;
+package com.jupiter.rogue.Controller.Behaviors.JumpBehaviors;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import com.jupiter.rogue.Controller.AIBehaviors.Behavior;
+import com.jupiter.rogue.Controller.Behaviors.Behavior;
 
 /**
  * Created by Oskar on 2015-05-18.
