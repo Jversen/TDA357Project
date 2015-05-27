@@ -23,5 +23,4 @@ public class TakeDamage extends Behavior implements AttackedBehavior {
             }
         }
     }
-
 }

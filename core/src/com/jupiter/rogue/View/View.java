@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.Controller;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Map;
@@ -30,6 +32,9 @@ public class View {
     private float h;
     private Map map;
     private SpriteBatch batch;
+    private Stage stage; //Scene2d stage
+
+    ExtendViewport vp;
 
     private Controller controller;
 
@@ -40,7 +45,7 @@ public class View {
     public View() {
 
         controller = Controller.getInstance();
-        heroView = controller.getHeroController().getHeroView();
+        heroView = HeroView.getInstance();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth() *2;
@@ -50,9 +55,19 @@ public class View {
 
         map = Map.getInstance();
         batch = new SpriteBatch();
+        vp = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        stage = new Stage(vp);
+
+        Hud hud = Hud.getInstance();
+        stage.addActor(hud);
     }
 
     public void update() {
+        vp.setMinWorldHeight(Gdx.graphics.getHeight());
+        vp.setMinWorldWidth(Gdx.graphics.getWidth());
+
+        stage.setViewport(vp);
 
         tiledMapRenderer = map.getCurrentRoom().getTiledHandler().getRenderer();
         float posX = getCamPosX();
@@ -80,6 +95,8 @@ public class View {
         moveB2DCamera(posX, posY);
 
         debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
+
+        stage.draw();
     }
 
     private void moveCamera(float x, float y){

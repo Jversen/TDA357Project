@@ -303,8 +303,8 @@ public class RoomFactory {
         switch (roomID) {
             case "StartingRoom":    doors.add("r1");
                                     return new Room("Rooms/StartingRoom.tmx", 2, 1, doors);
-            case "BossRoomOne":     doors.add("l1");
-                                    return new Room("Rooms/BossRoomOne.tmx", 4, 4, doors);
+            case "BossRoom":     doors.add("l1");
+                                    return new Room("Rooms/BossRoom.tmx", 4, 4, doors);
             default: return null;
         }
     }

@@ -26,18 +26,20 @@ public class Hud extends Actor {
     float maxHP;
     int startGfxWidth;
     int startGfxHeight;
+    String level;
 
     private Hud(){
 
-        startGfxWidth = 320;    //A hack. Set this to the actual game resolution later.
-        startGfxHeight = 180;
+        //startGfxWidth = 320;    //A hack. Set this to the actual game resolution later.
+       // startGfxHeight = 180;
 
         font = new BitmapFont();    //Creates new font
         font.setColor(Color.WHITE);
+        font.setScale(0.5f);
 
         texture = new Texture(Gdx.files.internal("Data/HUD/healthBar.png"));
-        healthBar = new Sprite(texture, 0, 0, 100, 6);
-        healthBar.setPosition(20, startGfxHeight - 15);
+        healthBar = new Sprite(texture, 0, 0, 25, 3);
+        healthBar.setPosition(20, 170);
         healthBar.setOrigin(0, 0);
     }
 
@@ -51,19 +53,22 @@ public class Hud extends Actor {
     @Override
     public void draw(Batch batch, float alpha){
 
+        updateHud();
         healthBar.draw(batch);
-        /* Just some number for show. Should discuss this design of showing current room.*/
-        String level = new String ("Room: " + Map.getInstance().getCurrentRoomNbr());
-
-        font.draw(batch, level, startGfxWidth - 65, startGfxHeight - 5);
+        font.draw(batch, level, 250, 170);
     }
 
-    public void updateHealthBar(){
+    public void updateHud(){
 
         currentHP = (float)Hero.getInstance().getCurrentHealthPoints();
         maxHP = (float)Hero.getInstance().getMaxHealthPoints();
 
-        healthBar.setScale(currentHP / maxHP, 1);
+        if(currentHP >= 0) {
+            healthBar.setScale(currentHP / maxHP, 1);
+        }
+
+        /* Just some number for show. Should discuss this design of showing current room.*/
+        level = ("Room: " + Map.getInstance().getCurrentRoomNbr());
 
     }
 }

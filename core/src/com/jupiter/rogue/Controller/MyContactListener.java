@@ -40,9 +40,7 @@ public class MyContactListener implements ContactListener {
         }
 
         // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
-        if (fa.getUserData() instanceof WidowController){
-            System.out.println("lol");
-        }
+
         if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
             System.out.println("herosensor" + "fa: " + fa.getUserData() + " fb: " + fb.getUserData());
             if(fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
@@ -70,17 +68,26 @@ public class MyContactListener implements ContactListener {
             }
         }
 
+        //Removing all projectiles that hit walls.
         if (fa.getBody().getUserData().equals("projectile") && fb.getUserData().equals("obstacle")) {
             fa.getBody().setUserData("dead");
         } else if (fb.getBody().getUserData().equals("projectile") && fa.getUserData().equals("obstacle")) {
             fb.getBody().setUserData("dead");
         }
 
-            //Checking if an enemy is taking damage from the heroes weapon.
+        //Checking if an enemy is taking damage from the heroes weapon.
         if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController) && (!fb.getUserData().equals("enemyHitbox"))) {
             ((EnemyController)fb.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
         } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor")) && (!fa.getUserData().equals("enemyHitbox"))) {
             ((EnemyController)fa.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
+        }
+
+        if (fa.getUserData().equals("hero") && fb.getBody().getUserData() instanceof EnemyController) {
+            hero.takeDamage(((EnemyController)fb.getBody().getUserData()).getEnemy().getAttackPoints());
+            System.out.println(hero.getCurrentHealthPoints());
+        } else if (fb.getUserData().equals("hero") && fa.getBody().getUserData() instanceof EnemyController) {
+            hero.takeDamage(((EnemyController)fa.getBody().getUserData()).getEnemy().getAttackPoints());
+            System.out.println(hero.getCurrentHealthPoints());
         }
     }
 

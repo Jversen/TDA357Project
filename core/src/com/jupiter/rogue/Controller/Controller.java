@@ -32,7 +32,6 @@ public class Controller {
         worldController = new WorldController();
         userInput = new UserInput();
         mapController = new MapController();
-
         //TODO initialize everything at start of game
     }
 

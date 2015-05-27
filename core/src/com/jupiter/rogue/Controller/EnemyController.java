@@ -2,6 +2,10 @@ package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.jupiter.rogue.Controller.AIBehaviors.AttackBehaviors.AttackBehavior;
+import com.jupiter.rogue.Controller.AIBehaviors.AttackBehaviors.MeleeAttack;
+import com.jupiter.rogue.Controller.AIBehaviors.JumpBehaviors.JumpBehavior;
+import com.jupiter.rogue.Controller.AIBehaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Enums.Direction;
@@ -24,6 +28,10 @@ public abstract class EnemyController {
     EnemyView enemyView;
     Enemy enemy;
     Body body;
+
+    protected AttackBehavior attackBehavior;
+    protected JumpBehavior jumpBehavior;
+    protected MoveBehavior moveBehavior;
 
     //Hitbox handling
     private PolygonShape shape;
@@ -56,7 +64,7 @@ public abstract class EnemyController {
 
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
         body.setUserData(this);
-        body.createFixture(fixtureDef).setUserData("enemy"); //naming the fixture
+        body.createFixture(fixtureDef).setUserData(this); //naming the fixture
 
         WorldConstants.BODIES.add(body);
 
@@ -81,19 +89,25 @@ public abstract class EnemyController {
         } else {
             enemy.setEnemyDirection();
             if (heroNotNear()) {
-                enemy.performIdle();
+                enemy.relax();
             } else if (!heroInRange() && !heroNotNear()) {
-                enemy.performMove();
+                enemy.setEnemyDirection();
+                enemy.walk(enemy.getDirection());
+                moveBehavior.move(enemy.getDirection(), enemy.getMovementSpeed());
             } else {
                 if (attackReady) {
-                    attackReady = false;
-                    enemy.setAttackInProgress(true);
-                    enemy.performAttack();
-                    createHitbox();
-                    timer.schedule(new RemoveHitBoxTask(), 1000);
+                    attack();
                 }
             }
         }
+    }
+
+    private void attack() {
+        attackReady = false;
+        enemy.setAttackInProgress(true);
+        enemy.attack();
+        createHitbox();
+        timer.schedule(new RemoveHitBoxTask(), 1000);
     }
 
     private void createHitbox() {
@@ -106,14 +120,16 @@ public abstract class EnemyController {
         weaponSensorFixtureDef.shape = shape;
         weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
         weaponSensorFixture.setSensor(true);
-        weaponSensorFixture.setUserData("enemyHitbox");  //*************************** THIS FIXTURE MIGHT NEED "THIS" AS DATA ***********************************
+        weaponSensorFixture.setUserData("enemyHitbox");
 
         //clears memory
         shape.dispose();
     }
 
     private void removeHitbox() {
-        body.destroyFixture(weaponSensorFixture);
+        if (body != null && body.getFixtureList() != null && body.getFixtureList().contains(weaponSensorFixture, true)){
+            body.destroyFixture(weaponSensorFixture);
+        }
     }
 
     //help-method to the createWeaponHitBox methods, gets the hitbox information from the heroes weapon and then sets a hitbox accordingly depending on what direction the hero is facing.

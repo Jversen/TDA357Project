@@ -3,7 +3,9 @@ package com.jupiter.rogue.Model.Creatures;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.View.Hud;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -14,20 +16,21 @@ public abstract class Creature {
 
     protected int currentHealthPoints;
     protected int maxHealthPoints;
-    protected int attackPoints;
     protected float movementSpeed;
     protected float verticalSpeed;
     protected Position position;
-    protected MovementState movementState = MovementState.STANDING;
-    protected Direction direction = Direction.RIGHT;
+    protected MovementState movementState;
+    protected Direction direction;
     protected int level;
     protected boolean creatureGrounded;
     protected boolean creatureFalling;
-    protected Hud hud = Hud.getInstance();
 
     protected boolean creatureDead;
 
     protected boolean attackInProgress;
+
+    protected boolean invulnerable;
+    protected Timer timer = new Timer();
 
     public void setPosition(float x, float y) {
         setX(x);
@@ -35,7 +38,11 @@ public abstract class Creature {
     }
 
     public void takeDamage(int incomingDamage) {
-        currentHealthPoints = currentHealthPoints - incomingDamage;
+        if (!invulnerable) {
+            currentHealthPoints = currentHealthPoints - incomingDamage;
+            invulnerable = true;
+            timer.schedule(new RemoveInvulnerabilityTask(), 1000);
+        }
     }
 
     public boolean isCreatureDying() {
@@ -82,26 +89,42 @@ public abstract class Creature {
         this.movementState = movementState;
     }
 
-    public int getCurrentHealthPoints() {
-        return currentHealthPoints;
-    }
-
-    public int getMaxHealthPoints() {
-        return maxHealthPoints;
-    }
-
     public void setHealthPoints(int HP) {
-        if (this.maxHealthPoints >= HP || HP >= 0) {
+        if (this.maxHealthPoints >= HP && HP >= 0) {
             this.currentHealthPoints = HP;
         }
     }
 
-    public void decreaseHealthPoints(int HP) {
-        if (HP > 0) {
-            this.currentHealthPoints -= HP;
+
+    public void walk(Direction direction) {
+
+        if (creatureGrounded) { //To prevent the hero from walking mid air.
+            setMovementState(MovementState.WALKING);
+        } else if (creatureFalling) {  //To check if falling
+            setMovementState(MovementState.FALLING);
         }
-        if (currentHealthPoints < 0) {
-            currentHealthPoints = 0;
+        setDirection(direction);
+    }
+
+    public void jump() {
+        setMovementState(MovementState.JUMPING);
+    }
+
+    public void relax() {
+        if (creatureGrounded) { //To prevent the hero standing mid air.
+            setMovementState(MovementState.STANDING);
+        } else if (creatureFalling) {  //To check if falling
+            setMovementState(MovementState.FALLING);
+        }
+    }
+
+    public void attack () {
+    }
+
+    //A nestled class to implement a timertask. Timertask to control time for creatures to stop being invulnerable after an attack.
+    class RemoveInvulnerabilityTask extends TimerTask {
+        public void run() {
+            invulnerable = false;
         }
     }
 }

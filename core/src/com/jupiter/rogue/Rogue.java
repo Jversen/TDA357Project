@@ -12,26 +12,19 @@ import com.jupiter.rogue.View.View;
 public class Rogue extends ApplicationAdapter {
 	private Controller controller;
 	private View view;
-	private Stage stage; //Scene2d stage
 
     @Override
 	public void create() {
 		controller = Controller.getInstance();
 		view = new View();
-
-		stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-		Hud hud = Hud.getInstance();
-		stage.addActor(hud);
 	}
 
 	@Override
 	public void render() {
 		controller.update();
 		view.update();
-		stage.draw();
 	}
 
 	public void dispose(){
-		stage.dispose();
 	}
 }

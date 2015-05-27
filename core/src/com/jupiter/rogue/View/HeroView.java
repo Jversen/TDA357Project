@@ -11,6 +11,9 @@ import com.jupiter.rogue.Model.Enums.MovementState;
  */
 public class HeroView extends CreatureView {
 
+    //singleton-instance of HeroView
+    private static HeroView instance = null;
+
     private Animation fallingAnimation;
 
     private String spritesheetPathFalling;
@@ -26,7 +29,7 @@ public class HeroView extends CreatureView {
     private Float jumpingAnimationTime;
 
 
-    public HeroView() {
+    private HeroView() {
         creature = Hero.getInstance();
 
         spritesheetPathRun = "Data//HeroAnimations//HeroRunning//HeroRunningRight.png";
@@ -48,6 +51,13 @@ public class HeroView extends CreatureView {
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();
         initAnimations();
+    }
+
+    public static HeroView getInstance() {
+        if (instance == null) {
+            instance = new HeroView();
+        }
+        return instance;
     }
 
     @Override
@@ -73,7 +83,7 @@ public class HeroView extends CreatureView {
         } else if (creature.getMovementState() == MovementState.FALLING) {
             return fallingAnimation;
         } else if (creature.getMovementState() == MovementState.JUMPING) {
-            if (stateTime > jumpingAnimationTime) {      //A check to see if the jumping animation has played, if so, move on to FALLING.
+            if (stateTime > jumpingAnimationTime) {      //A check to see if the jumping animation has played, if so, performMove on to FALLING.
                 creature.setMovementState(MovementState.FALLING);
             }
             return jumpingAnimation;
