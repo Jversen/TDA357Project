@@ -92,9 +92,35 @@ public abstract class Creature {
     }
 
     public void setHealthPoints(int HP) {
-        if (this.maxHealthPoints >= HP || HP >= 0) {
+        if (this.maxHealthPoints >= HP && HP >= 0) {
             this.currentHealthPoints = HP;
         }
+    }
+
+
+    public void walk(Direction direction) {
+
+        if (creatureGrounded) { //To prevent the hero from walking mid air.
+            setMovementState(MovementState.WALKING);
+        } else if (creatureFalling) {  //To check if falling
+            setMovementState(MovementState.FALLING);
+        }
+        setDirection(direction);
+    }
+
+    public void jump() {
+        setMovementState(MovementState.JUMPING);
+    }
+
+    public void relax() {
+        if (creatureGrounded) { //To prevent the hero standing mid air.
+            setMovementState(MovementState.STANDING);
+        } else if (creatureFalling) {  //To check if falling
+            setMovementState(MovementState.FALLING);
+        }
+    }
+
+    public void attack () {
     }
 
     //A nestled class to implement a timertask. Timertask to control time for creatures to stop being invulnerable after an attack.

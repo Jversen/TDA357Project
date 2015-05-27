@@ -27,8 +27,10 @@ public class WidowController extends EnemyController {
     @Override
     public void initBody() {
         super.initBody();
-        enemy.setMoveBehavior(new Walk(body));
-        enemy.setAttackBehavior(new MeleeAttack(body));
-        enemy.setJumpBehavior(new NormalJump(body));
+
+        //Sets the move behaivors of this enemy.
+        attackBehavior = new MeleeAttack(this.body);
+        jumpBehavior = new NormalJump(this.body);
+        moveBehavior = new Walk(this.body);
     }
 }

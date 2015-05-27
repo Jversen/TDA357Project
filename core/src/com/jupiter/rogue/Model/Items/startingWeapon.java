@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class StartingWeapon extends MeleeWeapon {
 
     public StartingWeapon() {
-        this.damage = 10;
+        this.damage = 50;
 
         //hitBoxValues
         this.hitBoxLength = 17;

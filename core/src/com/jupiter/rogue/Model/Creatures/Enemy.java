@@ -38,22 +38,6 @@ public class Enemy extends Creature {
 
     protected int xpValue;
 
-    public Enemy() {
-        this.maxHealthPoints = 100;
-        this.currentHealthPoints = 100;
-        this.attackPoints = 25;
-        this.movementSpeed = 100;
-        this.flying = false;
-        this.attackRange = 25/PPM;
-        this.jumpHeight = 6;
-        this.position = new Position(200, 50);
-        this.creatureDead = false;
-        this.attackInProgress = false;
-        this.invulnerable = false;
-        this.movementState = MovementState.STANDING;
-        this.direction = Direction.RIGHT;
-    }
-
     public Enemy(int maxHP, int currentHP, int attackPoints, float attackRange, int movementSpeed, int jumpHeight, boolean flying,
                  float posX, float posY, int level, boolean elite) {
         this.movementSpeed = movementSpeed;
@@ -71,62 +55,21 @@ public class Enemy extends Creature {
         this.invulnerable = false;
         this.movementState = MovementState.STANDING;
         this.direction = Direction.RIGHT;
-    }
-
-    public void setMoveBehavior(MoveBehavior moveBehavior){
-        this.moveBehavior = moveBehavior;
-    }
-
-    public void setAttackBehavior(AttackBehavior attackBehavior){
-        this.attackBehavior = attackBehavior;
-    }
-
-    public void setJumpBehavior(JumpBehavior jumpBehavior){
-        this.jumpBehavior = jumpBehavior;
+        this.creatureGrounded = true;
     }
 
     public void setEnemyDirection(){
-        if(this.getPosition().getXPos() > Hero.getInstance().getX()){
+        if (this.getPosition().getXPos() > Hero.getInstance().getX()){
             this.setDirection(Direction.LEFT);
-        }
-        else{
+        } else {
             this.setDirection(Direction.RIGHT);
         }
     }
 
-    public void performMove(){
-        this.setMovementState(MovementState.WALKING);
-        moveBehavior.move(this.getDirection(), this.movementSpeed);
-    }
-
-    public void performJump(){
-        jumpBehavior.jump(this.jumpHeight);
-    }
-
-    public void performAttack() {
-        this.setMovementState(MovementState.ATTACKING);
-    }
-
-    public void performIdle() {
-        this.setMovementState(MovementState.STANDING);
-    }
-
-    //for testing purposes, prints.
     @Override
-    public void takeDamage(int incomingDamage) {
-        super.takeDamage(incomingDamage);
-        System.out.println("Enemy " + this.toString() + " took: " + incomingDamage + " damage and is now at: " + this.currentHealthPoints + " hp");
-    }
-
-    public float getBodyHeight(){
-        return bodyHeight;
-    }
-
-    public float getBodyWidth(){
-        return bodyWidth;
-    }
-
-    public float getMovementSpeed(){
-        return this.movementSpeed;
+    public void walk(Direction direction) {
+        if (creatureGrounded) { //To prevent the hero from walking mid air.
+            setMovementState(MovementState.WALKING);
+        }
     }
 }

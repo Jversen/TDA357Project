@@ -125,15 +125,23 @@ public class HeroController {
     private void updateMoves(ArrayList<Integer> keys) {
         //Move
         if(keys.contains(Input.Keys.LEFT) && !keys.contains(Input.Keys.RIGHT)) {
-            hero.walk(Direction.LEFT, heroMovement);
+            hero.walk(Direction.LEFT);
+            heroMovement.walk(hero.getDirection());
+            hero.setPosition(heroMovement.getPosition());
         }
         //Move
         if(!keys.contains(Input.Keys.LEFT) && keys.contains(Input.Keys.RIGHT)) {
-            hero.walk(Direction.RIGHT, heroMovement);
+            hero.walk(Direction.RIGHT);
+            heroMovement.walk(hero.getDirection());
+            hero.setPosition(heroMovement.getPosition());
         }
         //Jump
         if(keys.contains(Input.Keys.SPACE)) {
-            hero.jump(heroMovement);
+            if (hero.isCreatureGrounded()) {
+                hero.jump();
+                heroMovement.jump();
+                hero.setPosition(heroMovement.getPosition());
+            }
         }
         //Attack
         if (keys.contains(Input.Keys.E)) {
@@ -141,10 +149,10 @@ public class HeroController {
         }
         //Swap weapons
         if (keys.contains(Input.Keys.W)) {
-            swap();
+            swapWeapon();
         }
         if(keys.isEmpty()) {
-            hero.relax(heroMovement);
+            hero.relax();
         }
     }
 
@@ -230,7 +238,7 @@ public class HeroController {
     }
 
     //Is here (in controller) and not it model because it uses a timer and the timers are currently all implemented here.
-    private void swap() {
+    private void swapWeapon() {
         if (weaponReady) {
             weaponReady = false;
             hero.swapWeapon();
@@ -243,7 +251,7 @@ public class HeroController {
     private void attack() {
         if (weaponReady) {
             weaponReady = false;
-            hero.attack(heroMovement);
+            hero.attack();
             timer.schedule(new AttackDelayTask(), 50);
         }
     }

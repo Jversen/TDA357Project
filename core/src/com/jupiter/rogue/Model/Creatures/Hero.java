@@ -49,8 +49,8 @@ public class Hero extends Creature {
         intellect = 1;
         statPoints = 0;
 
-        creatureDead = false;
-        invulnerable = false;
+        this.creatureDead = false;
+        this.invulnerable = false;
 
         this.position = WorldConstants.HERO_START_POSITION;
         this.movementState = MovementState.STANDING;
@@ -140,39 +140,5 @@ public class Hero extends Creature {
                 ringLeft = (Ring)item;
             }
         }
-    }
-
-    public void walk(Direction direction, HeroMovement heroMovement) {
-
-        if (creatureGrounded) { //To prevent the hero from walking mid air.
-            setMovementState(MovementState.WALKING);
-        } else if (creatureFalling) {  //To check if falling
-            setMovementState(MovementState.FALLING);
-        }
-
-        setDirection(direction);
-        heroMovement.walk(direction);
-        setPosition(heroMovement.getPosition());
-    }
-
-    public void jump(HeroMovement heroMovement) {
-
-        //if(creatureGrounded) {
-            setMovementState(MovementState.JUMPING);
-            heroMovement.jump();
-            setPosition(heroMovement.getPosition());
-        //}
-    }
-
-    public void relax(HeroMovement heroMovement) {
-
-        if (creatureGrounded) { //To prevent the hero standing mid air.
-            setMovementState(MovementState.STANDING);
-        } else if (creatureFalling) {  //To check if falling
-            setMovementState(MovementState.FALLING);
-        }
-    }
-
-    public void attack(HeroMovement heroMovement) {
     }
 }
