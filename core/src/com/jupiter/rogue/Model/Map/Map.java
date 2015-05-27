@@ -2,6 +2,7 @@ package com.jupiter.rogue.Model.Map;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Controller.EnemyController;
+import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Utils.WorldConstants;
 
@@ -69,10 +70,11 @@ public class Map {
 
         //Updates all the individual enemies in the current room, also removes them if they die.
         for (int i = 0; i < getCurrentRoom().getEnemyControllers().size(); i++) {
-            if (!getCurrentRoom().getEnemyControllers().get(i).getEnemy().isCreatureDead()) {
-                getCurrentRoom().getEnemyControllers().get(i).update();
+            EnemyController enemyController = getCurrentRoom().getEnemyControllers().get(i);
+            if (!enemyController.getEnemy().isCreatureDead()) {
+                enemyController.update();
             } else {
-                getCurrentRoom().getEnemyControllers().get(i).getBody().setUserData("dead");
+                enemyController.getBody().setUserData("dead");
                 getCurrentRoom().getEnemyControllers().remove(i);
             }
         }
