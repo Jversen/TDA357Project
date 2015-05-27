@@ -25,6 +25,8 @@ public class Enemy extends Creature {
     protected float bodyWidth;
     protected float bodyY;
 
+    protected int attackPoints;
+
     protected AttackBehavior attackBehavior;
     protected JumpBehavior jumpBehavior;
     protected MoveBehavior moveBehavior;
@@ -39,7 +41,7 @@ public class Enemy extends Creature {
     public Enemy() {
         this.maxHealthPoints = 100;
         this.currentHealthPoints = 100;
-        this.attackPoints = 100;
+        this.attackPoints = 25;
         this.movementSpeed = 100;
         this.flying = false;
         this.attackRange = 25/PPM;
@@ -47,6 +49,9 @@ public class Enemy extends Creature {
         this.position = new Position(200, 50);
         this.creatureDead = false;
         this.attackInProgress = false;
+        this.invulnerable = false;
+        this.movementState = MovementState.STANDING;
+        this.direction = Direction.RIGHT;
     }
 
     public Enemy(int maxHP, int currentHP, int attackPoints, float attackRange, int movementSpeed, int jumpHeight, boolean flying,
@@ -63,6 +68,9 @@ public class Enemy extends Creature {
         this.elite = elite; // Whether enemy has 'elite' status or not. Elite enemies are stronger.
         this.creatureDead = false;
         this.attackInProgress = false;
+        this.invulnerable = false;
+        this.movementState = MovementState.STANDING;
+        this.direction = Direction.RIGHT;
     }
 
     public void setMoveBehavior(MoveBehavior moveBehavior){
@@ -97,7 +105,6 @@ public class Enemy extends Creature {
 
     public void performAttack() {
         this.setMovementState(MovementState.ATTACKING);
-        attackBehavior.attack(this.getDirection());
     }
 
     public void performIdle() {

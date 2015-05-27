@@ -14,7 +14,7 @@ public class Walk extends Behavior implements MoveBehavior {
         this.body = body;
     }
 
-    //Method for enemies that move on the ground.
+    //Method for enemies that performMove on the ground.
     public void move(Direction direction, float moveSpeed){
         if(direction == Direction.RIGHT) {
             body.applyLinearImpulse(new Vector2(moveSpeed*3,0f), body.getPosition(), true);

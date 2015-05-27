@@ -73,7 +73,7 @@ public class HeroView extends CreatureView {
         } else if (creature.getMovementState() == MovementState.FALLING) {
             return fallingAnimation;
         } else if (creature.getMovementState() == MovementState.JUMPING) {
-            if (stateTime > jumpingAnimationTime) {      //A check to see if the jumping animation has played, if so, move on to FALLING.
+            if (stateTime > jumpingAnimationTime) {      //A check to see if the jumping animation has played, if so, performMove on to FALLING.
                 creature.setMovementState(MovementState.FALLING);
             }
             return jumpingAnimation;

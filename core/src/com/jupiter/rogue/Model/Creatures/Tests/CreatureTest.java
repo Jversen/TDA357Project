@@ -106,16 +106,6 @@ public class CreatureTest extends Creature {
     }
 
     @Test
-    public void testDecreaseHealthPoints() throws Exception {
-        enemy.setCurrentHealthPoints(50);
-        enemy.decreaseHealthPoints(20);
-        assertEquals(enemy.getCurrentHealthPoints(), 50-20);
-        enemy2.setCurrentHealthPoints(50);
-        enemy2.decreaseHealthPoints(999);
-        assertEquals(enemy2.getCurrentHealthPoints(), 0);
-    }
-
-    @Test
     public void testGetAttackPoints() throws Exception {
 
     }

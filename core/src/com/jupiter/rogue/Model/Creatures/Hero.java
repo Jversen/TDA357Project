@@ -50,8 +50,11 @@ public class Hero extends Creature {
         statPoints = 0;
 
         creatureDead = false;
+        invulnerable = false;
 
         this.position = WorldConstants.HERO_START_POSITION;
+        this.movementState = MovementState.STANDING;
+        this.direction = Direction.RIGHT;
     }
 
     public static Hero getInstance() {
@@ -92,9 +95,11 @@ public class Hero extends Creature {
     }
 
     @Override
-    public void decreaseHealthPoints(int HP) {
-        super.decreaseHealthPoints(HP);
-        hud.updateHealthBar();
+    public void takeDamage(int incomingDmg) {
+        super.takeDamage(incomingDmg);
+        if (this.currentHealthPoints > 0) {
+            hud.updateHealthBar();
+        }
     }
 
     @Override
