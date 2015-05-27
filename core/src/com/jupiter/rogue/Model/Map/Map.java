@@ -90,6 +90,7 @@ public class Map {
         boolean moreRooms = true;
         boolean mapFinished = false;
         boolean firstRun = true;
+        boolean bossRoomAdded = false;
         nextRoom = currentRoomNbr+1;
 
         while(!mapFinished) {
@@ -151,9 +152,10 @@ public class Map {
                 setNewRoomPosition();
             }
 
-            if(rooms.size() > 40) {
+            if(rooms.size() > 40 && !bossRoomAdded) {
                 moreRooms = false;
-                //addBossRoom();
+                addBossRoom();
+                bossRoomAdded = true;
             }
 
             if(currentRoomNbr >= rooms.size()) {
@@ -162,6 +164,8 @@ public class Map {
         }
 
         printMap();
+        System.out.println();
+        System.out.println("BOSSROOM ADDED: " + bossRoomAdded);
         currentRoomNbr = 0; // resets the value to the starting room
         currentRoomX = 0;
         currentRoomY = 50;
@@ -190,9 +194,10 @@ public class Map {
         int tries = 0;
         String oppositeSide = getOppositeSide(side);
 
-        // tries to find a suitable room, jumps out of loop if one is found and added or if no suitable room is found in 10 tries
+        // tries to find a suitable room, jumps out of loop if one is found and added
         while(notAdded) {
             Room room = RoomFactory.getRoom(oppositeSide, getPseudoRandom(exit, connectionRoom, oppositeSide), exit);
+
             System.out.println("Trying to add room " + nextRoom + getString(side) + currentRoomNbr + "(" + room.getPath() + ")");
 
             int cellNr = getCellNr(getCurrentRoom(), side);
@@ -203,16 +208,17 @@ public class Map {
             if(roomFits(room, x, y, oppositeSide)) {
 
                 entrance = oppositeSide+getCellNr(room, oppositeSide);
-                addRoom(room, x, y, nextRoom);
-                room.setX(x);
-                room.setY(y);
                 entrances.put(nextRoom, entrance);
+
+                addRoom(room, x, y, nextRoom);
+
+                //TODO remove
                 roomsAdded.add("Room " + nextRoom + "(" + room.getPath() + ") added" + getString(side) + "room " + currentRoomNbr);
 
                 clearRoomNumbers();
-
-                nextRoom += 1;
                 notAdded = false;
+
+                //TODO remove
                 printMap();
             } else {
                 tries++;
@@ -221,6 +227,7 @@ public class Map {
                         connectionRoom = true;
                     }
                     if(tries >= getRoomQuantity(true, false, oppositeSide) + getRoomQuantity(true, true, oppositeSide)) {
+                        //TODO remove
                         System.out.println("Tries: " + tries);
                         exit = false;
                     }
@@ -232,6 +239,8 @@ public class Map {
         }
     }
 
+
+    //TODO remove
     private String getString(String side) {
         switch (side) {
             case "l": return " TO THE LEFT OF ";
@@ -305,25 +314,66 @@ public class Map {
     }
 
 
-    /*private void addBossRoom() {
-        int rightmostRoom = getRightmostEmptyRoom();
+    private void addBossRoom() {
+        System.out.println("addBossRoom");
+
+        ArrayList<Integer> excludedRooms = new ArrayList<>();
+        Room bossRoom = RoomFactory.getRoom("BossRoom");
+        int tmp = currentRoomNbr;
+
+        loop:
+        for(int i = 0; i < rooms.size(); i++) {
+            int rightmostRoom = getRightmostEmptyRoom(excludedRooms);
+            System.out.println("Trying to add bossRoom (" + nextRoom + ", " + bossRoom.getPath() + ") by room " + rightmostRoom);
+            if(rightmostRoom == -1) {
+                System.out.println("addBossRoom failed");
+                break loop;
+            }
+            excludedRooms.add(rightmostRoom);
+            currentRoomNbr = rightmostRoom;
+            setNewRoomPosition();
+
+            int cellNr = getCellNr(getCurrentRoom(), "r");
+            int x = getX(bossRoom, "l", cellNr);
+            int y = getY(bossRoom, "l", cellNr);
+
+            System.out.println("X: " + x);
+            System.out.println("Y: " + y);
+
+
+            if(roomFits(bossRoom, x, y, "l")) {
+                String entrance = "l"+getCellNr(bossRoom, "l");
+                entrances.put(nextRoom, entrance);
+                addRoom(bossRoom, x, y, nextRoom);
+                roomsAdded.add("Room " + nextRoom + "(" + bossRoom.getPath() + ") added TO THE RIGHT room " + currentRoomNbr);
+                System.out.println("BossRoom added!");
+                break loop;
+            } else {
+                System.out.println("BossRoom not added.");
+            }
+        }
+
+        currentRoomNbr = tmp;
+        setNewRoomPosition();
     }
 
-    private int getRightmostEmptyRoom() {
+    private int getRightmostEmptyRoom(ArrayList<Integer> excludedRooms) {
         for(int x = 99; x >= 0; x--) {
             for(int y = 99; y >= 0; y--) {
-                if(roomMap[x][y] != -1) {
+                if(roomMap[x][y] != -1 && !excludedRooms.contains(roomMap[x][y])) {
                     Room room = rooms.get(roomMap[x][y]);
                     ArrayList<String> doors = room.getDoors();
                     for(String door : doors) {
-                        if(door.substring(0,1).equals("r")) {
-
+                        if(door.substring(0,1).equals("r") && doorsLeft()) {
+                            return roomMap[x][y];
                         }
                     }
                 }
             }
         }
-    }*/
+        System.out.println("no empty rooms left");
+        return -1;
+    }
 
     private int getPseudoRandom(boolean exit, boolean connectionRoom, String side) {
         switch(side) {
@@ -592,8 +642,10 @@ public class Map {
      * Returns true if the current room has doors leading nowhere
      */
     private boolean doorsLeft() {
+        System.out.println("doorsLeft()");
         ArrayList<String> doors = getCurrentRoom().getDoors();
         for (String door : doors) {
+            System.out.println(door);
             String entranceSide = door.substring(0, 1);
             int entranceCell = Integer.parseInt(door.substring(1));
 
@@ -627,7 +679,10 @@ public class Map {
     }
 
     private int getCellNr(Room room, String sideToBeFound) {
+        System.out.println("getCellNr()");
         ArrayList<String> doors = room.getDoors();
+
+        System.out.println(doors);
         int cellNr = -1;
         for(String door : doors) {
             String side = door.substring(0,1);
@@ -640,7 +695,7 @@ public class Map {
     }
 
     private boolean roomFits(Room room, int xPos, int yPos, String entranceSide) {
-
+        System.out.println("roomFits()");
         /*try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -1157,6 +1212,9 @@ public class Map {
                 roomMap[x][y] = ID;
             }
         }
+        room.setX(xPos);
+        room.setY(yPos);
+        nextRoom += 1;
     }
 
     //temporary, will be rewritten
