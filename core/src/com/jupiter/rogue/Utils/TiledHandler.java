@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Controller.EnemyController;
+import com.jupiter.rogue.Controller.WorldController;
+import com.jupiter.rogue.Model.Creatures.Enemy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -269,10 +271,28 @@ public class TiledHandler {
     }
 
     public void destroy() {
+
         for(Body body : BODIES) {
-            if(body.getUserData() != null && (body.getUserData().equals("room") || body.getUserData().equals("sensor"))) {
-                WorldConstants.CURRENT_WORLD.destroyBody(body);
-            }
+            if(body.getUserData() != null){
+                if((body.getUserData().equals("room") || body.getUserData().equals("sensor"))) {
+                    WorldConstants.CURRENT_WORLD.destroyBody(body);
+                } else if(body.getUserData() instanceof EnemyController){
+
+                        EnemyController enemyController = (EnemyController)body.getUserData();
+                        Enemy enemy = enemyController.getEnemy();
+
+                        /* I found the PPM multiplication necessary but it is a bit strange.
+                        Should probably look into bo2d/rendering conversions. */
+                        float x = enemy.getX() * PPM;
+                        float y = enemy.getY() * PPM;
+
+                        enemy.setPosition(x, y);
+
+                        //WorldConstants.CURRENT_WORLD.destroyBody(body);
+                    }
+
+
+                }
         }
     }
 }

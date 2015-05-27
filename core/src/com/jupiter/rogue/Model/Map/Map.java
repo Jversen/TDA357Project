@@ -173,7 +173,7 @@ public class Map {
         /* Destroys all created enemy bodies, they will be recreated later when the player enters the right
         rooms
          */
-        destroyBodies();
+        getCurrentRoom().getTiledHandler().destroy();
 
 /*        for (int i = 0; i < rooms.size(); i++) {
             for (int j = 0; j < rooms.get(currentRoomNbr).getEnemyControllers().size(); j++) {
@@ -1296,37 +1296,8 @@ public class Map {
 
     private void destroyWorld() {
         rooms.get(currentRoomNbr).getTiledHandler().destroy();
-        destroyBodies();
     }
 
-    /*Saves the current positions of the enemies in this room, and then destroys their bodies.
-        If room is re-entered, their bodies will be created at their old positions.
-         */
-    private void destroyBodies(){
-
-        if(rooms.get(currentRoomNbr).getEnemyControllers() != null) {
-
-            for (int i = 0; i < rooms.get(currentRoomNbr).getEnemyControllers().size(); i++) {
-                EnemyController enemyController = rooms.get(currentRoomNbr).getEnemyControllers().get(i);
-                Enemy enemy = enemyController.getEnemy();
-
-                /* I found the PPM multiplication necessary but it is a bit strange.
-            Should probably look into bo2d/rendering conversions. */
-                float x = enemy.getX() * PPM;
-                float y = enemy.getY() * PPM;
-
-                enemy.setPosition(x, y);
-
-            }
-
-        }
-
-        for(Body body : BODIES) {
-            if(body.getUserData() != null && body.getUserData() instanceof EnemyController) {
-                WorldConstants.CURRENT_WORLD.destroyBody(body);
-            }
-        }
-    }
     private void rebuildWorld() {
         System.out.println("rebuildWorld: current room number: " + currentRoomNbr);
         rooms.get(currentRoomNbr).initRoom();
