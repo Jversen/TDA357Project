@@ -20,8 +20,8 @@ public class WorldController {
 
     public void update() {
         WorldConstants.CURRENT_WORLD.step(Gdx.graphics.getDeltaTime(), 6, 2);
-        removeBodiesSafely();
         WorldConstants.CURRENT_WORLD.getBodies(WorldConstants.BODIES);
+        removeBodiesSafely();
     }
 
     //A method that removes all bodies from the WorldConstants BODIES variable that are marked with the userdata "dead".

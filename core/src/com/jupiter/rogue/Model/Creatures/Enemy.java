@@ -4,6 +4,7 @@ import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
 
+
 /**
  * Created by Johan on 16/04/15.
  */

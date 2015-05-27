@@ -127,7 +127,9 @@ public abstract class EnemyController {
     }
 
     private void removeHitbox() {
-        body.destroyFixture(weaponSensorFixture);
+        if (body != null && body.getFixtureList() != null && body.getFixtureList().contains(weaponSensorFixture, true)){
+            body.destroyFixture(weaponSensorFixture);
+        }
     }
 
     //help-method to the createWeaponHitBox methods, gets the hitbox information from the heroes weapon and then sets a hitbox accordingly depending on what direction the hero is facing.
