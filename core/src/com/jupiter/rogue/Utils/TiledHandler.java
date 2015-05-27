@@ -10,6 +10,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Controller.EnemyController;
+import com.jupiter.rogue.Controller.WorldController;
+import com.jupiter.rogue.Model.Chests.Chest;
+import com.jupiter.rogue.Model.Chests.ChestFactory;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Factories.EnemyFactory;
 import com.jupiter.rogue.Model.Factories.RedDeathFactory;
@@ -33,8 +36,10 @@ public class TiledHandler {
     private TiledMapTileLayer sensorLayer;
     private MapLayer enemySpawnLayer;
     private int[][] stairs;
+    private MapLayer chestLayer;
     private float roomWidth;
     private float roomHeight;
+    ArrayList<Chest> chests;
 
     public TiledHandler(String path) {
         tiledMap = new TmxMapLoader().load(path);
@@ -48,14 +53,18 @@ public class TiledHandler {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Maplayer doesn't exist");
         }
-
+        try {
+            enemySpawnLayer = (TiledMapTileLayer) tiledMap.getLayers().get(5);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Maplayer doesn't exist");
+        }
+        try {
+            chestLayer = (TiledMapTileLayer) tiledMap.getLayers().get(6);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Maplayer doesn't exist");
+        }
         roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
         roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
-
-        //TODO change layer
-        if (tiledMap.getLayers().getCount() >= 4){
-            enemySpawnLayer = tiledMap.getLayers().get(3);
-        }
     }
 
     public void initRoom() {
@@ -394,6 +403,33 @@ public class TiledHandler {
                 body.setTransform(new Vector2(x, y),0);
                 break;
             }
+        }
+    }
+
+    private void createChests() {
+
+        ChestFactory chestFactory;
+        String chestType;
+        float xPos;
+        float yPos;
+        Random rn = new Random();
+        int chestTypeIndex;
+
+        for (int i = 0; i <= chestLayer.getObjects().getCount() - 1; i++) {
+
+            MapProperties properties = chestLayer.getObjects().get(i).getProperties();
+
+            chestType = properties.get("type").toString();
+
+            if(!chestType.contains(chestType)) {
+                chestTypeIndex = rn.nextInt(WorldConstants.CHESTTYPES.size());
+                chestType = WorldConstants.CHESTTYPES.get(chestTypeIndex);
+            }
+            chestFactory = new ChestFactory(chestType);
+
+            chests.add(chestFactory.createChest());
+
+
         }
     }
 

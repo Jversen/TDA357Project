@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="7" tilewidth="32" tileheight="32" nextobjectid="24">
+ <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
+  <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
+ </tileset>
+ <tileset firstgid="166" name="box_yellow" tilewidth="32" tileheight="32">
+  <image source="box_yellow.png" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="168" name="bat" tilewidth="32" tileheight="32" spacing="2" margin="1">
+  <image source="bat.png" width="171" height="103"/>
+ </tileset>
+ <layer name="Background" width="20" height="7">
+  <data encoding="base64" compression="zlib">
+   eJytkdEJADEIQzPTbdC4/05HOYRHsP06QWJNDaaVpOenLH2xcQG73mnUC2lwRk8XDc7xjoe6UTjXMO+Bv2kyHFzq0nfu33zqnXzV0JveNvXouQ563C3/8AVHfh+f
+  </data>
+ </layer>
+ <layer name="Foreground" width="20" height="7">
+  <data encoding="base64" compression="zlib">
+   eJyTZKAeUAJijRFonggQS1LBvCKoecpQjG6mMIl2NQKxClQPtTAAL/kEyQ==
+  </data>
+ </layer>
+ <layer name="Sensor" width="20" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgwUUUdm8RiqbBwIAdYwA9A==
+  </data>
+ </layer>
+ <objectgroup name="EnemySpawn">
+  <object id="2" type="Widow" gid="178" x="512" y="192"/>
+  <object id="3" type="Widow" gid="178" x="416" y="192"/>
+ </objectgroup>
+ <objectgroup name="Chest">
+  <object id="23" type="chest" gid="166" x="256" y="160"/>
+ </objectgroup>
+</map>

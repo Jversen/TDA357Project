@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Johan on 2015-04-19.
@@ -24,4 +26,5 @@ public final class WorldConstants {
     public static Array<Body> BODIES = new Array<>();
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
     public static final String[] ENEMYTYPES = {"widow", "redDeath"}; //The different enemies implemented.
+    public static final List<String> CHESTTYPES = new ArrayList<>(Arrays.asList("weapon", "ring"));
 }
