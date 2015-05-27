@@ -71,7 +71,6 @@ public class View {
 
         stage.setViewport(vp);
 
-
         tiledMapRenderer = map.getCurrentRoom().getTiledHandler().getRenderer();
         float posX = getCamPosX();
         float posY = getCamPosY();

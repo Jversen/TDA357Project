@@ -97,15 +97,11 @@ public class Hero extends Creature {
     @Override
     public void takeDamage(int incomingDmg) {
         super.takeDamage(incomingDmg);
-        if (this.currentHealthPoints > 0) {
-            hud.updateHealthBar();
-        }
     }
 
     @Override
     public void setHealthPoints(int HP) {
         super.setHealthPoints(HP);
-        hud.updateHealthBar();
     }
 
     //returns the weapon currently in use

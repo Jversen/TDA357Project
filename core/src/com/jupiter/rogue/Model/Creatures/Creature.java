@@ -3,7 +3,6 @@ package com.jupiter.rogue.Model.Creatures;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.View.Hud;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,7 +24,6 @@ public abstract class Creature {
     protected int level;
     protected boolean creatureGrounded;
     protected boolean creatureFalling;
-    protected Hud hud = Hud.getInstance();
 
     protected boolean creatureDead;
 

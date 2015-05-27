@@ -53,19 +53,22 @@ public class Hud extends Actor {
     @Override
     public void draw(Batch batch, float alpha){
 
+        updateHud();
         healthBar.draw(batch);
-        /* Just some number for show. Should discuss this design of showing current room.*/
-        level = ("Room: " + Map.getInstance().getCurrentRoomNbr());
-
         font.draw(batch, level, 250, 170);
     }
 
-    public void updateHealthBar(){
+    public void updateHud(){
 
         currentHP = (float)Hero.getInstance().getCurrentHealthPoints();
         maxHP = (float)Hero.getInstance().getMaxHealthPoints();
 
-        healthBar.setScale(currentHP / maxHP, 1);
+        if(currentHP >= 0) {
+            healthBar.setScale(currentHP / maxHP, 1);
+        }
+
+        /* Just some number for show. Should discuss this design of showing current room.*/
+        level = ("Room: " + Map.getInstance().getCurrentRoomNbr());
 
     }
 }

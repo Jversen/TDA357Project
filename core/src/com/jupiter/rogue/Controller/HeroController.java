@@ -13,11 +13,7 @@ import com.jupiter.rogue.View.HeroView;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-
-import com.jupiter.rogue.View.Hud;
-
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -51,12 +47,9 @@ public class HeroController {
     private boolean weaponReady;
     private boolean swapReady;
     private boolean attackReady;
-    private Hud hud;
 
     public HeroController() {
         initHero();
-        hud = Hud.getInstance();
-
     }
 
     public void initHero() {
