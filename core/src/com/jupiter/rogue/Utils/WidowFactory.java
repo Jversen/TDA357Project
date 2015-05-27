@@ -18,7 +18,6 @@ public class WidowFactory implements EnemyFactory {
 
     }
 
-    @Override
     public String getEnemyType(){
         return enemyType;
     }

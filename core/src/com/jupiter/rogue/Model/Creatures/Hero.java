@@ -4,7 +4,6 @@ import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.*;
 import com.jupiter.rogue.Utils.WorldConstants;
-import com.jupiter.rogue.Utils.HeroMovement;
 
 /**
  * Created by Johan on 16/04/15.
@@ -34,7 +33,7 @@ public class Hero extends Creature {
         this.creatureGrounded = false;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
-        this.movementSpeed = 100;
+        this.movementSpeed = 5;
         this.meleeCurrentWeapon = true;
 
         //Starting weapons
@@ -93,7 +92,7 @@ public class Hero extends Creature {
             }
         }
     }
-    
+
     @Override
     public void setHealthPoints(int HP) {
         super.setHealthPoints(HP);

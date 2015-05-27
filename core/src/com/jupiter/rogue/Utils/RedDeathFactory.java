@@ -19,7 +19,6 @@ public class RedDeathFactory implements EnemyFactory {
         return enemyController;
     }
 
-    @Override
     public String getEnemyType() {
         return enemyType;
     }

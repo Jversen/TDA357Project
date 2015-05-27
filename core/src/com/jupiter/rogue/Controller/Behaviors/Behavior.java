@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Controller.AIBehaviors;
+package com.jupiter.rogue.Controller.Behaviors;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Map.Position;

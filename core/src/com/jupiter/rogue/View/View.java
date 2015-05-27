@@ -10,7 +10,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.jupiter.rogue.Controller.Controller;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
@@ -36,15 +35,12 @@ public class View {
 
     ExtendViewport vp;
 
-    private Controller controller;
-
     private HeroView heroView;
 
     Box2DDebugRenderer debugRenderer;
 
     public View() {
 
-        controller = Controller.getInstance();
         heroView = HeroView.getInstance();
 
         debugRenderer = new Box2DDebugRenderer();

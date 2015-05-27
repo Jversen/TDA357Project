@@ -11,7 +11,5 @@ import com.jupiter.rogue.Model.Creatures.Widow;
 
 public interface EnemyFactory {
 
-    public EnemyController createEnemy(float xPos, float yPos, int level, boolean elite);
-
-    public String getEnemyType();
+    EnemyController createEnemy(float xPos, float yPos, int level, boolean elite);
 }

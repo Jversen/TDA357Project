@@ -3,12 +3,15 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
+import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.NormalJump;
+import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
+import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.Walk;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Utils.WorldConstants;
-import com.jupiter.rogue.Utils.HeroMovement;
 import com.jupiter.rogue.View.HeroView;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -26,7 +29,6 @@ public class HeroController {
 
     private Hero hero;
     private HeroView heroView;
-    private HeroMovement heroMovement;
     private PolygonShape shape;
     private Body body;
 
@@ -47,6 +49,9 @@ public class HeroController {
     private boolean weaponReady;
     private boolean swapReady;
     private boolean attackReady;
+
+    private JumpBehavior jumpBehavior;
+    private MoveBehavior moveBehavior;
 
     public HeroController() {
         initHero();
@@ -84,7 +89,6 @@ public class HeroController {
 
         body.setUserData("hero");
         body.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
-        heroMovement = new HeroMovement(body);
 
         WorldConstants.BODIES.add(body);
         //hero.setBody(body);
@@ -101,6 +105,9 @@ public class HeroController {
         //weaponSensors
         weaponSensorFixtureDef = new FixtureDef();
 
+        jumpBehavior = new NormalJump(this.body);
+        moveBehavior = new Walk(this.body);
+
         //clears memory
         shape.dispose();
     }
@@ -111,7 +118,7 @@ public class HeroController {
     }
 
     private void updatePhysics() {
-        Position physPos = new Position(heroMovement.getBody().getPosition().x, heroMovement.getBody().getPosition().y);
+        Position physPos = new Position(this.body.getPosition().x, this.body.getPosition().y);
         hero.setPosition(physPos);
     }
 
@@ -119,28 +126,26 @@ public class HeroController {
         //Move
         if(keys.contains(Input.Keys.LEFT) && !keys.contains(Input.Keys.RIGHT)) {
             hero.walk(Direction.LEFT);
-            heroMovement.walk(hero.getDirection());
-            hero.setPosition(heroMovement.getPosition());
+            moveBehavior.move(hero.getDirection(), hero.getMovementSpeed());
+            hero.setPosition(new Position(this.body.getPosition().x, this.body.getPosition().y));
         }
         //Move
         if(!keys.contains(Input.Keys.LEFT) && keys.contains(Input.Keys.RIGHT)) {
             hero.walk(Direction.RIGHT);
-            heroMovement.walk(hero.getDirection());
-            hero.setPosition(heroMovement.getPosition());
+            moveBehavior.move(hero.getDirection(), hero.getMovementSpeed());
+            hero.setPosition(new Position(this.body.getPosition().x, this.body.getPosition().y));
         }
         //Jump
         if(keys.contains(Input.Keys.SPACE)) {
             if (hero.isCreatureGrounded()) {
                 hero.jump();
-                heroMovement.jump();
-                hero.setPosition(heroMovement.getPosition());
+                jumpBehavior.jump(7f);
+                hero.setPosition(new Position(this.body.getPosition().x, this.body.getPosition().y));
             }
         }
-        //Attack
         if (keys.contains(Input.Keys.E)) {
             attack();
         }
-        //Swap weapons
         if (keys.contains(Input.Keys.W)) {
             swapWeapon();
         }

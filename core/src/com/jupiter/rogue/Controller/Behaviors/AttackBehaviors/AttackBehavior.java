@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Controller.AIBehaviors.AttackBehaviors;
+package com.jupiter.rogue.Controller.Behaviors.AttackBehaviors;
 
 import com.jupiter.rogue.Model.Enums.Direction;
 
