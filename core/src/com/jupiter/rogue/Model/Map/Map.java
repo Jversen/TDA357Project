@@ -51,8 +51,7 @@ public class Map {
 
 
     private Map() {
-        rooms = new ArrayList<Room>();
-
+        rooms = new ArrayList<>();
         createMap();
     }
 
@@ -68,6 +67,7 @@ public class Map {
             switchRoom();
         }
 
+        //TODO remove/change all this
         //Updates all the individual enemies in the current room, also removes them if they die.
         for (int i = 0; i < getCurrentRoom().getEnemyControllers().size(); i++) {
             EnemyController enemyController = getCurrentRoom().getEnemyControllers().get(i);
@@ -141,10 +141,6 @@ public class Map {
                     findAddRoom(moreRooms, "b");
                 }
 
-                for(String string : roomsAdded) {
-                    System.out.println(string);
-                }
-
 
             currentRoomNbr += 1;
             setNewRoomPosition();
@@ -165,9 +161,6 @@ public class Map {
             }
         }
 
-        printMap();
-        System.out.println();
-        System.out.println("BOSSROOM ADDED: " + bossRoomAdded);
         currentRoomNbr = 0; // resets the value to the starting room
         currentRoomX = 0;
         currentRoomY = 50;
@@ -176,16 +169,15 @@ public class Map {
         rooms
          */
         getCurrentRoom().getTiledHandler().destroy();
-
-/*        for (int i = 0; i < rooms.size(); i++) {
-            for (int j = 0; j < rooms.get(currentRoomNbr).getEnemyControllers().size(); j++) {
-                rooms.get(currentRoomNbr).getEnemyControllers().get(j).destroyBody();
-            }
-        }*/
-
         getCurrentRoom().initRoom();
+    }
 
-
+    private void initMap() {
+        for(int x = 0; x < roomMap.length; x++) {
+            for(int y = 0; y < roomMap[x].length ; y++) {
+                roomMap[x][y] = -1;
+            }
+        }
     }
 
     private void findAddRoom(boolean moreRooms, String side) {
@@ -199,9 +191,6 @@ public class Map {
         // tries to find a suitable room, jumps out of loop if one is found and added
         while(notAdded) {
             Room room = RoomFactory.getRoom(oppositeSide, getPseudoRandom(exit, connectionRoom, oppositeSide), exit);
-
-            System.out.println("Trying to add room " + nextRoom + getString(side) + currentRoomNbr + "(" + room.getPath() + ")");
-
             int cellNr = getCellNr(getCurrentRoom(), side);
 
             int x = getX(room, oppositeSide, cellNr);
@@ -214,14 +203,9 @@ public class Map {
 
                 addRoom(room, x, y, nextRoom);
 
-                //TODO remove
-                roomsAdded.add("Room " + nextRoom + "(" + room.getPath() + ") added" + getString(side) + "room " + currentRoomNbr);
-
                 clearRoomNumbers();
                 notAdded = false;
 
-                //TODO remove
-                printMap();
             } else {
                 tries++;
                 if(moreRooms) {
@@ -229,8 +213,6 @@ public class Map {
                         connectionRoom = true;
                     }
                     if(tries >= getRoomQuantity(true, false, oppositeSide) + getRoomQuantity(true, true, oppositeSide)) {
-                        //TODO remove
-                        System.out.println("Tries: " + tries);
                         exit = false;
                     }
                 } else if(tries >= getRoomQuantity(false, false, oppositeSide)) {
@@ -238,18 +220,6 @@ public class Map {
                     connectionRoom = true;
                 }
             }
-        }
-    }
-
-
-    //TODO remove
-    private String getString(String side) {
-        switch (side) {
-            case "l": return " TO THE LEFT OF ";
-            case "r": return " TO THE RIGHT OF ";
-            case "t": return " ABOVE ";
-            case "b": return " BELOW ";
-            default:  return " FAILED ";
         }
     }
 
@@ -276,7 +246,6 @@ public class Map {
                 case "b" : return RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_BOTTOM;
             }
         }
-        System.out.println("getRoomQuantity() failed");
         return -1;
     }
 
@@ -317,8 +286,6 @@ public class Map {
 
 
     private void addBossRoom() {
-        System.out.println("addBossRoom");
-
         ArrayList<Integer> excludedRooms = new ArrayList<>();
         Room bossRoom = RoomFactory.getRoom("BossRoom");
         int tmp = currentRoomNbr;
@@ -326,9 +293,7 @@ public class Map {
         loop:
         for(int i = 0; i < rooms.size(); i++) {
             int rightmostRoom = getRightmostEmptyRoom(excludedRooms);
-            System.out.println("Trying to add bossRoom (" + nextRoom + ", " + bossRoom.getPath() + ") by room " + rightmostRoom);
             if(rightmostRoom == -1) {
-                System.out.println("addBossRoom failed");
                 break loop;
             }
             excludedRooms.add(rightmostRoom);
@@ -339,19 +304,11 @@ public class Map {
             int x = getX(bossRoom, "l", cellNr);
             int y = getY(bossRoom, "l", cellNr);
 
-            System.out.println("X: " + x);
-            System.out.println("Y: " + y);
-
-
             if(roomFits(bossRoom, x, y, "l")) {
                 String entrance = "l"+getCellNr(bossRoom, "l");
                 entrances.put(nextRoom, entrance);
                 addRoom(bossRoom, x, y, nextRoom);
-                roomsAdded.add("Room " + nextRoom + "(" + bossRoom.getPath() + ") added TO THE RIGHT room " + currentRoomNbr);
-                System.out.println("BossRoom added!");
                 break loop;
-            } else {
-                System.out.println("BossRoom not added.");
             }
         }
 
@@ -373,7 +330,6 @@ public class Map {
                 }
             }
         }
-        System.out.println("no empty rooms left");
         return -1;
     }
 
@@ -388,176 +344,119 @@ public class Map {
     }
 
     private int getPseudoRandomL(boolean exit, boolean connectiveRoom) {
-        System.out.println("getPseudoRandomL (" + exit + ", " + connectiveRoom + ")");
-        System.out.println("exitL: " + exitL);
-        System.out.println("noExitL: " + noExitL);
-        System.out.println("conRoomL: " + conRoomL);
         Random rand = new Random();
         if(exit && !connectiveRoom) {
-            System.out.println("Trying to find roomnumber with exit");
             while(exitL.size()<RoomFactory.ROOMS_WITH_EXIT_DOOR_LEFT){
                 int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_LEFT) + 1;
                 if(!exitL.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     exitL.add(room);
                     return room;
                 }
             }
-            System.out.println("All");
         } else if (exit && connectiveRoom){
-            System.out.println("Trying to find roomnumber to connection room");
             for(int i = RoomFactory.ROOMS_WITH_EXIT_DOOR_LEFT + 1; i <= RoomFactory.ROOMS_WITH_EXIT_DOOR_LEFT + RoomFactory.CONNECTION_ROOMS_LEFT; i++) {
                 if(!conRoomL.contains(i)) {
-                    System.out.println("Room " + i + "added");
                     conRoomL.add(i);
                     return i;
                 }
             }
         } else {
-            System.out.println("Trying to find roomnumber without exit");
             while(noExitL.size() < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_LEFT) {
                 int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_LEFT) + 1;
                 if(!noExitL.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     noExitL.add(room);
                     return room;
                 }
             }
         }
-        System.out.println("getPseudoRandomL() FAILED");
-        System.out.println("exitL: " + exitL);
-        System.out.println("noExitL: " + noExitL);
-        System.out.println("conRoomL: " + conRoomL);
         return -1;
     }
 
     private int getPseudoRandomR(boolean exit, boolean connectiveRoom) {
-        System.out.println("getPseudoRandomR (" + exit + ", " + connectiveRoom + ")");
-        System.out.println("exitR: " + exitR);
-        System.out.println("noExitR: " + noExitR);
-        System.out.println("conRoomR: " + conRoomR);
         Random rand = new Random();
         if(exit && !connectiveRoom) {
-            System.out.println("Trying to find roomnumber with exit");
             while(exitR.size()<RoomFactory.ROOMS_WITH_EXIT_DOOR_RIGHT){
                 int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_RIGHT) + 1;
                 if(!exitR.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     exitR.add(room);
                     return room;
                 }
             }
         } else if (exit && connectiveRoom){
-            System.out.println("Trying to find roomnumber to connection room");
             for(int i = RoomFactory.ROOMS_WITH_EXIT_DOOR_RIGHT + 1; i <= RoomFactory.ROOMS_WITH_EXIT_DOOR_RIGHT + RoomFactory.CONNECTION_ROOMS_RIGHT; i++) {
                 if(!conRoomR.contains(i)) {
-                    System.out.println("Room " + i + "added");
                     conRoomR.add(i);
                     return i;
                 }
             }
         } else {
-            System.out.println("Trying to find roomnumber without exit");
             while(noExitR.size() < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_RIGHT) {
                 int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_RIGHT) + 1;
                 if(!noExitR.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     noExitR.add(room);
                     return room;
                 }
             }
         }
-        System.out.println("getPseudoRandomR() FAILED");
-        System.out.println("exitR: " + exitR);
-        System.out.println("noExitR: " + noExitR);
-        System.out.println("conRoomR: " + conRoomR);
         return -1;
     }
 
     private int getPseudoRandomB(boolean exit, boolean connectiveRoom) {
-        System.out.println("getPseudoRandomB (" + exit + ", " + connectiveRoom + ")");
-        System.out.println("exitB: " + exitB);
-        System.out.println("noExitB: " + noExitB);
-        System.out.println("conRoomB: " + conRoomB);
         Random rand = new Random();
         if(exit && !connectiveRoom) {
-            System.out.println("Trying to find roomnumber with exit");
             while(exitB.size()<RoomFactory.ROOMS_WITH_EXIT_DOOR_BOTTOM){
                 int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_BOTTOM) + 1;
                 if(!exitB.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     exitB.add(room);
                     return room;
                 }
             }
         } else if (exit && connectiveRoom){
-            System.out.println("Trying to find roomnumber to connection room");
             for(int i = RoomFactory.ROOMS_WITH_EXIT_DOOR_BOTTOM + 1; i <= RoomFactory.ROOMS_WITH_EXIT_DOOR_BOTTOM + RoomFactory.CONNECTION_ROOMS_BOTTOM; i++) {
                 if(!conRoomB.contains(i)) {
-                    System.out.println("Room " + i + "added");
                     conRoomB.add(i);
                     return i;
                 }
             }
         } else {
-            System.out.println("Trying to find roomnumber without exit");
             while(noExitB.size() < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_BOTTOM) {
                 int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_BOTTOM) + 1;
                 if(!noExitB.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     noExitB.add(room);
                     return room;
                 }
             }
         }
-        System.out.println("getPseudoRandomB() FAILED");
-        System.out.println("exitB: " + exitB);
-        System.out.println("noExitB: " + noExitB);
-        System.out.println("conRoomB: " + conRoomB);
         return -1;
     }
 
     private int getPseudoRandomT(boolean exit, boolean connectiveRoom) {
-        System.out.println("getPseudoRandomT (" + exit + ", " + connectiveRoom + ")");
-        System.out.println("exitT: " + exitT);
-        System.out.println("noExitT: " + noExitT);
-        System.out.println("conRoomT: " + conRoomT);
         System.out.println(exitT);
         Random rand = new Random();
         if(exit && !connectiveRoom) {
-            System.out.println("Trying to find roomnumber with exit");
             while(exitT.size() < RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP){
                 int room = rand.nextInt(RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP) + 1;
                 if(!exitT.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     exitT.add(room);
                     return room;
                 }
             }
         } else if (exit && connectiveRoom){
-            System.out.println("Trying to find roomnumber to connection room");
             for(int i = RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP + 1; i <= RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP + RoomFactory.CONNECTION_ROOMS_TOP; i++) {
                 if(!conRoomT.contains(i)) {
-                    System.out.println("Room " + i + "added");
                     conRoomT.add(i);
                     return i;
                 }
             }
         } else {
-            System.out.println("Trying to find roomnumber without exit");
             while(noExitT.size() < RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_TOP) {
                 int room = rand.nextInt(RoomFactory.ROOMS_WITHOUT_EXIT_DOOR_TOP) + 1;
                 if(!noExitT.contains(room)) {
-                    System.out.println("Room " + room + "added");
                     noExitT.add(room);
                     return room;
                 }
             }
         }
-        System.out.println("getPseudoRandomT() FAILED");
-        System.out.println("exitT: " + exitT);
-        System.out.println("noExitT: " + noExitT);
-        System.out.println("conRoomT: " + conRoomT);
         return -1;
     }
 
@@ -632,11 +531,9 @@ public class Map {
             }
 
             if(nextRoomX == oppositeDoorX && nextRoomY == oppositeDoorY) {
-                System.out.println("DOORS MATCHED!!!");
                 return true;
             }
         }
-        System.out.println("DOORS DIDN'T MATCH :(");
         return false;
     }
 
@@ -644,7 +541,6 @@ public class Map {
      * Returns true if the current room has doors leading nowhere
      */
     private boolean doorsLeft() {
-        System.out.println("doorsLeft()");
         ArrayList<String> doors = getCurrentRoom().getDoors();
         for (String door : doors) {
             System.out.println(door);
@@ -681,7 +577,6 @@ public class Map {
     }
 
     private int getCellNr(Room room, String sideToBeFound) {
-        System.out.println("getCellNr()");
         ArrayList<String> doors = room.getDoors();
 
         System.out.println(doors);
@@ -697,30 +592,13 @@ public class Map {
     }
 
     private boolean roomFits(Room room, int xPos, int yPos, String entranceSide) {
-        System.out.println("roomFits()");
-        /*try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-
-        }*/
-
-        System.out.println("Room width: " + room.getWIDTH());
-        System.out.println("Room height: " + room.getHEIGHT());
-
         if(xPos < 0 || yPos < 0 || xPos+room.getWIDTH() > 100 || yPos+room.getHEIGHT() > 100) {
-            System.out.println("Failed initial position test");
-            System.out.println("X: " + xPos);
-            System.out.println("Y: " + yPos);
             return false;
         }
 
         for(int x = xPos; x < xPos+room.getWIDTH(); x++) {
             for(int y = yPos; y < yPos+room.getHEIGHT(); y++) {
                 if(roomMap[x][y] != -1) {
-                    System.out.println("Failed positioning test");
-                    System.out.println("X: " + x);
-                    System.out.println("Y; " + y);
-                    System.out.println("Room in the way: " + roomMap[x][y]);
                     return false;
                 }
             }
@@ -734,7 +612,6 @@ public class Map {
         }
 
         if(isBlockingDoor(room, xPos, yPos, matchingDoors)) {
-            System.out.println("DOOR BLOCKING TEST FAILED");
             return false;
         }
 
@@ -743,13 +620,10 @@ public class Map {
     }
 
     private ArrayList<String> matchingDoorSide(Room room, int xPos, int yPos, String entranceSide) {
-        System.out.println("matchingDoorSide()");
-
         ArrayList<String> matchingDoors = new ArrayList<>();
         for(String door : room.getDoors()) {
             String side = door.substring(0,1);
             int cell = Integer.parseInt(door.substring(1));
-
             doorfit:
             if(!side.substring(0,1).equals(entranceSide)) {
                 int x = -1;
@@ -803,7 +677,6 @@ public class Map {
                             }
 
                             if(x == oppositeDoorX && y == oppositeDoorY && oppositeDoorSide.equals(getOppositeSide(side))) {
-                                System.out.println("DOORS MATCHED!!! (matchingDoorSide)");
                                 matchingDoors.add(oppositeRoomDoor);
                                 break doorfit;
                             }
@@ -817,14 +690,10 @@ public class Map {
     }
 
     private boolean isBlockingDoor(Room room, int xPos, int yPos, ArrayList<String> matchingDoors) {
-        System.out.println("isBlockingDoor()");
         return doorBlockedBelow(room, xPos, yPos, matchingDoors) || doorBlockedAbove(room, xPos, yPos, matchingDoors) || doorBlockedRight(room, xPos, yPos, matchingDoors) || doorBlockedLeft(room, xPos, yPos, matchingDoors);
     }
 
     private boolean doorBlockedRight(Room room, int xPos, int yPos, ArrayList<String> matchingDoors) {
-        System.out.println("doorBlockedRight()");
-        System.out.println("xPos: " + xPos);
-        System.out.println("yPos: " + yPos);
         ArrayList<Room> roomsToRight = new ArrayList<>();
         int lastRoomAdded = -1;
 
@@ -835,7 +704,6 @@ public class Map {
                 if(roomNumber != -1 && roomNumber != lastRoomAdded && roomNumber != currentRoomNbr) {
                     roomsToRight.add(rooms.get(roomNumber));
                     lastRoomAdded = roomNumber;
-                    System.out.println("Room to right: " + roomNumber);
                 }
             }
         }
@@ -848,7 +716,6 @@ public class Map {
 
         for(Room roomToRight : roomsToRight) {
             if (!doorsBlocked(room, roomToRight, "l", xPos, yPos, matchingDoors)) {
-                System.out.println("checkDoors() right failed");
                 return true;
             }
         }
@@ -857,10 +724,6 @@ public class Map {
     }
 
     private boolean doorBlockedLeft(Room room, int xPos, int yPos, ArrayList<String> matchingDoors) {
-        System.out.println("doorBlockedLeft()");
-        System.out.println("xPos: " + xPos);
-        System.out.println("yPos: " + yPos);
-
         ArrayList<Room> roomsToLeft = new ArrayList<>();
         int lastRoomAdded = -1;
 
@@ -871,7 +734,6 @@ public class Map {
                 if(roomNumber != -1 && roomNumber != lastRoomAdded && roomNumber != currentRoomNbr) {
                     roomsToLeft.add(rooms.get(roomNumber));
                     lastRoomAdded = roomNumber;
-                    System.out.println("Room to left: " + roomNumber);
                 }
             }
         }
@@ -892,12 +754,8 @@ public class Map {
 
 
     private boolean doorBlockedAbove(Room room, int xPos, int yPos, ArrayList<String> matchingDoors) {
-        System.out.println("doorBlockedAbove()");
         ArrayList<Room> roomsAbove = new ArrayList<>();
         int lastRoomAdded = -1;
-
-        System.out.println("xPos: " + xPos);
-        System.out.println("yPos: " + yPos);
 
         // collect all rooms directly to the left of the room
         for(int x = xPos; x < xPos+room.getWIDTH(); x++) {
@@ -906,7 +764,6 @@ public class Map {
                 if(roomNumber != -1 && roomNumber != lastRoomAdded && roomNumber != currentRoomNbr) {
                     roomsAbove.add(rooms.get(roomNumber));
                     lastRoomAdded = roomNumber;
-                    System.out.println("Room to above: " + roomNumber);
                 }
             }
         }
@@ -918,7 +775,6 @@ public class Map {
 
         for(Room roomAbove : roomsAbove) {
             if (!doorsBlocked(room, roomAbove, "b", xPos, yPos, matchingDoors)) {
-                System.out.println("checkDoors failed with room " + roomAbove);
                 return true;
             }
         }
@@ -927,9 +783,6 @@ public class Map {
     }
 
     private boolean doorBlockedBelow(Room room, int xPos, int yPos, ArrayList<String> matchingDoors) {
-        System.out.println("doorBlockedBelow()");
-        System.out.println("xPos: " + xPos);
-        System.out.println("yPos: " + yPos);
         ArrayList<Room> roomsBelow = new ArrayList<>();
         int lastRoomAdded = -1;
 
@@ -940,7 +793,6 @@ public class Map {
                 if(roomNumber != -1 && roomNumber != lastRoomAdded && roomNumber != currentRoomNbr) {
                     roomsBelow.add(rooms.get(roomNumber));
                     lastRoomAdded = roomNumber;
-                    System.out.println("Room below: " + roomNumber);
                 }
             }
         }
@@ -970,64 +822,43 @@ public class Map {
     }
 
     private boolean doorsBlocked(Room room, Room roomToCheck, String side, int xPos, int yPos, ArrayList<String> doors) {
-        System.out.println("doorsBlocked()");
 
         // no point in checking anything else if there are no doors to check
         if (!hasDoor(roomToCheck, side)) {
-            System.out.println("Room has no doors that can interfere");
             return true;
         }
-        System.out.println("Doors to ignore:");
         if(doors != null) {
             System.out.println(doors);
         }
 
         // gathers all doors pointing towards the current room
         ArrayList<String> matchingDoors = getDoors(roomToCheck, side);
-        System.out.println("Doors to check in opposite room:");
-        System.out.println(matchingDoors);
 
         for (String door : matchingDoors) {
             int x = getDoorX(roomToCheck, door);
             int y = getDoorY(roomToCheck, door);
 
-            System.out.println("Door: " + door);
-
             if(side.equals("l") || side.equals("r")) {
                 if(!(y < yPos || y >= yPos + room.getHEIGHT())) {
-                    System.out.println("doorsBlocked() failed side: " + side);
-                    System.out.println("Y: " + y);
-                    System.out.println("Room height: " + room.getHEIGHT());
-                    System.out.println("yPos: " + yPos + ", yPos+roomHeight: " + (yPos+room.getHEIGHT()));
                     if(doors != null) {
                         if(!doors.contains(door)) {
-                            System.out.println("doesn't contain side " + side);
                             return false;
                         } else {
-                            System.out.println("failed, but doors fit so it's ok");
                             return true;
                         }
                     } else {
-                        System.out.println("no matching doors to check");
                         return false;
                     }
                 }
             } else {
                 if(!(x < xPos || x >= xPos + room.getWIDTH())) {
-                    System.out.println("doorsBlocked() failed side: " + side);
-                    System.out.println("X: " + x);
-                    System.out.println("Room width: " + room.getWIDTH());
-                    System.out.println("xPos: " + xPos + ", xPos+roomWidth: " + (xPos+room.getWIDTH()));
                     if(doors != null) {
                         if(!doors.contains(door)) {
-                            System.out.println("doesn't contain side " + side);
                             return false;
                         } else {
-                            System.out.println("failed, but doors fit so it's ok");
                             return true;
                         }
                     } else {
-                        System.out.println("no matching doors to check");
                         return false;
                     }
                 }
@@ -1037,10 +868,6 @@ public class Map {
     }
 
     private int getDoorY(Room room, String door) {
-        System.out.println("getDoorY()");
-        System.out.println("Room X: " + room.getX());
-        System.out.println("Room Y: " + room.getY());
-
         String side = door.substring(0,1);
         int cell = Integer.parseInt(door.substring(1));
         int yPos = room.getY();
@@ -1055,10 +882,6 @@ public class Map {
     }
 
     private int getDoorX(Room room, String door) {
-        System.out.println("getDoorX()");
-        System.out.println("Room X: " + room.getX());
-        System.out.println("Room Y: " + room.getY());
-
         String side = door.substring(0,1);
         int cell = Integer.parseInt(door.substring(1));
         int xPos = room.getX();
@@ -1083,10 +906,8 @@ public class Map {
     }
 
     private boolean hasDoor(Room room, String side) {
-        System.out.println("hasDoor()");
         for(String door : room.getDoors()) {
             if(door.substring(0,1).equals(side)) {
-                System.out.println("has doors!");
                 return true;
             }
         }
@@ -1094,7 +915,6 @@ public class Map {
     }
 
     private boolean doorsFit(Room room, int xPos, int yPos, String entranceSide) {
-        System.out.println("doorsFit()");
         boolean retval = true;
         for(String door : room.getDoors()) {
             String side = door.substring(0,1);
@@ -1125,19 +945,10 @@ public class Map {
                 }
 
                 if(x < 0 || y < 0 || x >= 100 || y >= 100) {
-                    System.out.println("Failed door test with door " + door);
-                    System.out.println("X: " + x);
-                    System.out.println("Y: " + y);
-                    if(x >= 0 && x < 100 && y >= 0 && y < 100) {
-                        System.out.println("Room blocking door: " + roomMap[x][y]);
-                    } else {
-                        System.out.println("Failed coordinates");
-                    }
                     return false;
                 }
 
                 if(roomMap[x][y] != -1) {
-                    System.out.println("found room blocking door");
                     int oppositeRoomNumber = roomMap[x][y];
                     Room oppositeRoom = rooms.get(oppositeRoomNumber);
                     ArrayList<String> oppositeRoomDoors = oppositeRoom.getDoors();
@@ -1168,13 +979,9 @@ public class Map {
                             }
 
                             if(x == oppositeDoorX && y == oppositeDoorY && oppositeDoorSide.equals(getOppositeSide(side))) {
-                                System.out.println("DOORS MATCHED (" + oppositeRoomDoor + ")");
-                                System.out.println("x: " + x + ", oX: " + oppositeDoorX);
-                                System.out.println("y: " + y + ", oY: " + oppositeDoorY);
                                 foundMatch = true;
                                 break doorfit;
                             } else {
-                                System.out.println("DOORS DIDN'T MATCH (" + oppositeRoomDoor + ")");
                                 retval = false;
                             }
                         }
@@ -1186,25 +993,6 @@ public class Map {
             }
         }
         return retval;
-    }
-
-    private void initMap() {
-        for(int x = 0; x < roomMap.length; x++) {
-            for(int y = 0; y < roomMap[x].length ; y++) {
-                roomMap[x][y] = -1;
-            }
-        }
-    }
-
-    //TEMPORARY
-    private void printMap() {
-        System.out.println("MAP");
-        for(int x = 0; x < roomMap.length; x++) {
-            System.out.println();
-            for(int y = 0; y < roomMap[x].length ; y++) {
-                System.out.print((roomMap[x][y]+1) + " ");
-            }
-        }
     }
 
     private void addRoom(Room room, int xPos, int yPos, int ID) {
@@ -1294,16 +1082,12 @@ public class Map {
         return currentRoomY + cell-1;
     }
 
-
-
     private void destroyWorld() {
-        rooms.get(currentRoomNbr).getTiledHandler().destroy();
+        getCurrentRoom().getTiledHandler().destroy();
     }
 
     private void rebuildWorld() {
-        System.out.println("rebuildWorld: current room number: " + currentRoomNbr);
-        rooms.get(currentRoomNbr).initRoom();
-
+        getCurrentRoom().initRoom();
         getCurrentRoom().getTiledHandler().setHeroPosition(entrance);
     }
 

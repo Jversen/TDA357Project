@@ -3,7 +3,7 @@ package com.jupiter.rogue.Model.Creatures.Tests;
 import com.jupiter.rogue.Model.Creatures.Creature;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Map.Position;
-import org.junit.Test;
+/*import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -44,7 +44,7 @@ public class CreatureTest extends Creature {
         assertEquals(enemy2.isCreatureDying(), alive);
     } */
 
-    @Test
+    /*@Test
     public void testSetCreatureGrounded() throws Exception {
 
     }
@@ -208,5 +208,5 @@ public class CreatureTest extends Creature {
     @Test
     public void testSetAttackInProgress() throws Exception {
 
-    }
+    }*/
 }
