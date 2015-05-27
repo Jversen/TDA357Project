@@ -3,11 +3,6 @@ package com.jupiter.rogue.Model.Creatures;
 import com.jupiter.rogue.Model.Enums.Direction;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Position;
-import com.jupiter.rogue.Controller.AIBehaviors.AttackBehaviors.AttackBehavior;
-import com.jupiter.rogue.Controller.AIBehaviors.JumpBehaviors.JumpBehavior;
-import com.jupiter.rogue.Controller.AIBehaviors.MoveBehaviors.MoveBehavior;
-
-import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by Johan on 16/04/15.
@@ -26,10 +21,6 @@ public class Enemy extends Creature {
     protected float bodyY;
 
     protected int attackPoints;
-
-    protected AttackBehavior attackBehavior;
-    protected JumpBehavior jumpBehavior;
-    protected MoveBehavior moveBehavior;
 
     protected int attackHitBoxWidth;
     protected int attackHitBoxHeight;
