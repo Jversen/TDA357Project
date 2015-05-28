@@ -36,7 +36,7 @@ public class MyContactListener implements ContactListener {
         // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
 
         if(fa.getUserData() instanceof HeroController || fb.getUserData() instanceof HeroController) {
-            System.out.println("herosensor" + "fa: " + fa.getUserData() + " fb: " + fb.getUserData());
+            //System.out.println("herosensor" + "fa: " + fa.getUserData() + " fb: " + fb.getUserData());
             if(fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
                 map.flagRoomForDestruction("l1");
             }
@@ -80,10 +80,12 @@ public class MyContactListener implements ContactListener {
 
         if (fa.getUserData() instanceof HeroController && fb.getBody().getUserData() instanceof EnemyController) {
             hero.takeDamage(((EnemyController)fb.getBody().getUserData()).getEnemy().getAttackPoints());
-            System.out.println(hero.getCurrentHealthPoints());
+            ((HeroController)fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
+            //System.out.println(hero.getCurrentHealthPoints());
         } else if (fb.getUserData() instanceof HeroController && fa.getBody().getUserData() instanceof EnemyController) {
-            hero.takeDamage(((EnemyController)fa.getBody().getUserData()).getEnemy().getAttackPoints());
-            System.out.println(hero.getCurrentHealthPoints());
+            hero.takeDamage(((EnemyController) fa.getBody().getUserData()).getEnemy().getAttackPoints());
+            ((HeroController)fb.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
+            //System.out.println(hero.getCurrentHealthPoints());
         }
     }
 

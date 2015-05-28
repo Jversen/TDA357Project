@@ -1,5 +1,7 @@
 package com.jupiter.rogue.Controller;
 
+import com.jupiter.rogue.View.View;
+
 /**
  * Created by Johan on 16/04/15.
  */
@@ -9,6 +11,8 @@ public class Controller {
 
     //Singleton instance
     private static Controller instance = null;
+
+    private View view;
 
     private HeroController heroController;
     private WorldController worldController;
@@ -32,6 +36,7 @@ public class Controller {
         worldController = new WorldController();
         userInput = new UserInput();
         mapController = new MapController();
+        view = new View();
         //TODO initialize everything at start of game
     }
 
@@ -39,6 +44,7 @@ public class Controller {
         worldController.update();
         mapController.update();
         heroController.update(userInput.findUserInput());
+        view.update();
 
         //TODO add rest of controllers
     }

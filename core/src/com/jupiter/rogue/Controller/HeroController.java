@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.AttackedBehavior;
+import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.HeroImpact;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.NormalJump;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
@@ -53,6 +54,7 @@ public class HeroController {
 
     private JumpBehavior jumpBehavior;
     private MoveBehavior moveBehavior;
+    private AttackedBehavior takeDamageBehavior;
 
     public HeroController() {
         initHero();
@@ -108,6 +110,7 @@ public class HeroController {
 
         jumpBehavior = new NormalJump(this.body);
         moveBehavior = new Walk(this.body);
+        takeDamageBehavior = new HeroImpact(this.body);
 
         //clears memory
         shape.dispose();
