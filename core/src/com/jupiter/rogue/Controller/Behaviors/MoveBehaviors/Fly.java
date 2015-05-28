@@ -1,7 +1,7 @@
 package com.jupiter.rogue.Controller.Behaviors.MoveBehaviors;
 
 import com.badlogic.gdx.math.Vector2;
-import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Utils.Enums.Direction;
 import com.jupiter.rogue.Controller.Behaviors.Behavior;
 
 /**

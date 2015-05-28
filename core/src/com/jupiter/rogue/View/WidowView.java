@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.jupiter.rogue.Model.Creatures.Widow;
-import com.jupiter.rogue.Model.Enums.MovementState;
+import com.jupiter.rogue.Utils.Enums.MovementState;
 
 /**
  * Created by Johan on 2015-05-10.

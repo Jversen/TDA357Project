@@ -1,15 +1,9 @@
 package com.jupiter.rogue.Controller;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Creatures.Widow;
-import com.jupiter.rogue.Model.Enums.MovementState;
+import com.jupiter.rogue.Utils.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
-import com.jupiter.rogue.Utils.WorldConstants;
-
-import javax.swing.*;
 
 /**
  * Created by hilden on 2015-04-26.

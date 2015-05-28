@@ -1,6 +1,6 @@
 package com.jupiter.rogue.Controller.Behaviors.MoveBehaviors;
 
-import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Utils.Enums.Direction;
 
 /**
  * Created by Oskar on 2015-05-18.

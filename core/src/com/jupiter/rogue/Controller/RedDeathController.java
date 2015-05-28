@@ -2,7 +2,7 @@ package com.jupiter.rogue.Controller;
 
 import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.Vulnerable;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
-import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Controller.Behaviors.AttackBehaviors.MeleeAttack;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.NormalJump;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.Walk;

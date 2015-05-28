@@ -1,8 +1,6 @@
 package com.jupiter.rogue.Model.Map;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Johan on 27/04/15.
@@ -80,20 +78,10 @@ public class RoomFactory {
                 case 4 :    doors.add("l1");
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
-                /*case 7 :    doors.add("l1");
-                            doors.add("l2");
-                            doors.add("r1");
-                            doors.add("r2");
-                            return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);*/
                 case 5 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
-                /*case 9 :    doors.add("l1");
-                            doors.add("r2");
-                            doors.add("t1");
-                            doors.add("r1");
-                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
                 case 6 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
@@ -136,37 +124,21 @@ public class RoomFactory {
                 case 1 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
-
                 case 2 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/17Dl1r1.tmx", 7, 1, doors);
-
                 case 3 :    doors.add("l1");
                             doors.add("r1");
                             doors.add("t1");
                             doors.add("b1");
                             return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
-
                 case 4 :    doors.add("l1");
                             doors.add("r2");
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
-
-                /*case 6 :    doors.add("l1");
-                            doors.add("l2");
-                            doors.add("r1");
-                            doors.add("r2");
-                            return new Room("Rooms/24Dl1r2l2r1.tmx", 4, 2, doors);*/
-
                 case 5 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
-
-                /*case 8 :    doors.add("l1");
-                            doors.add("r2");
-                            doors.add("t1");
-                            doors.add("r1");
-                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
                 case 6 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
@@ -210,13 +182,10 @@ public class RoomFactory {
                             doors.add("t1");
                             doors.add("b1");
                             return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
-
                 case 2 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t1");
                             return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
-
-
                 case 3 :    doors.add("l1");
                             doors.add("t1");
                             return new Room("Rooms/11Dl1t1.tmx", 1, 1, doors);
@@ -243,13 +212,6 @@ public class RoomFactory {
                             doors.add("t1");
                             doors.add("b1");
                             return new Room("Rooms/11Dl1r1t1b1.tmx", 1, 1, doors);
-
-                /*case 3 :    doors.add("l1");
-                            doors.add("r2");
-                            doors.add("t1");
-                            doors.add("r1");
-                            return new Room("Rooms/24Dl1r2t1r1.tmx", 4, 2, doors);*/
-                //more to be added
                 default :
                     System.out.println("default");
                     return null;
@@ -307,83 +269,5 @@ public class RoomFactory {
                                     return new Room("Rooms/BossRoom.tmx", 4, 4, doors);
             default: return null;
         }
-    }
-
-    //TODO probably remove all this
-    public static Room getRoom(int roomWidth, int roomHeight, ArrayList<String> doorPositions) {
-        Room room = null;                                   // Room to be created
-        //TODO actually return the requested room;
-        /*File roomFolder = new File("Rooms");                // The folder that holds all the tmx-files
-        File[] tmxList = roomFolder.listFiles();            // Array that holds all the tmx files
-        ArrayList<String> pathList = new ArrayList<>();     // List that will hold filepaths to all tmx-files that fit the input arguments
-
-        for(File file : tmxList) {
-
-            if(!fileIsValid(file)) {
-                continue;
-            }
-
-            String fileName = file.getName();
-
-            int width = Character.getNumericValue(fileName.charAt(0));
-            int height = Character.getNumericValue(fileName.charAt(1));
-
-            String doorPositionsInFileName = fileName.substring(fileName.indexOf('D'));
-
-            //checks if the requested room size matches the current file
-            if(width == roomWidth && height == roomHeight) {
-                // checks if the number of doors in the current file matches the number of doors requested
-                if(doorPositionsInFileName.length() / 2 < doorPositions.size()) {
-                    ArrayList<String> fileDoorPositions = new ArrayList<>();
-                    int positionIndex = 0;
-
-                    // parses each positionlabel from the file name
-                    while(positionIndex <= doorPositionsInFileName.length()-2) {
-                        fileDoorPositions.add(doorPositionsInFileName.substring(positionIndex, positionIndex + 2));
-                        positionIndex += 2;
-                    }
-
-                    boolean validRoom = true;
-                    for(int i = 0; i < doorPositions.size(); i++) {
-                        if(!fileDoorPositions.contains(doorPositions.get(i))) {
-                            validRoom = false;
-                        }
-                    }
-
-                    if(validRoom) {
-                        pathList.add("Rooms/" + fileName + ".tmx");
-                    }
-                }
-            }
-        }
-
-        String path = null;
-
-        if(pathList.size() > 1) {
-            Random rand = new Random();
-            path = pathList.get(rand.nextInt(pathList.size()));
-        } else {
-            path = pathList.get(0);
-        }
-
-        return new Room(path, roomWidth, roomHeight);*/
-        return null;
-    }
-
-    private static boolean fileIsValid(File file) {
-        if(file == null) {
-
-        }
-        if(file.isDirectory()) {
-            return false;
-        }
-        String fileName = file.getName();
-        try {
-            String twoFirstLetters = fileName.substring(0,2);
-            int i = Integer.parseInt(twoFirstLetters);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
     }
 }

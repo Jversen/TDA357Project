@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.MovementState;
+import com.jupiter.rogue.Utils.Enums.MovementState;
 
 /**
  * Created by hilden on 2015-05-04.

@@ -1,9 +1,9 @@
 package com.jupiter.rogue.Model.Creatures.Tests;
 
 import com.jupiter.rogue.Model.Creatures.Enemy;
-import com.jupiter.rogue.Model.Enums.Direction;
-import com.jupiter.rogue.Model.Enums.MovementState;
-import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Utils.Enums.Direction;
+import com.jupiter.rogue.Utils.Enums.MovementState;
+import com.jupiter.rogue.Utils.Position;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

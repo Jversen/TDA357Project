@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Model.Enums;
+package com.jupiter.rogue.Utils.Enums;
 
 /**
  * Created by Johan on 17/04/15.

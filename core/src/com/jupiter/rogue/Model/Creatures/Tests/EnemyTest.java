@@ -2,7 +2,7 @@ package com.jupiter.rogue.Model.Creatures.Tests;
 
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Utils.Enums.Direction;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
