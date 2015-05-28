@@ -18,6 +18,7 @@ public class Map {
     private ArrayList<String> roomsAdded = new ArrayList<>();
     private int[][] roomMap = new int[100][100]; // TODO change to proper values
     private int currentRoomNbr; //Variable to track what room the hero is currently in.
+    private int bossRoomNumber;
     private int currentRoomX;
     private int currentRoomY;
     private int nextRoom;
@@ -149,6 +150,7 @@ public class Map {
         Room startingRoom = RoomFactory.getRoom("StartingRoom");
         addRoom(startingRoom, currentRoomX, currentRoomY, currentRoomNbr);
         nextRoom = currentRoomNbr+1;
+        startingRoom.setVisited(true);
     }
 
     private void resetRoomInfo() {
@@ -309,6 +311,7 @@ public class Map {
                 String entrance = "l"+getCellNr(bossRoom, "l");
                 entrances.put(nextRoom, entrance);
                 addRoom(bossRoom, x, y, nextRoom);
+                bossRoomNumber = nextRoom;
                 break loop;
             }
         }
@@ -611,8 +614,6 @@ public class Map {
         if(isBlockingDoor(room, xPos, yPos, matchingDoors)) {
             return false;
         }
-
-
         return true;
     }
 
@@ -1077,6 +1078,7 @@ public class Map {
 
     private void rebuildWorld() {
         getCurrentRoom().initRoom();
+        getCurrentRoom().setVisited(true);
         getCurrentRoom().getTiledHandler().setHeroPosition(entrance);
     }
 

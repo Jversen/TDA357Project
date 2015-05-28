@@ -57,6 +57,8 @@ public class View {
 
         Hud hud = Hud.getInstance();
         stage.addActor(hud);
+        MiniMap miniMap = MiniMap.getInstance();
+        stage.addActor(miniMap);
     }
 
     public void update() {

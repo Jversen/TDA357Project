@@ -24,14 +24,14 @@ public class Room {
     private String path;
     private TiledHandler tiledHandler;
     private List<EnemyController> enemyControllers;
-
-
+    private boolean visited;
 
     public Room(String path, int width, int height, ArrayList<String> doors) {
         this.path = path;
         this.WIDTH = width;
         this.HEIGHT = height;
         this.doors = doors;
+        visited = false;
 
         tiledHandler = new TiledHandler(path);
 
@@ -40,7 +40,6 @@ public class Room {
     }
 
     public void initRoom() {
-
         tiledHandler.initRoom();
         placeEnemies();
     }
@@ -52,6 +51,10 @@ public class Room {
                 enemyControllers.get(i).initBody();
             }
         }
+    }
+
+    public boolean getVisited() {
+        return visited;
     }
 }
 
