@@ -1,17 +1,10 @@
 package com.jupiter.rogue.Model.Map;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.jupiter.rogue.Controller.EnemyController;
-import com.jupiter.rogue.Controller.WorldController;
-import com.jupiter.rogue.Model.Creatures.Enemy;
-import com.jupiter.rogue.Utils.WorldConstants;
+import com.jupiter.rogue.Controller.EnemyController; // TODO remove
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
-import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
-import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by Johan on 16/04/15.
@@ -24,7 +17,6 @@ public class Map {
     private ArrayList<Room> rooms;
     private ArrayList<String> roomsAdded = new ArrayList<>();
     private int[][] roomMap = new int[100][100]; // TODO change to proper values
-    private HashMap<RoomExit, RoomExit> exitMap = new HashMap<>();
     private int currentRoomNbr; //Variable to track what room the hero is currently in.
     private int currentRoomX;
     private int currentRoomY;
