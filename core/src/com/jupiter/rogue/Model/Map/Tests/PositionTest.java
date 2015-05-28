@@ -1,6 +1,6 @@
 package com.jupiter.rogue.Model.Map.Tests;
 
-import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Utils.Position;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

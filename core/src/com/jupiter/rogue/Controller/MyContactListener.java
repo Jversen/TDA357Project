@@ -2,7 +2,7 @@ package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.MovementState;
+import com.jupiter.rogue.Utils.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
 
 /**

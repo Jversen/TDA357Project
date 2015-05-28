@@ -3,7 +3,7 @@ package com.jupiter.rogue.Controller.Behaviors.AttackBehaviors;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.Direction;
+import com.jupiter.rogue.Utils.Enums.Direction;
 import com.jupiter.rogue.Controller.Behaviors.Behavior;
 import com.jupiter.rogue.Utils.WorldConstants;
 

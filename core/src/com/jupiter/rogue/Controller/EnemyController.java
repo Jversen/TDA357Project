@@ -3,14 +3,14 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Controller.Behaviors.AttackBehaviors.AttackBehavior;
-import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.enemyImpact;
+import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.Impact;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Enums.Direction;
-import com.jupiter.rogue.Model.Enums.MovementState;
-import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Utils.Enums.Direction;
+import com.jupiter.rogue.Utils.Enums.MovementState;
+import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.View.EnemyView;
 
@@ -32,7 +32,7 @@ public abstract class EnemyController {
     protected AttackBehavior attackBehavior;
     protected JumpBehavior jumpBehavior;
     protected MoveBehavior moveBehavior;
-    protected enemyImpact takeDamageBehavior;
+    protected Impact takeDamageBehavior;
 
     //Hitbox handling
     private PolygonShape shape;

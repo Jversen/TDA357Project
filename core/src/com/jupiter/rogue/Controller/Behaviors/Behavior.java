@@ -1,7 +1,7 @@
 package com.jupiter.rogue.Controller.Behaviors;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import com.jupiter.rogue.Model.Map.Position;
+import com.jupiter.rogue.Utils.Position;
 
 /**
  * Created by Oskar on 2015-05-19.

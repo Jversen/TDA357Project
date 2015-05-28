@@ -1,17 +1,10 @@
 package com.jupiter.rogue.Model.Map;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.jupiter.rogue.Controller.EnemyController;
-import com.jupiter.rogue.Controller.WorldController;
-import com.jupiter.rogue.Model.Creatures.Enemy;
-import com.jupiter.rogue.Utils.WorldConstants;
+import com.jupiter.rogue.Controller.EnemyController; // TODO remove
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
-import static com.jupiter.rogue.Utils.WorldConstants.BODIES;
-import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by Johan on 16/04/15.
@@ -24,7 +17,6 @@ public class Map {
     private ArrayList<Room> rooms;
     private ArrayList<String> roomsAdded = new ArrayList<>();
     private int[][] roomMap = new int[100][100]; // TODO change to proper values
-    private HashMap<RoomExit, RoomExit> exitMap = new HashMap<>();
     private int currentRoomNbr; //Variable to track what room the hero is currently in.
     private int currentRoomX;
     private int currentRoomY;
@@ -82,18 +74,13 @@ public class Map {
 
     public void createMap() {
         initMap();
-        Room startingRoom = RoomFactory.getRoom("StartingRoom");
-        currentRoomNbr = 0;
-        currentRoomX = 0;
-        currentRoomY = 50;
-        addRoom(startingRoom, currentRoomX, currentRoomY, currentRoomNbr);
+        addStartingRoom();
 
         String entranceSide = "l";
         boolean moreRooms = true;
         boolean mapFinished = false;
         boolean firstRun = true;
         boolean bossRoomAdded = false;
-        nextRoom = currentRoomNbr+1;
 
         while(!mapFinished) {
 
@@ -125,30 +112,9 @@ public class Map {
                 }
             }
 
-                if(left == 1 && !entranceSide.equals("l") && !doorAlreadyFitted("l")) {
-                    findAddRoom(moreRooms, "l");
-                }
-
-                if(right == 1 && !entranceSide.equals("r") && !doorAlreadyFitted("r")) {
-                    findAddRoom(moreRooms, "r");
-                }
-
-                if(top == 1 && !entranceSide.equals("t") && !doorAlreadyFitted("t")) {
-                    findAddRoom(moreRooms, "t");
-                }
-
-                if(bottom == 1 && !entranceSide.equals("b") && !doorAlreadyFitted("b")) {
-                    findAddRoom(moreRooms, "b");
-                }
-
-
-            currentRoomNbr += 1;
-            setNewRoomPosition();
-
-            while(currentRoomNbr < rooms.size() && !doorsLeft()) {
-                currentRoomNbr += 1;
-                setNewRoomPosition();
-            }
+            addRooms(left, right, top, bottom, entranceSide, moreRooms);
+            incrementRoomNumber();
+            moveToNextRoom();
 
             if(rooms.size() > 40 && !bossRoomAdded) {
                 moreRooms = false;
@@ -161,9 +127,7 @@ public class Map {
             }
         }
 
-        currentRoomNbr = 0; // resets the value to the starting room
-        currentRoomX = 0;
-        currentRoomY = 50;
+        resetRoomInfo();
 
         /* Destroys all created enemy bodies, they will be recreated later when the player enters the right
         rooms
@@ -172,11 +136,50 @@ public class Map {
         getCurrentRoom().initRoom();
     }
 
+    private void moveToNextRoom() {
+        while(currentRoomNbr < rooms.size() && !doorsLeft()) {
+            incrementRoomNumber();
+        }
+    }
+
+    private void incrementRoomNumber() {
+        currentRoomNbr += 1;
+        setNewRoomPosition();
+    }
+
+    private void addStartingRoom() {
+        Room startingRoom = RoomFactory.getRoom("StartingRoom");
+        addRoom(startingRoom, currentRoomX, currentRoomY, currentRoomNbr);
+        nextRoom = currentRoomNbr+1;
+    }
+
+    private void resetRoomInfo() {
+        currentRoomNbr = 0; // resets the value to the starting room
+        currentRoomX = 0;
+        currentRoomY = 50;
+    }
+
     private void initMap() {
+        resetRoomInfo();
         for(int x = 0; x < roomMap.length; x++) {
             for(int y = 0; y < roomMap[x].length ; y++) {
                 roomMap[x][y] = -1;
             }
+        }
+    }
+
+    private void addRooms(int left, int right, int top, int bottom, String entranceSide, boolean moreRooms) {
+        if(left == 1 && !entranceSide.equals("l") && !doorAlreadyFitted("l")) {
+            findAddRoom(moreRooms, "l");
+        }
+        if(right == 1 && !entranceSide.equals("r") && !doorAlreadyFitted("r")) {
+            findAddRoom(moreRooms, "r");
+        }
+        if(top == 1 && !entranceSide.equals("t") && !doorAlreadyFitted("t")) {
+            findAddRoom(moreRooms, "t");
+        }
+        if(bottom == 1 && !entranceSide.equals("b") && !doorAlreadyFitted("b")) {
+            findAddRoom(moreRooms, "b");
         }
     }
 
@@ -822,13 +825,9 @@ public class Map {
     }
 
     private boolean doorsBlocked(Room room, Room roomToCheck, String side, int xPos, int yPos, ArrayList<String> doors) {
-
         // no point in checking anything else if there are no doors to check
         if (!hasDoor(roomToCheck, side)) {
             return true;
-        }
-        if(doors != null) {
-            System.out.println(doors);
         }
 
         // gathers all doors pointing towards the current room
@@ -926,20 +925,16 @@ public class Map {
                 int y = -1;
 
                 switch (side) {
-                    case "l" :  System.out.println("Testing door: " + door);
-                                x = xPos - 1;
+                    case "l" :  x = xPos - 1;
                                 y = yPos + cell - 1;
                                 break;
-                    case "r" :  System.out.println("Testing door: " + door);
-                                x = xPos + room.getWIDTH();
+                    case "r" :  x = xPos + room.getWIDTH();
                                 y = yPos + cell - 1;
                                 break;
-                    case "t" :  System.out.println("Testing door: " + door);
-                                x = xPos + cell - 1;
+                    case "t" :  x = xPos + cell - 1;
                                 y = yPos + room.getHEIGHT();
                                 break;
-                    case "b" :  System.out.println("Testing door: " + door);
-                                x = xPos + cell - 1;
+                    case "b" :  x = xPos + cell - 1;
                                 y = yPos -1;
                                 break;
                 }
@@ -1044,7 +1039,7 @@ public class Map {
 
         setNewRoomPosition();
 
-        int entranceCell = 0;
+        int entranceCell;
 
         if(entranceSide.equals("r") || entranceSide.equals("l")) {
             entranceCell = Math.abs(currentRoomY-newRoomY+1);

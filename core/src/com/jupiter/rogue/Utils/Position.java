@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Model.Map;
+package com.jupiter.rogue.Utils;
 
 /**
  * Created by Johan on 2015-04-16.
