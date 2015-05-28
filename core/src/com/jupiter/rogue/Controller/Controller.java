@@ -12,12 +12,11 @@ public class Controller {
     //Singleton instance
     private static Controller instance = null;
 
-    private View view;
-
     private HeroController heroController;
     private WorldController worldController;
     private UserInput userInput;
     private MapController mapController;
+    private View view;
 
     public static Controller getInstance() {
         if (instance == null) {
@@ -32,11 +31,11 @@ public class Controller {
     }
 
     private void initController() {
-        heroController = new HeroController();
         worldController = new WorldController();
+        heroController = new HeroController();
         userInput = new UserInput();
         mapController = new MapController();
-        view = new View();
+        view = View.getInstance();
         //TODO initialize everything at start of game
     }
 
@@ -44,8 +43,16 @@ public class Controller {
         worldController.update();
         mapController.update();
         heroController.update(userInput.findUserInput());
+        newRoomCheck();
         view.update();
+    }
 
-        //TODO add rest of controllers
+    private void newRoomCheck(){
+        if(mapController.getMap().isEnteredNewRoom()){
+            mapController.remakeEnemyControllers();
+            mapController.placeEnemyBodies();
+            view.remakeEnemyViews();
+            mapController.getMap().setEnteredNewRoom(false);
+        }
     }
 }

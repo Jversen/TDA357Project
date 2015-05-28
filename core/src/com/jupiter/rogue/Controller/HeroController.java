@@ -68,13 +68,15 @@ public class HeroController {
         timer = new Timer();
         weaponReady = true;
 
-        Position startPosition = WorldConstants.HERO_START_POSITION;
+        Position startPosition = new Position(WorldConstants.HERO_START_XPOS,
+                WorldConstants.HERO_START_YPOS);
 
         //creates a shapeless body for the player
         BodyDef playerBodyDef = new BodyDef();
         playerBodyDef.type = BodyDef.BodyType.DynamicBody;
         playerBodyDef.fixedRotation = true;
         playerBodyDef.position.set(startPosition.getXPos() / PPM, startPosition.getYPos() / PPM);
+        System.out.println("Startposition: " + startPosition.getXPos() / PPM + ", " + startPosition.getYPos() / PPM);
 
         //creates the shape of the playerBodyDef
         shape = new PolygonShape();

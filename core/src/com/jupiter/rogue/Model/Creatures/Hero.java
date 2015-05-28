@@ -3,6 +3,7 @@ package com.jupiter.rogue.Model.Creatures;
 import com.jupiter.rogue.Utils.Enums.Direction;
 import com.jupiter.rogue.Utils.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.*;
+import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Utils.WorldConstants;
 
 /**
@@ -29,7 +30,8 @@ public class Hero extends Creature {
     private int intellect;
     private int statPoints;
 
-    private Hero (float xPos, float yPos) {
+    private Hero () {
+        position = new Position();
         this.creatureGrounded = false;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
@@ -51,14 +53,15 @@ public class Hero extends Creature {
         this.creatureDead = false;
         this.invulnerable = false;
 
-        this.position = WorldConstants.HERO_START_POSITION;
+        this.setPosition(WorldConstants.HERO_START_XPOS,
+        WorldConstants.HERO_START_YPOS);
         this.movementState = MovementState.STANDING;
         this.direction = Direction.RIGHT;
     }
 
     public static Hero getInstance() {
         if(instance == null) {
-            instance = new Hero(100,100);
+            instance = new Hero();
         }
         return instance;
     }

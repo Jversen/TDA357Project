@@ -16,13 +16,12 @@ public class WidowController extends EnemyController {
 
     private Position startPosition;
 
-    public WidowController(float xPos, float yPos, int level, boolean elite) {
-        Widow widow = new Widow(xPos, yPos, level, elite);
+    public WidowController(Widow widow) {
         this.enemy = widow;
+        //TODO posibly change view instantiation?
         this.enemyView = new WidowView(widow);
 
         startPosition = enemy.getPosition();
-        initBody();
     }
 
     @Override

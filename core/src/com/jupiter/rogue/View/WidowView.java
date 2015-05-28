@@ -34,15 +34,15 @@ public class WidowView extends EnemyView {
 
         spritesheetPathIdle = "Data//EnemyAnimations//Widow//idle//widowIdle.png";
         atlasFilePathIdle = "Data//EnemyAnimations//Widow//idle//widowIdle.atlas";
-        animationSpeedIdle = 1 / 20f;
+        animationSpeedIdle = 1 / 33f;
 
         spritesheetPathDying = "Data/EnemyAnimations/Widow/dyingFront/widowDyingFront.png";
         atlasFilePathDying = "Data/EnemyAnimations/Widow/dyingFront/widowDyingFront.atlas";
-        animationSpeedDying = 1 / 20f;
+        animationSpeedDying = 1 / 33f;
 
         spritesheetPathAttacking = "Data//EnemyAnimations//Widow//attacking//widowIdle.png"; //This png and atlas has the wrong names but are correct.
         atlasFilePathAttacking = "Data//EnemyAnimations//Widow//attacking//widowIdle.atlas";
-        animationSpeedAttacking = 1/30f;
+        animationSpeedAttacking = 1/33f;
 
         sprite = new Sprite();
         spriteBatch = new SpriteBatch();

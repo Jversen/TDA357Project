@@ -11,6 +11,7 @@ import com.jupiter.rogue.Utils.Position;
 @lombok.Data
 public class Enemy extends Creature {
 
+    protected String enemyType;
     private boolean flying;
     private float attackRange;
     private int jumpHeight;

@@ -6,6 +6,7 @@ import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Controller.Behaviors.AttackBehaviors.MeleeAttack;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.NormalJump;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.Walk;
+import com.jupiter.rogue.Utils.WorldConstants;
 import com.jupiter.rogue.View.RedDeathView;
 
 /**
@@ -16,13 +17,11 @@ public class RedDeathController extends EnemyController{
 
     private Position startPosition;
 
-    public RedDeathController(float xPos, float yPos, int level, boolean elite) {
-        RedDeath redDeath = new RedDeath(xPos, yPos, level, elite);
+    public RedDeathController(RedDeath redDeath) {
         this.enemy = redDeath;
+        //TODO posibly change view instantiation?
         this.enemyView = new RedDeathView(redDeath);
-
         startPosition = enemy.getPosition();
-        initBody();
     }
 
     @Override

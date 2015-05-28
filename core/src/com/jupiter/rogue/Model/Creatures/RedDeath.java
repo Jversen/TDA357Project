@@ -10,7 +10,7 @@ public class RedDeath extends Enemy {
 
         super(100, 100, 25, 25, 1, 6, true, xPos, yPos, level, elite);
 
-
+        this.enemyType = "redDeath";
         this.attackHitBoxWidth = 5;
         this.attackHitBoxHeight = 5;
         this.attackHitBoxX = 9;

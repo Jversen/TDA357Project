@@ -10,9 +10,17 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.jupiter.rogue.Controller.RedDeathController;
+import com.jupiter.rogue.Controller.WidowController;
+import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Creatures.RedDeath;
+import com.jupiter.rogue.Model.Creatures.Widow;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
@@ -22,6 +30,7 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 @lombok.Data
 public class View {
 
+    private static View instance = null;
     private Texture img;
     private TiledMap tiledMap;
     private OrthographicCamera camera;
@@ -32,16 +41,18 @@ public class View {
     private Map map;
     private SpriteBatch batch;
     private Stage stage; //Scene2d stage
-
+    private List<EnemyView> enemyViews;
+    private List<Enemy> enemies;
     ExtendViewport vp;
 
     private HeroView heroView;
 
     Box2DDebugRenderer debugRenderer;
 
-    public View() {
+    private View() {
 
         heroView = HeroView.getInstance();
+        enemyViews = new ArrayList<>();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth() *2;
@@ -59,6 +70,13 @@ public class View {
         stage.addActor(hud);
         MiniMap miniMap = MiniMap.getInstance();
         stage.addActor(miniMap);
+    }
+
+    public static View getInstance() {
+        if(instance == null) {
+            instance = new View();
+        }
+        return instance;
     }
 
     public void update() {
@@ -83,9 +101,8 @@ public class View {
 
         heroView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
 
-            for (int i = 0; i < map.getCurrentRoom().getEnemyControllers().size(); i++) {
-                map.getCurrentRoom().getEnemyControllers().get(i).getEnemyView().
-                        updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
+        for (int i = 0; i < enemyViews.size(); i++) {
+                enemyViews.get(i).updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
             }
 
         camera.setToOrtho(false, w / PPM, h / PPM);
@@ -96,6 +113,7 @@ public class View {
 
         stage.draw();
     }
+
 
     private void moveCamera(float x, float y){
         camera.position.set(x, y, 0);
@@ -129,5 +147,26 @@ public class View {
             y = roomHeight-122;
         }
         return y;
+    }
+
+    public void remakeEnemyViews(){
+
+        String enemyType;
+        enemyViews.clear();
+        enemies = map.getCurrentRoom().getEnemies();
+
+        if(enemies != null) {
+            for (int i = 0; i < enemies.size(); i++){
+                enemyType = enemies.get(i).getEnemyType();
+
+                switch (enemyType){
+                    case("widow"): enemyViews.add(new WidowView((Widow) enemies.get(i)));
+                        break;
+                    case("redDeath"):
+                        enemyViews.add(new RedDeathView((RedDeath) enemies.get(i)));
+                        break;
+                }
+            }
+        }
     }
 }

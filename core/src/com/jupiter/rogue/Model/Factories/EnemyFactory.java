@@ -1,4 +1,4 @@
-package com.jupiter.rogue.Utils;
+package com.jupiter.rogue.Model.Factories;
 
 import com.jupiter.rogue.Controller.EnemyController;
 import com.jupiter.rogue.Model.Creatures.Enemy;
@@ -11,5 +11,5 @@ import com.jupiter.rogue.Model.Creatures.Widow;
 
 public interface EnemyFactory {
 
-    EnemyController createEnemy(float xPos, float yPos, int level, boolean elite);
+    Enemy createEnemy(float xPos, float yPos, int level, boolean elite);
 }

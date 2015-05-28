@@ -10,11 +10,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Controller.EnemyController;
-import com.jupiter.rogue.Controller.WorldController;
 import com.jupiter.rogue.Model.Creatures.Enemy;
+import com.jupiter.rogue.Model.Factories.EnemyFactory;
+import com.jupiter.rogue.Model.Factories.RedDeathFactory;
+import com.jupiter.rogue.Model.Factories.WidowFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -32,12 +33,10 @@ public class TiledHandler {
     private MapLayer enemySpawnLayer;
     private float roomWidth;
     private float roomHeight;
-    ArrayList<EnemyController> enemyControllers;
 
     public TiledHandler(String path) {
         tiledMap = new TmxMapLoader().load(path);
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
-        enemyControllers = new ArrayList<EnemyController>();
 
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
@@ -48,8 +47,6 @@ public class TiledHandler {
         if (tiledMap.getLayers().getCount() >= 4){
             enemySpawnLayer = tiledMap.getLayers().get(3);
         }
-
-        generateEnemies();
 
     }
 
@@ -209,62 +206,8 @@ public class TiledHandler {
         }
     }
 
-    public void generateEnemies(){
-
-        EnemyFactory enemyFactory;
-        String enemyType;
-        EnemyController enemyController;
-        float xPos;
-        float yPos;
-
-        if (enemySpawnLayer != null) {
-            for (int i = 0; i <= enemySpawnLayer.getObjects().getCount()-1; i++) {
-
-                /* checks the (enemy)type of the object. If it's "random", change to a random EnemyFactory.*/
-                MapProperties properties = enemySpawnLayer.getObjects().get(i).getProperties();
-
-                enemyType = properties.get("type").toString();
-
-                /* Divides position with PPM, we want to set the BODY's position. */
-                xPos = (float) properties.get("x") / PPM;
-                yPos = (float) properties.get("y") / PPM;
-
-                if (enemyType.equals("random")){
-                    enemyType = getRandomEnemyType();
-                    //TODO possibly randomize position and level/elite as well.
-                }
-
-                /* Creates the chosen enemy factory */
-                enemyFactory = createEnemyFactory(enemyType);
-
-                /* Creates the enemyController, which contains the enemy model and view. */
-                enemyController = enemyFactory.createEnemy(xPos, yPos, 1, false);
-
-                enemyControllers.add(enemyController);
-            }
-        }
-
-    }
 
 
-    private EnemyFactory createEnemyFactory(String enemyType){
-        switch (enemyType){
-            case "widow": return new WidowFactory();
-            case "redDeath": return new RedDeathFactory();
-            default: return new WidowFactory();
-        }
-    }
-
-    private String getRandomEnemyType() {
-        Random rn = new Random();
-        int enemyTypeIndex;
-        String enemyType;
-
-        enemyTypeIndex = rn.nextInt(WorldConstants.ENEMYTYPES.length);
-        enemyType = WorldConstants.ENEMYTYPES[enemyTypeIndex];
-
-        return enemyType;
-    }
 
     public TiledMapRenderer getRenderer() {
         return renderer;
@@ -274,26 +217,13 @@ public class TiledHandler {
 
         for(Body body : BODIES) {
             if(body.getUserData() != null){
-                if((body.getUserData().equals("room") || body.getUserData().equals("sensor"))) {
+                if((body.getUserData().equals("room") || body.getUserData().equals("sensor") ||
+                        body.getUserData() instanceof EnemyController)) {
                     //body.setUserData("dead");
                     WorldConstants.CURRENT_WORLD.destroyBody(body);
-                } else if(body.getUserData() instanceof EnemyController){
-
-                        EnemyController enemyController = (EnemyController)body.getUserData();
-                        Enemy enemy = enemyController.getEnemy();
-
-                        /* I found the PPM multiplication necessary but it is a bit strange.
-                        Should probably look into bo2d/rendering conversions. */
-                        float x = enemy.getX() * PPM;
-                        float y = enemy.getY() * PPM;
-
-                        enemy.setPosition(x, y);
-                       // body.setUserData("dead");
-                        WorldConstants.CURRENT_WORLD.destroyBody(body);
-                    }
-
-
                 }
+
+            }
         }
     }
 }

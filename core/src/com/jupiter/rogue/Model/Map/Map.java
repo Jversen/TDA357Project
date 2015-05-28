@@ -1,10 +1,12 @@
 package com.jupiter.rogue.Model.Map;
 
-import com.jupiter.rogue.Controller.EnemyController; // TODO remove
+import com.jupiter.rogue.Model.Creatures.Enemy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
+import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
  * Created by Johan on 16/04/15.
@@ -25,6 +27,7 @@ public class Map {
     private String exit;
     private String entrance;
     private boolean destroyRoom = false;
+    private boolean enteredNewRoom = true; // For check by MapController
     private HashMap<Integer, String> entrances = new HashMap<>();
 
     // these arraylists store all recently added rooms
@@ -58,17 +61,7 @@ public class Map {
             switchRoom();
         }
 
-        //TODO remove/change all this
-        //Updates all the individual enemies in the current room, also removes them if they die.
-        for (int i = 0; i < getCurrentRoom().getEnemyControllers().size(); i++) {
-            EnemyController enemyController = getCurrentRoom().getEnemyControllers().get(i);
-            if (!enemyController.getEnemy().isCreatureDead()) {
-                enemyController.update();
-            } else {
-                enemyController.getBody().setUserData("dead");
-                getCurrentRoom().getEnemyControllers().remove(i);
-            }
-        }
+
     }
 
     public void createMap() {
@@ -128,10 +121,13 @@ public class Map {
 
         resetRoomInfo();
 
+        getCurrentRoom().generateEnemies();
         /* Destroys all created enemy bodies, they will be recreated later when the player enters the right
         rooms
          */
-        getCurrentRoom().getTiledHandler().destroy();
+        //getCurrentRoom().getTiledHandler().destroy();
+        destroyWorld();
+
         getCurrentRoom().initRoom();
     }
 
@@ -1003,6 +999,7 @@ public class Map {
         changeActiveRoom();
         rebuildWorld();
         destroyRoom = false;
+        enteredNewRoom = true;
 
     }
 
@@ -1073,7 +1070,23 @@ public class Map {
     }
 
     private void destroyWorld() {
+
         getCurrentRoom().getTiledHandler().destroy();
+        //correctEnemyPos();
+    }
+
+    /**
+     * Adjusting Enemy positions to account for LibGDX/Box2D conversions of position
+     */ //TODO implement this correctly
+    private void correctEnemyPos() {
+        for (int i = 0; i < getCurrentRoom().getEnemies().size(); i++) {
+            Enemy enemy = getCurrentRoom().getEnemies().get(i);
+
+            float x = enemy.getX() * PPM;
+            float y = enemy.getY() * PPM;
+            System.out.println(x + " " + y);
+            enemy.setPosition(x, y);
+        }
     }
 
     private void rebuildWorld() {
