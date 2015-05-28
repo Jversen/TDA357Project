@@ -40,8 +40,6 @@ public class Map {
     private ArrayList<Integer> conRoomT = new ArrayList<>();
     private ArrayList<Integer> conRoomB = new ArrayList<>();
 
-
-
     private Map() {
         rooms = new ArrayList<>();
         createMap();
@@ -434,7 +432,6 @@ public class Map {
     }
 
     private int getPseudoRandomT(boolean exit, boolean connectiveRoom) {
-        System.out.println(exitT);
         Random rand = new Random();
         if(exit && !connectiveRoom) {
             while(exitT.size() < RoomFactory.ROOMS_WITH_EXIT_DOOR_TOP){
@@ -546,7 +543,6 @@ public class Map {
     private boolean doorsLeft() {
         ArrayList<String> doors = getCurrentRoom().getDoors();
         for (String door : doors) {
-            System.out.println(door);
             String entranceSide = door.substring(0, 1);
             int entranceCell = Integer.parseInt(door.substring(1));
 
@@ -581,8 +577,6 @@ public class Map {
 
     private int getCellNr(Room room, String sideToBeFound) {
         ArrayList<String> doors = room.getDoors();
-
-        System.out.println(doors);
         int cellNr = -1;
         for(String door : doors) {
             String side = door.substring(0,1);
