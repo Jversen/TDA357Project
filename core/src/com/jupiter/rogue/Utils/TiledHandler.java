@@ -66,7 +66,7 @@ public class TiledHandler {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Maplayer doesn't exist");
         }
-        
+
         roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
         roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
 

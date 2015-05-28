@@ -44,8 +44,9 @@ public class View implements Screen{
     private Stage stage; //Scene2d stage
     private List<EnemyView> enemyViews;
     private List<Enemy> enemies;
-
     private boolean showDebugInfo = true;
+    private ChestView chestView;
+
     ExtendViewport vp;
 
     private HeroView heroView;
@@ -100,7 +101,6 @@ public class View implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         tiledMapRenderer.setView(camera);
-        tiledMapRenderer.renderObjects(map.getCurrentRoom().getTiledHandler().getChestLayer());
         tiledMapRenderer.render();
 
         heroView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
