@@ -39,11 +39,12 @@ public class TiledHandler {
     private MapLayer chestLayer;
     private float roomWidth;
     private float roomHeight;
-    ArrayList<Chest> chests;
+    List<Chest> chests;
 
     public TiledHandler(String path) {
         tiledMap = new TmxMapLoader().load(path);
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
+        chests = new ArrayList<Chest>();
 
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
@@ -53,18 +54,24 @@ public class TiledHandler {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Maplayer doesn't exist");
         }
+
         try {
             enemySpawnLayer = (TiledMapTileLayer) tiledMap.getLayers().get(5);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Maplayer doesn't exist");
         }
+
         try {
             chestLayer = (TiledMapTileLayer) tiledMap.getLayers().get(6);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Maplayer doesn't exist");
         }
+        
         roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
         roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
+
+        createChests();
+
     }
 
     public void initRoom() {
@@ -415,21 +422,23 @@ public class TiledHandler {
         Random rn = new Random();
         int chestTypeIndex;
 
-        for (int i = 0; i <= chestLayer.getObjects().getCount() - 1; i++) {
+        if (chestLayer != null) {
+            for (int i = 0; i <= chestLayer.getObjects().getCount() - 1; i++) {
+                MapProperties properties = chestLayer.getObjects().get(i).getProperties();
+                if (properties.get("type") != null) {
+                    chestType = properties.get("type").toString();
+                } else {
+                    chestType = "random";
+                }
 
-            MapProperties properties = chestLayer.getObjects().get(i).getProperties();
+                if (!chestType.contains(chestType)) {
+                    chestTypeIndex = rn.nextInt(WorldConstants.CHESTTYPES.size());
+                    chestType = WorldConstants.CHESTTYPES.get(chestTypeIndex);
+                }
+                chestFactory = new ChestFactory(chestType);
 
-            chestType = properties.get("type").toString();
-
-            if(!chestType.contains(chestType)) {
-                chestTypeIndex = rn.nextInt(WorldConstants.CHESTTYPES.size());
-                chestType = WorldConstants.CHESTTYPES.get(chestTypeIndex);
+                chests.add(chestFactory.createChest());
             }
-            chestFactory = new ChestFactory(chestType);
-
-            chests.add(chestFactory.createChest());
-
-
         }
     }
 

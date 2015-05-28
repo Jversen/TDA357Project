@@ -14,6 +14,7 @@ public class ChestFactory {
         switch (chestType) {
             case ("weapon"): return new Chest(chestType);
             case ("ring"): return new Chest(chestType);
+            default: return new Chest("weapon");
         }
     }
 }

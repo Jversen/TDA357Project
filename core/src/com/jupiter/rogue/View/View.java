@@ -100,6 +100,7 @@ public class View implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         tiledMapRenderer.setView(camera);
+        tiledMapRenderer.renderObjects(map.getCurrentRoom().getTiledHandler().getChestLayer());
         tiledMapRenderer.render();
 
         heroView.updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
