@@ -3,7 +3,7 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Controller.Behaviors.AttackBehaviors.AttackBehavior;
-import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.Vulnerable;
+import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.enemyImpact;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Model.Creatures.Enemy;
@@ -32,7 +32,7 @@ public abstract class EnemyController {
     protected AttackBehavior attackBehavior;
     protected JumpBehavior jumpBehavior;
     protected MoveBehavior moveBehavior;
-    protected Vulnerable takeDamageBehavior;
+    protected enemyImpact takeDamageBehavior;
 
     //Hitbox handling
     private PolygonShape shape;
@@ -88,16 +88,18 @@ public abstract class EnemyController {
                 timer.schedule(new SetCreatureDeadTask(), 1450);
             }
         } else {
-            enemy.setEnemyDirection();
-            if (heroNotNear()) {
-                enemy.relax();
-            } else if (!heroInRange() && !heroNotNear()) {
+            if (!enemy.isIncapacitated()) {
                 enemy.setEnemyDirection();
-                enemy.walk(enemy.getDirection());
-                moveBehavior.move(enemy.getDirection(), enemy.getMovementSpeed());
-            } else {
-                if (attackReady) {
-                    attack();
+                if (heroNotNear()) {
+                    enemy.relax();
+                } else if (!heroInRange() && !heroNotNear()) {
+                    enemy.setEnemyDirection();
+                    enemy.walk(enemy.getDirection());
+                    moveBehavior.move(enemy.getDirection(), enemy.getMovementSpeed());
+                } else {
+                    if (attackReady) {
+                        attack();
+                    }
                 }
             }
         }

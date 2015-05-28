@@ -34,7 +34,7 @@ public class HeroView extends CreatureView {
 
         spritesheetPathRun = "Data//HeroAnimations//HeroRunning//HeroRunningRight.png";
         atlasFilePathRun = "Data//HeroAnimations//HeroRunning//HeroRunningRight.atlas";
-        animationSpeedRun = 1 / 10f;
+        animationSpeedRun = 1 / 13f;
 
         spritesheetPathIdle = "Data//HeroAnimations//HeroIdle//HeroIdle.png";
         atlasFilePathIdle = "Data//HeroAnimations//HeroIdle//HeroIdle.atlas";

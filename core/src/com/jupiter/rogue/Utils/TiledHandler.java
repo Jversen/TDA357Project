@@ -171,11 +171,11 @@ public class TiledHandler {
         shape.setAsBox((obstacleLength * TILE_SIZE)/ 2 / PPM, TILE_SIZE/2 / PPM);
         fixtureDef.shape = shape;
 
-        body.createFixture(fixtureDef).setUserData("obstacle");
+        Fixture roomFixture = body.createFixture(fixtureDef);
+        roomFixture.setFriction(10f);
+        roomFixture.setUserData("obstacle");
 
         shape.dispose();
-
-
     }
 
     //TODO expand this to fit more positions
@@ -255,7 +255,7 @@ public class TiledHandler {
         }
     }
 
-    private String getRandomEnemyType(){
+    private String getRandomEnemyType() {
         Random rn = new Random();
         int enemyTypeIndex;
         String enemyType;

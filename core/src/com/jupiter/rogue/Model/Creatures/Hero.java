@@ -33,7 +33,7 @@ public class Hero extends Creature {
         this.creatureGrounded = false;
         this.maxHealthPoints = 100;
         this.currentHealthPoints = maxHealthPoints;
-        this.movementSpeed = 5;
+        this.movementSpeed = 4;
         this.meleeCurrentWeapon = true;
 
         //Starting weapons

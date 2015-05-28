@@ -29,6 +29,7 @@ public abstract class Creature {
 
     protected boolean attackInProgress;
 
+    protected boolean incapacitated;
     protected boolean invulnerable;
     protected Timer timer = new Timer();
 
@@ -41,7 +42,8 @@ public abstract class Creature {
         if (!invulnerable) {
             currentHealthPoints = currentHealthPoints - incomingDamage;
             invulnerable = true;
-            timer.schedule(new RemoveInvulnerabilityTask(), 1000);
+            incapacitated = true;
+            timer.schedule(new RemoveInvulnerabilityTask(), 500);
         }
     }
 
@@ -125,6 +127,7 @@ public abstract class Creature {
     class RemoveInvulnerabilityTask extends TimerTask {
         public void run() {
             invulnerable = false;
+            incapacitated = false;
         }
     }
 }

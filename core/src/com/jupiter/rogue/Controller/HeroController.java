@@ -3,6 +3,7 @@ package com.jupiter.rogue.Controller;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.AttackedBehavior;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.NormalJump;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
@@ -88,7 +89,7 @@ public class HeroController {
         body = WorldConstants.CURRENT_WORLD.createBody(playerBodyDef);
 
         body.setUserData("hero");
-        body.createFixture(playerFixtureDef).setUserData("hero"); //naming the herofixture hero.
+        body.createFixture(playerFixtureDef).setUserData(this); //naming the herofixture hero.
 
         WorldConstants.BODIES.add(body);
         //hero.setBody(body);
@@ -114,7 +115,9 @@ public class HeroController {
 
     public void update(ArrayList<Integer> keys){
         updatePhysics();
-        updateMoves(keys);
+        if (!hero.isIncapacitated()) {
+            updateMoves(keys);
+        }
     }
 
     private void updatePhysics() {

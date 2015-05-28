@@ -1,15 +1,9 @@
 package com.jupiter.rogue.Controller;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Creatures.Widow;
 import com.jupiter.rogue.Model.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
-import com.jupiter.rogue.Utils.WorldConstants;
-
-import javax.swing.*;
 
 /**
  * Created by hilden on 2015-04-26.
@@ -41,7 +35,7 @@ public class MyContactListener implements ContactListener {
 
         // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
 
-        if(fa.getUserData().equals("hero") || fb.getUserData().equals("hero")){
+        if(fa.getUserData() instanceof HeroController || fb.getUserData() instanceof HeroController) {
             System.out.println("herosensor" + "fa: " + fa.getUserData() + " fb: " + fb.getUserData());
             if(fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
                 map.flagRoomForDestruction("l1");
@@ -78,16 +72,16 @@ public class MyContactListener implements ContactListener {
         //Checking if an enemy is taking damage from the heroes weapon.
         if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController) && (!fb.getUserData().equals("enemyHitbox"))) {
             ((EnemyController)fb.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
-            ((EnemyController)fb.getBody().getUserData()).getTakeDamageBehavior().takeDamage(hero.getDirection());
+            ((EnemyController)fb.getBody().getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
         } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor")) && (!fa.getUserData().equals("enemyHitbox"))) {
             ((EnemyController)fa.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
-            ((EnemyController)fa.getBody().getUserData()).getTakeDamageBehavior().takeDamage(hero.getDirection());
+            ((EnemyController)fa.getBody().getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
         }
 
-        if (fa.getUserData().equals("hero") && fb.getBody().getUserData() instanceof EnemyController) {
+        if (fa.getUserData() instanceof HeroController && fb.getBody().getUserData() instanceof EnemyController) {
             hero.takeDamage(((EnemyController)fb.getBody().getUserData()).getEnemy().getAttackPoints());
             System.out.println(hero.getCurrentHealthPoints());
-        } else if (fb.getUserData().equals("hero") && fa.getBody().getUserData() instanceof EnemyController) {
+        } else if (fb.getUserData() instanceof HeroController && fa.getBody().getUserData() instanceof EnemyController) {
             hero.takeDamage(((EnemyController)fa.getBody().getUserData()).getEnemy().getAttackPoints());
             System.out.println(hero.getCurrentHealthPoints());
         }

@@ -21,5 +21,7 @@ public class RedDeath extends Enemy {
         this.bodyY = 0;
 
         this.xpValue = 50;
+
+        this.movementSpeed = 2.5f;
     }
 }
