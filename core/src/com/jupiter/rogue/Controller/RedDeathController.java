@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Controller;
 
+import com.jupiter.rogue.Controller.Behaviors.AttackedBehaviors.Vulnerable;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Map.Position;
 import com.jupiter.rogue.Controller.Behaviors.AttackBehaviors.MeleeAttack;
@@ -32,5 +33,6 @@ public class RedDeathController extends EnemyController{
         attackBehavior = new MeleeAttack(this.body);
         jumpBehavior = new NormalJump(this.body);
         moveBehavior = new Walk(this.body);
+        takeDamageBehavior = new Vulnerable(this.body);
     }
 }
