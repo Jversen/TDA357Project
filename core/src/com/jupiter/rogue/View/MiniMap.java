@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Map;
+import com.jupiter.rogue.Model.Map.Room;
 
 /**
  * Created by Johan on 27/05/15.
@@ -107,7 +108,7 @@ public class MiniMap extends Actor{
     }
 
     private boolean isBossRoom(int roomNumber) {
-        return Map.getInstance().getBossRoomNumber() == roomNumber;
+        return Map.getInstance().getRooms().get(roomNumber).getBossRoom();
     }
 
     private boolean isActiveCell(int x, int y, int roomX, int roomY, int heroCellX, int heroCellY) {

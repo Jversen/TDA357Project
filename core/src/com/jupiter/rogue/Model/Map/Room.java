@@ -25,6 +25,7 @@ public class Room {
     private TiledHandler tiledHandler;
     private List<EnemyController> enemyControllers;
     private boolean visited;
+    private boolean bossRoom;
 
     public Room(String path, int width, int height, ArrayList<String> doors) {
         this.path = path;
@@ -32,6 +33,7 @@ public class Room {
         this.HEIGHT = height;
         this.doors = doors;
         visited = false;
+        bossRoom = false;
 
         tiledHandler = new TiledHandler(path);
 
@@ -55,6 +57,10 @@ public class Room {
 
     public boolean getVisited() {
         return visited;
+    }
+
+    public boolean getBossRoom() {
+        return bossRoom;
     }
 }
 

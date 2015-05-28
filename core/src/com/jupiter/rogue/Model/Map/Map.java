@@ -311,7 +311,7 @@ public class Map {
                 String entrance = "l"+getCellNr(bossRoom, "l");
                 entrances.put(nextRoom, entrance);
                 addRoom(bossRoom, x, y, nextRoom);
-                bossRoomNumber = nextRoom;
+                bossRoom.setBossRoom(true);
                 break loop;
             }
         }
