@@ -64,8 +64,8 @@ public abstract class EnemyController {
         fixtureDef.restitution = 0f;
 
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        body.setUserData(this);
-        body.createFixture(fixtureDef).setUserData("enemy"); //naming the fixture
+        body.setUserData("enemy");
+        body.createFixture(fixtureDef).setUserData(this); //naming the fixture
 
         WorldConstants.BODIES.add(body);
 
