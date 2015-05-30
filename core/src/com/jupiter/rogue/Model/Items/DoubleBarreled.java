@@ -7,6 +7,8 @@ public class DoubleBarreled extends RangedWeapon {
 
     public DoubleBarreled() {
         this.damage = 150;
+        this.attackSpeed = 1200;
+        this.animationSpeed = 1500;
         this.durability = 2;
         this.projectileSpeed = 2700f;
 

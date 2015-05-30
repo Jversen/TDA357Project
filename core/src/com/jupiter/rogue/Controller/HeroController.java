@@ -48,9 +48,8 @@ public class HeroController {
     private Fixture weaponSensorFixture;
 
     private Timer timer;
-    private boolean weaponReady;
-    private boolean swapReady;
     private boolean attackReady;
+    private boolean swapReady;
 
     private JumpBehavior jumpBehavior;
     private MoveBehavior moveBehavior;
@@ -66,7 +65,7 @@ public class HeroController {
         heroView = HeroView.getInstance();
 
         timer = new Timer();
-        weaponReady = true;
+        attackReady = true;
 
         Position startPosition = new Position(WorldConstants.HERO_START_XPOS,
                 WorldConstants.HERO_START_YPOS);
@@ -251,8 +250,8 @@ public class HeroController {
 
     //Is here (in controller) and not it model because it uses a timer and the timers are currently all implemented here.
     private void swapWeapon() {
-        if (weaponReady) {
-            weaponReady = false;
+        if (attackReady) {
+            attackReady = false;
             hero.swapWeapon();
             System.out.println("Swapped to: " + hero.getCurrentWeapon().toString());
             timer.schedule(new WeaponReadyTask(), 1000);
@@ -261,10 +260,11 @@ public class HeroController {
 
     //Handels the hitbox creation and deletion part of the attack.
     private void attack() {
-        if (weaponReady) {
-            weaponReady = false;
-            hero.attack();
-            timer.schedule(new AttackDelayTask(), 50);
+        if (attackReady) {
+            attackReady = false;
+            hero.setAttackInProgress(true);
+            timer.schedule(new AttackDelayTask(), hero.getCurrentWeapon().getAttackSpeed());
+            timer.schedule(new AttackInProgressTask(), hero.getCurrentWeapon().getAnimationSpeed());
         }
     }
 
@@ -275,9 +275,22 @@ public class HeroController {
                 createMeleeWeaponHitbox();
                 timer.schedule(new RemoveHitBoxTask(), 100);
             } else {
-                createRangedWeaponHitbox();
-                timer.schedule(new WeaponReadyTask(), 1000);
+                if (((RangedWeapon)hero.getCurrentWeapon()).getDurability() >= 1) {
+                    hero.attack();
+                    createRangedWeaponHitbox();
+                    timer.schedule(new WeaponReadyTask(), hero.getCurrentWeapon().getAttackSpeed());
+                } else {
+                    hero.setAttackInProgress(false);
+                    attackReady = true;
+                }
             }
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the delay of pressing attack and actually attacking.
+    class AttackInProgressTask extends TimerTask {
+        public void run() {
+            hero.setAttackInProgress(false);
         }
     }
 
@@ -285,14 +298,15 @@ public class HeroController {
     class RemoveHitBoxTask extends TimerTask {
         public void run() {
             removeMeleeWeaponHitbox();
-            timer.schedule(new WeaponReadyTask(), 900);
+            hero.setAttackInProgress(false);
+            timer.schedule(new WeaponReadyTask(), hero.getCurrentWeapon().getAttackSpeed());
         }
     }
 
     //A nestled class to implement a timertask. Timertask to control the attack cooldown.
     class WeaponReadyTask extends TimerTask {
         public void run() {
-            weaponReady = true;
+            attackReady = true;
         }
     }
 }

@@ -8,6 +8,8 @@ import javax.swing.*;
 @lombok.Data
 public abstract class Weapon extends Item {
     protected int damage;
+    protected int attackSpeed;
+    protected int animationSpeed;
 
     //All the variables to determine the weapons hitbox.
     protected float hitBoxLength;

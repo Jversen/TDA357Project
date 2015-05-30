@@ -66,6 +66,15 @@ public class Hero extends Creature {
         return instance;
     }
 
+    @Override
+    public void attack() {
+        if (isMeleeCurrentWeapon()) {
+
+        } else {
+            ((RangedWeapon)getCurrentWeapon()).decreaseDurability();
+        }
+    }
+
     public void increaseExperience(int experienceGain) {
         this.experiencePoints = this.experiencePoints + experienceGain;
         if (experiencePoints >= experienceRoof) {

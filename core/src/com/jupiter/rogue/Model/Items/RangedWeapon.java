@@ -3,11 +3,16 @@ package com.jupiter.rogue.Model.Items;
 /**
  * Created by Johan on 16/04/15.
  */
+@lombok.Data
 public class RangedWeapon extends Weapon {
     protected int durability;
     protected Float projectileSpeed;
 
     public Float getProjectileSpeed() {
         return projectileSpeed;
+    }
+
+    public void decreaseDurability() {
+        durability--;
     }
 }

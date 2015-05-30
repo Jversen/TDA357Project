@@ -10,6 +10,8 @@ public class StartingWeapon extends MeleeWeapon {
 
     public StartingWeapon() {
         this.damage = 50;
+        this.attackSpeed = 350;
+        this.animationSpeed = 350;
 
         //hitBoxValues
         this.hitBoxLength = 17;

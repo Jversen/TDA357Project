@@ -1,0 +1,48 @@
+
+heroAttack.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+attack1
+  rotate: false
+  xy: 2, 2
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+attack2
+  rotate: false
+  xy: 54, 2
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+attack3
+  rotate: false
+  xy: 106, 2
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+attack4
+  rotate: false
+  xy: 158, 2
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+attack5
+  rotate: false
+  xy: 210, 2
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+attack6
+  rotate: false
+  xy: 262, 2
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1

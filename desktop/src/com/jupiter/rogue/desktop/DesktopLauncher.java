@@ -10,7 +10,7 @@ import com.jupiter.rogue.Rogue;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 
-	 	//TexturePacker.process("Animations//Widow//walking", "Animations//Widow//walking", "widowWalking");  //G�ra Atlasfil
+	 	//TexturePacker.process("Data//HeroAnimations//HeroRanged", "Data//HeroAnimations//HeroRanged", "ranged");  //G�ra Atlasfil
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 320;
