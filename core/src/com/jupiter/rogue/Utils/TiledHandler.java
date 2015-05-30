@@ -78,15 +78,6 @@ public class TiledHandler {
             }
         }
 
-        // TODO remove:
-        System.out.println("STAIRS:");
-        for(int row = 2; row < foregroundLayer.getHeight()-2; row++) {
-            System.out.println();
-            for(int col = 2; col < foregroundLayer.getWidth()-2; col++) {
-                System.out.print(" " + stairs[col][row]);
-            }
-        }
-
         float obstacleLength = 0;
         for (int row = 0; row < foregroundLayer.getHeight(); row++){
             for (int col = 0; col < foregroundLayer.getWidth(); col++){

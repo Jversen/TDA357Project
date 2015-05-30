@@ -1,6 +1,7 @@
 package com.jupiter.rogue.View;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,7 +29,7 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
  * Created by oskar on 17/04/2015.
  */
 @lombok.Data
-public class View {
+public class View implements Screen{
 
     private static View instance = null;
     private Texture img;
@@ -174,5 +175,40 @@ public class View {
 
     public boolean getShowDebugInfo() {
         return showDebugInfo;
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+        update();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

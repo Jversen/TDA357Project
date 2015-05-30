@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Controller;
 
+import com.badlogic.gdx.Screen;
 import com.jupiter.rogue.View.View;
 
 /**
@@ -7,7 +8,7 @@ import com.jupiter.rogue.View.View;
  */
 
 @lombok.Data
-public class Controller {
+public class Controller{
 
     //Singleton instance
     private static Controller instance = null;
@@ -54,5 +55,9 @@ public class Controller {
             view.remakeEnemyViews();
             mapController.getMap().setEnteredNewRoom(false);
         }
+    }
+
+    private Screen getScreen() {
+        return view;
     }
 }
