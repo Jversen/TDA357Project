@@ -69,7 +69,7 @@ public class RoomFactory {
                             return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
                 case 2 :    doors.add("l1");
                             doors.add("r1");
-                            return new Room("Rooms/17Dl1r1.tmx", 7, 1, doors);
+                            return new Room("Rooms/CastleRooms/w7h1Dl1r1.tmx", 7, 1, doors);
                 case 3 :    doors.add("l1");
                             doors.add("r1");
                             doors.add("t1");
@@ -126,7 +126,7 @@ public class RoomFactory {
                             return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
                 case 2 :    doors.add("l1");
                             doors.add("r1");
-                            return new Room("Rooms/17Dl1r1.tmx", 7, 1, doors);
+                            return new Room("Rooms/CastleRooms/w7h1Dl1r1.tmx", 7, 1, doors);
                 case 3 :    doors.add("l1");
                             doors.add("r1");
                             doors.add("t1");
@@ -264,7 +264,7 @@ public class RoomFactory {
         ArrayList<String> doors = new ArrayList<>();
         switch (roomID) {
             case "StartingRoom":    doors.add("r1");
-                                    return new Room("Rooms/StartingRoom.tmx", 2, 1, doors);
+                                    return new Room("Rooms/CastleRooms/StartingRoom.tmx", 2, 1, doors);
             case "BossRoom":     doors.add("l1");
                                     return new Room("Rooms/BossRoom.tmx", 4, 4, doors);
             default: return null;

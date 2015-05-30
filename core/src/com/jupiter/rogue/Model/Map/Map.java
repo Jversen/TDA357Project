@@ -1034,9 +1034,9 @@ public class Map {
         int entranceCell;
 
         if(entranceSide.equals("r") || entranceSide.equals("l")) {
-            entranceCell = Math.abs(currentRoomY-newRoomY+1);
+            entranceCell = Math.abs(currentRoomY-newRoomY)+1;
         } else {
-            entranceCell = Math.abs(currentRoomX-newRoomX+1);
+            entranceCell = Math.abs(currentRoomX-newRoomX)+1;
         }
         this.entrance = entranceSide + entranceCell;
     }

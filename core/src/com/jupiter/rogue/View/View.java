@@ -57,8 +57,8 @@ public class View {
         enemyViews = new ArrayList<>();
 
         debugRenderer = new Box2DDebugRenderer();
-        w = Gdx.graphics.getWidth() * 2;
-        h = Gdx.graphics.getHeight() * 2;
+        w = Gdx.graphics.getWidth();
+        h = Gdx.graphics.getHeight();
         camera  = new OrthographicCamera(); //Regular camera for level
         b2dCam = new OrthographicCamera();  //Box2D camera to scale up the box2D simulation
 
