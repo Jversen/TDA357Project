@@ -31,6 +31,7 @@ public class TiledHandler {
     private TiledMapTileLayer foregroundLayer;
     private TiledMapTileLayer sensorLayer;
     private MapLayer enemySpawnLayer;
+    private int[][] stairs;
     private float roomWidth;
     private float roomHeight;
 
@@ -47,10 +48,10 @@ public class TiledHandler {
         if (tiledMap.getLayers().getCount() >= 4){
             enemySpawnLayer = tiledMap.getLayers().get(3);
         }
-
     }
 
     public void initRoom() {
+        initStairs();
         createTileBodies();
     }
 
@@ -58,13 +59,38 @@ public class TiledHandler {
     different kinds of layers. */
     public void createTileBodies() {
         BodyDef bodyDef = new BodyDef();
-        float obstacleLength = 0;
 
+        for(int row = 2; row < foregroundLayer.getHeight()-2; row++) {
+            for(int col = 2; col < foregroundLayer.getWidth()-2; col++) {
+                TiledMapTileLayer.Cell cell = foregroundLayer.getCell(col, row);
+                if(cell != null && cell.getTile() != null) {
+                    if(leftStair(col, row)) {
+                        stairs[col][row] = 1;
+                        stairs[col][row-1] = 3;
+                    }
+                    if(rightStair(col, row)) {
+                        stairs[col][row] = 2;
+                        stairs[col][row-1] = 3;
+                    }
+                }
+            }
+        }
+
+        // TODO remove:
+        System.out.println("STAIRS:");
+        for(int row = 2; row < foregroundLayer.getHeight()-2; row++) {
+            System.out.println();
+            for(int col = 2; col < foregroundLayer.getWidth()-2; col++) {
+                System.out.print(" " + stairs[col][row]);
+            }
+        }
+
+        float obstacleLength = 0;
         for (int row = 0; row < foregroundLayer.getHeight(); row++){
             for (int col = 0; col < foregroundLayer.getWidth(); col++){
                 TiledMapTileLayer.Cell cell = foregroundLayer.getCell(col, row);
 
-                if (cell != null && cell.getTile() != null) {
+                if (cell != null && cell.getTile() != null && stairs [col][row] == 0) {
                     obstacleLength++;
                     if (col >= foregroundLayer.getWidth() - 1 && obstacleLength > 0){
                         createObsFixture(row, col, obstacleLength);
@@ -78,6 +104,8 @@ public class TiledHandler {
 
             }
         }
+
+        createStairs();
 
         //TODO reuse code from above
         for (int row = 0; row < sensorLayer.getHeight(); row++){
@@ -146,6 +174,127 @@ public class TiledHandler {
         }
     }
 
+    private void createStairs() {
+        for(int row = 2; row < foregroundLayer.getHeight()-2; row++) {
+            for(int col = 2; col < foregroundLayer.getWidth()-2; col++) {
+                if(stairs[col][row] == 1) {
+                    createLeftStair(col, row);
+                } else if(stairs[col][row] == 2) {
+                    createRightStair(col, row);
+                }
+            }
+        }
+    }
+
+    private void createRightStair(int x, int y) {
+        int startingX = x;
+        int startingY = y;
+        int stairLength = 0;
+        boolean done = false;
+        while(!done) {
+            if(stairs[x][y] == 2) {
+                stairLength++;
+                stairs[x][y] = 0;
+            } else {
+                done = true;
+            }
+            x++;
+            y++;
+        }
+
+        Vector2[] vertices = getRightStairVertices(stairLength);
+        createStairObstacle(startingX, startingY, vertices, stairLength);
+    }
+
+    private Vector2[] getRightStairVertices(int stairLength) {
+        Vector2[] vertices = new Vector2[3];
+        vertices[0] = new Vector2(0, 0);
+        vertices[1] = new Vector2(stairLength, 0);
+        vertices[2] = new Vector2(stairLength, stairLength);
+        return vertices;
+    }
+
+    private void createLeftStair(int x, int y) {
+        int startingX = x;
+        int startingY = y;
+        int stairLength = 0;
+        boolean done = false;
+        while(!done) {
+            if(stairs[x][y] == 1) {
+                stairLength++;
+                stairs[x][y] = 0;
+            } else {
+                done = true;
+            }
+            x--;
+            y++;
+        }
+        Vector2[] vertices = getLeftStairVertices(stairLength);
+        createStairObstacle(startingX-stairLength, startingY, vertices, stairLength);
+    }
+    private Vector2[] getLeftStairVertices(int stairLength) {
+        Vector2[] vertices = new Vector2[3];
+        vertices[0] = new Vector2(0, 0);
+        vertices[1] = new Vector2(0, stairLength);
+        vertices[2] = new Vector2(stairLength, 0);
+        return vertices;
+    }
+
+    private boolean leftStair(int x, int y) {
+        return foregroundLayer.getCell(x+1, y) == null && foregroundLayer.getCell(x+1, y+1) == null
+                && foregroundLayer.getCell(x, y+1) == null && foregroundLayer.getCell(x,y-1) != null && foregroundLayer.getCell(x-1, y) != null;
+    }
+
+    private boolean rightStair(int x, int y) {
+        return foregroundLayer.getCell(x-1, y) == null && foregroundLayer.getCell(x-1, y+1) == null
+                && foregroundLayer.getCell(x, y+1) == null && foregroundLayer.getCell(x,y-1) != null &&  foregroundLayer.getCell(x+1, y) != null;
+    }
+
+    private void createStairObstacle(int x, int y, Vector2[] vertices, int stairLength) {
+        BodyDef bodyDef = new BodyDef();
+
+        float newX = 0;
+        float newY = 0;
+
+        if(stairLength > 1) {
+            newX = ((x - stairLength) + stairLength / 2 + 2f) * TILE_SIZE / PPM;
+            newY = ((y - stairLength) + stairLength / 2 + 2f) * TILE_SIZE / PPM;
+        } else {
+            newX = ((x - stairLength) + stairLength / 2 + 1f) * TILE_SIZE / PPM;
+            newY = ((y - stairLength) + stairLength / 2 + 1f) * TILE_SIZE / PPM;
+        }
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+                /*Set the position to the tile number plus half the tilesize to compensate
+                for body/libgdx drawing differences. */
+
+        bodyDef.position.set(newX, newY);
+        FixtureDef fixtureDef = new FixtureDef();
+
+        Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
+        body.setUserData("room");
+        WorldConstants.BODIES.add(body);
+
+        PolygonShape shape = new PolygonShape();
+        shape.set(vertices);
+        fixtureDef.shape = shape;
+
+        Fixture roomFixture = body.createFixture(fixtureDef);
+        roomFixture.setFriction(0f);
+        roomFixture.setUserData("obstacle");
+
+        shape.dispose();
+    }
+
+    private void initStairs() {
+        stairs = new int[foregroundLayer.getWidth()][foregroundLayer.getHeight()];
+        for(int x = 0; x < foregroundLayer.getWidth(); x++) {
+            for(int y = 0; y < foregroundLayer.getHeight(); y++) {
+                stairs[x][y] = 0;
+            }
+        }
+    }
+
     /* Creates fixtures on obstacles in horizontal chunks*/
     private void createObsFixture(int row, int col, float obstacleLength){
         BodyDef bodyDef = new BodyDef();
@@ -205,9 +354,6 @@ public class TiledHandler {
             }
         }
     }
-
-
-
 
     public TiledMapRenderer getRenderer() {
         return renderer;
