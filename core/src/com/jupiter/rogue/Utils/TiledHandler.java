@@ -39,12 +39,10 @@ public class TiledHandler {
     private MapLayer chestLayer;
     private float roomWidth;
     private float roomHeight;
-    List<Chest> chests;
 
     public TiledHandler(String path) {
         tiledMap = new TmxMapLoader().load(path);
         renderer = new OrthogonalTiledMapRenderer(tiledMap);
-        chests = new ArrayList<Chest>();
 
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);

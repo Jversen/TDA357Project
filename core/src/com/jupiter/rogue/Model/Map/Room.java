@@ -2,6 +2,8 @@ package com.jupiter.rogue.Model.Map;
 
 import com.badlogic.gdx.maps.MapProperties;
 import com.jupiter.rogue.Controller.EnemyController;
+import com.jupiter.rogue.Model.Chests.Chest;
+import com.jupiter.rogue.Model.Chests.ChestFactory;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Factories.EnemyFactory;
 import com.jupiter.rogue.Model.Factories.RedDeathFactory;
@@ -31,6 +33,7 @@ public class Room {
     private boolean visited;
     private boolean bossRoom;
     private List<Enemy> enemies;
+    List<Chest> chests;
 
 
 
@@ -44,7 +47,7 @@ public class Room {
 
         tiledHandler = new TiledHandler(path);
         enemies = new ArrayList<Enemy>();
-        //enemyControllers = tiledHandler.getEnemyControllers();
+        chests = new ArrayList<Chest>();
 
     }
 
@@ -109,6 +112,39 @@ public class Room {
         return enemyType;
     }
 
+    private void createChests() {
+
+        ChestFactory chestFactory;
+        String chestType;
+        float xPos;
+        float yPos;
+        Random rn = new Random();
+        int chestTypeIndex;
+
+        if (tiledHandler.getChestLayer() != null) {
+            for (int i = 0; i <= tiledHandler.getChestLayer().getObjects().getCount() - 1; i++) {
+                MapProperties properties = tiledHandler.getChestLayer().getObjects().get(i).getProperties();
+                if (properties.get("type") != null) {
+                    chestType = properties.get("type").toString();
+                } else {
+                    chestType = "random";
+                }
+
+                xPos = (float)properties.get("x");
+                yPos = (float)properties.get("y");
+
+
+                if (!chestType.contains(chestType)) {
+                    chestTypeIndex = rn.nextInt(WorldConstants.CHESTTYPES.size());
+                    chestType = WorldConstants.CHESTTYPES.get(chestTypeIndex);
+                }
+
+                chestFactory = new ChestFactory(chestType, xPos, yPos);
+
+                chests.add(chestFactory.createChest());
+            }
+        }
+    }
 
     public boolean getVisited() {
         return visited;
