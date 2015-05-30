@@ -53,7 +53,7 @@ public class HeroTest {
         assertEquals(hero.getCurrentWeapon(), hero.getMeleeWeapon());
 
         hero.setMeleeCurrentWeapon(false);
-        hero.setRangedWeapon(new DoubleBarreled());
+        hero.setRangedWeapon(new Boomstick());
         assertEquals(hero.getCurrentWeapon(), hero.getRangedWeapon());
 
         hero.setRangedWeapon(null);
