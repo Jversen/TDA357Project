@@ -27,14 +27,23 @@ public class Chest {
 
     }
 
+    /**
+     * Opens this chest
+     */
     public void open(){
         this.opened = true;
     }
 
+    /**
+     * Closes this chest
+     */
     public void close(){
         this.opened = false;
     }
 
+    /**
+     * Returns the Item in this chest, if the chest is not empty and the hero has the required attributes.
+     */
     public Item takeContent(Hero hero){
         Item loot;
         boolean itemUsable;
@@ -48,18 +57,17 @@ public class Chest {
         }
 
         if(!empty && itemUsable){
-
             return content;
         }else {
             return null;
         }
     }
 
+    /**
+     * Describes the content of this chest
+     */
     public String describeContent(){
         return content.toString();
     }
-    //TODO contents etc
-
-
 
 }

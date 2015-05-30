@@ -31,7 +31,9 @@ public class ChestView {
 
         switch (chestType){
             case ("weapon"): texturePath = "Data/chestTextures/box_blue.png";
+                break;
             case ("ring"): texturePath = "Data/chestTextures/box_orange.png";
+                break;
             default: texturePath = "Data/chestTextures/box_blue.png";
         }
 
