@@ -22,9 +22,10 @@ public class Hud extends Actor {
     private Texture texture;
     private Sprite healthBar;
     private Sprite expBar;
-    private Sprite barBackground;
     private BitmapFont font;
     private BitmapFont heroLevelFont;
+    private BitmapFont meleeWeaponFont;
+    private BitmapFont rangeWeaponFont;
     float currentHP;
     float maxHP;
     float currentExp;
@@ -33,6 +34,8 @@ public class Hud extends Actor {
     int startGfxHeight;
     String level;
     String heroLevel;
+    String meleeWeapon;
+    String rangeWeapon;
 
     private Hud(){
 
@@ -47,6 +50,14 @@ public class Hud extends Actor {
         heroLevelFont.setColor(Color.WHITE);
         heroLevelFont.setScale(0.25f);
 
+        meleeWeaponFont = new BitmapFont();
+        meleeWeaponFont.setColor(Color.WHITE);
+        meleeWeaponFont.setScale(0.4f);
+
+        rangeWeaponFont = new BitmapFont();
+        rangeWeaponFont.setColor(Color.WHITE);
+        rangeWeaponFont.setScale(0.4f);
+
         texture = new Texture(Gdx.files.internal("Data/HUD/healthBar.png"));
         healthBar = new Sprite(texture, 0, 0, 25, 3);
         healthBar.setPosition(10, 170);
@@ -56,13 +67,6 @@ public class Hud extends Actor {
         expBar = new Sprite(texture, 0, 0, 25, 3);
         expBar.setPosition(10, 160);
         expBar.setOrigin(0, 0);
-
-
-
-
-
-
-
     }
 
     public static Hud getInstance() {
@@ -80,6 +84,8 @@ public class Hud extends Actor {
         expBar.draw(batch);
         font.draw(batch, level, 250, 170);
         heroLevelFont.draw(batch, heroLevel, 10, 168);
+        meleeWeaponFont.draw(batch, meleeWeapon, 50, 175);
+        rangeWeaponFont.draw(batch, rangeWeapon, 50, 165);
     }
 
     public void updateHud(){
@@ -97,6 +103,12 @@ public class Hud extends Actor {
         /* Just some number for show. Should discuss this design of showing current room.*/
         level = ("Room: " + Map.getInstance().getCurrentRoomNbr());
         heroLevel = ("Hero level : " + Hero.getInstance().getLevel());
-
+        meleeWeapon = ("Melee Weapon: " + Hero.getInstance().getMeleeWeapon().getWeaponName());
+        if(Hero.getInstance().getRangedWeapon() != null) {
+            rangeWeapon = ("Range Weapon: " + Hero.getInstance().getRangedWeapon().getWeaponName());
+        }
+        else{
+            rangeWeapon = "Range Weapon: none equipped";
+        }
     }
 }

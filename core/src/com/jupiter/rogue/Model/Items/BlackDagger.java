@@ -9,6 +9,7 @@ public class BlackDagger extends MeleeWeapon {
         this.damage = 200;
         this.attackSpeed = 100;
         this.animationSpeed = 100;
+        this.weaponName = "Black Dagger";
 
         //hitBoxValues
         this.hitBoxLength = 5;

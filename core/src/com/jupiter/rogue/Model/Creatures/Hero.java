@@ -39,7 +39,7 @@ public class Hero extends Creature {
         this.meleeCurrentWeapon = true;
 
         //Starting weapons
-        this.meleeWeapon = new StartingWeapon();
+        this.meleeWeapon = new BasicSword();
         this.rangedWeapon = new Boomstick();
 
         //Stats and experience

@@ -6,12 +6,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 /**
  * Created by hilden on 2015-05-16.
  */
-public class StartingWeapon extends MeleeWeapon {
+public class BasicSword extends MeleeWeapon {
 
-    public StartingWeapon() {
+    public BasicSword() {
         this.damage = 50;
         this.attackSpeed = 350;
         this.animationSpeed = 350;
+        this.weaponName = "Basic Sword";
 
         //hitBoxValues
         this.hitBoxLength = 17;

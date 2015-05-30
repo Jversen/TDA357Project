@@ -10,6 +10,7 @@ public abstract class Weapon extends Item {
     protected int damage;
     protected int attackSpeed;
     protected int animationSpeed;
+    protected String weaponName;
 
     //All the variables to determine the weapons hitbox.
     protected float hitBoxLength;

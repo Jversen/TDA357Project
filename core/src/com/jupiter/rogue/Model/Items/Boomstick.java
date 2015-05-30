@@ -11,6 +11,7 @@ public class Boomstick extends RangedWeapon {
         this.animationSpeed = 1500;
         this.durability = 2;
         this.projectileSpeed = 2700f;
+        this.weaponName = "Boomstick";
 
         //hitBoxValues for the projectile fired by the weapon
         this.hitBoxLength = 1;
