@@ -28,65 +28,67 @@ public class MyContactListener implements ContactListener {
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
 
-        if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) || (fb.getUserData().equals("foot") && fa.getUserData().equals("obstacle"))) {
-            hero.setCreatureGrounded(true);
-            hero.setCreatureFalling(false);
-        }
+        //if (!WorldConstants.CURRENT_WORLD.isLocked()) {
 
-        // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
-
-        if(fa.getUserData() instanceof HeroController || fb.getUserData() instanceof HeroController) {
-            //System.out.println("herosensor" + "fa: " + fa.getUserData() + " fb: " + fb.getUserData());
-            if(fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
-                map.flagRoomForDestruction("l1");
+            if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) || (fb.getUserData().equals("foot") && fa.getUserData().equals("obstacle"))) {
+                hero.setCreatureGrounded(true);
+                hero.setCreatureFalling(false);
             }
 
-            if(fa.getUserData().equals("r1") || fb.getUserData().equals("r1")) {
-                map.flagRoomForDestruction("r1");
+            // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
+
+            if (fa.getUserData() instanceof HeroController || fb.getUserData() instanceof HeroController) {
+                if (fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
+                    map.flagRoomForDestruction("l1");
+                }
+
+                if (fa.getUserData().equals("r1") || fb.getUserData().equals("r1")) {
+                    map.flagRoomForDestruction("r1");
+                }
+
+                if (fa.getUserData().equals("l2") || fb.getUserData().equals("l2")) {
+                    map.flagRoomForDestruction("l2");
+                }
+
+                if (fa.getUserData().equals("r2") || fb.getUserData().equals("r2")) {
+                    map.flagRoomForDestruction("r2");
+                }
+
+                if (fa.getUserData().equals("t1") || fb.getUserData().equals("t1")) {
+                    map.flagRoomForDestruction("t1");
+                }
+
+                if (fa.getUserData().equals("b1") || fb.getUserData().equals("b1")) {
+                    map.flagRoomForDestruction("b1");
+                }
             }
 
-            if(fa.getUserData().equals("l2") || fb.getUserData().equals("l2")) {
-                map.flagRoomForDestruction("l2");
+            //Removing all projectiles that hit walls.
+            if (fa.getBody().getUserData().equals("projectile") && fb.getUserData().equals("obstacle")) {
+                fa.getBody().setUserData("dead");
+            } else if (fb.getBody().getUserData().equals("projectile") && fa.getUserData().equals("obstacle")) {
+                fb.getBody().setUserData("dead");
             }
 
-            if(fa.getUserData().equals("r2") || fb.getUserData().equals("r2")) {
-                map.flagRoomForDestruction("r2");
+            //Checking if an enemy is taking damage from the heroes weapon.
+            if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController) && (!fb.getUserData().equals("enemyHitbox"))) {
+                ((EnemyController) fb.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
+                ((EnemyController) fb.getBody().getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
+            } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor")) && (!fa.getUserData().equals("enemyHitbox"))) {
+                ((EnemyController) fa.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
+                ((EnemyController) fa.getBody().getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
             }
 
-            if(fa.getUserData().equals("t1") || fb.getUserData().equals("t1")) {
-                map.flagRoomForDestruction("t1");
+            if (fa.getUserData() instanceof HeroController && fb.getBody().getUserData() instanceof EnemyController) {
+                hero.takeDamage(((EnemyController) fb.getBody().getUserData()).getEnemy().getAttackPoints());
+                ((HeroController) fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
+                //System.out.println(hero.getCurrentHealthPoints());
+            } else if (fb.getUserData() instanceof HeroController && fa.getBody().getUserData() instanceof EnemyController) {
+                hero.takeDamage(((EnemyController) fa.getBody().getUserData()).getEnemy().getAttackPoints());
+                ((HeroController) fb.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
+                //System.out.println(hero.getCurrentHealthPoints());
             }
-
-            if(fa.getUserData().equals("b1") || fb.getUserData().equals("b1")) {
-                map.flagRoomForDestruction("b1");
-            }
-        }
-
-        //Removing all projectiles that hit walls.
-        if (fa.getBody().getUserData().equals("projectile") && fb.getUserData().equals("obstacle")) {
-            fa.getBody().setUserData("dead");
-        } else if (fb.getBody().getUserData().equals("projectile") && fa.getUserData().equals("obstacle")) {
-            fb.getBody().setUserData("dead");
-        }
-
-        //Checking if an enemy is taking damage from the heroes weapon.
-        if (fa.getUserData().equals("weaponSensor") && (fb.getBody().getUserData() instanceof EnemyController) && (!fb.getUserData().equals("enemyHitbox"))) {
-            ((EnemyController)fb.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
-            ((EnemyController)fb.getBody().getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-        } else if ((fa.getBody().getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor")) && (!fa.getUserData().equals("enemyHitbox"))) {
-            ((EnemyController)fa.getBody().getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
-            ((EnemyController)fa.getBody().getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-        }
-
-        if (fa.getUserData() instanceof HeroController && fb.getBody().getUserData() instanceof EnemyController) {
-            hero.takeDamage(((EnemyController)fb.getBody().getUserData()).getEnemy().getAttackPoints());
-            ((HeroController)fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-            //System.out.println(hero.getCurrentHealthPoints());
-        } else if (fb.getUserData() instanceof HeroController && fa.getBody().getUserData() instanceof EnemyController) {
-            hero.takeDamage(((EnemyController) fa.getBody().getUserData()).getEnemy().getAttackPoints());
-            ((HeroController)fb.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-            //System.out.println(hero.getCurrentHealthPoints());
-        }
+        //}
     }
 
     @Override
@@ -95,14 +97,17 @@ public class MyContactListener implements ContactListener {
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
 
-        //Foot sensor, keeps track of jump etc.
-        if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) ||
-                (fa.getUserData().equals("obstacle") && fb.getUserData().equals("foot"))) {     //Remember to use the correct UserDatas. They tend to get changed.......... **************
-            hero.setCreatureGrounded(false);
-            if (hero.getMovementState() != MovementState.JUMPING) {
-                hero.setCreatureFalling(true);
+        //if (!WorldConstants.CURRENT_WORLD.isLocked()) {
+
+            //Foot sensor, keeps track of jump etc.
+            if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) ||
+                    (fa.getUserData().equals("obstacle") && fb.getUserData().equals("foot"))) {
+                hero.setCreatureGrounded(false);
+                if (hero.getMovementState() != MovementState.JUMPING) {
+                    hero.setCreatureFalling(true);
+                }
             }
-        }
+        //}
     }
 
     @Override

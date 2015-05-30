@@ -114,25 +114,28 @@ public abstract class EnemyController {
     }
 
     private void createHitbox() {
+        if (!WorldConstants.CURRENT_WORLD.isLocked()) {
+            //reinitializes the shape of the fixturedef.
+            shape = new PolygonShape();
+           // System.out.println("1");
 
-        //reinitializes the shape of the fixturedef.
-        shape = new PolygonShape();
-
-        //creates a fixture with a shape on the correct side of the hero using the helpmethod.
-        hitBoxShapeMaker(); //useing the helpmethod.
-        weaponSensorFixtureDef.shape = shape;
-        weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
-        weaponSensorFixture.setSensor(true);
-        weaponSensorFixture.setUserData("enemyHitbox");
-
-        //clears memory
-        shape.dispose();
+            //creates a fixture with a shape on the correct side of the hero using the helpmethod.
+            hitBoxShapeMaker(); //useing the helpmethod.
+            weaponSensorFixtureDef.shape = shape;
+           // System.out.println("2");
+            weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
+           // System.out.println("3");
+            weaponSensorFixture.setSensor(true);
+            weaponSensorFixture.setUserData("enemyHitbox");
+           // System.out.println("4");
+            //clears memory
+            shape.dispose();
+          //  System.out.println("5");
+        }
     }
 
     private void removeHitbox() {
-        if (body != null && body.getFixtureList() != null && body.getFixtureList().contains(weaponSensorFixture, true)){
-            body.destroyFixture(weaponSensorFixture);
-        }
+        weaponSensorFixture.setUserData("dead");
     }
 
     //help-method to the createWeaponHitBox methods, gets the hitbox information from the heroes weapon and then sets a hitbox accordingly depending on what direction the hero is facing.

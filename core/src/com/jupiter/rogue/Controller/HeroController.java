@@ -164,19 +164,25 @@ public class HeroController {
 
     //Sets the heroes weapon hitbox to the current weapon's.
     private void createMeleeWeaponHitbox() {
+        if (!WorldConstants.CURRENT_WORLD.isLocked()) {
+           // System.out.println("6");
+            //reinitializes the shape of the fixturedef.
+            shape = new PolygonShape();
 
-        //reinitializes the shape of the fixturedef.
-        shape = new PolygonShape();
+            //creates a fixture with a shape on the correct side of the hero using the helpmethod.
+            hitBoxShapeMaker(); //useing the helpmethod.
+            weaponSensorFixtureDef.shape = shape;
+          //  System.out.println("7");
+            weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
+          //  System.out.println("8");
+            weaponSensorFixture.setSensor(true);
+            weaponSensorFixture.setUserData("weaponSensor");
+          //  System.out.println("9");
 
-        //creates a fixture with a shape on the correct side of the hero using the helpmethod.
-        hitBoxShapeMaker(); //useing the helpmethod.
-        weaponSensorFixtureDef.shape = shape;
-        weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
-        weaponSensorFixture.setSensor(true);
-        weaponSensorFixture.setUserData("weaponSensor");
-
-        //clears memory
-        shape.dispose();
+            //clears memory
+            shape.dispose();
+//            System.out.println("10");
+        }
     }
 
     private void createRangedWeaponHitbox() {
@@ -215,7 +221,7 @@ public class HeroController {
     //Removes the heroes weapon hitbox. (ranged projectile hitboxes are removed through the contactlistener)
     private void removeMeleeWeaponHitbox() {
         if (hero.isMeleeCurrentWeapon()) {
-            body.destroyFixture(weaponSensorFixture);
+            weaponSensorFixture.setUserData("dead");
         }
     }
 
