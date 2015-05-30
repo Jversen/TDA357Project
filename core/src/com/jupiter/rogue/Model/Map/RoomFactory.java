@@ -80,8 +80,8 @@ public class RoomFactory {
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
                 case 5 :    doors.add("l1");
                             doors.add("r2");
-                            doors.add("t1");
-                            return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
+                            doors.add("t3");
+                            return new Room("Rooms/CastleRooms/w5h3Dl1t3r2.tmx", 5, 3, doors);
                 case 6 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
@@ -137,8 +137,8 @@ public class RoomFactory {
                             return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
                 case 5 :    doors.add("l1");
                             doors.add("r2");
-                            doors.add("t1");
-                            return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
+                            doors.add("t3");
+                            return new Room("Rooms/CastleRooms/w5h3Dl1t3r2.tmx", 5, 3, doors);
                 case 6 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
@@ -184,8 +184,8 @@ public class RoomFactory {
                             return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
                 case 2 :    doors.add("l1");
                             doors.add("r2");
-                            doors.add("t1");
-                            return new Room("Rooms/24Dl1r2t1.tmx", 4, 2, doors);
+                            doors.add("t3");
+                            return new Room("Rooms/CastleRooms/w5h3Dl1t3r2.tmx", 5, 3, doors);
                 case 3 :    doors.add("l1");
                             doors.add("t1");
                             return new Room("Rooms/CastleRooms/11Dl1t1.tmx", 1, 1, doors);
