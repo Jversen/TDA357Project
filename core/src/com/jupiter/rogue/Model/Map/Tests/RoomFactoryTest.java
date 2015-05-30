@@ -25,7 +25,7 @@ public class RoomFactoryTest {
         doorsTest.clear();
         Room r2a = new Room("Rooms/11Dr1.tmx", 1, 1, doorsTest);
         Room r2b = RoomFactory.getRoom("r", 2, false);
-        assertEquals(r1b, r2b);
+        assertEquals(r2a, r2b);
 
         doorsTest.clear();
         Room nullRoom = RoomFactory.getRoom("t", 5, false);
