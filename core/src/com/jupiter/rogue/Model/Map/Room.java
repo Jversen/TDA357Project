@@ -129,12 +129,12 @@ public class Room {
                 } else {
                     chestType = "random";
                 }
-
+                System.out.println("Chesttype parsed to: " + chestType);
                 xPos = (float)properties.get("x");
                 yPos = (float)properties.get("y");
 
 
-                if (!chestType.contains(chestType)) {
+                if (chestType.equals("random")) {
                     chestTypeIndex = rn.nextInt(WorldConstants.CHESTTYPES.size());
                     chestType = WorldConstants.CHESTTYPES.get(chestTypeIndex);
                 }

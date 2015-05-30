@@ -26,6 +26,7 @@ public class ChestView {
     public ChestView(Chest chest){
         this.chest = chest;
         this.chestType = chest.getChestType();
+        System.out.println("Chesttype = " + this.chestType);
         spriteBatch = new SpriteBatch();
         String texturePath;
         atlas = new TextureAtlas(Gdx.files.internal("Data/chestTextures/box.atlas"));
@@ -41,16 +42,16 @@ public class ChestView {
         spriteSheet = new Texture(texturePath);
         sprite = new Sprite(spriteSheet);
 
-       // spriteLocked = new Sprite(spriteSheet, 0, 0, 32, 32);
-       // spriteOpened = new Sprite(spriteSheet, 32, 0, 32, 32);
+        spriteLocked = new Sprite(spriteSheet, 0, 0, 32, 32);
+        spriteOpened = new Sprite(spriteSheet, 32, 0, 32, 32);
     }
 
     public void draw(Matrix4 projectionMatrix){
 
         if(this.chest.isOpened()){
-            sprite.setRegion(0, 0, 32, 32);
+            sprite = spriteOpened;
         }else{
-            sprite.setRegion(31, 0, 31, 31);
+            sprite = spriteLocked;
         }
 
         sprite.setPosition(chest.getXPos(), chest.getYPos());

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="7" tilewidth="32" tileheight="32" nextobjectid="24">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="7" tilewidth="32" tileheight="32" nextobjectid="26">
  <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
   <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
  </tileset>
@@ -29,6 +29,8 @@
   <object id="3" type="Widow" gid="178" x="416" y="192"/>
  </objectgroup>
  <objectgroup name="Chest">
-  <object id="23" type="chest" gid="166" x="256" y="160"/>
+  <object id="23" type="random" gid="166" x="256" y="160"/>
+  <object id="24" type="random" gid="166" x="224" y="160"/>
+  <object id="25" type="random" gid="166" x="288" y="160"/>
  </objectgroup>
 </map>
