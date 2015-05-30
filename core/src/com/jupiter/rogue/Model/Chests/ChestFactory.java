@@ -15,7 +15,6 @@ import java.util.Random;
 public class ChestFactory {
     String chestType;
     Item content;
-    //Position position;
     float xPos;
     float yPos;
 

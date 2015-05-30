@@ -19,14 +19,14 @@ import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 public class ChestController {
 
     Chest chest;
-    ChestView chestView;
+    //ChestView chestView;
     Body body;
 
     private PolygonShape shape;
 
     public ChestController(Chest chest){
         this.chest = chest;
-        this.chestView = new ChestView(chest);
+        //this.chestView = new ChestView(chest);
     }
 
     public void initBody() {
@@ -35,9 +35,9 @@ public class ChestController {
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(chest.getXPos() / PPM, chest.getYPos() / PPM);
-
+        
         shape = new PolygonShape();
-        shape.setAsBox(16 / PPM, 16 / PPM, new Vector2(16, 16), 0);
+        shape.setAsBox(16 / PPM, 16 / PPM, new Vector2(16 / PPM, 16 / PPM), 0);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -46,7 +46,6 @@ public class ChestController {
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
         body.setUserData("chest");
         body.createFixture(fixtureDef).setUserData(this);
-
         WorldConstants.BODIES.add(body);
 
         shape.dispose();

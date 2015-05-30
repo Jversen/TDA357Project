@@ -28,7 +28,6 @@ import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 @lombok.Data
 public abstract class EnemyController {
 
-    EnemyView enemyView;
     Enemy enemy;
     Body body;
 

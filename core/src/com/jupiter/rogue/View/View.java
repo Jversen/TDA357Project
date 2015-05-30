@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.RedDeathController;
 import com.jupiter.rogue.Controller.WidowController;
+import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
@@ -44,6 +45,8 @@ public class View implements Screen{
     private Stage stage; //Scene2d stage
     private List<EnemyView> enemyViews;
     private List<Enemy> enemies;
+    private List<ChestView> chestViews;
+    private List<Chest> chests;
     private boolean showDebugInfo = true;
     private ChestView chestView;
 
@@ -57,6 +60,7 @@ public class View implements Screen{
 
         heroView = HeroView.getInstance();
         enemyViews = new ArrayList<>();
+        chestViews = new ArrayList<>();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth();
@@ -109,6 +113,10 @@ public class View implements Screen{
                 enemyViews.get(i).updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
             }
 
+        for (int i = 0; i < chestViews.size(); i++) {
+            chestViews.get(i).draw(camera.combined);
+        }
+
         if(showDebugInfo) {
             camera.setToOrtho(false, w / PPM, h / PPM);
             moveB2DCamera(posX, posY);
@@ -153,6 +161,7 @@ public class View implements Screen{
         return y;
     }
 
+
     public void remakeEnemyViews(){
 
         String enemyType;
@@ -170,6 +179,19 @@ public class View implements Screen{
                         enemyViews.add(new RedDeathView((RedDeath) enemies.get(i)));
                         break;
                 }
+            }
+        }
+    }
+
+//TODO ChestViews (and EnemyViews) are instantiated both here and in ChestController(and EnemyController)!
+    public void remakeChestViews(){
+
+        chestViews.clear();
+        chests = map.getCurrentRoom().getChests();
+
+        if(chests != null) {
+            for (int i = 0; i < chests.size(); i++){
+                chestViews.add(new ChestView(chests.get(i)));
             }
         }
     }

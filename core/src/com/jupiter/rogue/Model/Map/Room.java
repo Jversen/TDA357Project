@@ -64,7 +64,7 @@ public class Room {
         float yPos;
 
         if (tiledHandler.getEnemySpawnLayer() != null) {
-            for (int i = 0; i <= tiledHandler.getEnemySpawnLayer().getObjects().getCount()-1; i++) {
+            for (int i = 0; i < tiledHandler.getEnemySpawnLayer().getObjects().getCount(); i++) {
 
                 /* checks the (enemy)type of the object. If it's "random", change to a random EnemyFactory.*/
                 MapProperties properties = tiledHandler.getEnemySpawnLayer().getObjects().get(i).getProperties();
@@ -112,7 +112,7 @@ public class Room {
         return enemyType;
     }
 
-    private void createChests() {
+    public void createChests() {
 
         ChestFactory chestFactory;
         String chestType;
@@ -122,7 +122,7 @@ public class Room {
         int chestTypeIndex;
 
         if (tiledHandler.getChestLayer() != null) {
-            for (int i = 0; i <= tiledHandler.getChestLayer().getObjects().getCount() - 1; i++) {
+            for (int i = 0; i < tiledHandler.getChestLayer().getObjects().getCount(); i++) {
                 MapProperties properties = tiledHandler.getChestLayer().getObjects().get(i).getProperties();
                 if (properties.get("type") != null) {
                     chestType = properties.get("type").toString();

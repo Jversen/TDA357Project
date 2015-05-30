@@ -45,7 +45,6 @@ public class Chest {
      * Returns the Item in this chest, if the chest is not empty and the hero has the required attributes.
      */
     public Item takeContent(Hero hero){
-        Item loot;
         boolean itemUsable;
 
         if (hero.getStrength() >= this.content.getStrengthRequirement() &&

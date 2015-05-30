@@ -19,8 +19,6 @@ public class RedDeathController extends EnemyController{
 
     public RedDeathController(RedDeath redDeath) {
         this.enemy = redDeath;
-        //TODO posibly change view instantiation?
-        this.enemyView = new RedDeathView(redDeath);
         startPosition = enemy.getPosition();
     }
 

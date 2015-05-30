@@ -26,6 +26,7 @@ public class MapController {
     public MapController(){
         map = Map.getInstance();
         enemyControllers = new ArrayList<EnemyController>();
+        chestControllers = new ArrayList<ChestController>();
     }
 
     public void update() {

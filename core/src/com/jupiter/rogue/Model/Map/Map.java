@@ -122,6 +122,7 @@ public class Map {
         resetRoomInfo();
 
         getCurrentRoom().generateEnemies();
+        getCurrentRoom().createChests();
         /* Destroys all created enemy bodies, they will be recreated later when the player enters the right
         rooms
          */
