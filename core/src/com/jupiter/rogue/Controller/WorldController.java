@@ -20,7 +20,9 @@ public class WorldController {
 
     public void update() {
         WorldConstants.CURRENT_WORLD.step(Gdx.graphics.getDeltaTime(), 6, 2);
-        WorldConstants.CURRENT_WORLD.getBodies(WorldConstants.BODIES);
+        if (WorldConstants.BODIES != null) {
+            WorldConstants.CURRENT_WORLD.getBodies(WorldConstants.BODIES);
+        }
         removeBodiesSafely();
     }
 
@@ -30,9 +32,11 @@ public class WorldController {
             body = WorldConstants.BODIES.get(i);
             if (body != null) {
                 if (body.getUserData() != null) {
-                    for (int j = 0; j < body.getFixtureList().size; j++) {
-                        if (body.getFixtureList().get(j).getUserData().equals("dead")) {
-                            body.destroyFixture(body.getFixtureList().get(j));
+                    if (!body.getFixtureList().equals(null)) {
+                        for (int j = 0; j < body.getFixtureList().size; j++) {
+                            if (body.getFixtureList().get(j) != null && body.getFixtureList().get(j).getUserData().equals("dead")) {
+                                body.destroyFixture(body.getFixtureList().get(j));
+                            }
                         }
                     }
                     if (body.getUserData().equals("dead")) {

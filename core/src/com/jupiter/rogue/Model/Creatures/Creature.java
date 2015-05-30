@@ -123,6 +123,10 @@ public abstract class Creature {
     public void attack () {
     }
 
+    public void die () {
+        setMovementState(MovementState.DYING);
+    }
+
     //A nestled class to implement a timertask. Timertask to control time for creatures to stop being invulnerable after an attack.
     class RemoveInvulnerabilityTask extends TimerTask {
         public void run() {

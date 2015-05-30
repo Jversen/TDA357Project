@@ -80,12 +80,10 @@ public class MyContactListener implements ContactListener {
 
         if (fa.getUserData() instanceof HeroController && fb.getBody().getUserData() instanceof EnemyController) {
             hero.takeDamage(((EnemyController) fb.getBody().getUserData()).getEnemy().getAttackPoints());
-            ((HeroController) fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-            //System.out.println(hero.getCurrentHealthPoints());
+            ((HeroController)fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
         } else if (fb.getUserData() instanceof HeroController && fa.getBody().getUserData() instanceof EnemyController) {
             hero.takeDamage(((EnemyController) fa.getBody().getUserData()).getEnemy().getAttackPoints());
-            ((HeroController) fb.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-            //System.out.println(hero.getCurrentHealthPoints());
+            ((HeroController)fb.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
         }
 
 
@@ -103,16 +101,6 @@ public class MyContactListener implements ContactListener {
         } else if ((fa.getUserData() instanceof EnemyController) && (fb.getUserData().equals("weaponSensor")) && (!fa.getUserData().equals("enemyHitbox"))) {
             ((EnemyController) fa.getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
             ((EnemyController) fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-        }
-
-        if (fa.getUserData() instanceof HeroController && fb.getUserData() instanceof EnemyController) {
-            hero.takeDamage(((EnemyController) fb.getUserData()).getEnemy().getAttackPoints());
-            ((HeroController) fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-            //System.out.println(hero.getCurrentHealthPoints());
-        } else if (fb.getUserData() instanceof HeroController && fa.getUserData() instanceof EnemyController) {
-            hero.takeDamage(((EnemyController) fa.getUserData()).getEnemy().getAttackPoints());
-            ((HeroController) fb.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
-            //System.out.println(hero.getCurrentHealthPoints());
         }
     }
 

@@ -95,7 +95,7 @@ public class HeroController {
         body.setUserData("hero");
         body.createFixture(playerFixtureDef).setUserData(this); //naming the herofixture hero.
 
-        WorldConstants.BODIES.add(body);
+      //  WorldConstants.BODIES.add(body);
         //hero.setBody(body);
 
 
@@ -164,25 +164,25 @@ public class HeroController {
 
     //Sets the heroes weapon hitbox to the current weapon's.
     private void createMeleeWeaponHitbox() {
+        System.out.println("6");
+        //reinitializes the shape of the fixturedef.
+        shape = new PolygonShape();
+
+        //creates a fixture with a shape on the correct side of the hero using the helpmethod.
+        hitBoxShapeMaker(); //useing the helpmethod.
+        weaponSensorFixtureDef.shape = shape;
+        System.out.println("7");
         if (!WorldConstants.CURRENT_WORLD.isLocked()) {
-           // System.out.println("6");
-            //reinitializes the shape of the fixturedef.
-            shape = new PolygonShape();
-
-            //creates a fixture with a shape on the correct side of the hero using the helpmethod.
-            hitBoxShapeMaker(); //useing the helpmethod.
-            weaponSensorFixtureDef.shape = shape;
-          //  System.out.println("7");
             weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
-          //  System.out.println("8");
-            weaponSensorFixture.setSensor(true);
-            weaponSensorFixture.setUserData("weaponSensor");
-          //  System.out.println("9");
-
-            //clears memory
-            shape.dispose();
-//            System.out.println("10");
         }
+        System.out.println("8");
+        weaponSensorFixture.setSensor(true);
+        weaponSensorFixture.setUserData("weaponSensor");
+        System.out.println("9");
+
+        //clears memory
+        shape.dispose();
+        System.out.println("10");
     }
 
     private void createRangedWeaponHitbox() {
@@ -209,7 +209,7 @@ public class HeroController {
         weaponSensorFixture.setSensor(true);
         weaponSensorFixture.setUserData("weaponSensor");
 
-        WorldConstants.BODIES.add(projectileBody);
+      //  WorldConstants.BODIES.add(projectileBody);
 
         projectileBody.applyForceToCenter(new Vector2(projectileHelper(), 0), true);
 

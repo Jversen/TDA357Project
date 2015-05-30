@@ -66,10 +66,10 @@ public abstract class EnemyController {
         fixtureDef.restitution = 0f;
 
         body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
-        body.setUserData("enemy");
+        body.setUserData(this);
         body.createFixture(fixtureDef).setUserData(this); //naming the fixture
 
-        WorldConstants.BODIES.add(body);
+    //    WorldConstants.BODIES.add(body);
 
         //disposes shape to save memory
         shape.dispose();
@@ -84,11 +84,7 @@ public abstract class EnemyController {
         updatePhysics();
 
         if (enemy.isCreatureDying()) {
-            if (enemy.getMovementState() != MovementState.DYING) {
-                Hero.getInstance().increaseExperience(enemy.getXpValue());
-                enemy.setMovementState(MovementState.DYING);
-                timer.schedule(new SetCreatureDeadTask(), 1450);
-            }
+            this.die();
         } else {
             if (!enemy.isIncapacitated()) {
                 enemy.setEnemyDirection();
@@ -115,29 +111,36 @@ public abstract class EnemyController {
         attackReady = false;
         enemy.setAttackInProgress(true);
         enemy.attack();
-        createHitbox();
-        timer.schedule(new RemoveHitBoxTask(), 1000);
+        timer.schedule(new CreateHitBoxTask(), 600);
+    }
+
+    private void die() {
+        if (enemy.getMovementState() != MovementState.DYING) {
+            Hero.getInstance().increaseExperience(enemy.getXpValue());
+            enemy.die();
+            timer.schedule(new SetCreatureDeadTask(), 950);
+        }
     }
 
     private void createHitbox() {
-        if (!WorldConstants.CURRENT_WORLD.isLocked()) {
-            //reinitializes the shape of the fixturedef.
-            shape = new PolygonShape();
-           // System.out.println("1");
+        //reinitializes the shape of the fixturedef.
+        shape = new PolygonShape();
+        System.out.println("1");
 
-            //creates a fixture with a shape on the correct side of the hero using the helpmethod.
-            hitBoxShapeMaker(); //useing the helpmethod.
-            weaponSensorFixtureDef.shape = shape;
-           // System.out.println("2");
+        //creates a fixture with a shape on the correct side of the hero using the helpmethod.
+        hitBoxShapeMaker(); //useing the helpmethod.
+        weaponSensorFixtureDef.shape = shape;
+        System.out.println("2");
+        if (!WorldConstants.CURRENT_WORLD.isLocked()) {
             weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
-           // System.out.println("3");
-            weaponSensorFixture.setSensor(true);
-            weaponSensorFixture.setUserData("enemyHitbox");
-           // System.out.println("4");
-            //clears memory
-            shape.dispose();
-          //  System.out.println("5");
         }
+        System.out.println("3");
+        weaponSensorFixture.setSensor(true);
+        weaponSensorFixture.setUserData("enemyHitbox");
+        System.out.println("4");
+        //clears memory
+        shape.dispose();
+        System.out.println("5");
     }
 
     private void removeHitbox() {
@@ -181,6 +184,16 @@ public abstract class EnemyController {
     class SetCreatureDeadTask extends TimerTask {
         public void run() {
             enemy.setCreatureDead(true);
+        }
+    }
+
+    //A nestled class to implement a timertask. Timertask to control the delay for hitboxes to be created.
+    class CreateHitBoxTask extends TimerTask {
+        public void run() {
+            if (!enemy.isCreatureDying()) {
+                createHitbox();
+                timer.schedule(new RemoveHitBoxTask(), 400);
+            }
         }
     }
 

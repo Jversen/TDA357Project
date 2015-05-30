@@ -44,7 +44,7 @@ public class View {
     private List<EnemyView> enemyViews;
     private List<Enemy> enemies;
 
-    private boolean showDebugInfo = false;
+    private boolean showDebugInfo = true;
     ExtendViewport vp;
 
     private HeroView heroView;
