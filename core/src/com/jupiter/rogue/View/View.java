@@ -43,6 +43,8 @@ public class View {
     private Stage stage; //Scene2d stage
     private List<EnemyView> enemyViews;
     private List<Enemy> enemies;
+
+    private boolean showDebugInfo = false;
     ExtendViewport vp;
 
     private HeroView heroView;
@@ -55,8 +57,8 @@ public class View {
         enemyViews = new ArrayList<>();
 
         debugRenderer = new Box2DDebugRenderer();
-        w = Gdx.graphics.getWidth() *2;
-        h = Gdx.graphics.getHeight() *2;
+        w = Gdx.graphics.getWidth();
+        h = Gdx.graphics.getHeight();
         camera  = new OrthographicCamera(); //Regular camera for level
         b2dCam = new OrthographicCamera();  //Box2D camera to scale up the box2D simulation
 
@@ -105,11 +107,11 @@ public class View {
                 enemyViews.get(i).updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
             }
 
-        camera.setToOrtho(false, w / PPM, h / PPM);
-
-        moveB2DCamera(posX, posY);
-
-        debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
+        if(showDebugInfo) {
+            camera.setToOrtho(false, w / PPM, h / PPM);
+            moveB2DCamera(posX, posY);
+            debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
+        }
 
         stage.draw();
     }
@@ -168,5 +170,9 @@ public class View {
                 }
             }
         }
+    }
+
+    public boolean getShowDebugInfo() {
+        return showDebugInfo;
     }
 }
