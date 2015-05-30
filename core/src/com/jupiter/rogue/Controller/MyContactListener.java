@@ -33,32 +33,15 @@ public class MyContactListener implements ContactListener {
             hero.setCreatureGrounded(true);
             hero.setCreatureFalling(false);
         }
-
-        // ALL THIS IS USED BY MAP WHILE SWITCHING ROOMS
-
+        
         if (fa.getUserData() instanceof HeroController || fb.getUserData() instanceof HeroController) {
-            if (fa.getUserData().equals("l1") || fb.getUserData().equals("l1")) {
-                map.flagRoomForDestruction("l1");
-            }
+            Object fixtureA = fa.getUserData();
+            Object fixtureB = fb.getUserData();
 
-            if (fa.getUserData().equals("r1") || fb.getUserData().equals("r1")) {
-                map.flagRoomForDestruction("r1");
-            }
-
-            if (fa.getUserData().equals("l2") || fb.getUserData().equals("l2")) {
-                map.flagRoomForDestruction("l2");
-            }
-
-            if (fa.getUserData().equals("r2") || fb.getUserData().equals("r2")) {
-                map.flagRoomForDestruction("r2");
-            }
-
-            if (fa.getUserData().equals("t1") || fb.getUserData().equals("t1")) {
-                map.flagRoomForDestruction("t1");
-            }
-
-            if (fa.getUserData().equals("b1") || fb.getUserData().equals("b1")) {
-                map.flagRoomForDestruction("b1");
+            if(fixtureA instanceof String && ((String)fixtureA).length() == 2) {
+                map.flagRoomForDestruction((String)fixtureA);
+            } else if(fixtureB instanceof String && ((String)fixtureB).length() == 2) {
+                map.flagRoomForDestruction((String)fixtureB);
             }
         }
 

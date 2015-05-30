@@ -8,22 +8,22 @@
  </tileset>
  <layer name="Background" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJy7w8DAcIdMnEeB3lwCZhCSJ8XuPCzmUtM/AEqeQbw=
+   eJy7w8DAcIdMnEeB3lwCZhCSxyZeQ4TaXBxqKPEPAB2eQVw=
   </data>
  </layer>
  <layer name="Foreground" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxTZmBgUIZiDQYEUEISVyZSDbIcAw51xKqxRMKkmAMDpKixwoKtgViYgDkgeVcgBgCutAdC
+   eJxTZmBgUIZiDQYEUEISVyZSDbIcAw51KkAsSkANTJ0IEEtiUUMtIALFyO4RQxIXYSDO3wD67QWI
   </data>
  </layer>
  <layer name="Sensor" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYEAFd6B4KANi3E9NPwIAsOIDcQ==
+   eJxjYEAFd6B4MINcAvJ3iFRDKsAVNgBCDQYD
   </data>
  </layer>
  <layer name="Decoration" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF2IAVCWoBCzwAOw==
+   eJxjYBgFlAIAAUQAAQ==
   </data>
  </layer>
 </map>

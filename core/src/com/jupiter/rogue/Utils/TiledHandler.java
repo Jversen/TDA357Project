@@ -59,6 +59,8 @@ public class TiledHandler {
     different kinds of layers. */
     public void createTileBodies() {
         BodyDef bodyDef = new BodyDef();
+        int leftStair = 0;
+        int rightStair = 0;
 
         for(int row = 2; row < foregroundLayer.getHeight()-2; row++) {
             for(int col = 2; col < foregroundLayer.getWidth()-2; col++) {
@@ -66,11 +68,9 @@ public class TiledHandler {
                 if(cell != null && cell.getTile() != null) {
                     if(leftStair(col, row)) {
                         stairs[col][row] = 1;
-                        stairs[col][row-1] = 3;
                     }
                     if(rightStair(col, row)) {
                         stairs[col][row] = 2;
-                        stairs[col][row-1] = 3;
                     }
                 }
             }
@@ -230,7 +230,7 @@ public class TiledHandler {
             y++;
         }
         Vector2[] vertices = getLeftStairVertices(stairLength);
-        createStairObstacle(startingX-stairLength, startingY, vertices, stairLength);
+        createStairObstacle(startingX-stairLength+1, startingY, vertices, stairLength);
     }
     private Vector2[] getLeftStairVertices(int stairLength) {
         Vector2[] vertices = new Vector2[3];
@@ -250,25 +250,15 @@ public class TiledHandler {
                 && foregroundLayer.getCell(x, y+1) == null && foregroundLayer.getCell(x,y-1) != null &&  foregroundLayer.getCell(x+1, y) != null;
     }
 
-    private void createStairObstacle(int x, int y, Vector2[] vertices, int stairLength) {
+    private void createStairObstacle(float x, float y, Vector2[] vertices, int stairLength) {
         BodyDef bodyDef = new BodyDef();
 
-        float newX = 0;
-        float newY = 0;
-
-        if(stairLength > 1) {
-            newX = ((x - stairLength) + stairLength / 2 + 2f) * TILE_SIZE / PPM;
-            newY = ((y - stairLength) + stairLength / 2 + 2f) * TILE_SIZE / PPM;
-        } else {
-            newX = ((x - stairLength) + stairLength / 2 + 1f) * TILE_SIZE / PPM;
-            newY = ((y - stairLength) + stairLength / 2 + 1f) * TILE_SIZE / PPM;
-        }
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
                 /*Set the position to the tile number plus half the tilesize to compensate
                 for body/libgdx drawing differences. */
 
-        bodyDef.position.set(newX, newY);
+        bodyDef.position.set(x, y);
         FixtureDef fixtureDef = new FixtureDef();
 
         Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);

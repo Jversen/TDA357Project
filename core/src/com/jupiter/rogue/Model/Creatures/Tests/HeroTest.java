@@ -2,7 +2,7 @@ package com.jupiter.rogue.Model.Creatures.Tests;
 
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Items.BlackDagger;
-import com.jupiter.rogue.Model.Items.DoubleBarreled;
+import com.jupiter.rogue.Model.Items.Boomstick;
 import com.jupiter.rogue.Model.Items.Ring;
 import com.jupiter.rogue.Model.Items.Weapon;
 import org.junit.Test;
@@ -63,7 +63,7 @@ public class HeroTest {
     @Test
     public void testSwapWeapon() throws Exception {
         hero.setMeleeCurrentWeapon(true);
-        hero.setRangedWeapon(new DoubleBarreled());
+        hero.setRangedWeapon(new Boomstick());
         hero.swapWeapon();
         assertEquals(hero.getCurrentWeapon(), hero.getRangedWeapon());
         hero.swapWeapon();
@@ -78,7 +78,7 @@ public class HeroTest {
     @Test
     public void testPickUpItem() throws Exception {
         Weapon meleeWeapon = new BlackDagger();
-        Weapon rangeWeapon = new DoubleBarreled();
+        Weapon rangeWeapon = new Boomstick();
         Ring ring1 = new Ring();
         Ring ring2 = new Ring();
         hero.setMeleeWeapon(null);

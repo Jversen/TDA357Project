@@ -3,9 +3,9 @@ package com.jupiter.rogue.Model.Items;
 /**
  * Created by hilden on 2015-05-16.
  */
-public class DoubleBarreled extends RangedWeapon {
+public class Boomstick extends RangedWeapon {
 
-    public DoubleBarreled() {
+    public Boomstick() {
         this.damage = 150;
         this.attackSpeed = 1200;
         this.animationSpeed = 1500;
