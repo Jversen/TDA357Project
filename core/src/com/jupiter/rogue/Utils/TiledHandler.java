@@ -316,6 +316,7 @@ public class TiledHandler {
 
     //TODO expand this to fit more positions
     public void setHeroPosition(String entrance) {
+        System.out.println("Entrance: " + entrance);
 
         String side = entrance.substring(0,1);
         int cell = Integer.parseInt(entrance.substring(1));
@@ -327,15 +328,15 @@ public class TiledHandler {
                 System.out.println("Cell: " + cell);
                 if(side.equals("l")) {
                     x = 50/PPM;
-                    y = ((cell)*TILE_SIZE+17)/PPM;
+                    y = (((cell-1)*5)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
                 } else if(side.equals("r")) {
                     x = (((foregroundLayer.getWidth()-1)*TILE_SIZE)-15)/PPM;
-                    y = ((cell)*TILE_SIZE+17)/PPM;
+                    y = (((cell-1)*5)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
                 } else if(side.equals("t")) {
-                    x = ((cell+3)*TILE_SIZE+15)/PPM;
+                    x = (((cell-1)*5)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
                     y = (((foregroundLayer.getHeight()-2)*TILE_SIZE))/PPM;
                 } else if(side.equals("b")) {
-                    x = ((cell+3)*TILE_SIZE+15)/PPM;
+                    x = (((cell-1)*5)*TILE_SIZE+15+2*TILE_SIZE+17)/PPM;
                     y = 82/PPM;
                 }
 

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public final class WorldConstants {
 
     public static final float PPM = 32f; //Pixels per meter conversion unit
-    public static final float HERO_START_XPOS = 75;
-    public static final float HERO_START_YPOS = 200;
+    public static final float HERO_START_XPOS = 128;
+    public static final float HERO_START_YPOS = 80;
     public static final float GRAVITY = -10f;
     public static final Vector2 GRAVITY_VECTOR = new Vector2(0, GRAVITY);
     public static World CURRENT_WORLD = new World(GRAVITY_VECTOR, true);

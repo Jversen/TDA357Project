@@ -33,7 +33,7 @@ public class MyContactListener implements ContactListener {
             hero.setCreatureGrounded(true);
             hero.setCreatureFalling(false);
         }
-        
+
         if (fa.getUserData() instanceof HeroController || fb.getUserData() instanceof HeroController) {
             Object fixtureA = fa.getUserData();
             Object fixtureB = fb.getUserData();
