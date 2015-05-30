@@ -43,6 +43,7 @@ public class Hero extends Creature {
         this.rangedWeapon = new DoubleBarreled();
 
         //Stats and experience
+        level = 1;
         experiencePoints = 0;
         experienceRoof = 100;
         strength = 1;
@@ -83,6 +84,7 @@ public class Hero extends Creature {
     }
 
     private void levelUp() {
+        level++;
         statPoints++;
         experiencePoints = experiencePoints - experienceRoof;
         experienceRoof = experienceRoof + 50;

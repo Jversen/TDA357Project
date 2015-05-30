@@ -24,10 +24,12 @@ public class HeroTest {
         hero.increaseExperience(50);
         assertEquals(hero.getExperiencePoints(), 50);
 
+        hero.setExperiencePoints(0);
+        hero.setStatPoints(0);
         hero.increaseExperience(100);
         assertEquals(hero.getLevel(), 2);
         assertEquals(hero.getStatPoints(), 1);
-        assertEquals(hero.getExperiencePoints(), 50);
+        assertEquals(hero.getExperiencePoints(), 0);
         assertEquals(hero.getExperienceRoof(), 150);
     }
 
@@ -51,6 +53,7 @@ public class HeroTest {
         assertEquals(hero.getCurrentWeapon(), hero.getMeleeWeapon());
 
         hero.setMeleeCurrentWeapon(false);
+        hero.setRangedWeapon(new DoubleBarreled());
         assertEquals(hero.getCurrentWeapon(), hero.getRangedWeapon());
 
         hero.setRangedWeapon(null);

@@ -35,8 +35,8 @@ public class CreatureTest {
 
         enemy2.setInvulnerable(true);
         enemy2.setHealthPoints(100);
-        enemy.takeDamage(20);
-        assertEquals(enemy.getCurrentHealthPoints(), 100);
+        enemy2.takeDamage(20);
+        assertEquals(enemy2.getCurrentHealthPoints(), 100);
     }
 
     @Test
@@ -55,20 +55,27 @@ public class CreatureTest {
         enemy.setHealthPoints(56);
         assertEquals(enemy.getCurrentHealthPoints(), 56);
 
+        enemy.setHealthPoints(100);
         enemy.setHealthPoints(150);
         assertEquals(enemy.getCurrentHealthPoints(), 100);
 
+        enemy.setHealthPoints(100);
         enemy.setHealthPoints(-20);
         assertEquals(enemy.getCurrentHealthPoints(), 100);
     }
 
     @Test
     public void testWalk() throws Exception {
+
+        enemy.setCreatureGrounded(false);
+        enemy.setCreatureFalling(false);
         enemy.setMovementState(MovementState.STANDING);
         enemy.setCreatureGrounded(true);
         enemy.walk(Direction.LEFT);
         assertEquals(enemy.getMovementState(), MovementState.WALKING);
 
+        enemy2.setCreatureGrounded(false);
+        enemy2.setCreatureFalling(false);
         enemy2.setMovementState(MovementState.STANDING);
         enemy2.setCreatureFalling(true);
         enemy2.walk(Direction.LEFT);
@@ -84,11 +91,15 @@ public class CreatureTest {
 
     @Test
     public void testRelax() throws Exception {
+        enemy.setCreatureGrounded(false);
+        enemy.setCreatureFalling(false);
         enemy.setMovementState(MovementState.WALKING);
         enemy.setCreatureGrounded(true);
         enemy.relax();
         assertEquals(enemy.getMovementState(), MovementState.STANDING);
 
+        enemy2.setCreatureGrounded(false);
+        enemy2.setCreatureFalling(false);
         enemy2.setMovementState(MovementState.WALKING);
         enemy2.setCreatureFalling(true);
         enemy2.relax();

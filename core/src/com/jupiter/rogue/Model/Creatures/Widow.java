@@ -20,7 +20,7 @@ public class Widow extends Enemy {
         this.bodyHeight = 25;
         this.bodyY = 0.5f;
 
-        this.xpValue = 100;
+        this.xpValue = 80;
 
         this.movementSpeed = 4;
     }

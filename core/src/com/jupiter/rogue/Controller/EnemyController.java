@@ -94,7 +94,7 @@ public abstract class EnemyController {
                     enemy.setEnemyDirection();
                     enemy.walk(enemy.getDirection());
                     moveBehavior.move(enemy.getDirection(), enemy.getMovementSpeed());
-                    /*if(enemyShouldJump()){
+                    /*if(enemyBlocked()){
                         enemy.jump();
                         jumpBehavior.jump(enemy.getJumpHeight());
                     }*/
@@ -155,12 +155,24 @@ public abstract class EnemyController {
         }
         shape.setAsBox(enemy.getAttackHitBoxWidth() / PPM, enemy.getAttackHitBoxHeight() / PPM, new Vector2(hitBoxX / PPM, enemy.getAttackHitBoxY() / PPM), 0);
     }
-    private boolean enemyShouldJump(){
+    private boolean enemyBlocked(){
         if(enemy.getDirection() == Direction.RIGHT){
-            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE + 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null);
+            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE + 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null
+            || Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE + TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null);
         }
         else if(enemy.getDirection() == Direction.LEFT){
-            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE - 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null);
+            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE - 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null
+            || Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE - TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null);
+        }
+        return false;
+    }
+
+    private boolean jumpPossible(){
+        if(enemy.getDirection() == Direction.RIGHT){
+            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE + 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE + 2*TILE_SIZE) == null);
+        }
+        else if(enemy.getDirection() == Direction.LEFT){
+            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE - 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE + 2*TILE_SIZE) == null);
         }
         return false;
     }

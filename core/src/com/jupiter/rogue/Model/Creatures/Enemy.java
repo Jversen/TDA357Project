@@ -58,12 +58,4 @@ public class Enemy extends Creature {
             this.setDirection(Direction.RIGHT);
         }
     }
-
-
-    @Override
-    public void walk(Direction direction) {
-        if (creatureGrounded) { //To prevent the hero from walking mid air.
-            setMovementState(MovementState.WALKING);
-        }
-    }
 }
