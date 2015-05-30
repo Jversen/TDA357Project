@@ -14,7 +14,7 @@ public class ChestView {
     Sprite spriteOpened;
 
     public ChestView(){
-        spriteSheet = new Texture(Gdx.files.internal("Data/box_yellow.png"));
+        spriteSheet = new Texture(Gdx.files.internal("Data/box_blue.png"));
         spriteLocked = new Sprite(spriteSheet, 0, 0, 32, 32);
         spriteOpened = new Sprite(spriteSheet, 32, 0, 32, 32);
 

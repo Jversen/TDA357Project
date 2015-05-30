@@ -28,20 +28,10 @@ public class ChestFactory {
     }
 
     public Chest createChest(){
-        switch (chestType) {
-            case ("weapon"):
-            case ("ring"): return new Chest(chestType);
-
-            default: return new Chest("weapon");
-        }
-    }
-
-    private Item createContent(String chestType){
-
-        switch (chestType){
-            case ("weapon"):
-            case ("ring"): return randomizeContent();
-        }
+        Chest chest;
+        this.content = randomizeContent();
+        chest = new Chest(chestType, content, this.xPos, this.yPos);
+        return chest;
     }
 
     private Item randomizeContent(){
@@ -57,10 +47,11 @@ public class ChestFactory {
             case ("ring"):
                 map = WorldConstants.ringMap;
                 break;
+            default: map = WorldConstants.weaponMap;
         }
         
         itemIndex = rn.nextInt(map.size());
-        item = map.get(itemIndex);
+        item = (Item)map.get(itemIndex);
         return item;
 
     }

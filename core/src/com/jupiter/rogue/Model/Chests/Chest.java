@@ -1,5 +1,7 @@
 package com.jupiter.rogue.Model.Chests;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.jupiter.rogue.Model.Items.Item;
 
 import java.util.Random;
@@ -13,8 +15,11 @@ public class Chest {
     protected float xPos;
     protected float yPos;
 
-    public Chest(String chestType){
+    public Chest(String chestType, Item content, float xPos, float yPos){
         this.chestType = chestType;
+        this.content = content;
+        this.xPos = xPos;
+        this.yPos = yPos;
 
         switch (chestType){
             case "weapon":
