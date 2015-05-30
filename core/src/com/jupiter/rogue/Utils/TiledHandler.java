@@ -68,9 +68,11 @@ public class TiledHandler {
                 if(cell != null && cell.getTile() != null) {
                     if(leftStair(col, row)) {
                         stairs[col][row] = 1;
+                        stairs[col][row-1] = 3;
                     }
                     if(rightStair(col, row)) {
                         stairs[col][row] = 2;
+                        stairs[col][row-1] = 3;
                     }
                 }
             }
