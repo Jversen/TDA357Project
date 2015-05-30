@@ -46,11 +46,13 @@ public abstract class CreatureView {
         spriteSheet = new Texture(Gdx.files.internal(spritesheetPathRun));
         atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathRun));
         runningAnimation = new Animation(animationSpeedRun, atlas.getRegions());
+        runningAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         //Idle animation
         spriteSheet = new Texture((Gdx.files.internal(spritesheetPathIdle)));
         atlas = new TextureAtlas(Gdx.files.internal(atlasFilePathIdle));
         idleAnimation = new Animation(animationSpeedIdle, atlas.getRegions());
+        idleAnimation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
   /*  public TextureRegion getCurrentFrame() {
