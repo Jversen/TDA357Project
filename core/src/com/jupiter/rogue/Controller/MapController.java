@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Controller;
 
+import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
 import com.jupiter.rogue.Model.Creatures.Widow;
@@ -18,6 +19,8 @@ public class MapController {
     private ArrayList<Room> rooms;
     private List<Enemy> enemies;
     private List<EnemyController> enemyControllers;
+    private List<Chest> chests;
+    private List<ChestController> chestControllers;
     private int currentRoomNbr;
 
     public MapController(){
@@ -47,6 +50,7 @@ public class MapController {
         }
     }
 
+
     /**
      * Clears the list enemyControllers and updates it with new EnemyControllers
      * for the Enemy objects in the current room
@@ -64,9 +68,26 @@ public class MapController {
                         break;
                     case("redDeath"): enemyControllers.add(new RedDeathController((RedDeath) enemies.get((i))));
                         break;
+                    default: enemyControllers.add(new WidowController((Widow) enemies.get(i)));
                 }
             }
         }
+    }
+
+    /**
+     * Clears the list chestControllers and updates it with new ChestControllers
+     * for the Chest objects in the current room
+     */
+    public void remakeChestControllers(){
+        chestControllers.clear();
+        chests = map.getCurrentRoom().getChests();
+
+        if(chests != null) {
+            for (int i = 0; i < chests.size(); i++){
+                chestControllers.add(new ChestController(chests.get(i)));
+            }
+        }
+
     }
 
     /**
@@ -80,4 +101,15 @@ public class MapController {
             }
         }
     }
+    /**
+     * Creates bodies for all Chest objects in the current room.
+     */
+    public void placeChestBodies(){
+        if (chestControllers != null) {
+            for (int i = 0; i < chests.size(); i++) {
+                chestControllers.get(i).initBody();
+            }
+        }
+    }
+
 }
