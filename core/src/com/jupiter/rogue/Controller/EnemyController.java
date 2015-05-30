@@ -8,6 +8,7 @@ import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.Enums.Direction;
 import com.jupiter.rogue.Utils.Enums.MovementState;
 import com.jupiter.rogue.Utils.Position;
@@ -18,6 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
+import static com.jupiter.rogue.Utils.WorldConstants.TILE_SIZE;
 
 /**
  * Created by Johan on 2015-05-10.
@@ -96,6 +98,10 @@ public abstract class EnemyController {
                     enemy.setEnemyDirection();
                     enemy.walk(enemy.getDirection());
                     moveBehavior.move(enemy.getDirection(), enemy.getMovementSpeed());
+                    /*if(enemyShouldJump()){
+                        enemy.jump();
+                        jumpBehavior.jump(enemy.getJumpHeight());
+                    }*/
                 } else {
                     if (attackReady) {
                         attack();
@@ -143,7 +149,15 @@ public abstract class EnemyController {
         }
         shape.setAsBox(enemy.getAttackHitBoxWidth() / PPM, enemy.getAttackHitBoxHeight() / PPM, new Vector2(hitBoxX / PPM, enemy.getAttackHitBoxY() / PPM), 0);
     }
-
+    private boolean enemyShouldJump(){
+        if(enemy.getDirection() == Direction.RIGHT){
+            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE + 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null);
+        }
+        else if(enemy.getDirection() == Direction.LEFT){
+            return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE - 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null);
+        }
+        return false;
+    }
 
     private boolean heroNotNear(){
         return((Math.abs((enemy.getX() + (enemy.getBodyWidth()/2)/PPM) - (Hero.getInstance().getX() + 5/PPM)) > 200/PPM) ||
