@@ -76,7 +76,7 @@ public abstract class CreatureView {
         }
 
         stateTime += deltaTime;
-        currentFrame = animation.getKeyFrame(stateTime, true);
+        currentFrame = animation.getKeyFrame(stateTime);
         sprite.setRegion(currentFrame);
         sprite.setPosition(creature.getX() * PPM, creature.getY() * PPM);
 

@@ -40,7 +40,7 @@ public class Hero extends Creature {
 
         //Starting weapons
         this.meleeWeapon = new StartingWeapon();
-        this.rangedWeapon = new DoubleBarreled();
+        this.rangedWeapon = new Boomstick();
 
         //Stats and experience
         experiencePoints = 0;
