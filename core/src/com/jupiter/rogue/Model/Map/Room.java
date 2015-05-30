@@ -33,7 +33,7 @@ public class Room {
     private boolean visited;
     private boolean bossRoom;
     private List<Enemy> enemies;
-    List<Chest> chests;
+    private List<Chest> chests;
 
 
 

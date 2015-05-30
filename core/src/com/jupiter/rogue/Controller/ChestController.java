@@ -28,7 +28,7 @@ public class ChestController {
         this.chest = chest;
         this.chestView = new ChestView(chest);
     }
-    
+
     public void initBody() {
 
         BodyDef bodyDef = new BodyDef();
