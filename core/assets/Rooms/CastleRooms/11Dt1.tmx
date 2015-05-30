@@ -13,17 +13,17 @@
  </layer>
  <layer name="Foreground" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxTZmBgUIZiDQYEUEISVyZSDbIcAw51xKqxRMKkmAMDpKixwoKtgViYgDkgeVcgBgCutAdC
+   eJxTZmBgUIZiDQYEUEISxyaPTQ26PDZ15KixBGJrLGqsqWQXyHwrJIzNLlzmmAAxALHUB6I=
   </data>
  </layer>
  <layer name="Sensor" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYEAFd6B4KANi3E9NPwIAsOIDcQ==
+   eJxjYEAFuUCcxzAKSAEABxcA3A==
   </data>
  </layer>
  <layer name="Decoration" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF2IAVCWoBCzwAOw==
+   eJxjYBh+gIMINeJEqFHDIycMxK5AbArEABVoANM=
   </data>
  </layer>
 </map>
