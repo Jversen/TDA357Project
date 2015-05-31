@@ -5,7 +5,9 @@ package com.jupiter.rogue.Model.Items;
  */
 @lombok.Data
 public class Boomstick extends RangedWeapon {
-
+    /**
+     * creates the weapon boomstick
+     */
     public Boomstick() {
         this.damage = 150;
         this.attackSpeed = 1200;

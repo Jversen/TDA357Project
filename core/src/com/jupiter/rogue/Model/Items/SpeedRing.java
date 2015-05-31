@@ -5,7 +5,9 @@ package com.jupiter.rogue.Model.Items;
  */
 @lombok.Data
 public class SpeedRing extends Ring{
-
+    /**
+     * creates the ring Speed Ring
+     */
     public SpeedRing(){
 
         this.strengthRequirement = 0;

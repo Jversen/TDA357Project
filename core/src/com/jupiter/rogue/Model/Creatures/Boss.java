@@ -9,6 +9,14 @@ import com.jupiter.rogue.Utils.Enums.MovementState;
 @lombok.Data
 public class Boss extends Enemy {
 
+<<<<<<< HEAD
+    public Boss() {
+        /**
+         * creates a boss enemy.
+         *@see com.jupiter.rogue.Model.Creatures.Enemy
+         */
+        super(2000, 2000, 60, 10000, 0, 0, false, 100, 100, 1, false);
+=======
     private boolean attackInProgress1;
     private boolean attackInProgress2;
 
@@ -20,6 +28,7 @@ public class Boss extends Enemy {
     public Boss(float xPos, float yPos, int level, boolean elite) {
 
         super(2000, 2000, 60, 10000, 0, 0, false, xPos, yPos, level, elite);
+>>>>>>> 56346a09370a3c0d32686530e9c8f81bd428d4ee
 
         this.enemyType = "boss";
         this.attackHitBoxWidth = 2000;

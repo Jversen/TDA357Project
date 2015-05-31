@@ -31,6 +31,20 @@ public class Enemy extends Creature {
 
     protected int xpValue;
 
+    /**
+     *
+     * @param maxHP the enemys maximum health points
+     * @param currentHP the enemys current health points
+     * @param attackPoints the enemys attack points
+     * @param attackRange the enemys attack range
+     * @param movementSpeed the enemys movement speed
+     * @param jumpHeight the enemys jump height
+     * @param flying whether the enemy can fly or not
+     * @param posX the enemys x pos
+     * @param posY the enemys y pos
+     * @param level the enemys level
+     * @param elite whether if the enemy is elite or not
+     */
     public Enemy(int maxHP, int currentHP, int attackPoints, float attackRange, int movementSpeed, int jumpHeight, boolean flying,
                  float posX, float posY, int level, boolean elite) {
         this.movementSpeed = movementSpeed;
@@ -51,6 +65,10 @@ public class Enemy extends Creature {
         this.creatureGrounded = true;
     }
 
+    /**
+     * sets the enemies direction depending on where the hero is. if the hero is left of the enemy, the enemy faces left
+     * and vice versa
+     */
     public void setEnemyDirection(){
         if (this.getX() > Hero.getInstance().getX()){
             this.setDirection(Direction.LEFT);

@@ -64,6 +64,10 @@ public class Hero extends Creature {
         this.direction = Direction.RIGHT;
     }
 
+    /**
+     *
+     * @return returns the singleton instance of hero
+     */
     public static Hero getInstance() {
         if(instance == null) {
             instance = new Hero();
@@ -72,6 +76,9 @@ public class Hero extends Creature {
     }
 
     @Override
+    /**
+     * does nothing but decrease durability on ranged weapons
+     */
     public void attack() {
         attackInProgress = true;
         if (!isMeleeCurrentWeapon()) {
@@ -79,6 +86,10 @@ public class Hero extends Creature {
         }
     }
 
+    /**
+     * method to increase experience points and if the experience roof is reached, level the hero up
+     * @param experienceGain the amount of experience the hero gains
+     */
     public void increaseExperience(int experienceGain) {
         this.experiencePoints = this.experiencePoints + experienceGain;
         if (experiencePoints >= experienceRoof) {
@@ -86,6 +97,9 @@ public class Hero extends Creature {
         }
     }
 
+    /**
+     * increases the heros level and gives the hero a stat point. increases the experience roof
+     */
     private void levelUp() {
         level++;
         statPoints++;
@@ -93,6 +107,10 @@ public class Hero extends Creature {
         experienceRoof = experienceRoof + 50;
     }
 
+    /**
+     * increases one of the heros attributes
+     * @param statToIncrease which stat to increase
+     */
     public void increaseStats(String statToIncrease) {
         if (statPoints >= 1) {
             if (statToIncrease.equals("strength")) {
@@ -111,11 +129,17 @@ public class Hero extends Creature {
     }
 
     @Override
+    /**
+     * sets the heros health points
+     */
     public void setHealthPoints(int HP) {
         super.setHealthPoints(HP);
     }
 
-    //returns the weapon currently in use
+    /**
+     * returns the current weapon
+     * @return the current weapon
+     */
     public Weapon getCurrentWeapon() {
         if (meleeCurrentWeapon) {
             return meleeWeapon;
@@ -127,30 +151,35 @@ public class Hero extends Creature {
         }
     }
 
-    //swaps the value of meleeCurrentWeapon
+    /**
+     * swaps between melee and range hero
+     */
     public void swapWeapon() {
         if (rangedWeapon != null) {
             meleeCurrentWeapon ^= true;    //Swap the value of meleeCurrentWeapon
         }
     }
 
-    //a method for the hero to be able to pick up weapons.
+    /**
+     * picks up and equips items from chests
+     * @param item the item that is in the chest
+     */
     public void pickUpItem(Item item) {
         if (item instanceof MeleeWeapon) {
             this.meleeWeapon = (MeleeWeapon)item;
-            System.out.println("Equipped melee weapon " + item.getItemName());
+
         }
         else if (item instanceof RangedWeapon) {
             this.rangedWeapon = (RangedWeapon)item;
-            System.out.println("Equipped ranged weapon " + item.getItemName());
+
         }
         else if (item instanceof Ring) {
             if (ringRight == null) {
                 ringRight = (Ring)item;
-                System.out.println("placed " + ringRight.getItemName() +" on right hand");
+
             } else if (ringLeft == null) {
                 ringLeft = (Ring)item;
-                System.out.println("placed " + ringLeft.getItemName() +" on left hand");
+
             }
         }
     }

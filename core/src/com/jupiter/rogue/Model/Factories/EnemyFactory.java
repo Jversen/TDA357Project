@@ -10,6 +10,13 @@ import com.jupiter.rogue.Model.Creatures.Widow;
  */
 
 public interface EnemyFactory {
-
+    /**
+     * creates an enemy
+     * @param xPos position in x axis
+     * @param yPos position in y axis
+     * @param level level of enemy
+     * @param elite elite status
+     * @return the enemy created
+     */
     Enemy createEnemy(float xPos, float yPos, int level, boolean elite);
 }

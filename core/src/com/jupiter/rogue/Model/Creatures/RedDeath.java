@@ -5,7 +5,13 @@ package com.jupiter.rogue.Model.Creatures;
  */
 @lombok.Data
 public class RedDeath extends Enemy {
-
+    /**
+     * creates the enemy RedDeath
+     * @param xPos position in the x axis
+     * @param yPos position in the y axis
+     * @param level desired level
+     * @param elite elite status
+     */
     public RedDeath(float xPos, float yPos, int level, boolean elite) {
 
         super(100, 100, 25, 25, 1, 6, true, xPos, yPos, level, elite);

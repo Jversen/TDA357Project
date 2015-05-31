@@ -897,6 +897,14 @@ public class Map {
         }
     }
 
+
+    /**
+     * gets the doors that are matching the room
+     * @param room the room
+     * @param side the side of the room checked
+     * @return arraylist with matching doors
+     */
+
     private ArrayList<String> getDoors(Room room, String side) {
         ArrayList<String> matchingDoors = new ArrayList<>();
         for(String door : room.getDoors()) {
@@ -1005,6 +1013,10 @@ public class Map {
         nextRoom += 1;
     }
 
+
+    /**
+     * switches room
+     */
     private void switchRoom() {
         destroyWorld();
         changeActiveRoom();
@@ -1124,6 +1136,10 @@ public class Map {
         this.destroyRoom = true;
     }
 
+
+    /**
+     * changes the rooms position in the map
+     */
     private void setNewRoomPosition() {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {

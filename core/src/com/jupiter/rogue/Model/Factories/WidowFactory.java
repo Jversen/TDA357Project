@@ -13,11 +13,18 @@ public class WidowFactory implements EnemyFactory {
     String enemyType = "widow";
 
     @Override
+    /**
+     * creates an enemy
+     * @see implemented interface
+     */
     public Enemy createEnemy(float xPos, float yPos, int level, boolean elite){
         Enemy enemy = new Widow(xPos, yPos, level, elite);
         return enemy;
     }
-
+    /**
+     * gets the enemy type
+     * @return a string with the enemy type
+     */
     public String getEnemyType(){
         return enemyType;
     }

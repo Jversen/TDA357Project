@@ -7,7 +7,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  * Created by hilden on 2015-05-16.
  */
 public class BasicSword extends MeleeWeapon {
-
+    /**
+     * creates the weapon basic sword
+     */
     public BasicSword() {
         this.damage = 50;
         this.attackSpeed = 350;
