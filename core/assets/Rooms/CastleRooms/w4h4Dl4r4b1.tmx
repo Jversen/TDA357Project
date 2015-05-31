@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
+  <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
+ </tileset>
+ <tileset firstgid="166" name="oppcastle-tiles_0" tilewidth="32" tileheight="32">
+  <image source="oppcastle-tiles_0.png" width="416" height="352"/>
+ </tileset>
+ <layer name="Background" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzlUzkOACAI48PwYh7j7oCplMbEgYnQg0KaWX5UQZy9wXKilw4WU4eSM5p4nfyZGOqcWJp3PV70GP+CeKnwUe7K5ytZTO4V9dvVgPBN3TJj73Hoq24C9X3iV+pT1gLYH96t
+  </data>
+ </layer>
+ <layer name="Foreground" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxTZmBgUB7iWIOB+kBpmJg/1IEIEEvSwFxhqNlDPX5HzR81f9T8UfNJNV+MAVL+iVLBfBUGzHJaCU2OVKyKZD42fyhhkScHAwB6+BXj
+  </data>
+ </layer>
+ <layer name="Sensor" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwxncobHZtDZ/FIyCUTAKRsEoAAFq1zkAy0kFKQ==
+  </data>
+ </layer>
+ <layer name="Decoration" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGAbkgFYjTSOCTCkqAuJQEPjGAA4ndDMQtJPCJAeIkqicVqFHBDABVXgh3
+  </data>
+ </layer>
+ <layer name="Thin ledges" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DwAysKsTWSWZZ0czUCUMvdMHF6A2LdRSymN6A0/aD7md6A3HQy1MIfBgj5gd4AVxogNy2NgsEBAGZMHFQ=
+  </data>
+ </layer>
+</map>

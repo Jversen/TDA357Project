@@ -83,9 +83,8 @@ public abstract class CreatureView {
         sprite.setPosition(creature.getX() * PPM, creature.getY() * PPM);
 
         /* Draws the current frame of the hero animation, at position x,y of it's body
-        scaled to the PPM, its origin offset (for scaling and rotating) at half the body
-        (A bit unsure about that, got it right by experimenting),
-        full size of the textureregion, and finally scaled to PPM and rotated to match
+        scaled to the PPM, its origin offset (for scaling and rotating) at half the body.
+        Full size of the textureregion, and finally scaled to PPM and rotated to match
         the rotation of the body.
          */
 

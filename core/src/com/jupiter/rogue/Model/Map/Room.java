@@ -2,6 +2,8 @@ package com.jupiter.rogue.Model.Map;
 
 import com.badlogic.gdx.maps.MapProperties;
 import com.jupiter.rogue.Controller.EnemyController;
+import com.jupiter.rogue.Model.Chests.Chest;
+import com.jupiter.rogue.Model.Chests.ChestFactory;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Factories.EnemyFactory;
 import com.jupiter.rogue.Model.Factories.RedDeathFactory;
@@ -31,6 +33,7 @@ public class Room {
     private boolean visited;
     private boolean bossRoom;
     private List<Enemy> enemies;
+    private List<Chest> chests;
 
 
 
@@ -44,7 +47,7 @@ public class Room {
 
         tiledHandler = new TiledHandler(path);
         enemies = new ArrayList<Enemy>();
-        //enemyControllers = tiledHandler.getEnemyControllers();
+        chests = new ArrayList<Chest>();
 
     }
 
@@ -61,7 +64,7 @@ public class Room {
         float yPos;
 
         if (tiledHandler.getEnemySpawnLayer() != null) {
-            for (int i = 0; i <= tiledHandler.getEnemySpawnLayer().getObjects().getCount()-1; i++) {
+            for (int i = 0; i < tiledHandler.getEnemySpawnLayer().getObjects().getCount(); i++) {
 
                 /* checks the (enemy)type of the object. If it's "random", change to a random EnemyFactory.*/
                 MapProperties properties = tiledHandler.getEnemySpawnLayer().getObjects().get(i).getProperties();
@@ -83,7 +86,6 @@ public class Room {
                 enemy = enemyFactory.createEnemy(xPos, yPos, 1, false);
 
                 enemies.add(enemy);
-                System.out.println(enemies.get(i).getEnemyType() + " created.");
             }
         }
 
@@ -103,12 +105,44 @@ public class Room {
         int enemyTypeIndex;
         String enemyType;
 
-        enemyTypeIndex = rn.nextInt(WorldConstants.ENEMYTYPES.length);
-        enemyType = WorldConstants.ENEMYTYPES[enemyTypeIndex];
+        enemyTypeIndex = rn.nextInt(WorldConstants.ENEMYTYPES.size());
+        enemyType = WorldConstants.ENEMYTYPES.get(enemyTypeIndex);
 
         return enemyType;
     }
 
+    public void createChests() {
+
+        ChestFactory chestFactory;
+        String chestType;
+        float xPos;
+        float yPos;
+        Random rn = new Random();
+        int chestTypeIndex;
+
+        if (tiledHandler.getChestLayer() != null) {
+            for (int i = 0; i < tiledHandler.getChestLayer().getObjects().getCount(); i++) {
+                MapProperties properties = tiledHandler.getChestLayer().getObjects().get(i).getProperties();
+                if (properties.get("type") != null) {
+                    chestType = properties.get("type").toString();
+                } else {
+                    chestType = "random";
+                }
+                xPos = (float)properties.get("x");
+                yPos = (float)properties.get("y");
+
+
+                if (chestType.equals("random")) {
+                    chestTypeIndex = rn.nextInt(WorldConstants.CHESTTYPES.size());
+                    chestType = WorldConstants.CHESTTYPES.get(chestTypeIndex);
+                }
+
+                chestFactory = new ChestFactory(chestType, xPos, yPos);
+
+                chests.add(chestFactory.createChest());
+            }
+        }
+    }
 
     public boolean getVisited() {
         return visited;

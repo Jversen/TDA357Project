@@ -22,6 +22,7 @@ public class UserInput {
     private boolean key1Pressed;
     private boolean key2Pressed;
     private boolean key3Pressed;
+    private boolean cPressed;
 
     public UserInput() {
     }
@@ -34,6 +35,7 @@ public class UserInput {
         ePressed = Gdx.input.isKeyPressed(Input.Keys.E);
         wPressed = Gdx.input.isKeyPressed(Input.Keys.W);
         nPressed = Gdx.input.isKeyJustPressed(Input.Keys.N);
+        cPressed = Gdx.input.isKeyPressed(Input.Keys.C);
         f1Pressed = Gdx.input.isKeyJustPressed(Input.Keys.F1);
         key1Pressed = Gdx.input.isKeyJustPressed(Input.Keys.NUM_1);
         key2Pressed = Gdx.input.isKeyJustPressed(Input.Keys.NUM_2);
@@ -71,6 +73,9 @@ public class UserInput {
         }
         if(key3Pressed && View.getInstance().isShowAttributeMenu()){
             Hero.getInstance().increaseStats("intellect");
+        }
+        if (cPressed) {
+            keys.add(Input.Keys.C);
         }
         return keys;
     }

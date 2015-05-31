@@ -108,7 +108,7 @@ public class Map {
             incrementRoomNumber();
             moveToNextRoom();
 
-            if(rooms.size() > 40 && !bossRoomAdded) {
+            if(rooms.size() > 10 && !bossRoomAdded) {
                 moreRooms = false;
                 addBossRoom();
                 bossRoomAdded = true;
@@ -122,6 +122,7 @@ public class Map {
         resetRoomInfo();
 
         getCurrentRoom().generateEnemies();
+        getCurrentRoom().createChests();
         /* Destroys all created enemy bodies, they will be recreated later when the player enters the right
         rooms
          */
