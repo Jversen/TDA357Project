@@ -11,8 +11,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.jupiter.rogue.Controller.RedDeathController;
-import com.jupiter.rogue.Controller.WidowController;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
@@ -44,6 +42,7 @@ public class View implements Screen{
     private Stage stage; //Scene2d stage
     private List<EnemyView> enemyViews;
     private List<Enemy> enemies;
+    private boolean showAttributeMenu = false;
 
     private boolean showDebugInfo = true;
     ExtendViewport vp;
@@ -51,6 +50,7 @@ public class View implements Screen{
     private HeroView heroView;
 
     Box2DDebugRenderer debugRenderer;
+    AttributeMenu attributeMenu = AttributeMenu.getInstance();
 
     private View() {
 
@@ -80,6 +80,10 @@ public class View implements Screen{
             instance = new View();
         }
         return instance;
+    }
+
+    public void showAttributesMenu(){
+        showAttributeMenu ^= true;
     }
 
     public void update() {
@@ -112,6 +116,11 @@ public class View implements Screen{
             camera.setToOrtho(false, w / PPM, h / PPM);
             moveB2DCamera(posX, posY);
             debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
+        }
+        if(showAttributeMenu){
+            stage.addActor(attributeMenu);
+        }else{
+            attributeMenu.remove();
         }
 
         stage.draw();
