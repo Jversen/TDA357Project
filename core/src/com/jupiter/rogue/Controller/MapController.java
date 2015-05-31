@@ -31,8 +31,8 @@ public class MapController {
     }
 
     public void update() {
-        map.update();
         updateEnemyControllers();
+        map.update();
     }
 
     /**
@@ -101,6 +101,7 @@ public class MapController {
 
         if (enemyControllers != null) {
             for (int i = 0; i < enemies.size(); i++) {
+                System.out.println("skapad fiende position x: " + enemies.get(i).getX() + ", y:  " + enemies.get(i).getY() );
                 enemyControllers.get(i).initBody();
             }
         }

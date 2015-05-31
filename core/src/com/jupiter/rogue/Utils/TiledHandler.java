@@ -421,7 +421,7 @@ public class TiledHandler {
         for(Body body : BODIES) {
             if(body.getUserData() != null){
                 if((body.getUserData().equals("room") || body.getUserData().equals("sensor") ||
-                        body.getUserData().equals("enemy"))) {
+                        body.getUserData() instanceof EnemyController || body.getUserData().equals("chest"))) {
                     //body.setUserData("dead");
                     WorldConstants.CURRENT_WORLD.destroyBody(body);
                 }

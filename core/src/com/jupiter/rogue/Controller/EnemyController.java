@@ -52,7 +52,7 @@ public abstract class EnemyController {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
-        bodyDef.position.set(enemy.getX() / PPM, enemy.getY() / PPM);
+        bodyDef.position.set(enemy.getX(), enemy.getY());
 
         //creates the shape of the bodyDef
         shape = new PolygonShape();
@@ -178,7 +178,11 @@ public abstract class EnemyController {
                 (Math.abs((enemy.getY() + (enemy.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) <= 38/PPM));
     }
 
-    protected void updatePhysics() {
+
+    private void updatePhysics() {
+        //System.out.println("updatephysics x " + body.getPosition().x);
+        //System.out.println("updatephysics y " + body.getPosition().y);
+
         Position physPos = new Position(body.getPosition().x, body.getPosition().y);
         enemy.setPosition(physPos);
     }

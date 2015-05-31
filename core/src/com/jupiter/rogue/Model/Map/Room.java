@@ -57,6 +57,7 @@ public class Room {
      */
     public void initRoom() {
         tiledHandler.initRoom();
+
     }
 
     public void generateEnemies(){
@@ -76,8 +77,9 @@ public class Room {
                 enemyType = properties.get("type").toString();
 
                 /* Disregard this: Divides position with PPM, we want to set the BODY's position. */
-                xPos = (float) properties.get("x");
-                yPos = (float) properties.get("y");
+                xPos = (float) properties.get("x") / PPM;
+                yPos = (float) properties.get("y") / PPM;
+
 
                 if (enemyType.equals("random")){
                     enemyType = getRandomEnemyType();
@@ -144,7 +146,9 @@ public class Room {
 
                 chestFactory = new ChestFactory(chestType, xPos, yPos);
 
-                chests.add(chestFactory.createChest());
+                if(rn.nextInt(3) == 0) {
+                    chests.add(chestFactory.createChest());
+                }
             }
         }
     }
