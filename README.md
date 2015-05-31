@@ -9,3 +9,7 @@ The game will be pretty short but very difficult, and feature "permadeath" meani
 interesting the map and gameplay is not the same every time you play (typical characteristics of a "Roguelike"). The map will be randomly generated or at least put different rooms in different orders so that you don't know what challenge is next. Enemies are also placed randomly.
 
 There will be a great number of items changing the dynamics of combat and every time you find one it will be randomly generated.
+
+To be able to run the application, the users will need to install the java plugin lombok, which generates trivial methods.
+
+The buttons in the start menu can only be pushed in windowed mode, else the application will have visual glitches
