@@ -14,10 +14,11 @@ public class Boomstick extends RangedWeapon {
         this.projectileSpeed = 2700f;
         this.weaponName = "Boomstick";
 
-        this.strengthRequirement = 2;
-        this.agilityRequirement = 3;
-        this.intellectRequirement = 1;
+        this.strengthRequirement = 0;
+        this.agilityRequirement = 0;
+        this.intellectRequirement = 0;
 
+        this.itemName = "Boom Stick";
         this.description = ("This delicate contraption was forged in a land beyond time, at the Grand Rapids. " +
                 "It's got a walnut stock, cobalt blue steel, and a hair trigger.");
 

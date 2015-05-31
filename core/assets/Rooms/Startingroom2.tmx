@@ -30,7 +30,7 @@
  </objectgroup>
  <objectgroup name="Chest">
   <object id="23" type="random" gid="166" x="256" y="160"/>
-  <object id="24" type="random" gid="166" x="224" y="160"/>
-  <object id="25" type="random" gid="166" x="288" y="160"/>
+  <object id="24" type="random" gid="166" x="192" y="192"/>
+  <object id="25" type="random" gid="166" x="320" y="192"/>
  </objectgroup>
 </map>

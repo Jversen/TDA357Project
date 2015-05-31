@@ -20,24 +20,18 @@ public class MyContactListener implements ContactListener {
     //The two fixtures touching.
     private Fixture fa;
     private Fixture fb;
-    private List<Object> contacts;
 
     public MyContactListener() {
         hero = Hero.getInstance();
         map = Map.getInstance();
-        contacts = new ArrayList<Object>();
     }
 
     @Override
     public void beginContact(Contact contact) {
 
-        contacts.clear();
 
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
-
-        contacts.add(fa.getUserData());
-        contacts.add(fb.getUserData());
 
         checkChestContact();
 
@@ -97,6 +91,7 @@ public class MyContactListener implements ContactListener {
             ((EnemyController) fa.getUserData()).getEnemy().takeDamage(hero.getCurrentWeapon().getDamage());
             ((EnemyController) fa.getUserData()).getTakeDamageBehavior().impact(hero.getDirection());
         }
+
     }
 
     @Override
@@ -113,6 +108,13 @@ public class MyContactListener implements ContactListener {
                 hero.setCreatureFalling(true);
             }
         }
+
+        if ((fa.getUserData() instanceof HeroController && fb.getUserData() instanceof ChestController) ||
+                (fa.getUserData() instanceof ChestController && fb.getUserData() instanceof HeroController)) {
+            hero.setTouchingChest(false);
+        }
+
+
     }
 
     /**
@@ -121,35 +123,28 @@ public class MyContactListener implements ContactListener {
     private void checkChestContact(){
 
         Chest chest;
-        boolean touchesChest;
 
-        if(contacts != null){
-            if((contacts.get(0) instanceof HeroController &&
-                    contacts.get(1) instanceof ChestController)){
-                touchesChest = true;
-                chest = (((ChestController) contacts.get(1)).chest);
-                ((HeroController) contacts.get(0)).setUsableChest(chest);
-                if (chest.isOpened()){
-                    System.out.println(chest.getContent().getDescription());
+            if (fa.getUserData() instanceof HeroController &&
+                    fb.getUserData() instanceof ChestController) {
+                chest = (((ChestController) fb.getUserData()).chest);
+                hero.setUsableChest(chest);
+                hero.setTouchingChest(true);
+
+                if (chest.isOpened() && !chest.isEmpty()) {
+                    //System.out.println(chest.getContent().getDescription());
                 }
 
-            } else if(contacts.get(1) instanceof HeroController &&
-                    contacts.get(0) instanceof ChestController) {
-                touchesChest = true;
-                chest = (((ChestController) contacts.get(0)).chest);
-                ((HeroController) contacts.get(1)).setUsableChest(chest);
+            } else if (fb.getUserData() instanceof HeroController &&
+                    fa.getUserData() instanceof ChestController) {
+                chest = (((ChestController) fa.getUserData()).chest);
+                hero.setUsableChest(chest);
+                hero.setTouchingChest(true);
 
-                if (chest.isOpened()){
-                    System.out.println(chest.getContent().getDescription());
+                if (chest.isOpened() && !chest.isEmpty()) {
+                   // System.out.println(chest.getContent().getDescription());
                 }
-            } else{
-                touchesChest = false;
+
             }
-        } else {
-            touchesChest = false;
-        }
-
-        hero.setTouchingChest(touchesChest);
 
     }
 

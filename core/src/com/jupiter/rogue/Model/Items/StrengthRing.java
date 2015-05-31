@@ -12,7 +12,8 @@ public class StrengthRing extends Ring{
         this.agilityRequirement = 0;
         this.intellectRequirement = 0;
 
-        this.description = ("Legends tell of a man of tremendous strength, from the northern capital of Donnerda. " +
+        this.itemName = "Strength Ring";
+        this.description = ("Legends tell of a man from Donnerda, with beautiful hair and tremendous strength. " +
                 "Perhaps this ring was the source of his power?");
     }
 

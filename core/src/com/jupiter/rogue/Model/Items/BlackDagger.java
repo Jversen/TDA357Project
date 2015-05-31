@@ -12,12 +12,12 @@ public class BlackDagger extends MeleeWeapon {
         this.animationSpeed = 100;
         this.weaponName = "Black Dagger";
 
-        this.strengthRequirement = 1;
-        this.agilityRequirement = 2;
-        this.intellectRequirement = 1;
+        this.strengthRequirement = 0;
+        this.agilityRequirement = 0;
+        this.intellectRequirement = 0;
 
-        this.description = ("There once was a creature doomed to eternal slavery to a terrible creature far, far below." +
-                "He forged a dagger of dark matter to end his own life.");
+        this.itemName = "Black Dagger";
+        this.description = ("There once was an thought of dark and light souls. This item is all that remains.");
 
         String description;
 

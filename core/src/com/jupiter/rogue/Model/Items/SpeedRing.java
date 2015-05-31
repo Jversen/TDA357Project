@@ -12,6 +12,7 @@ public class SpeedRing extends Ring{
         this.agilityRequirement = 0;
         this.intellectRequirement = 0;
 
+        this.itemName = "Speed Ring";
         this.description = ("A thorned creature with a blue hue, had the need to traverse swiftly.");
     }
 

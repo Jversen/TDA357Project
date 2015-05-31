@@ -11,6 +11,7 @@ import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.Walk;
 import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Items.Item;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Utils.Enums.Direction;
@@ -55,8 +56,6 @@ public class HeroController {
     private JumpBehavior jumpBehavior;
     private MoveBehavior moveBehavior;
     private AttackedBehavior takeDamageBehavior;
-
-    private Chest usableChest;
 
     public HeroController() {
         initHero();
@@ -127,6 +126,9 @@ public class HeroController {
         if (!hero.isIncapacitated()) {
             updateMoves(keys);
         }
+        if (hero.isTouchingChest() && hero.getUsableChest().isOpened()){
+            //System.out.println(hero.getUsableChest().describeContent());
+        }
     }
 
     private void updatePhysics() {
@@ -162,7 +164,7 @@ public class HeroController {
             swapWeapon();
         }
         if (keys.contains(Input.Keys.C)) {
-            openChest();
+            interactChest();
         }
         if(keys.isEmpty()) {
             hero.relax();
@@ -276,10 +278,24 @@ public class HeroController {
         }
     }
 
-    private void openChest(){
+    private void interactChest(){
+        Chest chest = hero.getUsableChest();
+        Item content;
+
         if(hero.isTouchingChest()) {
-            usableChest.open();
-            System.out.println(usableChest.getContent().getDescription());
+            if (!chest.isOpened()) {
+                chest.open();
+            } else {
+                if (!chest.isEmpty()) {
+
+                    content = chest.takeContent(hero);
+                    if (content!= null) {
+                        System.out.println("picked up " + content.getItemName());
+                    }
+                    hero.pickUpItem(content);
+                }
+
+            }
 
         }
     }
