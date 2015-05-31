@@ -13,7 +13,7 @@
  </layer>
  <layer name="Foreground" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxTZmBgUIZiDQYEUEISVyZSDbIcAw51xKqxRMKkmAMDpKixRhID2WcFFRMmYA5I3hWIAZR4Bs4=
+   eJxTZmBgUIZiDQYEUEISVyZSDbIcAw51tFYDA9RQI0xADUjeFYgB9NkFOg==
   </data>
  </layer>
  <layer name="Sensor" width="9" height="9">
@@ -23,7 +23,12 @@
  </layer>
  <layer name="Decoration" width="9" height="9">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF2IAVCWoBCzwAOw==
+   eJxjYBgFlAIAAUQAAQ==
+  </data>
+ </layer>
+ <layer name="Thin ledges" width="9" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBj8wBKIrbCIW1PJfCs0s3DZhwsAAJiQAZc=
   </data>
  </layer>
 </map>

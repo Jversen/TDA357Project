@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Controller;
 
+import com.jupiter.rogue.Model.Creatures.Boss;
 import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
@@ -68,6 +69,8 @@ public class MapController {
                     case("widow"): enemyControllers.add(new WidowController((Widow) enemies.get(i)));
                         break;
                     case("redDeath"): enemyControllers.add(new RedDeathController((RedDeath) enemies.get((i))));
+                        break;
+                    case("boss"): enemyControllers.add(new BossController((Boss) enemies.get(i)));
                         break;
                     default: enemyControllers.add(new WidowController((Widow) enemies.get(i)));
                 }

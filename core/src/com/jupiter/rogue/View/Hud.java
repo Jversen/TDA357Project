@@ -94,7 +94,7 @@ public class Hud extends Actor {
         /* Just some number for show. Should discuss this design of showing current room.*/
         level = ("Room: " + Map.getInstance().getCurrentRoomNbr());
         heroLevel = ("Hero level : " + Hero.getInstance().getLevel());
-        weaponEquipped = ("Weapon Equipped: " + Hero.getInstance().getCurrentWeapon().getWeaponName());
+        weaponEquipped = ("Weapon Equipped: " + Hero.getInstance().getCurrentWeapon().getItemName());
 
     }
 }

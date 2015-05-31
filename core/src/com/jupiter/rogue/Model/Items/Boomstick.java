@@ -12,7 +12,7 @@ public class Boomstick extends RangedWeapon {
         this.animationSpeed = 1500;
         this.durability = 2;
         this.projectileSpeed = 2700f;
-        this.weaponName = "Boomstick";
+        this.itemName = "Boomstick";
 
         this.strengthRequirement = 0;
         this.agilityRequirement = 0;

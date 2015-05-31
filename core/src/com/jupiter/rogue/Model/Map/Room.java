@@ -5,6 +5,7 @@ import com.jupiter.rogue.Controller.EnemyController;
 import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Chests.ChestFactory;
 import com.jupiter.rogue.Model.Creatures.Enemy;
+import com.jupiter.rogue.Model.Factories.BossFactory;
 import com.jupiter.rogue.Model.Factories.EnemyFactory;
 import com.jupiter.rogue.Model.Factories.RedDeathFactory;
 import com.jupiter.rogue.Model.Factories.WidowFactory;
@@ -51,6 +52,9 @@ public class Room {
 
     }
 
+    /**
+     * Initializes the TiledHandler needed to build the room
+     */
     public void initRoom() {
         tiledHandler.initRoom();
 
@@ -64,7 +68,7 @@ public class Room {
         float xPos;
         float yPos;
 
-        if (tiledHandler.getEnemySpawnLayer() != null) {
+        if (tiledHandler.getEnemySpawnLayer() != null && !visited) {
             for (int i = 0; i < tiledHandler.getEnemySpawnLayer().getObjects().getCount(); i++) {
 
                 /* checks the (enemy)type of the object. If it's "random", change to a random EnemyFactory.*/
@@ -98,6 +102,7 @@ public class Room {
         switch (enemyType){
             case "widow": return new WidowFactory();
             case "redDeath": return new RedDeathFactory();
+            case "boss": return new BossFactory();
             default: return new WidowFactory();
         }
     }
@@ -122,7 +127,7 @@ public class Room {
         Random rn = new Random();
         int chestTypeIndex;
 
-        if (tiledHandler.getChestLayer() != null) {
+        if (tiledHandler.getChestLayer() != null && !visited) {
             for (int i = 0; i < tiledHandler.getChestLayer().getObjects().getCount(); i++) {
                 MapProperties properties = tiledHandler.getChestLayer().getObjects().get(i).getProperties();
                 if (properties.get("type") != null) {

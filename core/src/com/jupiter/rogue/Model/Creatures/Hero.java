@@ -73,9 +73,8 @@ public class Hero extends Creature {
 
     @Override
     public void attack() {
-        if (isMeleeCurrentWeapon()) {
-
-        } else {
+        attackInProgress = true;
+        if (!isMeleeCurrentWeapon()) {
             ((RangedWeapon)getCurrentWeapon()).decreaseDurability();
         }
     }
