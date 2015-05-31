@@ -10,9 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Map.Map;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 /**
  * Created by Johan on 2015-05-20.
  */
@@ -24,8 +21,7 @@ public class Hud extends Actor {
     private Sprite expBar;
     private BitmapFont font;
     private BitmapFont heroLevelFont;
-    private BitmapFont meleeWeaponFont;
-    private BitmapFont rangeWeaponFont;
+    private BitmapFont weaponEquippedFont;
     float currentHP;
     float maxHP;
     float currentExp;
@@ -34,8 +30,7 @@ public class Hud extends Actor {
     int startGfxHeight;
     String level;
     String heroLevel;
-    String meleeWeapon;
-    String rangeWeapon;
+    String weaponEquipped;
 
     private Hud(){
 
@@ -50,13 +45,9 @@ public class Hud extends Actor {
         heroLevelFont.setColor(Color.WHITE);
         heroLevelFont.setScale(0.25f);
 
-        meleeWeaponFont = new BitmapFont();
-        meleeWeaponFont.setColor(Color.WHITE);
-        meleeWeaponFont.setScale(0.4f);
-
-        rangeWeaponFont = new BitmapFont();
-        rangeWeaponFont.setColor(Color.WHITE);
-        rangeWeaponFont.setScale(0.4f);
+        weaponEquippedFont = new BitmapFont();
+        weaponEquippedFont.setColor(Color.WHITE);
+        weaponEquippedFont.setScale(0.4f);
 
         texture = new Texture(Gdx.files.internal("Data/HUD/healthBar.png"));
         healthBar = new Sprite(texture, 0, 0, 25, 3);
@@ -84,8 +75,8 @@ public class Hud extends Actor {
         expBar.draw(batch);
         font.draw(batch, level, 250, 170);
         heroLevelFont.draw(batch, heroLevel, 10, 168);
-        meleeWeaponFont.draw(batch, meleeWeapon, 50, 175);
-        rangeWeaponFont.draw(batch, rangeWeapon, 50, 165);
+        weaponEquippedFont.draw(batch, weaponEquipped, 50, 170);
+
     }
 
     public void updateHud(){
@@ -103,12 +94,7 @@ public class Hud extends Actor {
         /* Just some number for show. Should discuss this design of showing current room.*/
         level = ("Room: " + Map.getInstance().getCurrentRoomNbr());
         heroLevel = ("Hero level : " + Hero.getInstance().getLevel());
-        meleeWeapon = ("Melee Weapon: " + Hero.getInstance().getMeleeWeapon().getWeaponName());
-        if(Hero.getInstance().getRangedWeapon() != null) {
-            rangeWeapon = ("Range Weapon: " + Hero.getInstance().getRangedWeapon().getWeaponName());
-        }
-        else{
-            rangeWeapon = "Range Weapon: none equipped";
-        }
+        weaponEquipped = ("Weapon Equipped: " + Hero.getInstance().getCurrentWeapon().getWeaponName());
+
     }
 }
