@@ -1071,9 +1071,9 @@ public class Map {
     }
 
     private void destroyWorld() {
-
-        getCurrentRoom().getTiledHandler().destroy();
         //correctEnemyPos();
+        getCurrentRoom().getTiledHandler().destroy();
+
     }
 
     /**
@@ -1085,7 +1085,7 @@ public class Map {
 
             float x = enemy.getX() * PPM;
             float y = enemy.getY() * PPM;
-            System.out.println(x + " " + y);
+            System.out.println("fiende position x: " + x + ", y:  " + y);
             enemy.setPosition(x, y);
         }
     }
