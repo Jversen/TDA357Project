@@ -13,7 +13,7 @@
  </layer>
  <layer name="Foreground" width="29" height="19">
   <data encoding="base64" compression="zlib">
-   eJzFld0OgCAIhXmHrK3bfrZeIXv/90pXLtZCAZmd7dw5PkGBGQBmhTd4NCljcON/ScMsxSypJbMLdsFrQ6ZUuB4Ucw/2tw9j5gJXjXqDuFwmZnO5qQaS/Km/JuFS8kKmFRcr1aTUU9ZcrD+4pd6VcIfgEZ7+wk7zwzGYXG7kxXlE9brVfBzQ3dfMuTdTq5QXd47WMikel+kUzu0Ry/es3VGYeQJrfCSR
+   eJzFld0KgCAMhfcOmdBtJvQMvf+DtQhJQt2cTg+cO9mncz8OAJzAJ3zahTG48VOSMKmYlEYyF7RB+4HMWsX5mME84M3ROpAZszW5uVrT5JbqW4tL9ZTme2dwqd6t4Vr0hr4SDvPDMJhc7sN75lGu13vNRxvd3RfO/ZlShXdx52grM8fjMo3ApT3S8z9bd1TMvAFXQCJO
   </data>
  </layer>
  <layer name="Sensor" width="29" height="19">
@@ -24,6 +24,11 @@
  <layer name="Decoration" width="29" height="19">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMApGAQhwDICd4gNgp9oA2GlKgloAToQAew==
+  </data>
+ </layer>
+ <layer name="Thin ledges" width="29" height="19">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIx1YDbQDqAwsGSB+AmHrAXYLvQHI7yPNzyAAi/OR6PdRMAqGIwAAglECRQ==
   </data>
  </layer>
 </map>

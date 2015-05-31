@@ -52,6 +52,7 @@ public class TiledHandler {
         roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
         roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
 
+        //TODO change layer
         if (tiledMap.getLayers().getCount() >= 4){
             enemySpawnLayer = tiledMap.getLayers().get(3);
         }
