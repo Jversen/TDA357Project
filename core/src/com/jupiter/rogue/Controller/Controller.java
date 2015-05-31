@@ -53,6 +53,11 @@ public class Controller{
             mapController.remakeEnemyControllers();
             mapController.placeEnemyBodies();
             view.remakeEnemyViews();
+
+            mapController.remakeChestControllers();
+            mapController.placeChestBodies();
+            view.remakeChestViews();
+
             mapController.getMap().setEnteredNewRoom(false);
         }
     }

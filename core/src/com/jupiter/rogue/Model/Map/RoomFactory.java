@@ -26,6 +26,13 @@ public class RoomFactory {
     public static final int ROOMS_WITH_EXIT_DOOR_TOP = 2;
     public static final int ROOMS_WITH_EXIT_DOOR_BOTTOM = 1;
 
+    /**
+     * Creates and returns a room that corresponds to the input parameters
+     * @param entrance specifies the side that has to have a door
+     * @param roomNumber specifies which room to return
+     * @param exit specifies if the room should have additional doors on top of the entrance
+     * @return a room with the specified attributes
+     */
     public static Room getRoom(String entrance, int roomNumber, boolean exit) {
         ArrayList<String> doors = new ArrayList<>();
         if(entrance.equals("l") && !exit) {
@@ -70,21 +77,21 @@ public class RoomFactory {
                 case 2 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/CastleRooms/w7h1Dl1r1.tmx", 7, 1, doors);
-                case 3 :    doors.add("l1");
-                            doors.add("r1");
-                            doors.add("t1");
+                case 3 :    doors.add("l4");
+                            doors.add("r4");
                             doors.add("b1");
-                            return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
+                            return new Room("Rooms/CastleRooms/w4h4Dl4r4b1.tmx", 4, 4, doors);
                 case 4 :    doors.add("l1");
-                            doors.add("r2");
-                            return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
+                            doors.add("r1");
+                            return new Room("Rooms/CastleRooms/w3h1Dl1r1.tmx", 3, 1, doors);
                 case 5 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t3");
                             return new Room("Rooms/CastleRooms/w5h3Dl1t3r2.tmx", 5, 3, doors);
                 case 6 :    doors.add("l1");
-                            doors.add("r1");
-                            return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
+                            doors.add("r3");
+                            doors.add("t1");
+                            return new Room("Rooms/CastleRooms/w2h5Dl1r3t1.tmx", 2, 5, doors);
                 case 7 :    doors.add("l1");
                             doors.add("t1");
                             return new Room("Rooms/CastleRooms/11Dl1t1.tmx", 1, 1, doors);
@@ -127,21 +134,21 @@ public class RoomFactory {
                 case 2 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/CastleRooms/w7h1Dl1r1.tmx", 7, 1, doors);
-                case 3 :    doors.add("l1");
-                            doors.add("r1");
-                            doors.add("t1");
+                case 3 :    doors.add("l4");
+                            doors.add("r4");
                             doors.add("b1");
-                            return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
+                            return new Room("Rooms/CastleRooms/w4h4Dl4r4b1.tmx", 4, 4, doors);
                 case 4 :    doors.add("l1");
-                            doors.add("r2");
-                            return new Room("Rooms/24Dl1r2.tmx", 4, 2, doors);
+                            doors.add("r1");
+                            return new Room("Rooms/CastleRooms/w3h1Dl1r1.tmx", 3, 1, doors);
                 case 5 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t3");
                             return new Room("Rooms/CastleRooms/w5h3Dl1t3r2.tmx", 5, 3, doors);
                 case 6 :    doors.add("l1");
-                            doors.add("r1");
-                            return new Room("Rooms/24Dl1r1.tmx", 4, 2, doors);
+                            doors.add("r3");
+                            doors.add("t1");
+                            return new Room("Rooms/CastleRooms/w2h5Dl1r3t1.tmx", 2, 5, doors);
                 case 7 :    doors.add("r1");
                             doors.add("b1");
                             return new Room("Rooms/CastleRooms/11Db1r1.tmx", 1, 1, doors);
@@ -178,10 +185,9 @@ public class RoomFactory {
             switch (roomNumber) { //will be random once more rooms are added
 
                 case 1 :    doors.add("l1");
-                            doors.add("r1");
+                            doors.add("r3");
                             doors.add("t1");
-                            doors.add("b1");
-                            return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
+                            return new Room("Rooms/CastleRooms/w2h5Dl1r3t1.tmx", 2, 5, doors);
                 case 2 :    doors.add("l1");
                             doors.add("r2");
                             doors.add("t3");
@@ -219,11 +225,10 @@ public class RoomFactory {
         }
         if(entrance.equals("b") && exit) {
             switch (roomNumber) { //will be random once more rooms are added
-                case 1 :    doors.add("l1");
-                            doors.add("r1");
-                            doors.add("t1");
+                case 1 :    doors.add("l4");
+                            doors.add("r4");
                             doors.add("b1");
-                            return new Room("Rooms/24Dl1b1t1r1.tmx", 4, 2, doors);
+                            return new Room("Rooms/CastleRooms/w4h4Dl4r4b1.tmx", 4, 4, doors);
                 case 2 :    doors.add("r1");
                             doors.add("b1");
                             return new Room("Rooms/CastleRooms/11Db1r1.tmx", 1, 1, doors);
@@ -259,14 +264,18 @@ public class RoomFactory {
         return null;
     }
 
-    // getter for special rooms
+    /**
+     * Getter for special rooms that are always used in the game
+     * @param roomID identification String for the room
+     * @return The requested room
+     */
     public static Room getRoom(String roomID) {
         ArrayList<String> doors = new ArrayList<>();
         switch (roomID) {
             case "StartingRoom":    doors.add("r1");
                                     return new Room("Rooms/CastleRooms/StartingRoom.tmx", 2, 1, doors);
             case "BossRoom":     doors.add("l1");
-                                    return new Room("Rooms/BossRoom.tmx", 4, 4, doors);
+                                    return new Room("Rooms/CastleRooms/BossRoom.tmx", 2, 2, doors);
             default: return null;
         }
     }

@@ -34,7 +34,7 @@ public class BossController extends EnemyController {
 
     public BossController(Boss boss) {
         this.enemy = boss;
-        this.enemyView = new BossView(boss);
+        //this.enemyView = new BossView(boss);
 
         startPosition = enemy.getPosition();
         this.initBody();

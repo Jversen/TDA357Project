@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="32" tileheight="32" nextobjectid="9">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="29" tilewidth="32" tileheight="32" nextobjectid="4">
  <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
   <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
  </tileset>
@@ -12,35 +12,36 @@
  <tileset firstgid="324" name="box_yellow" tilewidth="32" tileheight="32">
   <image source="box_yellow.png" width="64" height="32"/>
  </tileset>
- <layer name="Background" width="14" height="9">
+ <layer name="Background" width="14" height="29">
   <data encoding="base64" compression="zlib">
-   eJy7w8DAcGeY4Vwc4qlAnEaAjQ0XAXExEOcBcQkQl0LFkdl5WPQ1AnETlN0MxC1Qt8HYAxlGAExcY0A=
+   eJy7w8DAcIdGOI8INbk0tJ8a9uLzAz3cTkwYUsN92NTm0cCPlPhnoMKXFuFAL3/Q092EwjIXB5vebqOV3dQwlx7upIf5AD55Uiw=
   </data>
  </layer>
- <layer name="Foreground" width="14" height="9">
+ <layer name="Foreground" width="14" height="29">
   <data encoding="base64" compression="zlib">
-   eJxTZmBgUB4iWIOBeKBEZ30wQIk+FSAWIRGTG5YAzn0Klg==
+   eJxTZmBgUIZiDQYEUEISJ4RJ1YesnhBANm9U36i+4aIPBijRB8IiSFgUj3phqBps+VEFj15C+RmX24dKPNBDnxgDIo5geggBkB5VBszwJkcPejpBx8SW86RgAC10Fow=
   </data>
  </layer>
- <layer name="Sensor" width="14" height="9">
+ <layer name="Sensor" width="14" height="29">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF1AJ36KyPEgAA+XgBuQ==
+   eJxjYEAFd6B4FIyCUUBbQG4+G82fQx8M97gHANp4BSk=
   </data>
  </layer>
- <layer name="Tile Layer 4" width="14" height="9">
+ <layer name="Decoration" width="14" height="29">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIxEAAAH4AAE=
+   eJxjYBgFo2AUoINUIE4jQ18JEJcCcTeJ+pqBuIUM+0YBeaB2oB2ABGqg9GByE6UAAFJlBL0=
   </data>
  </layer>
- <layer name="Tile Layer 5" width="14" height="9">
+ <layer name="Thin ledges" width="14" height="29">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIxEAAAH4AAE=
+   eJxjYBhZwGoI20lPt9PDroGIi5FktyXUroH0KzGAFu60woKtqWj+KMAPAJMBBE4=
   </data>
  </layer>
  <objectgroup name="EnemySpawnLayer">
-  <object id="1" type="widow" gid="319" x="256" y="224"/>
+  <object id="1" type="widow" gid="319" x="165" y="850"/>
+  <object id="2" type="widow" gid="319" x="91" y="538"/>
  </objectgroup>
  <objectgroup name="ChestLayer">
-  <object id="2" type="random" gid="324" x="352" y="224"/>
+  <object id="3" type="random" gid="324" x="288" y="223"/>
  </objectgroup>
 </map>

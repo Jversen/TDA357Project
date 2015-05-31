@@ -18,8 +18,6 @@ public class WidowController extends EnemyController {
 
     public WidowController(Widow widow) {
         this.enemy = widow;
-        //TODO posibly change view instantiation?
-        this.enemyView = new WidowView(widow);
 
         startPosition = enemy.getPosition();
     }

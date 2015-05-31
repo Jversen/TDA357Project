@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Model.Creatures;
 
+import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Utils.Enums.Direction;
 import com.jupiter.rogue.Utils.Enums.MovementState;
 import com.jupiter.rogue.Model.Items.*;
@@ -29,6 +30,9 @@ public class Hero extends Creature {
     private int agility;
     private int intellect;
     private int statPoints;
+
+    private boolean touchingChest;
+    private Chest usableChest;
 
     private Hero () {
         position = new Position();
@@ -134,16 +138,21 @@ public class Hero extends Creature {
     public void pickUpItem(Item item) {
         if (item instanceof MeleeWeapon) {
             this.meleeWeapon = (MeleeWeapon)item;
+            System.out.println("Equipped melee weapon " + item.getItemName());
         }
         else if (item instanceof RangedWeapon) {
             this.rangedWeapon = (RangedWeapon)item;
+            System.out.println("Equipped ranged weapon " + item.getItemName());
         }
         else if (item instanceof Ring) {
             if (ringRight == null) {
                 ringRight = (Ring)item;
+                System.out.println("placed " + ringRight.getItemName() +" on right hand");
             } else if (ringLeft == null) {
                 ringLeft = (Ring)item;
+                System.out.println("placed " + ringLeft.getItemName() +" on left hand");
             }
         }
     }
+
 }

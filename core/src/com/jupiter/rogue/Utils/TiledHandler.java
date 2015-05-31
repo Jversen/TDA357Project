@@ -10,6 +10,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jupiter.rogue.Controller.EnemyController;
+import com.jupiter.rogue.Controller.WorldController;
+import com.jupiter.rogue.Model.Chests.Chest;
+import com.jupiter.rogue.Model.Chests.ChestFactory;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Factories.EnemyFactory;
 import com.jupiter.rogue.Model.Factories.RedDeathFactory;
@@ -33,6 +36,7 @@ public class TiledHandler {
     private TiledMapTileLayer sensorLayer;
     private MapLayer enemySpawnLayer;
     private int[][] stairs;
+    private MapLayer chestLayer;
     private float roomWidth;
     private float roomHeight;
 
@@ -49,13 +53,21 @@ public class TiledHandler {
             System.out.println("Maplayer doesn't exist");
         }
 
+        try {
+            enemySpawnLayer = (MapLayer) tiledMap.getLayers().get(5);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Maplayer doesn't exist");
+        }
+
+        try {
+            chestLayer = (MapLayer) tiledMap.getLayers().get(6);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Maplayer doesn't exist");
+        }
+
         roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
         roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
 
-        //TODO change layer
-        if (tiledMap.getLayers().getCount() >= 4){
-            enemySpawnLayer = tiledMap.getLayers().get(3);
-        }
     }
 
     public void initRoom() {
@@ -201,7 +213,7 @@ public class TiledHandler {
         BodyDef bodyDef = new BodyDef();
 
         float x = ((col - thinObstacleLength) + thinObstacleLength / 2 + 1f) * TILE_SIZE / PPM;
-        float y = (row + 0.85f) * TILE_SIZE / PPM;
+        float y = (row + 0.84f) * TILE_SIZE / PPM;
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
                 /*Set the position to the tile number plus half the tilesize to compensate
@@ -384,10 +396,10 @@ public class TiledHandler {
                     x = (((foregroundLayer.getWidth()-1)*TILE_SIZE)-15)/PPM;
                     y = (((cell-1)*5)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
                 } else if(side.equals("t")) {
-                    x = (((cell-1)*5)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
+                    x = (((cell-1)*5+2)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
                     y = (((foregroundLayer.getHeight()-2)*TILE_SIZE))/PPM;
                 } else if(side.equals("b")) {
-                    x = (((cell-1)*5)*TILE_SIZE+15+2*TILE_SIZE+17)/PPM;
+                    x = (((cell-1)*5+2)*TILE_SIZE+15+2*TILE_SIZE+17)/PPM;
                     y = 82/PPM;
                 }
 
@@ -401,8 +413,11 @@ public class TiledHandler {
         return renderer;
     }
 
-    public void destroy() {
 
+    /**
+     * Destroys all the Box2d bodies in the current room
+     */
+    public void destroy() {
         for(Body body : BODIES) {
             if(body.getUserData() != null){
                 if((body.getUserData().equals("room") || body.getUserData().equals("sensor") ||

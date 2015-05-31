@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="32" tileheight="32" nextobjectid="2">
  <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
   <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
  </tileset>
  <tileset firstgid="166" name="oppcastle-tiles_0" tilewidth="32" tileheight="32">
   <image source="oppcastle-tiles_0.png" width="416" height="352"/>
+ </tileset>
+ <tileset firstgid="309" name="box_yellow" tilewidth="32" tileheight="32">
+  <image source="box_yellow.png" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="311" name="bat" tilewidth="32" tileheight="32">
+  <image source="bat.png" width="171" height="103"/>
  </tileset>
  <layer name="Background" width="9" height="9">
   <data encoding="base64" compression="zlib">
@@ -21,4 +27,18 @@
    eJxjYBh+IJdKarCBO0CchyYGAGlgAiU=
   </data>
  </layer>
+ <layer name="Decoration" width="9" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFlAIAAUQAAQ==
+  </data>
+ </layer>
+ <layer name="Thin ledges layer" width="9" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFlAIAAUQAAQ==
+  </data>
+ </layer>
+ <objectgroup name="EnemySpawnLayer"/>
+ <objectgroup name="ChestLayer">
+  <object id="1" type="random" gid="309" x="79" y="221"/>
+ </objectgroup>
 </map>

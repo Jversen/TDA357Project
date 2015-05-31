@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.RedDeathController;
 import com.jupiter.rogue.Controller.WidowController;
+import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
@@ -44,18 +45,24 @@ public class View implements Screen{
     private Stage stage; //Scene2d stage
     private List<EnemyView> enemyViews;
     private List<Enemy> enemies;
-
+    private boolean showAttributeMenu = false;
+    private List<ChestView> chestViews;
+    private List<Chest> chests;
     private boolean showDebugInfo = true;
+    private ChestView chestView;
+
     ExtendViewport vp;
 
     private HeroView heroView;
 
     Box2DDebugRenderer debugRenderer;
+    AttributeMenu attributeMenu = AttributeMenu.getInstance();
 
     private View() {
 
         heroView = HeroView.getInstance();
         enemyViews = new ArrayList<>();
+        chestViews = new ArrayList<>();
 
         debugRenderer = new Box2DDebugRenderer();
         w = Gdx.graphics.getWidth();
@@ -80,6 +87,10 @@ public class View implements Screen{
             instance = new View();
         }
         return instance;
+    }
+
+    public void showAttributesMenu(){
+        showAttributeMenu ^= true;
     }
 
     public void update() {
@@ -108,10 +119,19 @@ public class View implements Screen{
                 enemyViews.get(i).updateAnimation(Gdx.graphics.getDeltaTime(), camera.combined);
             }
 
+        for (int i = 0; i < chestViews.size(); i++) {
+            chestViews.get(i).draw(camera.combined);
+        }
+
         if(showDebugInfo) {
             camera.setToOrtho(false, w / PPM, h / PPM);
             moveB2DCamera(posX, posY);
             debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
+        }
+        if(showAttributeMenu){
+            stage.addActor(attributeMenu);
+        }else{
+            attributeMenu.remove();
         }
 
         stage.draw();
@@ -132,7 +152,11 @@ public class View implements Screen{
         float x = Hero.getInstance().getX() * PPM;
         float roomWidth = map.getCurrentRoom().getTiledHandler().getRoomWidth();
 
-        if(x < 192) {
+        if(roomWidth <= 320) {
+            System.out.println("roomWidth: " + roomWidth);
+            return x;
+        }
+        else if(x < 192) {
             x = 192;
         } else if(x>roomWidth-192) {
             x = roomWidth-192;
@@ -144,6 +168,11 @@ public class View implements Screen{
         float y = Hero.getInstance().getY() * PPM;
         float roomHeight = map.getCurrentRoom().getTiledHandler().getRoomHeight();
 
+        if(roomHeight <= 180) {
+            System.out.println("roomHeight: " + roomHeight);
+            return y;
+        }
+
         if(y < 122) {
             y = 122;
         } else if (y > roomHeight-122) {
@@ -151,6 +180,7 @@ public class View implements Screen{
         }
         return y;
     }
+
 
     public void remakeEnemyViews(){
 
@@ -169,6 +199,19 @@ public class View implements Screen{
                         enemyViews.add(new RedDeathView((RedDeath) enemies.get(i)));
                         break;
                 }
+            }
+        }
+    }
+
+//TODO ChestViews (and EnemyViews) are instantiated both here and in ChestController(and EnemyController)!
+    public void remakeChestViews(){
+
+        chestViews.clear();
+        chests = map.getCurrentRoom().getChests();
+
+        if(chests != null) {
+            for (int i = 0; i < chests.size(); i++){
+                chestViews.add(new ChestView(chests.get(i)));
             }
         }
     }

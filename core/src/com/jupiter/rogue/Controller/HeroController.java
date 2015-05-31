@@ -9,7 +9,9 @@ import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.NormalJump;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.Walk;
+import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Hero;
+import com.jupiter.rogue.Model.Items.Item;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Utils.Enums.Direction;
@@ -95,6 +97,8 @@ public class HeroController {
         body.createFixture(playerFixtureDef).setUserData(this); //naming the herofixture hero.
 
       //  WorldConstants.BODIES.add(body);
+        body.setSleepingAllowed(false);
+        
         //hero.setBody(body);
 
 
@@ -121,6 +125,9 @@ public class HeroController {
         updatePhysics();
         if (!hero.isIncapacitated()) {
             updateMoves(keys);
+        }
+        if (hero.isTouchingChest() && hero.getUsableChest().isOpened()){
+            //System.out.println(hero.getUsableChest().describeContent());
         }
     }
 
@@ -155,6 +162,9 @@ public class HeroController {
         }
         if (keys.contains(Input.Keys.W)) {
             swapWeapon();
+        }
+        if (keys.contains(Input.Keys.C)) {
+            interactChest();
         }
         if(keys.isEmpty()) {
             hero.relax();
@@ -265,6 +275,28 @@ public class HeroController {
             hero.attack();
             timer.schedule(new AttackDelayTask(), hero.getCurrentWeapon().getAttackSpeed());
             timer.schedule(new AttackInProgressTask(), hero.getCurrentWeapon().getAnimationSpeed());
+        }
+    }
+
+    private void interactChest(){
+        Chest chest = hero.getUsableChest();
+        Item content;
+
+        if(hero.isTouchingChest()) {
+            if (!chest.isOpened()) {
+                chest.open();
+            } else {
+                if (!chest.isEmpty()) {
+
+                    content = chest.takeContent(hero);
+                    if (content!= null) {
+                        System.out.println("picked up " + content.getItemName());
+                    }
+                    hero.pickUpItem(content);
+                }
+
+            }
+
         }
     }
 

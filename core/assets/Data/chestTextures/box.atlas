@@ -1,0 +1,20 @@
+
+box_yellow.png
+size: 64,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+box_yellow
+  rotate: false
+  xy: 0, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+box_yellow
+  rotate: false
+  xy: 0, 32
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
