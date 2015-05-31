@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="39" height="9" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="39" height="9" tilewidth="32" tileheight="32" nextobjectid="3">
  <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
   <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
  </tileset>
  <tileset firstgid="166" name="oppcastle-tiles_0" tilewidth="32" tileheight="32">
   <image source="oppcastle-tiles_0.png" width="416" height="352"/>
+ </tileset>
+ <tileset firstgid="309" name="bat" tilewidth="32" tileheight="32">
+  <image source="bat.png" width="171" height="103"/>
+ </tileset>
+ <tileset firstgid="324" name="box_yellow" tilewidth="32" tileheight="32">
+  <image source="box_yellow.png" width="64" height="32"/>
  </tileset>
  <layer name="Background" width="39" height="9">
   <data encoding="base64" compression="zlib">
@@ -26,4 +32,14 @@
    eJxjYBgFo2AUjATASaI4PYEEieLDAQAATEQAQw==
   </data>
  </layer>
+ <layer name="Thin ledges" width="39" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQG8AAAV8AAE=
+  </data>
+ </layer>
+ <objectgroup name="EnemySpawnLayer">
+  <object id="1" type="widow" gid="319" x="553" y="184"/>
+  <object id="2" type="widow" gid="319" x="739" y="181"/>
+ </objectgroup>
+ <objectgroup name="ChestLayer"/>
 </map>
