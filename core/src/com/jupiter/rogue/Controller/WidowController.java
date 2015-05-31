@@ -18,7 +18,6 @@ public class WidowController extends EnemyController {
 
     public WidowController(Widow widow) {
         this.enemy = widow;
-
         startPosition = enemy.getPosition();
     }
 

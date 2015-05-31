@@ -8,7 +8,7 @@ import com.jupiter.rogue.Model.Creatures.Enemy;
  */
 public class BossFactory implements EnemyFactory {
 
-    String enemyType = "widow";
+    String enemyType = "boss";
 
     @Override
     public Enemy createEnemy(float xPos, float yPos, int level, boolean elite){
