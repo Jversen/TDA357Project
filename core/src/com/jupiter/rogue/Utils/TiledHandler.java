@@ -213,7 +213,7 @@ public class TiledHandler {
         BodyDef bodyDef = new BodyDef();
 
         float x = ((col - thinObstacleLength) + thinObstacleLength / 2 + 1f) * TILE_SIZE / PPM;
-        float y = (row + 0.85f) * TILE_SIZE / PPM;
+        float y = (row + 0.84f) * TILE_SIZE / PPM;
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
                 /*Set the position to the tile number plus half the tilesize to compensate
