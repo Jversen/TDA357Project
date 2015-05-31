@@ -396,10 +396,10 @@ public class TiledHandler {
                     x = (((foregroundLayer.getWidth()-1)*TILE_SIZE)-15)/PPM;
                     y = (((cell-1)*5)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
                 } else if(side.equals("t")) {
-                    x = (((cell-1)*5)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
+                    x = (((cell-1)*5+2)*TILE_SIZE+2*TILE_SIZE+17)/PPM;
                     y = (((foregroundLayer.getHeight()-2)*TILE_SIZE))/PPM;
                 } else if(side.equals("b")) {
-                    x = (((cell-1)*5)*TILE_SIZE+15+2*TILE_SIZE+17)/PPM;
+                    x = (((cell-1)*5+2)*TILE_SIZE+15+2*TILE_SIZE+17)/PPM;
                     y = 82/PPM;
                 }
 
