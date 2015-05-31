@@ -27,11 +27,11 @@ public class RoomFactory {
     public static final int ROOMS_WITH_EXIT_DOOR_BOTTOM = 1;
 
     /**
-     * returns a room fitting the description
-     * @param entrance entrance to the room from this direction
-     * @param roomNumber the rooms number
-     * @param exit if the room has exits
-     * @return the room
+     * Creates and returns a room that corresponds to the input parameters
+     * @param entrance specifies the side that has to have a door
+     * @param roomNumber specifies which room to return
+     * @param exit specifies if the room should have additional doors on top of the entrance
+     * @return a room with the specified attributes
      */
     public static Room getRoom(String entrance, int roomNumber, boolean exit) {
         ArrayList<String> doors = new ArrayList<>();
@@ -265,9 +265,9 @@ public class RoomFactory {
     }
 
     /**
-     * returns special rooms
-     * @param roomID the special rooms specific ID
-     * @return the room
+     * Getter for special rooms that are always used in the game
+     * @param roomID identification String for the room
+     * @return The requested room
      */
     public static Room getRoom(String roomID) {
         ArrayList<String> doors = new ArrayList<>();

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="14" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="14" height="14" tilewidth="32" tileheight="32" nextobjectid="2">
  <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
   <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
  </tileset>
  <tileset firstgid="166" name="oppcastle-tiles_0" tilewidth="32" tileheight="32">
   <image source="oppcastle-tiles_0.png" width="416" height="352"/>
+ </tileset>
+ <tileset firstgid="309" name="bat" tilewidth="32" tileheight="32">
+  <image source="bat.png" width="171" height="103"/>
  </tileset>
  <layer name="Background" width="14" height="14">
   <data encoding="base64" compression="zlib">
@@ -31,4 +34,8 @@
    eJxjYBgFtAKWQGxNJ7us6GgXDNDTf/QCALvjAV4=
   </data>
  </layer>
+ <objectgroup name="EnemtSpawnLayer">
+  <object id="1" type="boss" gid="319" x="270" y="284"/>
+ </objectgroup>
+ <objectgroup name="ChestLayer"/>
 </map>

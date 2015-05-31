@@ -5,6 +5,7 @@ import com.jupiter.rogue.Controller.EnemyController;
 import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Chests.ChestFactory;
 import com.jupiter.rogue.Model.Creatures.Enemy;
+import com.jupiter.rogue.Model.Factories.BossFactory;
 import com.jupiter.rogue.Model.Factories.EnemyFactory;
 import com.jupiter.rogue.Model.Factories.RedDeathFactory;
 import com.jupiter.rogue.Model.Factories.WidowFactory;
@@ -58,10 +59,11 @@ public class Room {
     }
 
     /**
-     * initiates the room
+     * Initializes the TiledHandler needed to build the room
      */
     public void initRoom() {
         tiledHandler.initRoom();
+
     }
 
     /**
@@ -84,8 +86,9 @@ public class Room {
                 enemyType = properties.get("type").toString();
 
                 /* Disregard this: Divides position with PPM, we want to set the BODY's position. */
-                xPos = (float) properties.get("x");
-                yPos = (float) properties.get("y");
+                xPos = (float) properties.get("x") / PPM;
+                yPos = (float) properties.get("y") / PPM;
+
 
                 if (enemyType.equals("random")){
                     enemyType = getRandomEnemyType();
@@ -112,6 +115,7 @@ public class Room {
         switch (enemyType){
             case "widow": return new WidowFactory();
             case "redDeath": return new RedDeathFactory();
+            case "boss": return new BossFactory();
             default: return new WidowFactory();
         }
     }
@@ -158,7 +162,9 @@ public class Room {
 
                 chestFactory = new ChestFactory(chestType, xPos, yPos);
 
-                chests.add(chestFactory.createChest());
+                if(rn.nextInt(3) == 0) {
+                    chests.add(chestFactory.createChest());
+                }
             }
         }
     }

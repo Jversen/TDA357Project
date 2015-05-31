@@ -10,7 +10,9 @@ import com.jupiter.rogue.Rogue;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 
-	 	//TexturePacker.process("Data//HeroAnimations//HeroRanged", "Data//HeroAnimations//HeroRanged", "ranged");  //G�ra Atlasfil
+	// 	TexturePacker.process("Data//EnemyAnimations//Boss//BossIdle", "Data//EnemyAnimations//Boss//BossIdle", "BossIdle");  //G�ra Atlasfil
+	//	TexturePacker.process("Data//EnemyAnimations//Boss//BossAttack1", "Data//EnemyAnimations//Boss//BossAttack1", "BossAttack1");
+	//	TexturePacker.process("Data//EnemyAnimations//Boss//BossAttack2", "Data//EnemyAnimations//Boss//BossAttack2", "BossAttack2");
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 320;

@@ -9,6 +9,7 @@ import java.util.Random;
 import static com.jupiter.rogue.Utils.WorldConstants.PPM;
 
 /**
+ * This class is used to create and maintain the overall game map.
  * Created by Johan on 16/04/15.
  */
 @lombok.Data
@@ -44,14 +45,17 @@ public class Map {
     private ArrayList<Integer> conRoomT = new ArrayList<>();
     private ArrayList<Integer> conRoomB = new ArrayList<>();
 
+    /**
+     * Private constructor for singleton instance
+     */
     private Map() {
         rooms = new ArrayList<>();
         createMap();
     }
 
     /**
-     * gets the singleton instance of map
-     * @return instance
+     * Method to get the singleton instance of Map
+     * @return the current Map instance
      */
     public static Map getInstance() {
         if(map == null) {
@@ -61,7 +65,7 @@ public class Map {
     }
 
     /**
-     * switches the room if the previous room is destroyed
+     * Updates the map. Begins the room switching process if the current room has been flagged for destruction
      */
     public void update() {
         if(destroyRoom) {
@@ -72,7 +76,7 @@ public class Map {
     }
 
     /**
-     * creates the map
+     * Creates the map by adding the starting room, and then adds an arbitrary number of randomly selected rooms.
      */
     public void createMap() {
         initMap();
@@ -547,9 +551,6 @@ public class Map {
         return false;
     }
 
-    /**
-     * Returns true if the current room has doors leading nowhere
-     */
     private boolean doorsLeft() {
         ArrayList<String> doors = getCurrentRoom().getDoors();
         for (String door : doors) {
@@ -896,13 +897,15 @@ public class Map {
         }
     }
 
+
     /**
      * gets the doors that are matching the room
      * @param room the room
      * @param side the side of the room checked
      * @return arraylist with matching doors
      */
-    public ArrayList<String> getDoors(Room room, String side) {
+
+    private ArrayList<String> getDoors(Room room, String side) {
         ArrayList<String> matchingDoors = new ArrayList<>();
         for(String door : room.getDoors()) {
             if(door.substring(0,1).equals(side)) {
@@ -1010,10 +1013,11 @@ public class Map {
         nextRoom += 1;
     }
 
+
     /**
      * switches room
      */
-    public void switchRoom() {
+    private void switchRoom() {
         destroyWorld();
         changeActiveRoom();
         rebuildWorld();
@@ -1089,9 +1093,9 @@ public class Map {
     }
 
     private void destroyWorld() {
-
-        getCurrentRoom().getTiledHandler().destroy();
         //correctEnemyPos();
+        getCurrentRoom().getTiledHandler().destroy();
+
     }
 
     /**
@@ -1103,7 +1107,7 @@ public class Map {
 
             float x = enemy.getX() * PPM;
             float y = enemy.getY() * PPM;
-            System.out.println(x + " " + y);
+            System.out.println("fiende position x: " + x + ", y:  " + y);
             enemy.setPosition(x, y);
         }
     }
@@ -1117,26 +1121,26 @@ public class Map {
     }
 
     /**
-     * returns the active room
-     * @return the active room
+     * @return the room that is currently displayed
      */
     public Room getCurrentRoom() {
         return rooms.get(currentRoomNbr);
     }
 
     /**
-     * flags the room for destruction
-     * @param door
+     * Flags the current room for destruction and specifies which door the player exited through.
+     * @param door the door the player exited through
      */
     public void flagRoomForDestruction(String door) {
         this.exit = door;
         this.destroyRoom = true;
     }
 
+
     /**
      * changes the rooms position in the map
      */
-    public void setNewRoomPosition() {
+    private void setNewRoomPosition() {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {
                 if(roomMap[x][y] == currentRoomNbr) {

@@ -1,0 +1,69 @@
+
+BossIdle.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+BossIdle
+  rotate: false
+  xy: 2, 214
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 0
+BossIdle
+  rotate: false
+  xy: 2, 2
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 1
+BossIdle
+  rotate: false
+  xy: 130, 214
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 2
+BossIdle
+  rotate: false
+  xy: 130, 2
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 3
+BossIdle
+  rotate: false
+  xy: 258, 214
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 4
+BossIdle
+  rotate: false
+  xy: 258, 2
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 5
+BossIdle
+  rotate: false
+  xy: 386, 214
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 6
+BossIdle
+  rotate: false
+  xy: 386, 2
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 7
+BossIdle
+  rotate: false
+  xy: 514, 214
+  size: 126, 210
+  orig: 126, 210
+  offset: 0, 0
+  index: 8

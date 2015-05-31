@@ -1,5 +1,6 @@
 package com.jupiter.rogue.Controller;
 
+import com.jupiter.rogue.Model.Creatures.Boss;
 import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Enemy;
 import com.jupiter.rogue.Model.Creatures.RedDeath;
@@ -30,8 +31,8 @@ public class MapController {
     }
 
     public void update() {
-        map.update();
         updateEnemyControllers();
+        map.update();
     }
 
     /**
@@ -69,6 +70,8 @@ public class MapController {
                         break;
                     case("redDeath"): enemyControllers.add(new RedDeathController((RedDeath) enemies.get((i))));
                         break;
+                    case("boss"): enemyControllers.add(new BossController((Boss) enemies.get(i)));
+                        break;
                     default: enemyControllers.add(new WidowController((Widow) enemies.get(i)));
                 }
             }
@@ -98,6 +101,7 @@ public class MapController {
 
         if (enemyControllers != null) {
             for (int i = 0; i < enemies.size(); i++) {
+                System.out.println("skapad fiende position x: " + enemies.get(i).getX() + ", y:  " + enemies.get(i).getY() );
                 enemyControllers.get(i).initBody();
             }
         }

@@ -52,7 +52,7 @@ public abstract class EnemyController {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
-        bodyDef.position.set(enemy.getX() / PPM, enemy.getY() / PPM);
+        bodyDef.position.set(enemy.getX(), enemy.getY());
 
         //creates the shape of the bodyDef
         shape = new PolygonShape();
@@ -94,10 +94,6 @@ public abstract class EnemyController {
                     enemy.setEnemyDirection();
                     enemy.walk(enemy.getDirection());
                     moveBehavior.move(enemy.getDirection(), enemy.getMovementSpeed());
-                    /*if(enemyBlocked()){
-                        enemy.jump();
-                        jumpBehavior.jump(enemy.getJumpHeight());
-                    }*/
                 } else {
                     if (attackReady) {
                         attack();
@@ -109,7 +105,6 @@ public abstract class EnemyController {
 
     private void attack() {
         attackReady = false;
-        enemy.setAttackInProgress(true);
         enemy.attack();
         timer.schedule(new CreateHitBoxTask(), 600);
     }
@@ -122,28 +117,23 @@ public abstract class EnemyController {
         }
     }
 
-    private void createHitbox() {
+    protected void createHitbox() {
         //reinitializes the shape of the fixturedef.
         shape = new PolygonShape();
-        System.out.println("1");
 
         //creates a fixture with a shape on the correct side of the hero using the helpmethod.
         hitBoxShapeMaker(); //useing the helpmethod.
         weaponSensorFixtureDef.shape = shape;
-        System.out.println("2");
         if (!WorldConstants.CURRENT_WORLD.isLocked()) {
             weaponSensorFixture = body.createFixture(weaponSensorFixtureDef);
         }
-        System.out.println("3");
         weaponSensorFixture.setSensor(true);
         weaponSensorFixture.setUserData("enemyHitbox");
-        System.out.println("4");
         //clears memory
         shape.dispose();
-        System.out.println("5");
     }
 
-    private void removeHitbox() {
+    protected void removeHitbox() {
         weaponSensorFixture.setUserData("dead");
     }
 
@@ -155,6 +145,7 @@ public abstract class EnemyController {
         }
         shape.setAsBox(enemy.getAttackHitBoxWidth() / PPM, enemy.getAttackHitBoxHeight() / PPM, new Vector2(hitBoxX / PPM, enemy.getAttackHitBoxY() / PPM), 0);
     }
+
     private boolean enemyBlocked(){
         if(enemy.getDirection() == Direction.RIGHT){
             return (Map.getInstance().getCurrentRoom().getTiledHandler().getSensorLayer().getCell((int)enemy.getX()/TILE_SIZE + 2*TILE_SIZE, (int)enemy.getY()/TILE_SIZE) != null
@@ -187,7 +178,11 @@ public abstract class EnemyController {
                 (Math.abs((enemy.getY() + (enemy.getBodyHeight()/2)/PPM) - (Hero.getInstance().getY() + 10.5/PPM)) <= 38/PPM));
     }
 
+
     private void updatePhysics() {
+        //System.out.println("updatephysics x " + body.getPosition().x);
+        //System.out.println("updatephysics y " + body.getPosition().y);
+
         Position physPos = new Position(body.getPosition().x, body.getPosition().y);
         enemy.setPosition(physPos);
     }

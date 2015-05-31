@@ -186,6 +186,7 @@ public abstract class Creature {
      * does nothing
      */
     public void attack () {
+        this.setAttackInProgress(true);
     }
 
     /**

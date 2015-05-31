@@ -413,12 +413,15 @@ public class TiledHandler {
         return renderer;
     }
 
-    public void destroy() {
 
+    /**
+     * Destroys all the Box2d bodies in the current room
+     */
+    public void destroy() {
         for(Body body : BODIES) {
             if(body.getUserData() != null){
                 if((body.getUserData().equals("room") || body.getUserData().equals("sensor") ||
-                        body.getUserData().equals("enemy"))) {
+                        body.getUserData() instanceof EnemyController || body.getUserData().equals("chest"))) {
                     //body.setUserData("dead");
                     WorldConstants.CURRENT_WORLD.destroyBody(body);
                 }

@@ -55,10 +55,6 @@ public abstract class CreatureView {
         idleAnimation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
-  /*  public TextureRegion getCurrentFrame() {
-        return currentFrame;
-    } */
-
     protected Animation getCurrentAnimation() {
 
         if (creature.getMovementState() == MovementState.WALKING) {
@@ -80,7 +76,7 @@ public abstract class CreatureView {
         stateTime += deltaTime;
         currentFrame = animation.getKeyFrame(stateTime);
         sprite.setRegion(currentFrame);
-        sprite.setPosition(creature.getX() * PPM, creature.getY() * PPM);
+        sprite.setPosition(creature.getX(), creature.getY());
 
         /* Draws the current frame of the hero animation, at position x,y of it's body
         scaled to the PPM, its origin offset (for scaling and rotating) at half the body.

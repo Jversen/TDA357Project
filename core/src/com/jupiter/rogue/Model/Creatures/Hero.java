@@ -80,9 +80,8 @@ public class Hero extends Creature {
      * does nothing but decrease durability on ranged weapons
      */
     public void attack() {
-        if (isMeleeCurrentWeapon()) {
-
-        } else {
+        attackInProgress = true;
+        if (!isMeleeCurrentWeapon()) {
             ((RangedWeapon)getCurrentWeapon()).decreaseDurability();
         }
     }
