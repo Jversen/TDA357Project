@@ -35,9 +35,14 @@ public final class WorldConstants {
 
     public static final List<String> CHESTTYPES =
             new ArrayList<>(Arrays.asList("weapon", "ring"));
-    //public static final List<String> WEAPONS = new ArrayList<>(Arrays.asList("blackDagger", "doubleBarreled"));
-    //public static final List<String> RINGS = new ArrayList<>(Arrays.asList("ring1", "ring2"));
 
+    //public static final List<String> WEAPONS = new ArrayList<>(Arrays.asList("blackDagger", "doubleBarreled"));
+    public static final List<Weapon> WEAPONS = new ArrayList<>(Arrays.asList(
+            new BlackDagger(), new DoubleBarreled()));
+
+    //public static final List<String> RINGS = new ArrayList<>(Arrays.asList("ring1", "ring2"));
+    public static final List<Ring> RINGS = new ArrayList<>(Arrays.asList(
+            new SpeedRing(), new StrengthRing()));
     /*
     Update maps if adding new weapons
      */

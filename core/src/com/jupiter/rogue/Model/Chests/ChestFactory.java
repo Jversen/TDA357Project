@@ -6,6 +6,7 @@ import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Utils.WorldConstants;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -34,25 +35,26 @@ public class ChestFactory {
     }
 
     private Item randomizeContent(){
+
         Item item;
         Random rn = new Random();
         int itemIndex;
-        //Map map;
-        LinkedHashMap map;
+        List itemList;
+
         switch (this.chestType){
             case ("weapon"):
-                map = WorldConstants.weaponMap;
+                itemList = WorldConstants.WEAPONS;
                 break;
             case ("ring"):
-                map = WorldConstants.ringMap;
+                itemList = WorldConstants.RINGS;
                 break;
-            default: map = WorldConstants.weaponMap;
+            default: itemList = WorldConstants.WEAPONS;
         }
-        System.out.println("Map size = " + map.size());
-        itemIndex = rn.nextInt(map.size());
-        item = (Item)map.get(itemIndex);
-        System.out.println("Itemindex: " + itemIndex);
-        System.out.println("Item: " + item.getDescription());
+
+        itemIndex = rn.nextInt(itemList.size());
+
+        item = (Item)itemList.get(itemIndex);
+
         return item;
 
     }
