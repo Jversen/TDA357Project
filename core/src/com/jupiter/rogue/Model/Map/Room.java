@@ -36,7 +36,13 @@ public class Room {
     private List<Chest> chests;
 
 
-
+    /**
+     * creates a room
+     * @param path the path to the room in the file assets
+     * @param width the width of the room
+     * @param height the height of the room
+     * @param doors an arraylist with doors
+     */
     public Room(String path, int width, int height, ArrayList<String> doors) {
         this.path = path;
         this.WIDTH = width;
@@ -51,10 +57,16 @@ public class Room {
 
     }
 
+    /**
+     * initiates the room
+     */
     public void initRoom() {
         tiledHandler.initRoom();
     }
 
+    /**
+     * generates enemies in the room
+     */
     public void generateEnemies(){
 
         EnemyFactory enemyFactory;
@@ -91,7 +103,11 @@ public class Room {
 
     }
 
-
+    /**
+     * creates an enemyfactory
+     * @param enemyType which type of enemy the factory should produce
+     * @return the enemy factory
+     */
     private EnemyFactory createEnemyFactory(String enemyType){
         switch (enemyType){
             case "widow": return new WidowFactory();
@@ -111,6 +127,9 @@ public class Room {
         return enemyType;
     }
 
+    /**
+     * creates chests in the room
+     */
     public void createChests() {
 
         ChestFactory chestFactory;
@@ -144,10 +163,18 @@ public class Room {
         }
     }
 
+    /**
+     * getter for visited
+     * @return visited
+     */
     public boolean getVisited() {
         return visited;
     }
 
+    /**
+     * getter for boss room
+     * @return boss room
+     */
     public boolean getBossRoom() {
         return bossRoom;
     }

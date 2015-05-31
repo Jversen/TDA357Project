@@ -5,7 +5,9 @@ package com.jupiter.rogue.Model.Items;
  */
 @lombok.Data
 public class BlackDagger extends MeleeWeapon {
-
+    /**
+     * creates the weapon black dagger
+     */
     public BlackDagger() {
         this.damage = 200;
         this.attackSpeed = 100;

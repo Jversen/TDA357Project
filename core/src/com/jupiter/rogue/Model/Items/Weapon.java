@@ -36,11 +36,18 @@ public abstract class Weapon extends Item {
         hitBoxModel.addElement(hitBoxTilt);
     }
 
+    /**
+     * gets the weapons damage
+     * @return the weapons damage
+     */
     public int getDamage() {
         return damage;
     }
 
-    //returns the values of the shape that the weapons hitbox uses
+    /**
+     * gets the values of the weapons hitbox
+     * @return values
+     */
     public JList<Float> getHitBoxValues() {
         return hitBoxValues;
     }

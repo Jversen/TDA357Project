@@ -26,6 +26,13 @@ public class RoomFactory {
     public static final int ROOMS_WITH_EXIT_DOOR_TOP = 2;
     public static final int ROOMS_WITH_EXIT_DOOR_BOTTOM = 1;
 
+    /**
+     * returns a room fitting the description
+     * @param entrance entrance to the room from this direction
+     * @param roomNumber the rooms number
+     * @param exit if the room has exits
+     * @return the room
+     */
     public static Room getRoom(String entrance, int roomNumber, boolean exit) {
         ArrayList<String> doors = new ArrayList<>();
         if(entrance.equals("l") && !exit) {
@@ -257,7 +264,11 @@ public class RoomFactory {
         return null;
     }
 
-    // getter for special rooms
+    /**
+     * returns special rooms
+     * @param roomID the special rooms specific ID
+     * @return the room
+     */
     public static Room getRoom(String roomID) {
         ArrayList<String> doors = new ArrayList<>();
         switch (roomID) {

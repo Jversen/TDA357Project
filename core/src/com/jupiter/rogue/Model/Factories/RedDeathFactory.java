@@ -14,11 +14,19 @@ public class RedDeathFactory implements EnemyFactory {
     String enemyType = "redDeath";
 
     @Override
+    /**
+     * creates an enemy
+     * @see implemented interface
+     */
     public Enemy createEnemy(float xPos, float yPos, int level, boolean elite) {
         Enemy enemy = new RedDeath(xPos, yPos, level, elite);
         return enemy;
     }
 
+    /**
+     * gets the enemy type
+     * @return a string with the enemy type
+     */
     public String getEnemyType() {
         return enemyType;
     }

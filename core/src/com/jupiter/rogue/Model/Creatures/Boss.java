@@ -8,7 +8,10 @@ import com.jupiter.rogue.Utils.Enums.Direction;
 public class Boss extends Enemy {
 
     public Boss() {
-
+        /**
+         * creates a boss enemy.
+         *@see com.jupiter.rogue.Model.Creatures.Enemy
+         */
         super(2000, 2000, 60, 10000, 0, 0, false, 100, 100, 1, false);
 
         this.enemyType = "boss";

@@ -5,7 +5,9 @@ package com.jupiter.rogue.Model.Items;
  */
 @lombok.Data
 public class StrengthRing extends Ring{
-
+    /**
+     * creates the ring strength ring
+     */
     public StrengthRing(){
 
         this.strengthRequirement = 0;

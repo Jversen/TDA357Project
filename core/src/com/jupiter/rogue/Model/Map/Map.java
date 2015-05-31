@@ -49,6 +49,10 @@ public class Map {
         createMap();
     }
 
+    /**
+     * gets the singleton instance of map
+     * @return instance
+     */
     public static Map getInstance() {
         if(map == null) {
             map = new Map();
@@ -56,6 +60,9 @@ public class Map {
         return map;
     }
 
+    /**
+     * switches the room if the previous room is destroyed
+     */
     public void update() {
         if(destroyRoom) {
             switchRoom();
@@ -64,6 +71,9 @@ public class Map {
 
     }
 
+    /**
+     * creates the map
+     */
     public void createMap() {
         initMap();
         addStartingRoom();
@@ -886,6 +896,12 @@ public class Map {
         }
     }
 
+    /**
+     * gets the doors that are matching the room
+     * @param room the room
+     * @param side the side of the room checked
+     * @return arraylist with matching doors
+     */
     public ArrayList<String> getDoors(Room room, String side) {
         ArrayList<String> matchingDoors = new ArrayList<>();
         for(String door : room.getDoors()) {
@@ -994,7 +1010,9 @@ public class Map {
         nextRoom += 1;
     }
 
-    //temporary, will be rewritten
+    /**
+     * switches room
+     */
     public void switchRoom() {
         destroyWorld();
         changeActiveRoom();
@@ -1098,15 +1116,26 @@ public class Map {
         getCurrentRoom().setVisited(true);
     }
 
+    /**
+     * returns the active room
+     * @return the active room
+     */
     public Room getCurrentRoom() {
         return rooms.get(currentRoomNbr);
     }
 
+    /**
+     * flags the room for destruction
+     * @param door
+     */
     public void flagRoomForDestruction(String door) {
         this.exit = door;
         this.destroyRoom = true;
     }
 
+    /**
+     * changes the rooms position in the map
+     */
     public void setNewRoomPosition() {
         for(int x = 0; x < 100; x++) {
             for(int y = 0; y < 100; y++) {
