@@ -132,7 +132,11 @@ public class View implements Screen{
         float x = Hero.getInstance().getX() * PPM;
         float roomWidth = map.getCurrentRoom().getTiledHandler().getRoomWidth();
 
-        if(x < 192) {
+        if(roomWidth <= 320) {
+            System.out.println("roomWidth: " + roomWidth);
+            return x;
+        }
+        else if(x < 192) {
             x = 192;
         } else if(x>roomWidth-192) {
             x = roomWidth-192;
@@ -143,6 +147,11 @@ public class View implements Screen{
     public float getCamPosY() {
         float y = Hero.getInstance().getY() * PPM;
         float roomHeight = map.getCurrentRoom().getTiledHandler().getRoomHeight();
+
+        if(roomHeight <= 180) {
+            System.out.println("roomHeight: " + roomHeight);
+            return y;
+        }
 
         if(y < 122) {
             y = 122;
