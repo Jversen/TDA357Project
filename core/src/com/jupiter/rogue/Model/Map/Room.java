@@ -3,6 +3,7 @@ package com.jupiter.rogue.Model.Map;
 import com.badlogic.gdx.maps.MapProperties;
 import com.jupiter.rogue.Controller.EnemyController;
 import com.jupiter.rogue.Model.Creatures.Enemy;
+import com.jupiter.rogue.Model.Factories.BossFactory;
 import com.jupiter.rogue.Model.Factories.EnemyFactory;
 import com.jupiter.rogue.Model.Factories.RedDeathFactory;
 import com.jupiter.rogue.Model.Factories.WidowFactory;
@@ -94,6 +95,7 @@ public class Room {
         switch (enemyType){
             case "widow": return new WidowFactory();
             case "redDeath": return new RedDeathFactory();
+            case "boss": return new BossFactory();
             default: return new WidowFactory();
         }
     }

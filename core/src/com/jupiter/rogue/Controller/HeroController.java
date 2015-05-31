@@ -99,7 +99,7 @@ public class HeroController {
 
 
         //creates a sensor at the players feet
-        shape.setAsBox(10 / PPM, 1 / PPM, new Vector2(0, -15 / PPM), 0);
+        shape.setAsBox(9 / PPM, 1 / PPM, new Vector2(0, -15 / PPM), 0);
 
         FixtureDef feetSensorFixtureDef = new FixtureDef();
         feetSensorFixtureDef.shape = shape;
@@ -262,7 +262,7 @@ public class HeroController {
     private void attack() {
         if (attackReady) {
             attackReady = false;
-            hero.setAttackInProgress(true);
+            hero.attack();
             timer.schedule(new AttackDelayTask(), hero.getCurrentWeapon().getAttackSpeed());
             timer.schedule(new AttackInProgressTask(), hero.getCurrentWeapon().getAnimationSpeed());
         }

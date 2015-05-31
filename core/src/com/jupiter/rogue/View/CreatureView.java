@@ -55,10 +55,6 @@ public abstract class CreatureView {
         idleAnimation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
-  /*  public TextureRegion getCurrentFrame() {
-        return currentFrame;
-    } */
-
     protected Animation getCurrentAnimation() {
 
         if (creature.getMovementState() == MovementState.WALKING) {

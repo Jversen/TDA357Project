@@ -1,0 +1,75 @@
+
+BossAttack1.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+BossAttack01
+  rotate: false
+  xy: 2, 638
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+BossAttack02
+  rotate: false
+  xy: 2, 426
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+BossAttack03
+  rotate: false
+  xy: 377, 638
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+BossAttack04
+  rotate: false
+  xy: 2, 214
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+BossAttack05
+  rotate: false
+  xy: 377, 426
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+BossAttack06
+  rotate: false
+  xy: 2, 2
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+BossAttack07
+  rotate: false
+  xy: 377, 214
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+BossAttack08
+  rotate: false
+  xy: 377, 2
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1
+
+BossAttack12.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+BossAttack09
+  rotate: false
+  xy: 2, 2
+  size: 373, 210
+  orig: 373, 210
+  offset: 0, 0
+  index: -1

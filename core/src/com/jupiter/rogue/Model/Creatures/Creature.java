@@ -121,6 +121,7 @@ public abstract class Creature {
     }
 
     public void attack () {
+        this.setAttackInProgress(true);
     }
 
     public void die () {
