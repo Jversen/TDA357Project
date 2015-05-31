@@ -264,7 +264,7 @@ public class RoomFactory {
             case "StartingRoom":    doors.add("r1");
                                     return new Room("Rooms/CastleRooms/StartingRoom.tmx", 2, 1, doors);
             case "BossRoom":     doors.add("l1");
-                                    return new Room("Rooms/BossRoom.tmx", 4, 4, doors);
+                                    return new Room("Rooms/CastleRooms/BossRoom.tmx", 2, 2, doors);
             default: return null;
         }
     }
