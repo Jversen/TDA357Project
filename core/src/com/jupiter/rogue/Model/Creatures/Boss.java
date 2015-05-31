@@ -32,12 +32,12 @@ public class Boss extends Enemy {
         this.attackHitBox2X = 0;
         this.attackHitBox2Y = 150;
 
-        this.bodyWidth = 500;
-        this.bodyHeight = 500;
-        this.bodyY = 300f;
+        this.bodyWidth = 50;
+        this.bodyHeight = 70;
+        this.bodyY = 0f;
 
         this.xpValue = 1000;
-        this.direction = Direction.LEFT;
+        this.direction = Direction.RIGHT;
     }
 
     @Override

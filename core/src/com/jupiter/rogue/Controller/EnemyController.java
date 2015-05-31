@@ -179,7 +179,7 @@ public abstract class EnemyController {
     }
 
 
-    private void updatePhysics() {
+    protected void updatePhysics() {
         //System.out.println("updatephysics x " + body.getPosition().x);
         //System.out.println("updatephysics y " + body.getPosition().y);
 

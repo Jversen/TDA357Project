@@ -14,10 +14,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jupiter.rogue.Controller.RedDeathController;
 import com.jupiter.rogue.Controller.WidowController;
 import com.jupiter.rogue.Model.Chests.Chest;
-import com.jupiter.rogue.Model.Creatures.Enemy;
-import com.jupiter.rogue.Model.Creatures.Hero;
-import com.jupiter.rogue.Model.Creatures.RedDeath;
-import com.jupiter.rogue.Model.Creatures.Widow;
+import com.jupiter.rogue.Model.Creatures.*;
 import com.jupiter.rogue.Model.Map.Map;
 import com.jupiter.rogue.Utils.WorldConstants;
 
@@ -65,8 +62,8 @@ public class View implements Screen{
         chestViews = new ArrayList<>();
 
         debugRenderer = new Box2DDebugRenderer();
-        w = Gdx.graphics.getWidth() * 2;
-        h = Gdx.graphics.getHeight() * 2;
+        w = Gdx.graphics.getWidth();
+        h = Gdx.graphics.getHeight();
         camera  = new OrthographicCamera(); //Regular camera for level
         b2dCam = new OrthographicCamera();  //Box2D camera to scale up the box2D simulation
 
@@ -197,6 +194,9 @@ public class View implements Screen{
                         break;
                     case("redDeath"):
                         enemyViews.add(new RedDeathView((RedDeath) enemies.get(i)));
+                        break;
+                    case("boss"):
+                        enemyViews.add(new BossView((Boss) enemies.get(i)));
                         break;
                 }
             }

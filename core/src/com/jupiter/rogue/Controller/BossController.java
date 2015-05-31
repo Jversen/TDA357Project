@@ -11,7 +11,6 @@ import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.Stationary;
 import com.jupiter.rogue.Model.Creatures.Boss;
 import com.jupiter.rogue.Utils.Position;
 import com.jupiter.rogue.Utils.WorldConstants;
-import com.jupiter.rogue.View.BossView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,7 +35,6 @@ public class BossController extends EnemyController {
         this.enemy = boss;
 
         startPosition = enemy.getPosition();
-        this.initBody();
     }
 
     @Override
@@ -52,6 +50,7 @@ public class BossController extends EnemyController {
         this.attackReady = false;
         timer = new Timer();
         random = true;
+        timer.schedule(new EnemyController.AttackReadyTask(), 3000);
     }
 
     @Override
@@ -92,9 +91,9 @@ public class BossController extends EnemyController {
     //help-method to the createWeaponHitBox methods, gets the hitbox information from the heroes weapon and then sets a hitbox accordingly depending on what direction the hero is facing.
     private void hitBoxShapeMaker() {
         if (((Boss)enemy).isAttackInProgress1()) {
-            shape.setAsBox(enemy.getAttackHitBoxWidth() / PPM, enemy.getAttackHitBoxHeight() / PPM, new Vector2((-1 * enemy.getAttackHitBoxX()) / PPM, enemy.getAttackHitBoxY() / PPM), 0);
+            shape.setAsBox(enemy.getAttackHitBoxWidth() / PPM, enemy.getAttackHitBoxHeight() / PPM, new Vector2((enemy.getAttackHitBoxX()) / PPM, enemy.getAttackHitBoxY() / PPM), 0);
         } else if (((Boss)enemy).isAttackInProgress2()) {
-            shape.setAsBox(((Boss)enemy).getAttackHitBox2Width() / PPM, ((Boss)enemy).getAttackHitBox2Height() / PPM, new Vector2((-1 * ((Boss)enemy).getAttackHitBox2X()) / PPM, ((Boss)enemy).getAttackHitBox2Y() / PPM), 0);
+            shape.setAsBox(((Boss)enemy).getAttackHitBox2Width() / PPM, ((Boss)enemy).getAttackHitBox2Height() / PPM, new Vector2((((Boss)enemy).getAttackHitBox2X()) / PPM, ((Boss)enemy).getAttackHitBox2Y() / PPM), 0);
         }
     }
 

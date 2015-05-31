@@ -122,7 +122,7 @@ public class Map {
             incrementRoomNumber();
             moveToNextRoom();
 
-            if(rooms.size() > 10 && !bossRoomAdded) {
+            if(rooms.size() > 20 && !bossRoomAdded) {
                 moreRooms = false;
                 addBossRoom();
                 bossRoomAdded = true;
