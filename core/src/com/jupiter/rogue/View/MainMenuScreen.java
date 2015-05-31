@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -30,6 +31,7 @@ public class MainMenuScreen implements ObservableScreen {
     private Table table;
     private TextButton playButton;
     private TextButton exitButton;
+    private Label nameLabel;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
@@ -54,9 +56,20 @@ public class MainMenuScreen implements ObservableScreen {
 
         skin.add("button", new Texture(pixmap));
 
-        BitmapFont bfont=new BitmapFont();
-        bfont.scale((float) 0.1);
-        skin.add("default",bfont);
+        BitmapFont buttonFont=new BitmapFont();
+        buttonFont.scale((float) 0.1);
+        skin.add("default",buttonFont);
+
+        BitmapFont labelFont=new BitmapFont();
+        labelFont.scale((float) 0.5);
+        skin.add("label",labelFont);
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = skin.getFont("label");
+        skin.add("default", labelStyle);
+
+        nameLabel = new Label("Dark Dungeon",skin);
+        stage.addActor(nameLabel);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("button", Color.DARK_GRAY);
@@ -95,6 +108,7 @@ public class MainMenuScreen implements ObservableScreen {
     public void show() {
         float buttonWidth = Gdx.graphics.getWidth()/4;
         float buttonHeight = Gdx.graphics.getHeight()/6;
+        table.add(nameLabel).size(buttonWidth, buttonHeight).padBottom(10).row();
         table.add(playButton).size(buttonWidth,buttonHeight).padBottom(10).row();
         table.add(exitButton).size(buttonWidth,buttonHeight).padBottom(10).row();
         table.setFillParent(true);
