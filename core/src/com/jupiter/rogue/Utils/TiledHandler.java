@@ -54,21 +54,19 @@ public class TiledHandler {
         }
 
         try {
-            enemySpawnLayer = (TiledMapTileLayer) tiledMap.getLayers().get(5);
+            enemySpawnLayer = (MapLayer) tiledMap.getLayers().get(5);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Maplayer doesn't exist");
         }
 
         try {
-            chestLayer = (TiledMapTileLayer) tiledMap.getLayers().get(6);
+            chestLayer = (MapLayer) tiledMap.getLayers().get(6);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Maplayer doesn't exist");
         }
 
         roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
         roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
-
-        createChests();
 
     }
 
@@ -407,35 +405,6 @@ public class TiledHandler {
 
                 body.setTransform(new Vector2(x, y),0);
                 break;
-            }
-        }
-    }
-
-    private void createChests() {
-
-        ChestFactory chestFactory;
-        String chestType;
-        float xPos;
-        float yPos;
-        Random rn = new Random();
-        int chestTypeIndex;
-
-        if (chestLayer != null) {
-            for (int i = 0; i <= chestLayer.getObjects().getCount() - 1; i++) {
-                MapProperties properties = chestLayer.getObjects().get(i).getProperties();
-                if (properties.get("type") != null) {
-                    chestType = properties.get("type").toString();
-                } else {
-                    chestType = "random";
-                }
-
-                if (!chestType.contains(chestType)) {
-                    chestTypeIndex = rn.nextInt(WorldConstants.CHESTTYPES.size());
-                    chestType = WorldConstants.CHESTTYPES.get(chestTypeIndex);
-                }
-                chestFactory = new ChestFactory(chestType);
-
-                chests.add(chestFactory.createChest());
             }
         }
     }

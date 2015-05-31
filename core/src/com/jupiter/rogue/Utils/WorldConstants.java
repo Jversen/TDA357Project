@@ -37,7 +37,7 @@ public final class WorldConstants {
             new ArrayList<>(Arrays.asList("weapon", "ring"));
 
     public static final List<Weapon> WEAPONS = new ArrayList<>(Arrays.asList(
-            new BlackDagger(), new DoubleBarreled()));
+            new BlackDagger(), new Boomstick()));
 
     public static final List<Ring> RINGS = new ArrayList<>(Arrays.asList(
             new SpeedRing(), new StrengthRing()));
