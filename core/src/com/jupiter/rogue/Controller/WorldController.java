@@ -21,6 +21,7 @@ public class WorldController {
     public void update() {
         WorldConstants.CURRENT_WORLD.step(Gdx.graphics.getDeltaTime(), 6, 2);
         if (WorldConstants.BODIES != null) {
+            WorldConstants.BODIES.clear();
             WorldConstants.CURRENT_WORLD.getBodies(WorldConstants.BODIES);
         }
         removeBodiesSafely();

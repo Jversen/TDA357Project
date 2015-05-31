@@ -18,12 +18,11 @@ public class WidowView extends EnemyView {
     private String spritesheetPathDying;
     private String atlasFilePathDying;
     private Float animationSpeedDying;
+    private Animation dyingAnimation;
 
     private String spritesheetPathAttacking;
     private String atlasFilePathAttacking;
     private Float animationSpeedAttacking;
-
-    private Animation dyingAnimation;
     private Animation attackAnimation;
 
     public WidowView(Widow widow) {
