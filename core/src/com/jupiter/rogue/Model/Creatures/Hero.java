@@ -30,6 +30,8 @@ public class Hero extends Creature {
     private int intellect;
     private int statPoints;
 
+    private boolean touchingChest;
+
     private Hero () {
         position = new Position();
         this.creatureGrounded = false;

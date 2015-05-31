@@ -9,6 +9,7 @@ import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.JumpBehavior;
 import com.jupiter.rogue.Controller.Behaviors.JumpBehaviors.NormalJump;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.MoveBehavior;
 import com.jupiter.rogue.Controller.Behaviors.MoveBehaviors.Walk;
+import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Model.Items.RangedWeapon;
 import com.jupiter.rogue.Utils.Position;
@@ -55,6 +56,8 @@ public class HeroController {
     private MoveBehavior moveBehavior;
     private AttackedBehavior takeDamageBehavior;
 
+    private Chest usableChest;
+
     public HeroController() {
         initHero();
     }
@@ -95,6 +98,8 @@ public class HeroController {
         body.createFixture(playerFixtureDef).setUserData(this); //naming the herofixture hero.
 
       //  WorldConstants.BODIES.add(body);
+        body.setSleepingAllowed(false);
+        
         //hero.setBody(body);
 
 
@@ -155,6 +160,9 @@ public class HeroController {
         }
         if (keys.contains(Input.Keys.W)) {
             swapWeapon();
+        }
+        if (keys.contains(Input.Keys.C)) {
+            openChest();
         }
         if(keys.isEmpty()) {
             hero.relax();
@@ -265,6 +273,14 @@ public class HeroController {
             hero.setAttackInProgress(true);
             timer.schedule(new AttackDelayTask(), hero.getCurrentWeapon().getAttackSpeed());
             timer.schedule(new AttackInProgressTask(), hero.getCurrentWeapon().getAnimationSpeed());
+        }
+    }
+
+    private void openChest(){
+        if(hero.isTouchingChest()) {
+            usableChest.open();
+            System.out.println(usableChest.getContent().getDescription());
+
         }
     }
 

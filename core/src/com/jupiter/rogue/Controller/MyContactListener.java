@@ -1,6 +1,7 @@
 package com.jupiter.rogue.Controller;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.jupiter.rogue.Model.Chests.Chest;
 import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Utils.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
@@ -118,25 +119,39 @@ public class MyContactListener implements ContactListener {
      * Checks if hero collides with a chest. If so, display the description of the Chest's item.
      */
     private void checkChestContact(){
-        String desc;
+
+        Chest chest;
+        boolean touchesChest;
 
         if(contacts != null){
             if((contacts.get(0) instanceof HeroController &&
                     contacts.get(1) instanceof ChestController)){
-               desc = ((ChestController) contacts.get(1)).chest.getContent().getDescription();
-                System.out.println(desc);
+                touchesChest = true;
+                chest = (((ChestController) contacts.get(1)).chest);
+                ((HeroController) contacts.get(0)).setUsableChest(chest);
+                if (chest.isOpened()){
+                    System.out.println(chest.getContent().getDescription());
+                }
+
             } else if(contacts.get(1) instanceof HeroController &&
                     contacts.get(0) instanceof ChestController) {
-                desc = ((ChestController) contacts.get(0)).chest.getContent().getDescription();
-                System.out.println(desc);
+                touchesChest = true;
+                chest = (((ChestController) contacts.get(0)).chest);
+                ((HeroController) contacts.get(1)).setUsableChest(chest);
+
+                if (chest.isOpened()){
+                    System.out.println(chest.getContent().getDescription());
+                }
+            } else{
+                touchesChest = false;
             }
-
-
-
-            }
-
-
+        } else {
+            touchesChest = false;
         }
+
+        hero.setTouchingChest(touchesChest);
+
+    }
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {

@@ -17,6 +17,8 @@ public class UserInput {
     private boolean ePressed;
     private boolean wPressed;
     private boolean f1Pressed;
+    private boolean cPressed;
+
 
     public UserInput() {
     }
@@ -28,6 +30,7 @@ public class UserInput {
         rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
         ePressed = Gdx.input.isKeyPressed(Input.Keys.E);
         wPressed = Gdx.input.isKeyPressed(Input.Keys.W);
+        cPressed = Gdx.input.isKeyPressed(Input.Keys.C);
 
         f1Pressed = Gdx.input.isKeyJustPressed(Input.Keys.F1);
 
@@ -50,6 +53,9 @@ public class UserInput {
         }
         if(f1Pressed) {
             View.getInstance().setShowDebugInfo(!View.getInstance().getShowDebugInfo());
+        }
+        if (cPressed) {
+            keys.add(Input.Keys.C);
         }
         return keys;
     }

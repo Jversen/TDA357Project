@@ -28,7 +28,7 @@ public final class WorldConstants {
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
 
     /*
-    update ENEMYTYPES and CHESTTYPES if more of these types are added.
+    update if more of these types are added.
      */
     public static final List<String> ENEMYTYPES =
             new ArrayList<>(Arrays.asList("widow", "redDeath")); //The different enemies implemented.
@@ -36,27 +36,10 @@ public final class WorldConstants {
     public static final List<String> CHESTTYPES =
             new ArrayList<>(Arrays.asList("weapon", "ring"));
 
-    //public static final List<String> WEAPONS = new ArrayList<>(Arrays.asList("blackDagger", "doubleBarreled"));
     public static final List<Weapon> WEAPONS = new ArrayList<>(Arrays.asList(
             new BlackDagger(), new DoubleBarreled()));
 
-    //public static final List<String> RINGS = new ArrayList<>(Arrays.asList("ring1", "ring2"));
     public static final List<Ring> RINGS = new ArrayList<>(Arrays.asList(
             new SpeedRing(), new StrengthRing()));
-    /*
-    Update maps if adding new weapons
-     */
-    public static final LinkedHashMap<String, Weapon> weaponMap;
-    static {
-        weaponMap = new LinkedHashMap<>();
-        weaponMap.put("blackDagger", new BlackDagger());
-        weaponMap.put("doubleBarreled", new DoubleBarreled());
-    }
 
-    public static final LinkedHashMap<String, Ring> ringMap;
-    static {
-        ringMap = new LinkedHashMap<>();
-        ringMap.put("speedRing", new SpeedRing());
-        ringMap.put("strengthRing", new StrengthRing());
-    }
 }
