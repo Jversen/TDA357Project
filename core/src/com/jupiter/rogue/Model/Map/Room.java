@@ -51,6 +51,9 @@ public class Room {
 
     }
 
+    /**
+     * Initializes the TiledHandler needed to build the room
+     */
     public void initRoom() {
         tiledHandler.initRoom();
     }

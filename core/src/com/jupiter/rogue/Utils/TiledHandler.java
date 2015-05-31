@@ -413,8 +413,11 @@ public class TiledHandler {
         return renderer;
     }
 
-    public void destroy() {
 
+    /**
+     * Destroys all the Box2d bodies in the current room
+     */
+    public void destroy() {
         for(Body body : BODIES) {
             if(body.getUserData() != null){
                 if((body.getUserData().equals("room") || body.getUserData().equals("sensor") ||

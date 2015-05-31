@@ -20,6 +20,7 @@ import java.beans.PropertyChangeSupport;
 
 
 /**
+ * Class that creates and displays the Main Menu of the game
  * Created by Johan on 30/05/15.
  */
 public class MainMenuScreen implements ObservableScreen {
@@ -31,10 +32,16 @@ public class MainMenuScreen implements ObservableScreen {
     private TextButton exitButton;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     * Constructor
+     */
     public MainMenuScreen() {
         create();
     }
 
+    /**
+     * Creates all the objects used in the main menu
+     */
     private void create() {
         batch = new SpriteBatch();
         stage = new Stage();
@@ -51,7 +58,6 @@ public class MainMenuScreen implements ObservableScreen {
         bfont.scale((float) 0.1);
         skin.add("default",bfont);
 
-        // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("button", Color.DARK_GRAY);
         textButtonStyle.down = skin.newDrawable("button", Color.DARK_GRAY);
@@ -82,7 +88,9 @@ public class MainMenuScreen implements ObservableScreen {
         });
     }
 
-
+    /**
+     * Adds all the components that will be displayed
+     */
     @Override
     public void show() {
         float buttonWidth = Gdx.graphics.getWidth()/4;
@@ -95,6 +103,10 @@ public class MainMenuScreen implements ObservableScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Renders the main menu
+     * @param delta
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -105,14 +117,7 @@ public class MainMenuScreen implements ObservableScreen {
 
     @Override
     public void resize(int width, int height) {
-        //TODO fix
-        float buttonWidth = Gdx.graphics.getWidth()/5;
-        float buttonHeight = Gdx.graphics.getHeight()/5;
 
-        //playButton.setSize(buttonWidth, buttonHeight);
-        //exitButton.setSize(buttonWidth, buttonHeight);
-        //playButton.setPosition(Gdx.graphics.getWidth()/2-buttonWidth/2, Gdx.graphics.getHeight()/2);
-        //exitButton.setPosition();
     }
 
     @Override
