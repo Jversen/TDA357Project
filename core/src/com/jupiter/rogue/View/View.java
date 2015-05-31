@@ -45,6 +45,7 @@ public class View implements Screen{
     private Stage stage; //Scene2d stage
     private List<EnemyView> enemyViews;
     private List<Enemy> enemies;
+    private boolean showAttributeMenu = false;
     private List<ChestView> chestViews;
     private List<Chest> chests;
     private boolean showDebugInfo = true;
@@ -55,6 +56,7 @@ public class View implements Screen{
     private HeroView heroView;
 
     Box2DDebugRenderer debugRenderer;
+    AttributeMenu attributeMenu = AttributeMenu.getInstance();
 
     private View() {
 
@@ -85,6 +87,10 @@ public class View implements Screen{
             instance = new View();
         }
         return instance;
+    }
+
+    public void showAttributesMenu(){
+        showAttributeMenu ^= true;
     }
 
     public void update() {
@@ -121,6 +127,11 @@ public class View implements Screen{
             camera.setToOrtho(false, w / PPM, h / PPM);
             moveB2DCamera(posX, posY);
             debugRenderer.render(WorldConstants.CURRENT_WORLD, camera.combined);
+        }
+        if(showAttributeMenu){
+            stage.addActor(attributeMenu);
+        }else{
+            attributeMenu.remove();
         }
 
         stage.draw();
