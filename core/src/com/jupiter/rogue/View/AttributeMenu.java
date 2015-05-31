@@ -46,13 +46,13 @@ public class AttributeMenu extends Actor {
     private AttributeMenu(){
 
         texture = new Texture(Gdx.files.internal("Data/HUD/AttributesMenubg1.png"));
-        background1 = new Sprite(texture, 0, 0, 66, 116);
+        background1 = new Sprite(texture, 0, 0, 76, 116);
         background1.setPosition(50, 30);
         background1.setOrigin(0, 0);
         background1.setScale(1, 1);
 
         texture = new Texture(Gdx.files.internal("Data/HUD/AttributesMenubg2.png"));
-        background2 = new Sprite(texture, 0, 0, 60, 110);
+        background2 = new Sprite(texture, 0, 0, 70, 110);
         background2.setPosition(53, 33);
         background2.setOrigin(0, 0);
         background2.setScale(1, 1);
@@ -126,8 +126,8 @@ public class AttributeMenu extends Actor {
         rangedWeaponFont.draw(batch, rangedWeapon, 55, 70);
         ring1TitleFont.draw(batch, "Left Ring", 55, 55);
         ring1Font.draw(batch, ring1, 55, 45);
-        ring2TitleFont.draw(batch, "Right Ring", 85, 55);
-        ring2Font.draw(batch, ring2, 85, 45);
+        ring2TitleFont.draw(batch, "Right Ring", 90, 55);
+        ring2Font.draw(batch, ring2, 90, 45);
 
     }
 
@@ -136,20 +136,20 @@ public class AttributeMenu extends Actor {
         agility = Hero.getInstance().getAgility();
         intellect = Hero.getInstance().getIntellect();
 
-        meleeWeapon = Hero.getInstance().getMeleeWeapon().getWeaponName();
+        meleeWeapon = Hero.getInstance().getMeleeWeapon().getItemName();
         if(Hero.getInstance().getRangedWeapon() != null) {
-            rangedWeapon = Hero.getInstance().getRangedWeapon().getWeaponName();
+            rangedWeapon = Hero.getInstance().getRangedWeapon().getItemName();
         }else{
             rangedWeapon = "Empty";
         }
 
         if(Hero.getInstance().getRingLeft() != null) {
-            ring1 = Hero.getInstance().getRingLeft().toString();
+            ring1 = Hero.getInstance().getRingLeft().getItemName();
         }else{
             ring1 = "Empty";
         }
         if(Hero.getInstance().getRingRight() != null){
-            ring2 = Hero.getInstance().getRingRight().toString();
+            ring2 = Hero.getInstance().getRingRight().getItemName();
         }else{
             ring2 = "Empty";
         }

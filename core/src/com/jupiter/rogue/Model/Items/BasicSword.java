@@ -12,7 +12,7 @@ public class BasicSword extends MeleeWeapon {
         this.damage = 50;
         this.attackSpeed = 350;
         this.animationSpeed = 350;
-        this.weaponName = "Basic Sword";
+        this.itemName = "Basic Sword";
 
         //hitBoxValues
         this.hitBoxLength = 17;
