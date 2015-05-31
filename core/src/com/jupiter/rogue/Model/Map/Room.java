@@ -63,7 +63,7 @@ public class Room {
         float xPos;
         float yPos;
 
-        if (tiledHandler.getEnemySpawnLayer() != null) {
+        if (tiledHandler.getEnemySpawnLayer() != null && !visited) {
             for (int i = 0; i < tiledHandler.getEnemySpawnLayer().getObjects().getCount(); i++) {
 
                 /* checks the (enemy)type of the object. If it's "random", change to a random EnemyFactory.*/
@@ -120,7 +120,7 @@ public class Room {
         Random rn = new Random();
         int chestTypeIndex;
 
-        if (tiledHandler.getChestLayer() != null) {
+        if (tiledHandler.getChestLayer() != null && !visited) {
             for (int i = 0; i < tiledHandler.getChestLayer().getObjects().getCount(); i++) {
                 MapProperties properties = tiledHandler.getChestLayer().getObjects().get(i).getProperties();
                 if (properties.get("type") != null) {

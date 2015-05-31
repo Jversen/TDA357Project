@@ -38,8 +38,8 @@
   </data>
  </layer>
  <objectgroup name="EnemySpawnLayer">
-  <object id="10" type="random" gid="319" x="530.576" y="447.034"/>
-  <object id="11" type="random" gid="319" x="743.1" y="385.373"/>
+  <object id="10" type="widow" gid="319" x="530.576" y="447.034"/>
+  <object id="11" type="widow" gid="319" x="743.1" y="385.373"/>
  </objectgroup>
  <objectgroup name="ChestLayer">
   <object id="12" type="random" gid="324" x="271.356" y="193.203"/>
