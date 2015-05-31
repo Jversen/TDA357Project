@@ -22,6 +22,8 @@ public class Chest {
     public Chest(String chestType, Item content, float xPos, float yPos){
         this.chestType = chestType;
         this.content = content;
+        System.out.println("agility req: " + content.getAgilityRequirement());
+        System.out.println(content.getDescription());
         this.xPos = xPos;
         this.yPos = yPos;
 

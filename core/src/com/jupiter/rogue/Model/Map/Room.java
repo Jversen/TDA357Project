@@ -86,7 +86,6 @@ public class Room {
                 enemy = enemyFactory.createEnemy(xPos, yPos, 1, false);
 
                 enemies.add(enemy);
-                System.out.println(enemies.get(i).getEnemyType() + " created.");
             }
         }
 
@@ -106,8 +105,8 @@ public class Room {
         int enemyTypeIndex;
         String enemyType;
 
-        enemyTypeIndex = rn.nextInt(WorldConstants.ENEMYTYPES.length);
-        enemyType = WorldConstants.ENEMYTYPES[enemyTypeIndex];
+        enemyTypeIndex = rn.nextInt(WorldConstants.ENEMYTYPES.size());
+        enemyType = WorldConstants.ENEMYTYPES.get(enemyTypeIndex);
 
         return enemyType;
     }
@@ -129,7 +128,6 @@ public class Room {
                 } else {
                     chestType = "random";
                 }
-                System.out.println("Chesttype parsed to: " + chestType);
                 xPos = (float)properties.get("x");
                 yPos = (float)properties.get("y");
 

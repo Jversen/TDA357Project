@@ -3,6 +3,7 @@ package com.jupiter.rogue.Model.Items;
 /**
  * Created by hilden on 2015-05-16.
  */
+@lombok.Data
 public class Boomstick extends RangedWeapon {
 
     public Boomstick() {
@@ -12,6 +13,13 @@ public class Boomstick extends RangedWeapon {
         this.durability = 2;
         this.projectileSpeed = 2700f;
         this.weaponName = "Boomstick";
+
+        this.strengthRequirement = 2;
+        this.agilityRequirement = 3;
+        this.intellectRequirement = 1;
+
+        this.description = ("This delicate contraption was forged in a land beyond time, at the Grand Rapids. " +
+                "It's got a walnut stock, cobalt blue steel, and a hair trigger.");
 
         //hitBoxValues for the projectile fired by the weapon
         this.hitBoxLength = 1;

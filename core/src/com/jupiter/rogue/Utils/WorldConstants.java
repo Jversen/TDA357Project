@@ -27,19 +27,28 @@ public final class WorldConstants {
     public static Array<Body> BODIES = new Array<>();
     public static ArrayList<Joint> JOINTS = new ArrayList<>();
 
-    public static final String[] ENEMYTYPES = {"widow", "redDeath"}; //The different enemies implemented.
-    public static final List<String> CHESTTYPES = new ArrayList<>(Arrays.asList("weapon", "ring"));
-    public static final List<String> WEAPONS = new ArrayList<>(Arrays.asList("blackDagger", "doubleBarreled"));
-    public static final List<String> RINGS = new ArrayList<>(Arrays.asList("ring1", "ring2"));
+    /*
+    update ENEMYTYPES and CHESTTYPES if more of these types are added.
+     */
+    public static final List<String> ENEMYTYPES =
+            new ArrayList<>(Arrays.asList("widow", "redDeath")); //The different enemies implemented.
 
-    public static final Map<String, Weapon> weaponMap;
+    public static final List<String> CHESTTYPES =
+            new ArrayList<>(Arrays.asList("weapon", "ring"));
+    //public static final List<String> WEAPONS = new ArrayList<>(Arrays.asList("blackDagger", "doubleBarreled"));
+    //public static final List<String> RINGS = new ArrayList<>(Arrays.asList("ring1", "ring2"));
+
+    /*
+    Update maps if adding new weapons
+     */
+    public static final LinkedHashMap<String, Weapon> weaponMap;
     static {
         weaponMap = new LinkedHashMap<>();
         weaponMap.put("blackDagger", new BlackDagger());
         weaponMap.put("doubleBarreled", new DoubleBarreled());
     }
 
-    public static final Map<String, Ring> ringMap;
+    public static final LinkedHashMap<String, Ring> ringMap;
     static {
         ringMap = new LinkedHashMap<>();
         ringMap.put("speedRing", new SpeedRing());

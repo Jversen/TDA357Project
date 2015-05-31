@@ -20,16 +20,13 @@ public class ChestView {
     Sprite sprite;
     Sprite spriteLocked;
     Sprite spriteOpened;
-    TextureAtlas atlas;
     protected SpriteBatch spriteBatch;
 
     public ChestView(Chest chest){
         this.chest = chest;
         this.chestType = chest.getChestType();
-        System.out.println("Chesttype = " + this.chestType);
         spriteBatch = new SpriteBatch();
         String texturePath;
-        atlas = new TextureAtlas(Gdx.files.internal("Data/chestTextures/box.atlas"));
 
         switch (chestType){
             case ("weapon"): texturePath = "Data/chestTextures/box_blue.png";

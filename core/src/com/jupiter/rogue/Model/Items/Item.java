@@ -10,5 +10,7 @@ public abstract class Item {
     int agilityRequirement;
     int intellectRequirement;
 
+    String description;
+
 
 }

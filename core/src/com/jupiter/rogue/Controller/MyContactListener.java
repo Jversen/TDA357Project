@@ -5,6 +5,9 @@ import com.jupiter.rogue.Model.Creatures.Hero;
 import com.jupiter.rogue.Utils.Enums.MovementState;
 import com.jupiter.rogue.Model.Map.Map;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by hilden on 2015-04-26.
  */
@@ -16,18 +19,26 @@ public class MyContactListener implements ContactListener {
     //The two fixtures touching.
     private Fixture fa;
     private Fixture fb;
+    private List<Object> contacts;
 
     public MyContactListener() {
         hero = Hero.getInstance();
         map = Map.getInstance();
+        contacts = new ArrayList<Object>();
     }
 
     @Override
     public void beginContact(Contact contact) {
 
+        contacts.clear();
+
         fa = contact.getFixtureA();
         fb = contact.getFixtureB();
 
+        contacts.add(fa.getUserData());
+        contacts.add(fb.getUserData());
+
+        checkChestContact();
 
         if ((fa.getUserData().equals("foot") && fb.getUserData().equals("obstacle")) || (fb.getUserData().equals("foot") && fa.getUserData().equals("obstacle"))) {
             hero.setCreatureGrounded(true);
@@ -102,6 +113,30 @@ public class MyContactListener implements ContactListener {
             }
         }
     }
+
+    /**
+     * Checks if hero collides with a chest. If so, display the description of the Chest's item.
+     */
+    private void checkChestContact(){
+        String desc;
+
+        if(contacts != null){
+            if((contacts.get(0) instanceof HeroController &&
+                    contacts.get(1) instanceof ChestController)){
+               desc = ((ChestController) contacts.get(1)).chest.getContent().getDescription();
+                System.out.println(desc);
+            } else if(contacts.get(1) instanceof HeroController &&
+                    contacts.get(0) instanceof ChestController) {
+                desc = ((ChestController) contacts.get(0)).chest.getContent().getDescription();
+                System.out.println(desc);
+            }
+
+
+
+            }
+
+
+        }
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {

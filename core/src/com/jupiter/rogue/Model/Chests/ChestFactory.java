@@ -37,8 +37,8 @@ public class ChestFactory {
         Item item;
         Random rn = new Random();
         int itemIndex;
-        Map map;
-
+        //Map map;
+        LinkedHashMap map;
         switch (this.chestType){
             case ("weapon"):
                 map = WorldConstants.weaponMap;
@@ -48,9 +48,11 @@ public class ChestFactory {
                 break;
             default: map = WorldConstants.weaponMap;
         }
-        
+        System.out.println("Map size = " + map.size());
         itemIndex = rn.nextInt(map.size());
         item = (Item)map.get(itemIndex);
+        System.out.println("Itemindex: " + itemIndex);
+        System.out.println("Item: " + item.getDescription());
         return item;
 
     }
