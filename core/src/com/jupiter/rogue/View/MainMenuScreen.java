@@ -85,8 +85,10 @@ public class MainMenuScreen implements ObservableScreen {
 
     @Override
     public void show() {
-        table.add(playButton).size(80,30).padBottom(10).row();
-        table.add(exitButton).size(80,30).padBottom(10).row();
+        float buttonWidth = Gdx.graphics.getWidth()/4;
+        float buttonHeight = Gdx.graphics.getHeight()/6;
+        table.add(playButton).size(buttonWidth,buttonHeight).padBottom(10).row();
+        table.add(exitButton).size(buttonWidth,buttonHeight).padBottom(10).row();
         table.setFillParent(true);
         stage.addActor(table);
 
@@ -106,6 +108,7 @@ public class MainMenuScreen implements ObservableScreen {
         //TODO fix
         float buttonWidth = Gdx.graphics.getWidth()/5;
         float buttonHeight = Gdx.graphics.getHeight()/5;
+
         //playButton.setSize(buttonWidth, buttonHeight);
         //exitButton.setSize(buttonWidth, buttonHeight);
         //playButton.setPosition(Gdx.graphics.getWidth()/2-buttonWidth/2, Gdx.graphics.getHeight()/2);

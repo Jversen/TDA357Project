@@ -29,6 +29,7 @@ public class TiledHandler {
     private TiledMapRenderer renderer;
     private TiledMap tiledMap;
     private TiledMapTileLayer foregroundLayer;
+    private TiledMapTileLayer thinLedgesLayer;
     private TiledMapTileLayer sensorLayer;
     private MapLayer enemySpawnLayer;
     private int[][] stairs;
@@ -41,6 +42,12 @@ public class TiledHandler {
 
         foregroundLayer = (TiledMapTileLayer)tiledMap.getLayers().get(1);
         sensorLayer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
+
+        try {
+            thinLedgesLayer = (TiledMapTileLayer) tiledMap.getLayers().get(4);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Maplayer doesn't exist");
+        }
 
         roomWidth = foregroundLayer.getWidth() * TILE_SIZE;
         roomHeight = foregroundLayer.getHeight() * TILE_SIZE;
@@ -95,6 +102,28 @@ public class TiledHandler {
                     obstacleLength = 0;
                 }
 
+            }
+        }
+
+        if(thinLedgesLayer != null) {
+            float thinObstacleLength = 0;
+            for (int row = 0; row < thinLedgesLayer.getHeight(); row++){
+                for (int col = 0; col < thinLedgesLayer.getWidth(); col++){
+                    TiledMapTileLayer.Cell cell = thinLedgesLayer.getCell(col, row);
+
+                    if (cell != null && cell.getTile() != null) {
+                        thinObstacleLength++;
+                        if (col >= thinLedgesLayer.getWidth() - 1 && thinObstacleLength > 0){
+                            createThinObsFixture(row, col, thinObstacleLength);
+                            thinObstacleLength = 0;
+                            continue;
+                        }
+                    } else if (thinObstacleLength > 0){
+                        createThinObsFixture(row, col - 1, thinObstacleLength);
+                        thinObstacleLength = 0;
+                    }
+
+                }
             }
         }
 
@@ -165,6 +194,34 @@ public class TiledHandler {
                 shape.dispose();
             }
         }
+    }
+
+    private void createThinObsFixture(int row, int col, float thinObstacleLength) {
+        BodyDef bodyDef = new BodyDef();
+
+        float x = ((col - thinObstacleLength) + thinObstacleLength / 2 + 1f) * TILE_SIZE / PPM;
+        float y = (row + 0.85f) * TILE_SIZE / PPM;
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+                /*Set the position to the tile number plus half the tilesize to compensate
+                for body/libgdx drawing differences. */
+
+        bodyDef.position.set(x, y);
+        FixtureDef fixtureDef = new FixtureDef();
+
+        Body body = WorldConstants.CURRENT_WORLD.createBody(bodyDef);
+        body.setUserData("room");
+        WorldConstants.BODIES.add(body);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox((thinObstacleLength * TILE_SIZE)/ 2 / PPM, TILE_SIZE/6 / PPM);
+        fixtureDef.shape = shape;
+
+        Fixture roomFixture = body.createFixture(fixtureDef);
+        roomFixture.setFriction(10f);
+        roomFixture.setUserData("obstacle");
+
+        shape.dispose();
     }
 
     private void createStairs() {

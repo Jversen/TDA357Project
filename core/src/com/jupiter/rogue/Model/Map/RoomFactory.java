@@ -64,9 +64,9 @@ public class RoomFactory {
         }
         if(entrance.equals("l") && exit) {
             switch (roomNumber) { //will be random once more rooms are added
-                case 1 :    doors.add("l1");
+                case 1 :    doors.add("l7");
                             doors.add("r1");
-                            return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
+                            return new Room("Rooms/CastleRooms/w2h7Dl7r1.tmx", 2, 7, doors);
                 case 2 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/CastleRooms/w7h1Dl1r1.tmx", 7, 1, doors);
@@ -121,9 +121,9 @@ public class RoomFactory {
         if(entrance.equals("r") && exit) {
             switch (roomNumber) { //will be random once more rooms are added
 
-                case 1 :    doors.add("l1");
+                case 1 :    doors.add("l7");
                             doors.add("r1");
-                            return new Room("Rooms/13Dl1r1.tmx", 3, 1, doors);
+                            return new Room("Rooms/CastleRooms/w2h7Dl7r1.tmx", 2, 7, doors);
                 case 2 :    doors.add("l1");
                             doors.add("r1");
                             return new Room("Rooms/CastleRooms/w7h1Dl1r1.tmx", 7, 1, doors);
