@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="5">
  <tileset firstgid="1" name="oppcastle-mod-tiles" tilewidth="32" tileheight="32">
   <image source="oppcastle-mod-tiles.png" width="480" height="352"/>
  </tileset>
  <tileset firstgid="166" name="oppcastle-tiles_0" tilewidth="32" tileheight="32">
   <image source="oppcastle-tiles_0.png" width="416" height="352"/>
+ </tileset>
+ <tileset firstgid="309" name="bat" tilewidth="32" tileheight="32">
+  <image source="bat.png" width="171" height="103"/>
+ </tileset>
+ <tileset firstgid="324" name="box_yellow" tilewidth="32" tileheight="32">
+  <image source="box_yellow.png" width="64" height="32"/>
  </tileset>
  <layer name="Background" width="24" height="24">
   <data encoding="base64" compression="zlib">
@@ -31,4 +37,12 @@
    eJxjYBgFo2DwAysKsTWSWZZ0czUCUMvdMHF6A2LdRSymN6A0/aD7md6A3HQy1MIfBgj5gd4AVxogNy2NgsEBAGZMHFQ=
   </data>
  </layer>
+ <objectgroup name="EnemySpawnLayer">
+  <object id="1" type="widow" gid="319" x="400.192" y="698.008"/>
+  <object id="2" type="widow" gid="319" x="473.102" y="700.286"/>
+  <object id="3" type="widow" gid="319" x="542.214" y="698.768"/>
+ </objectgroup>
+ <objectgroup name="ChestLayer">
+  <object id="4" type="random" gid="324" x="652.338" y="701.805"/>
+ </objectgroup>
 </map>

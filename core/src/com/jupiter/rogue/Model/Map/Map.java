@@ -1092,8 +1092,10 @@ public class Map {
 
     private void rebuildWorld() {
         getCurrentRoom().initRoom();
-        getCurrentRoom().setVisited(true);
+        getCurrentRoom().createChests();
+        getCurrentRoom().generateEnemies();
         getCurrentRoom().getTiledHandler().setHeroPosition(entrance);
+        getCurrentRoom().setVisited(true);
     }
 
     public Room getCurrentRoom() {
