@@ -35,8 +35,10 @@ public class WorldController {
                 if (body.getUserData() != null) {
                     if (!body.getFixtureList().equals(null)) {
                         for (int j = 0; j < body.getFixtureList().size; j++) {
-                            if (body.getFixtureList().get(j) != null && body.getFixtureList().get(j).getUserData().equals("dead")) {
-                                body.destroyFixture(body.getFixtureList().get(j));
+                            if (body.getFixtureList().get(j) != null) {
+                                if (body.getFixtureList().get(j).getUserData().equals("dead")) {
+                                    body.destroyFixture(body.getFixtureList().get(j));
+                                }
                             }
                         }
                     }

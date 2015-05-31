@@ -99,7 +99,7 @@ public class HeroController {
 
 
         //creates a sensor at the players feet
-        shape.setAsBox(8 / PPM, 1 / PPM, new Vector2(0, -15 / PPM), 0);
+        shape.setAsBox(10 / PPM, 1 / PPM, new Vector2(0, -15 / PPM), 0);
 
         FixtureDef feetSensorFixtureDef = new FixtureDef();
         feetSensorFixtureDef.shape = shape;
